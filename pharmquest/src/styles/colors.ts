@@ -37,5 +37,5 @@ export const colors = {
 		scrap: "#FFD755",
 	},
 	point: "#FF7700",
-	backgroundColor: "#D1E6E7",
+	background: "#D1E6E7",
 } as const;
