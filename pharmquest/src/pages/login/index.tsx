@@ -12,15 +12,15 @@ export default function Login() {
 
       <div className={`flex flex-col items-center gap-[30px]`}>
         <button className={`w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] bg-[#FEE500]`}>
-          <img src='/images/kakao.png' className={`pl-[287px]`}/>
+          <img src='/svgs/kakao.svg' className={`pl-[287px]`}/>
           카카오 로그인
         </button>
         <button className={`w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] bg-[#03CF5D]`}>
-          <img src='/images/naver.png' className={`pl-[287px]`}/>
+          <img src='/svgs/naver.svg' className={`pl-[287px]`}/>
           네이버 로그인
         </button>
         <button className={`w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] border-[#CBCBCB] border border-solid`}>
-          <img src='/images/google.png' className={`pl-[287px]`}/>
+          <img src='/svgs/google.svg' className={`pl-[287px]`}/>
           구글 로그인
         </button>
       </div>
