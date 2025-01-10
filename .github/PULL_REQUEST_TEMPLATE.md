@@ -3,8 +3,7 @@
 
 ## 🚀 관련 이슈
 <!-- 관련있는 이슈 번호(#000)을 적어주세요.
-  해당 pull request merge와 함께 이슈를 닫으려면
-  closed #Issue_number를 적어주세요 -->
+  해당 pull request merge와 함께 이슈를 닫으려면 closed #Issue_number를 적어주세요 -->
 - closed #1
 
 
@@ -17,7 +16,6 @@
 ## ✔️ 체크 리스트
 - [ ] Merge 하려는 브랜치가 올바른가? (`main` branch에 실수로 PR 생성 금지)
 - [ ] Merge 하려는 PR 및 Commit들을 **로컬**에서 실행했을 때 에러가 발생하지 않았는가?
-- [ ] 라벨을 등록했는가?
 
       
 ## 📸 스크린샷 (선택)
