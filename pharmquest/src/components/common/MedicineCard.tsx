@@ -32,7 +32,7 @@ const MedicineCard = () => {
         </div>
       </div>
       <div className={`flex-grow h-[100%] relative min-w-6`}>
-        <img src="/images/bookmark.png" className={`absolute top-0 right-0 min-w-6 min-h-6`}/>
+        <img src="/svgs/bookmark.svg" className={`absolute top-0 right-0 min-w-6 min-h-6`}/>
       </div>
     </div>
   )
