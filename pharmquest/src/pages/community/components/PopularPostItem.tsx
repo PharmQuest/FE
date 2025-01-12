@@ -22,7 +22,7 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
   scraps,
 }) => {
   return (
-    <div className="flex flex-col w-[714px] h-[117px] gap-2 px-5 py-4 bg-primary-50">
+    <div className="flex flex-col w-auto h-[117px] gap-2 px-5 py-4 bg-primary-50 rounded-lg">
       <div className="flex flex-row gap-2">
         <SubjectTag text={subject} />
         <p className="text-subhead1-sb">{title}</p>

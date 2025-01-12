@@ -11,7 +11,7 @@ const UserNavbar = () => {
   ];
 
   return (
-    <div className="w-[190px] rounded-lg border-solid border-[1px] border-gray-200 ">
+    <div className="w-[190px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0">
       <div className="p-4">
         <p className="text-headline-b text-gray-600">maengso 님</p>
         <p className="text-caption1-r text-gray-300">naver 로그인</p>

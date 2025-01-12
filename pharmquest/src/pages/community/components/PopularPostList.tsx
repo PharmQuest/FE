@@ -4,7 +4,7 @@ import popularPosts from "../../../mocks/popularPosts";
 
 const PopularPostList = () => {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full">
       {popularPosts.map((post, index) => (
         <PopularPostItem
           key={index}
