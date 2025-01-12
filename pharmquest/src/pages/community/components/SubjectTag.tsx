@@ -6,7 +6,7 @@ interface SubjectTagProps {
 
 const SubjectTag: React.FC<SubjectTagProps> = ({ text }) => {
   return (
-    <div className="w-fit px-[6px] py-[2px] bg-primary-400 text-white text-body2-r rounded">
+    <div className="w-16 px-[6px] py-[2px] bg-primary-400 text-white text-body2-r rounded text-center">
       {text}
     </div>
   );
