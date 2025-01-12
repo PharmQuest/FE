@@ -8,11 +8,11 @@ export default function Home() {
     <>
       <div className='w-[1440px] h-[640px] bg-[#d1e6e7]'>
         <Header/>
-        <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex mt-[128px] ml-[260px] text-white font-['Pretendard Variable']">
+        <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex mt-[156px] ml-[260px] text-white font-['Pretendard Variable']">
             <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">상비약 리스트 &gt;</div>
             <div className="text-left text-base font-normal leading-normal">증상 및 약 이름을 검색하고<br/>필요한 상비약 정보를 얻을 수 있어요.</div>
         </button>
-        <button className="ml-5 mb-10 w-[293px] h-[171px] pl-5 py-6 bg-[#006367] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex mt-[128px] text-white font-['Pretendard Variable']">
+        <button className="ml-5 mb-10 w-[293px] h-[171px] pl-5 py-6 bg-[#006367] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex mt-[156px] text-white font-['Pretendard Variable']">
             <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">약국 찾기 &gt;</div>
             <div className="text-left text-base font-normal leading-normal">근처에 있는 약국을 검색하고<br/>길 찾기 서비스를 받을 수 있어요.</div>
         </button>
