@@ -18,61 +18,72 @@ export default function Map() {
       {isSearchOpen && (
         <div className="w-[380px] h-[1002px] shrink-0 border border-gray-100 border-t-0">
           {/* 검색 */}
-          <div className='h-[126px] bg-white border-b border-gray-100 flex py-5 px-7 flex-col items-start gap-4 self-stretch'>
-            <div className='w-[324px] h-[40px] flex py-2 pl-2 pr-4 items-center gap-2 self-stretch mb-4 rounded-lg border-2 border-solid border-secondary-500'>
+          <div className='h-[120px] bg-white border-b border-gray-100 flex py-5 px-7 flex-col justify-start items-start gap-4 self-stretch'>
+            <div className='w-[324px] h-[40px] flex justify-start py-2 pl-2 pr-4 items-center gap-2 self-stretch mb-4 rounded-lg border-2 border-solid border-secondary-500'>
               <img
                 src="/svgs/search.svg"
                 alt="검색아이콘"
                 className="w-6 h-6"
               />
-              <input placeholder="검색어를 입력하세요." className="text-gray-300"></input>              
+              <input placeholder="검색어를 입력하세요." className="text-gray-300 text-base font-normal font-['Pretendard Variable'] leading-normal"></input>              
             </div>
-            <div className="text-subhead1-sb text-gray-400">검색 결과 2건</div>
+            <div className="font-['Pretendard Variable'] leading-normal text-subhead1-sb text-gray-400">검색 결과 2건</div>
           </div>
           {/* 약국 정보 */}
-          <div className="h-[126px] bg-white border-b border-gray-100 pl-7 py-5 flex items-center gap-3 self-stretch">
-            <img src="" alt="약국사진" className="w-[86px] h-[86px] bg-gray-200 mr-3"/>
+          <div className="h-[126px] bg-white border-b border-gray-100 pl-7 py-5 flex justify-start items-center gap-3 self-stretch">
+            <div className="w-[86px] h-[86px] bg-[#cccccc] rounded"/>
+            {/* 약국 정보 */}
             <div className="flex w-[145px] flex-col items-start">
-              <div className="flex mb-3">
-                <div className="text-subhead1-sb text-gray-600 text-[16px]">다아나약국</div>
-                <div className="flex py-0 px-1 justify-center items-center gap-[10px] rounded-[4px] bg-green-300 text-white ml-[3px] text-[12px]">영업중</div>
+              <div className="flex items-center mb-3 gap-[3px]">
+                <div className="text-subhead1-sb text-gray-600 text-[16px] font-['Pretendard Variable'] leading-normal">다아나약국</div>
+                <div className="h-[18px] flex px-1 justify-center items-center gap-2.5 rounded bg-primary-300 text-white text-xs font-semibold font-['Pretendard Variable'] leading-[18px]">영업중</div>
               </div>
-              <div className="self-stretch text-gray-400 text-[14px]">18:00에 영업 종료</div>
-              <div className="w-[150px] flex items-center gap-[6px] self-stretch text-[14px]">
-                <div className="text-gray-500">500m</div>
-                <div className="text-gray-200">*</div>
-                <div className="text-gray-400">서울 중구 중앙동</div>
+              {/* 약국 세부 정보 */}
+              <div className="self-stretch h-11 flex-col justify-start items-start gap-0.5 flex">
+                  <div className="text-gray-400 text-sm font-normal font-['Pretendard Variable'] leading-[21px]">18:00에 영업 종료</div>
+                  <div className="items-center gap-1.5 inline-flex">
+                      <div className="text-gray-500 text-sm font-semibold">500m</div>
+                      <div className="w-0.5 h-0.5 bg-[#cccccc] rounded-full"></div>
+                      <div className="text-gray-400 text-sm">서울 중구 중앙동</div>
+                  </div>
               </div>
             </div>
+            {/* 경로 */}
             <div className="w-[30px] h-[52px] ml-[1.6px]">
-              <div className="w-[30px] h-[30px] shrink-0 rounded-full border-gray-400 mb-1 bg-gray-400 mr-7">
-                
+              <div className="w-[30px] h-[30px] shrink-0 rounded-full border-2 border-gray-400 bg-white mb-1 mr-7">
+                {/* 아이콘 */}
               </div>
-              <div className="text-gray-400 text-[12px] text-center">경로</div>
+              <div className="text-gray-400 text-xs font-semibold font-['Pretendard Variable'] leading-[18px] text-center">경로</div>
             </div>
           </div>
           {/* 약국 정보2 */}
-          <div className="h-[126px] bg-white border-b border-gray-100 pl-7 py-5 flex items-center gap-3 self-stretch">
-            <img src="" alt="약국사진" className="w-[86px] h-[86px] bg-gray-200 mr-3"/>
+          <div className="h-[126px] bg-white border-b border-gray-100 pl-7 py-5 flex justify-start items-center gap-3 self-stretch">
+            <div className="w-[86px] h-[86px] bg-[#cccccc] rounded"/>
+            {/* 약국 정보 */}
             <div className="flex w-[145px] flex-col items-start">
-              <div className="flex mb-3">
-                <div className="text-subhead1-sb text-gray-600 text-[16px]">다아나약국</div>
-                <div className="flex py-0 px-1 justify-center items-center gap-[10px] rounded-[4px] bg-green-50 text-gray-400 ml-[3px] text-[12px]">영업종료</div>
+              <div className="flex items-center mb-3 gap-[3px]">
+                <div className="text-subhead1-sb text-gray-600 text-[16px] font-['Pretendard Variable'] leading-normal">다아나약국</div>
+                <div className="h-[18px] flex px-1 justify-center items-center gap-2.5 rounded bg-green-50 text-gray-400 text-xs font-semibold font-['Pretendard Variabl'] leading-[18px]">영업종료</div>
               </div>
-              <div className="self-stretch text-gray-400 text-[14px]">내일 8:00에 오픈</div>
-              <div className="w-[150px] flex items-center gap-[6px] self-stretch text-[14px]">
-                <div className="text-gray-500">1.1km</div>
-                <div className="text-gray-200">*</div>
-                <div className="text-gray-400">서울 중구 중앙동</div>
+              {/* 약국 세부 정보 */}
+              <div className="self-stretch h-11 flex-col justify-start items-start gap-0.5 flex">
+                  <div className="text-gray-400 text-sm font-normal font-['Pretendard Variable'] leading-[21px]">내일 8:00에 오픈</div>
+                  <div className="items-center gap-1.5 inline-flex">
+                      <div className="text-gray-500 text-sm font-semibold">1.1km</div>
+                      <div className="w-0.5 h-0.5 bg-[#cccccc] rounded-full"></div>
+                      <div className="text-gray-400 text-sm">서울 중구 중앙동</div>
+                  </div>
               </div>
             </div>
+            {/* 경로 */}
             <div className="w-[30px] h-[52px] ml-[1.6px]">
-              <div className="w-[30px] h-[30px] shrink-0 rounded-full border-gray-400 mb-1 bg-gray-400 mr-7">
-                
+              <div className="w-[30px] h-[30px] shrink-0 rounded-full border-2 border-gray-400 bg-white mb-1 mr-7">
+                {/* 아이콘 */}
               </div>
-              <div className="text-gray-400 text-[12px] text-center">경로</div>
+              <div className="text-gray-400 text-xs font-semibold font-['Pretendard Variable'] leading-[18px] text-center">경로</div>
             </div>
           </div>
+          
           <div className="h-[126px] bg-white border-b border-gray-100"></div>
           <div className="h-[126px] bg-white border-b border-gray-100"></div>
           <div className="h-[126px] bg-white border-b border-gray-100"></div>
