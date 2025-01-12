@@ -1,5 +1,6 @@
 // 약국찾기 메인화면
 import React, { useState } from "react";
+import Header from "@/components/layout/Header";
 
 export default function Map() {
   const [isSearchOpen, setIsSearchOpen] = useState(true); // 검색창 열림 상태 관리
@@ -9,10 +10,11 @@ export default function Map() {
 
   return (
     <>
+      <Header></Header>
       <div className="w-[404px] h-[1024px] shrink-0 flex flex-row">
 
       {isSearchOpen && (
-        <div className="w-[380px] h-[1002px] shrink-0 border border-gray-100">
+        <div className="w-[380px] h-[1002px] shrink-0 border border-gray-100 border-t-0">
           {/* 검색 */}
           <div className='h-[120px] bg-white border-b border-gray-100 flex py-5 px-7 mt-[102px] flex-col items-start gap-4 self-stretch'>
             <div className='w-[324px] h-[40px] flex py-2 pl-2 pr-4 items-center gap-2 self-stretch mb-4 rounded-lg border-2 border-solid border-secondary-500'>
