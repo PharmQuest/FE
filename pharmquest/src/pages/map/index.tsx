@@ -42,7 +42,7 @@ export default function Map() {
                 <div className="text-gray-400">서울 중구 중앙동</div>
               </div>
             </div>
-            <div className="bg-red-100 w-[30px] h-[52px] ml-[1.6px]">
+            <div className="w-[30px] h-[52px] ml-[1.6px]">
               <div className="w-[30px] h-[30px] shrink-0 rounded-full border-gray-400 mb-1 bg-gray-400 mr-7">
                 
               </div>
