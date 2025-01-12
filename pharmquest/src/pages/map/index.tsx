@@ -16,7 +16,7 @@ export default function Map() {
       {isSearchOpen && (
         <div className="w-[380px] h-[1002px] shrink-0 border border-gray-100 border-t-0">
           {/* 검색 */}
-          <div className='h-[120px] bg-white border-b border-gray-100 flex py-5 px-7 mt-[102px] flex-col items-start gap-4 self-stretch'>
+          <div className='h-[126px] bg-white border-b border-gray-100 flex py-5 px-7 flex-col items-start gap-4 self-stretch'>
             <div className='w-[324px] h-[40px] flex py-2 pl-2 pr-4 items-center gap-2 self-stretch mb-4 rounded-lg border-2 border-solid border-secondary-500'>
               <img
                 src="/svgs/search.svg"
