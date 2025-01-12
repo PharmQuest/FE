@@ -10,7 +10,9 @@ export default function Map() {
 
   return (
     <>
-      <Header></Header>
+      <Header/>
+      <hr className="border-b border-solid border-gray-100"/>
+      
       <div className="w-[404px] h-[1024px] shrink-0 flex flex-row">
 
       {isSearchOpen && (
