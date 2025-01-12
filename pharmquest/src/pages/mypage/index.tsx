@@ -25,7 +25,7 @@ const MyPage = () => {
         {/* 상비약 저장 목록 */}
         <div className="mb-10">
             <div className="flex justify-between items-center mb-4">
-                <Link href="/medicines" className="text-gray-600 text-display2-b">
+                <Link href="/mypage/medicines" className="text-gray-600 text-display2-b">
                     <h2>상비약 저장 목록 &gt;</h2>
                 </Link>
             </div>
@@ -40,7 +40,7 @@ const MyPage = () => {
         {/* 약국 저장 목록 */}
         <div>
             <div className="flex justify-between items-center mb-4">
-                <Link href="/pharmacys" className="text-gray-600 text-display2-b">
+                <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b">
                     <h2>약국 저장 목록 &gt;</h2>
                 </Link>
             </div>
