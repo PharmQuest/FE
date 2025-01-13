@@ -17,10 +17,7 @@ const FILTER_CATEGORIES = [
 export default function Community() {
   return (
     <div>
-      <div className="w-full h-[188px] bg-background mb-9">
-        <p className="text-display1-b text-gray-600">커뮤니티</p>
-      </div>
-      <div className="px-[260px]">
+      <div className="px-[260px] mt-9">
         <p className="text-display2-b text-gray-600">BEST 인기글</p>
         <div className="flex flex-row gap-x-4 mt-3">
           <PopularPostList />
