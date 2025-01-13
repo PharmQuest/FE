@@ -16,7 +16,7 @@ const SupplementPage: React.FC = () => {
     <div className="min-h-screen justify-center items-center">
       {/* 메인 콘텐츠 */}
       <div className="container mx-auto max-w-[920px] py-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 w-[80%]">
-        {supplements.map((supplement, idx) => (
+        {supplements?.map((supplement, idx) => (
           <SupplementCard key={idx} {...supplement} />
         ))}
       </div>
