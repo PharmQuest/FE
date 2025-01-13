@@ -1,5 +1,3 @@
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer';
 import Search from '@/components/common/Search';
 import FilterButton from '@/components/common/FilterButton';
 
@@ -7,7 +5,6 @@ export default function Home() {
   return (
     <>
       <div className='w-[1440px] h-[640px] bg-[#d1e6e7]'>
-        <Header/>
         <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex mt-[156px] ml-[260px] text-white font-['Pretendard Variable']">
             <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">상비약 리스트 &gt;</div>
             <div className="text-left text-base font-normal leading-normal">증상 및 약 이름을 검색하고<br/>필요한 상비약 정보를 얻을 수 있어요.</div>
@@ -108,7 +105,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Footer/>
     </>
   );
 }

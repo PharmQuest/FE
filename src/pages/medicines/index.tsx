@@ -1,31 +1,23 @@
 // 상비약 리스트
 
+import FilterButton from "@/components/common/FilterButton";
 import MedicineCard from "@/components/common/MedicineCard";
-import MedicineHeader from "@/components/medicines/MedicineHeader";
-import Header from "@/components/layout/Header";
 
 export default function Medicine() {
   return (
     
     <>
-      <MedicineHeader/>
       {/* container */}
-      <div className={`pl-[260px] pr-[260px]`}>
+      <div className={`pl-[260px] pr-[260px] min-h-[calc(100vh-412px)]`}>
         <div className={`mt-9 mb-9 text-display2-b flex items-center gap-3`}>
           <h1>전체 3912개</h1>
 
 
           {/* 컴포넌트로 대체할 부분 */}
           <div className={`flex h-7 content-center gap-2`}>
-            <button className={`text-subhead1-sb text-center text-white bg-point p-3 pt-0.5 pb-0.5 rounded-full`}>
-              전체
-            </button>
-            <button className={`text-subhead1-sb text-center border border-gray-300 border-solid text-gray-300 p-3 pt-0.5 pb-0.5 rounded-full`}>
-              진통/해열
-            </button>
-            <button className={`text-subhead1-sb text-center border border-gray-300 border-solid text-gray-300 p-3 pt-0.5 pb-0.5 rounded-full`}>
-              소화/위장
-            </button>
+            <FilterButton text='전체'/>
+            <FilterButton text='진통/해열'/>
+            <FilterButton text='소화/위장'/>
           </div>
 
 
@@ -35,9 +27,6 @@ export default function Medicine() {
           <MedicineCard/>
           <MedicineCard/>
           <MedicineCard/>
-        </div>
-        <div>
-
         </div>
       </div>
     </>
