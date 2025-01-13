@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const pageData = {
     title: '어디약',
-    description: '해외외 약정보는? 어디약에서!'
+    description: '해외 약정보는? 어디약에서!'
   }
 
   return (
