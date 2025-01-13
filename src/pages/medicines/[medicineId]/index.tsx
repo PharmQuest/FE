@@ -1,11 +1,8 @@
 // 상비약 상세 페이지
 
-import MedicineHeader from "@/components/medicines/MedicineHeader";
-
 function MedicineInfo() {
   return (
     <>
-    <MedicineHeader/>
     {/* container */}
     <div className={`pl-[260px] pr-[260px] flex flex-col`}>
       <h1 className={`text-display2-b text-gray-600 mt-9 mb-4`}>
@@ -56,17 +53,6 @@ function MedicineInfo() {
     </div>
     </>
   );
-}
-
-MedicineInfo.getLayout = function getLayout(page) {
-  return (
-    <>
-      <MedicineHeader>
-        
-      </MedicineHeader>
-      {page}
-    </>
-  )
 }
 
 export default MedicineInfo;
