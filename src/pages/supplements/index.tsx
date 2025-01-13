@@ -20,7 +20,6 @@ const SupplementPage: React.FC = () => {
           <SupplementCard key={idx} {...supplement} />
         ))}
       </div>
-
       {/* 광고 배너 */}
       <div className="mt-6">
         <AdBanner />
