@@ -1,8 +1,17 @@
+import { BookmarkIcon, BookmarkOnIcon } from "@public/svgs";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const MedicineCard = () => {
 
   const router = useRouter();
+
+  const [isBookmark, setIsBookmark] = useState(false);
+
+  const handleBoomark = (e) => {
+    e.stopPropagation();
+    setIsBookmark(!isBookmark);
+  }
 
   return (
     // medicine-card 피그마에는 border-color: gray-100으로 설정되어 있지만 보이지 않아서 임시로 설정
@@ -31,8 +40,12 @@ const MedicineCard = () => {
           </div>
         </div>
       </div>
-      <div className={`flex-grow h-[100%] relative min-w-6`}>
-        <img src="/svgs/bookmark.svg" className={`absolute top-0 right-0 min-w-6 min-h-6`}/>
+      <div className={`flex-grow h-[100%] relative min-w-[30px]`}>
+        {isBookmark ? (
+          <BookmarkOnIcon className={`absolute top-0 right-0`} onClick={(e: React.MouseEvent) => handleBoomark(e)}/>
+        ) : (
+          <BookmarkIcon className={`absolute top-0 right-0`} onClick={(e: React.MouseEvent) => handleBoomark(e)}/>
+        )}
       </div>
     </div>
   )
