@@ -43,7 +43,7 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
           </span>
         </div>
         <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
-          {tags.map((tag, idx) => (
+          {tags?.map((tag, idx) => (
             <div
               key={idx}
               className="px-2 bg-[#e7f3ee] rounded justify-center items-center flex"
