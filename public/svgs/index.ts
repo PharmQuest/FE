@@ -1,4 +1,5 @@
 export { default as BookmarkIcon } from "./bookmark.svg";
+export { default as BookmarkOnIcon } from "./bookmark_on.svg";
 export { default as CommentIcon } from "./comment.svg";
 export { default as GlobeIcon } from "./globe.svg";
 export { default as GoogleIcon } from "./google.svg";
