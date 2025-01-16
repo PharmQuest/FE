@@ -8,3 +8,6 @@ export { default as MapPinIcon } from "./map-pin.svg";
 export { default as NaverIcon } from "./naver.svg";
 export { default as ScrapIcon } from "./scrap.svg";
 export { default as SearchIcon } from "./search.svg";
+export { default as ArrowRightIcon } from "./arrow-right.svg";
+export { default as ExternalIcon } from "./external-link.svg";
+export { default as ReportIcon } from "./report.svg";
