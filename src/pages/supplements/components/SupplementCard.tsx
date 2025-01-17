@@ -1,3 +1,4 @@
+import { BookmarkIcon } from "@public/svgs";
 import React from "react";
 
 interface SupplementCardProps {
@@ -22,10 +23,10 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
 
         {/* 북마크 버튼 */}
         <div className="absolute bottom-2 right-2 w-[30px] h-[30px] justify-center items-center">
-          <img
-            src={"/svgs/bookmark.svg"}
+          <BookmarkIcon
             alt="북마크"
             className="w-full h-full"
+            stroke={'white'}
             style={{ filter: "brightness(0) invert(1)" }}
             // onClick={() => {}}
           />
