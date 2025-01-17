@@ -7,9 +7,10 @@ const UserNavbar = () => {
   const router = useRouter();
 
   const handleNavigation = (item: UserNavbarItem) => {
-    const queryParam = item.activePath
-      ? `?tab=${encodeURIComponent(item.activePath)}`
-      : "";
+    const queryParam =
+      "activePath" in item && item.activePath
+        ? `?tab=${encodeURIComponent(item.activePath)}`
+        : "";
     router.push(`${item.path}${queryParam}`);
   };
 
