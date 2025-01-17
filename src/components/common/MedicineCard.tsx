@@ -1,12 +1,22 @@
+import { BookmarkIcon } from "@public/svgs";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const MedicineCard = () => {
 
   const router = useRouter();
 
+  const [isBookmark, setIsBookmark] = useState(false);
+
+  const handleBoomark = (e: React.MouseEvent) => {
+    e.stopPropagation();    // 부모 컴포넌트 클릭 방지
+    setIsBookmark(!isBookmark);
+    // 추후에 추가할 북마크 추가 기능 API ~~
+  }
+
   return (
     // medicine-card 피그마에는 border-color: gray-100으로 설정되어 있지만 보이지 않아서 임시로 설정
-    <div className={`flex p-5 border-gray-200 border rounded-lg h-[178px] items-center hover:cursor-pointer`} onClick={() => router.push('medicines/1')}>
+    <div className={`flex p-5 pr-4 border-gray-200 border rounded-lg h-[178px] items-center hover:cursor-pointer`} onClick={() => router.push('medicines/1')}>
       {/* medicine-image */}
       <div className={`w-[138px] h-[138px] bg-[#D9D9D9] rounded`}>
         {/* <img src='url' className={`w-[138px] h-[138px]`}>
@@ -31,8 +41,12 @@ const MedicineCard = () => {
           </div>
         </div>
       </div>
-      <div className={`flex-grow h-[100%] relative min-w-6`}>
-        <img src="/svgs/bookmark.svg" className={`absolute top-0 right-0 min-w-6 min-h-6`}/>
+      <div className={`h-[100%] relative min-w-[30px] ml-auto`}>
+        <BookmarkIcon 
+          className={`absolute top-0 right-0`} 
+          onClick={(e: React.MouseEvent) => handleBoomark(e)} 
+          stroke={isBookmark ? '#FFD755' : '#707070'}
+          fill={isBookmark ? '#FFD755' : 'none'} />
       </div>
     </div>
   )
