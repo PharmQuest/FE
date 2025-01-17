@@ -1,4 +1,4 @@
-import { BookmarkIcon, BookmarkOnIcon } from "@public/svgs";
+import { BookmarkIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -42,11 +42,11 @@ const MedicineCard = () => {
         </div>
       </div>
       <div className={`h-[100%] relative min-w-[30px] ml-auto`}>
-        {isBookmark ? (
-          <BookmarkOnIcon className={`absolute top-0 right-0`} onClick={(e: React.MouseEvent) => handleBoomark(e)}/>
-        ) : (
-          <BookmarkIcon className={`absolute top-0 right-0`} onClick={(e: React.MouseEvent) => handleBoomark(e)}/>
-        )}
+        <BookmarkIcon 
+          className={`absolute top-0 right-0`} 
+          onClick={(e: React.MouseEvent) => handleBoomark(e)} 
+          stroke={isBookmark ? '#FFD755' : '#707070'}
+          fill={isBookmark ? '#FFD755' : 'none'} />
       </div>
     </div>
   )
