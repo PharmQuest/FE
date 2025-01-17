@@ -1,9 +1,11 @@
 import React from "react";
 import SubjectTag from "./SubjectTag";
-import BestTag from "./BestTag";
+import Tag from "./Tag";
 import { CommentIcon, LikeIcon, ScrapIcon } from "@public/svgs";
+import { useRouter } from "next/router";
 
 interface PopularPostItemProps {
+  id: string; // id
   subject: string; // 주제
   title: string; // 제목
   content: string; // 내용
@@ -14,6 +16,7 @@ interface PopularPostItemProps {
 }
 
 const PopularPostItem: React.FC<PopularPostItemProps> = ({
+  id,
   subject,
   title,
   content,
@@ -22,12 +25,19 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
   comments,
   scraps,
 }) => {
+  const router = useRouter();
+
   return (
-    <div className="flex flex-col w-auto h-[117px] gap-2 px-5 py-4 bg-primary-50 rounded-lg">
+    <div
+      className="flex flex-col w-auto h-[117px] gap-2 px-5 py-4 bg-primary-50 rounded-lg cursor-pointer"
+      onClick={() => {
+        router.push(`/community/post/${id}`);
+      }}
+    >
       <div className="flex flex-row gap-2">
-        <SubjectTag text={subject} />
+        <SubjectTag text={subject} variant="dark" />
         <p className="text-subhead1-sb">{title}</p>
-        <BestTag />
+        <Tag variant="best" />
       </div>
       <p className="text-body1-r text-gray-500">{content}</p>
       <div className="flex flex-row justify-between text-body2-r text-gray-400">

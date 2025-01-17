@@ -5,7 +5,7 @@ import posts from "../../../mocks/posts";
 const PostList = () => {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row text-subhead1-sb text-gray-500 justify-between border-b border-solid border-gray-300">
+      <div className="py-3 flex flex-row text-subhead1-sb text-gray-500 justify-between border-b border-solid border-gray-300">
         <p>주제</p>
         <p>제목</p>
         <div className="flex flex-row gap-7">
@@ -19,6 +19,8 @@ const PostList = () => {
       {posts.map((post, index) => (
         <PostItem
           key={index}
+          id={post.id}
+          isBest={post.isBest}
           subject={post.subject}
           title={post.title}
           author={post.author}

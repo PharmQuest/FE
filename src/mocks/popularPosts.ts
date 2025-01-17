@@ -1,4 +1,6 @@
 interface PopularPostItemProps {
+  id: string;
+  isBest: boolean;
   subject: string;
   title: string;
   content: string;
@@ -10,6 +12,8 @@ interface PopularPostItemProps {
 
 const popularPosts: PopularPostItemProps[] = [
   {
+    id: "100",
+    isBest: true,
     subject: "자유주제",
     title: "효과 직방이었던 꿀팁 알려드릴게요^^",
     content:
@@ -20,6 +24,8 @@ const popularPosts: PopularPostItemProps[] = [
     scraps: 71,
   },
   {
+    id: "200",
+    isBest: true,
     subject: "영양제",
     title: "제가 아끼는 영양제예요...",
     content: "영양제 추천 리스트인데 스크랩 안 하면 바보 멍청이 말미잘.",
@@ -29,6 +35,8 @@ const popularPosts: PopularPostItemProps[] = [
     scraps: 9,
   },
   {
+    id: "300",
+    isBest: true,
     subject: "증상",
     title: "이 증상 나타나면 바로 병원 가삼 왜냐고? 나도 알고 싶지 않았음",
     content: "내용내용내용",
