@@ -19,6 +19,13 @@ const Tag: React.FC<TagProps> = ({ variant, text }) => {
     },
   };
 
+  const style = styles[variant];
+
+  if (!style) {
+    console.error(`Invalid variant provided: ${variant}`);
+    return null;
+  }
+
   const { container, defaultText } = styles[variant];
 
   return <div className={container}>{text || defaultText}</div>;

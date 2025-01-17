@@ -1,7 +1,34 @@
 import React from "react";
 import NavbarItem from "./NavbarItem";
 import { useRouter } from "next/router";
-import { USER_NAVBAR_ITEMS, UserNavbarItem } from "../constants/userNavigation";
+const USER_NAVBAR_ITEMS = [
+  {
+    text: "마이페이지",
+    path: "/mypage",
+  },
+  {
+    text: "작성한 게시글",
+    path: "/community/activities",
+    activePath: "posts",
+  },
+  {
+    text: "작성한 댓글",
+    path: "/community/activities",
+    activePath: "comments",
+  },
+  {
+    text: "게시글 스크랩",
+    path: "/community/activities",
+    activePath: "scraps",
+  },
+  {
+    text: "알림",
+    path: "/community/activities",
+    activePath: "notifications",
+  },
+] as const;
+
+type UserNavbarItem = (typeof USER_NAVBAR_ITEMS)[number];
 
 const UserNavbar = () => {
   const router = useRouter();
