@@ -8,6 +8,7 @@ const PopularPostList = () => {
       {popularPosts.map((post, index) => (
         <PopularPostItem
           key={index}
+          id={post.id}
           subject={post.subject}
           title={post.title}
           content={post.content}
