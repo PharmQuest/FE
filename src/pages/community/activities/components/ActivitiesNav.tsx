@@ -6,7 +6,7 @@ const ActivitiesNav = () => {
   const { tab } = router.query;
 
   const navbarItems = ["게시글", "댓글", "스크랩", "알림"];
-  const tabMap = {
+  const tabMap: Record<string, string> = {
     게시글: "posts",
     댓글: "comments",
     스크랩: "scraps",
