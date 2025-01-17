@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import MyCommentList from "./components/MyCommentList";
 import MyNotificationList from "./components/MyNotificationList";
 
-const activities = () => {
+const Activities = () => {
   const router = useRouter();
   const { tab } = router.query;
   const currentTab = tab || "posts";
@@ -24,4 +24,4 @@ const activities = () => {
   );
 };
 
-export default activities;
+export default Activities;
