@@ -16,3 +16,4 @@ export { default as CornerDownRightIcon } from "./corner-down-right.svg";
 export { default as MapFindIcon } from "./map-find.svg";
 export { default as CameraIcon } from "./camera.svg";
 export { default as XIcon } from "./x.svg";
+export { default as DropdownArrowIcon } from "./dropdown-arrow.svg";
