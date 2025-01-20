@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/user/Desktop/PharmQuest/FE/pharmquest/src/pages/_app.tsx"],"sourcesContent":["import \"@/styles/globals.css\";\r\nimport type { AppProps } from \"next/app\";\r\n\r\nexport default function App({ Component, pageProps }: AppProps) {\r\n  return <Component {...pageProps} />;\r\n}"],"names":[],"mappings":";;;;;;AAGe,SAAS,IAAI,EAAE,SAAS,EAAE,SAAS,EAAY;IAC5D,qBAAO,qKAAC;QAAW,GAAG,SAAS;;;;;;AACjC"}},
-    {"offset": {"line": 30, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}

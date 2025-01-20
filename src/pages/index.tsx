@@ -43,7 +43,7 @@ export default function Home() {
                 <div className="mb-6 mt-12 text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
             </div>
         </div>
-        <div className='h-[366px] bg-white flex flex-col px-[260px] grow'>
+        <div className='h-[366px] bg-white flex grow flex-col px-[260px]'>
           <button className="mt-10 h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] text-[28px] font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
           <div className='flex'>
             <div className="mt-4 w-[606px] h-[220px] flex-col justify-start items-start inline-flex">
@@ -97,7 +97,7 @@ export default function Home() {
                 </div>
             </div>
             {/* 광고 */}
-            <div className="text-white ml-[21px] mt-4 h-[215px] bg-gradient-to-b from-black to-black">
+            <div className="ml-auto w-[293px] text-white ml-[21px] mt-4 h-[215px] bg-gradient-to-b from-black to-black">
                 {/* 광고 넘기기 버튼 */}
                 <div className='flex justify-center items-center ml-[192.57px] mt-[183px] gap-[9px]'>
                     <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&lt;</button>
