@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import MedicineHeader from "./AdditionalHeader";
+import {LogoIcon, UserIcon} from "@public/svgs"
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,26 +12,23 @@ const Header = () => {
   // 로그인 버튼 클릭 핸들러
   const handleLoginClick = () => {
     setIsLoggedIn(true); // 로그인 상태로 변경
+    router.push("/")
   };
 
   // 마이페이지 버튼 클릭 핸들러 (로그아웃 기능 예시)
   const handleLogoutClick = () => {
     setIsLoggedIn(false); // 로그아웃 상태로 변경
+    router.push("/login")
   };
 
   return (
     <MedicineHeader pathName={pathName}>
       <div
-        className={`px-[260px] flex grow items-center h-[110px] ${
-          pathName === "/map" ? "bg-white" : "bg-background"
-        }`}
-        >
-        <button
-          onClick={() => router.push("/")}
-          className="flex grow my-7 w-[127px] h-[46px] px-10 py-2 bg-[#c6c6c6]/50 justify-center items-center gap-2.5 inline-flex text-[#284440] text-xl font-semibold font-['Inter']"
-        >
-          로고 타입
-        </button>
+        className={`px-[260px] flex grow items-center h-[110px] 
+          ${ pathName === "/map" ? "bg-white" : "bg-background" }
+          sm:px-[50px]`
+        }>
+        <LogoIcon onClick={() => router.push("/")}/>
         <div className="flex grow ml-[52px] w-[739px] h-[46px] justify-between items-center inline-flex">
           <button
             onClick={() => router.push("/medicines")}
@@ -74,12 +72,15 @@ const Header = () => {
               로그인
             </button>
           ) : (
-            <button
-              onClick={handleLoginClick}
-              className="flex grow px-6 py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
-            >
-              마이페이지
-            </button>
+            <div className="flex gap-3 items-center">
+              <UserIcon onClick={() => router.push("/mypage")}/>
+              <button
+                onClick={handleLoginClick}
+                className="h-9 px-5 py-1.5 flex grow py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+              >
+                로그아웃
+              </button>
+            </div>
           )}
         </div>
       </div>
