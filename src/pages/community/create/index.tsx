@@ -81,7 +81,7 @@ export default function CreatePost() {
         <div className={`flex gap-6 w-[100%]`}>
           <div className={`rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
             <div
-              className={`content-center h-full relative px-6 grow`}
+              className={`content-center h-full relative px-6 py-3 grow`}
               onClick={() => setIsShowTag("flex")}>
               {tag}
               <div className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-md ${isShowTag}`}>
@@ -97,7 +97,7 @@ export default function CreatePost() {
 
           <div className={`rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
             <div
-              className={`content-center h-full relative px-6 grow`}
+              className={`content-center h-full relative px-6 py-3 grow`}
               onClick={() => setIsShowCountry("flex")}>
               {country}
               <div className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-md ${isShowCountry}`}>
