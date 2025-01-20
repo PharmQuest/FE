@@ -138,17 +138,17 @@ export default function CreatePost() {
         </div>
 
         <input
-          className={`px-6 py-5 outline-0 bg-gray-50 text-gray-400 rounded-[4px] placeholder:text-gray-300`}
+          className={`px-6 py-5 outline-0 bg-gray-50 text-subhead1-sb text-gray-600  rounded-[4px] placeholder-gray-400 placeholder:text-body1-r`}
           placeholder="제목을 입력하세요."
           value={title}
           maxLength={100}
           onChange={(e) => setTitle(e.target.value)}>
         </input>
 
-        <div className={`flex flex-col rounded-[4px] px-6 py-5 border text-gray-600 border-gray-100 grow`}>
+        <div className={`flex flex-col rounded-[4px] px-6 py-5 border border-gray-100 grow`}>
           <textarea
             ref={textareaRef}
-            className={`h-auto resize-none grow outline-0 text-gray-600 placeholder:text-gray-300 overflow-hidden`}
+            className={`h-auto resize-none grow outline-0 text-body1 text-gray-600 overflow-hidden placeholder-gray-300`}
             placeholder="내용을 입력하세요."
             value={content}
             maxLength={3000}
