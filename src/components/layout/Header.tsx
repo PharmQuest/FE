@@ -12,11 +12,13 @@ const Header = () => {
   // 로그인 버튼 클릭 핸들러
   const handleLoginClick = () => {
     setIsLoggedIn(true); // 로그인 상태로 변경
+    router.push("/")
   };
 
   // 마이페이지 버튼 클릭 핸들러 (로그아웃 기능 예시)
   const handleLogoutClick = () => {
     setIsLoggedIn(false); // 로그아웃 상태로 변경
+    router.push("/login")
   };
 
   return (
