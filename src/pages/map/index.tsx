@@ -49,11 +49,6 @@ export default function Map() {
             </div>
             {/* 경로 */}
             <div className="w-[30px] h-[52px] ml-[1.6px]">
-              {/* <img
-                  src="/svgs/map-find.svg"
-                  alt="검색아이콘"
-                  className="w-[30px] h-[52px]"
-              /> */}
               <MapFindIcon/>
             </div>
           </div>
@@ -78,11 +73,6 @@ export default function Map() {
             </div>
             {/* 경로 */}
             <div className="w-[30px] h-[52px] ml-[1.6px]">
-              {/* <img
-                src="/svgs/map-find.svg"
-                alt="검색아이콘"
-                className="w-[30px] h-[52px]"
-              /> */}
               <MapFindIcon/>
             </div>
           </div>
