@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import MedicineHeader from "./AdditionalHeader";
+import {LogoIcon, UserIcon} from "@public/svgs"
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,12 +26,13 @@ const Header = () => {
           pathName === "/map" ? "bg-white" : "bg-background"
         }`}
         >
-        <button
+        <LogoIcon/>
+        {/* <button
           onClick={() => router.push("/")}
           className="flex grow my-7 w-[127px] h-[46px] px-10 py-2 bg-[#c6c6c6]/50 justify-center items-center gap-2.5 inline-flex text-[#284440] text-xl font-semibold font-['Inter']"
         >
           로고 타입
-        </button>
+        </button> */}
         <div className="flex grow ml-[52px] w-[739px] h-[46px] justify-between items-center inline-flex">
           <button
             onClick={() => router.push("/medicines")}
@@ -74,12 +76,15 @@ const Header = () => {
               로그인
             </button>
           ) : (
-            <button
-              onClick={handleLoginClick}
-              className="flex grow px-6 py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
-            >
-              마이페이지
-            </button>
+            <div className="flex gap-3 items-center">
+              <UserIcon/>
+              <button
+                onClick={handleLoginClick}
+                className="h-9 px-5 py-1.5 flex grow py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+              >
+                로그아웃
+              </button>
+            </div>
           )}
         </div>
       </div>
