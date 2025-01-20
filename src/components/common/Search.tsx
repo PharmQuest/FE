@@ -19,11 +19,6 @@ const Search: React.FC<SearchProps> = ({
 
       {/* 검색창 */}
       <div className="flex items-center h-10 bg-white rounded-full px-4 py-3 gap-2 flex-grow shadow-md">
-        {/* <img
-          src="/svgs/search.svg"
-          alt="검색아이콘"
-          className="w-6 h-6"
-        /> */}
         <SearchIcon/>
         <input
           type="text"
@@ -34,11 +29,6 @@ const Search: React.FC<SearchProps> = ({
 
       {/* 위치선택 */}
       <button className="flex items-center h-10 bg-white rounded-full px-4 py-3 text-body1-r text-gray-800 shadow-md">
-        {/* <img
-          src="/svgs/search.svg"
-          alt="검색아이콘"
-          className="w-6 h-6"
-        /> */}
         <SearchIcon/>
         <span className="ml-2">{countryLabel}</span>
       </button>

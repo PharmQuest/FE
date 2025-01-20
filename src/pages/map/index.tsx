@@ -19,11 +19,6 @@ export default function Map() {
           {/* 검색 */}
           <div className='h-[120px] bg-white border-b border-gray-100 flex py-5 px-7 flex-col justify-start items-start gap-4 self-stretch'>
             <div className='w-[324px] h-[40px] flex justify-start py-2 pl-2 pr-4 items-center gap-2 self-stretch mb-4 rounded-lg border-2 border-solid border-secondary-500'>
-              {/* <img
-                src="/svgs/search.svg"
-                alt="검색아이콘"
-                className="w-6 h-6"
-              /> */}
               <SearchIcon/>
               <input placeholder="검색어를 입력하세요." className="text-gray-300 text-base font-normal font-['Pretendard Variable'] leading-normal"></input>              
             </div>

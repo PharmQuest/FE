@@ -24,17 +24,11 @@ const Header = () => {
   return (
     <MedicineHeader pathName={pathName}>
       <div
-        className={`px-[260px] flex grow items-center h-[110px] ${
-          pathName === "/map" ? "bg-white" : "bg-background"
-        }`}
-        >
+        className={`px-[260px] flex grow items-center h-[110px] 
+          ${ pathName === "/map" ? "bg-white" : "bg-background" }
+          sm:px-[50px]`
+        }>
         <LogoIcon onClick={() => router.push("/")}/>
-        {/* <button
-          onClick={() => router.push("/")}
-          className="flex grow my-7 w-[127px] h-[46px] px-10 py-2 bg-[#c6c6c6]/50 justify-center items-center gap-2.5 inline-flex text-[#284440] text-xl font-semibold font-['Inter']"
-        >
-          로고 타입
-        </button> */}
         <div className="flex grow ml-[52px] w-[739px] h-[46px] justify-between items-center inline-flex">
           <button
             onClick={() => router.push("/medicines")}
