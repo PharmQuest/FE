@@ -10,7 +10,7 @@ const Search: React.FC<SearchProps> = ({
   countryLabel = "전체", // 기본값
 }) => {
   return (
-    <div className="max-w-[920px] w-[100%] mx-auto flex items-center gap-4">
+    <div className="w-[100%] flex items-center gap-4">
       {/* TextLabel */}
       {textLabel && (
         <span className="text-display1-b text-gray-800">{textLabel}</span>
