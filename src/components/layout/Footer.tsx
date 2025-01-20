@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
 	return (
-		<div className="flex flex-col gap-6 w-full h-32 px-[260px] pt-3 pb-6 box-border bg-secondary-500 text-white">
+		<div className="flex flex-col mt-[48px] gap-6 w-full h-32 px-[260px] pt-3 pb-6 box-border bg-secondary-500 text-white">
 			<div className="flex flex-row gap-3 text-subhead1-sb">
 				<p className="cursor-pointer">Service 안내</p>|
 				<p className="cursor-pointer">개인정보처리방침</p>|

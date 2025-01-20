@@ -21,17 +21,17 @@ const Header = () => {
   return (
     <MedicineHeader pathName={pathName}>
       <div
-        className={`flex items-center h-[110px] ${
+        className={`px-[260px] flex grow items-center h-[110px] ${
           pathName === "/map" ? "bg-white" : "bg-background"
         }`}
-      >
+        >
         <button
           onClick={() => router.push("/")}
-          className="ml-[262px] my-7 w-[127px] h-[46px] px-10 py-2 bg-[#c6c6c6]/50 justify-center items-center gap-2.5 inline-flex text-[#284440] text-xl font-semibold font-['Inter']"
+          className="flex grow my-7 w-[127px] h-[46px] px-10 py-2 bg-[#c6c6c6]/50 justify-center items-center gap-2.5 inline-flex text-[#284440] text-xl font-semibold font-['Inter']"
         >
           로고 타입
         </button>
-        <div className="ml-[52px] w-[739px] h-[46px] justify-between items-center inline-flex">
+        <div className="flex grow ml-[52px] w-[739px] h-[46px] justify-between items-center inline-flex">
           <button
             onClick={() => router.push("/medicines")}
             className="px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
@@ -40,13 +40,13 @@ const Header = () => {
           </button>
           <button
             onClick={() => router.push("/map")}
-            className="px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+            className="flex grow px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
           >
             약국 찾기
           </button>
           <button
             onClick={() => router.push("/community")}
-            className="px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+            className="flex grow px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
           >
             커뮤니티
             {/* 로그인하면 보임 */}
@@ -61,7 +61,7 @@ const Header = () => {
           </button>
           <button
             onClick={() => router.push("/supplements")}
-            className="px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+            className="flex grow px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
           >
             해외 인기 영양제
           </button>
@@ -69,14 +69,14 @@ const Header = () => {
           {isLoggedIn ? (
             <button
               onClick={handleLogoutClick}
-              className="h-10 px-6 py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+              className="flex growh-10 px-6 py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
             >
               로그인
             </button>
           ) : (
             <button
               onClick={handleLoginClick}
-              className="px-6 py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+              className="flex grow px-6 py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
             >
               마이페이지
             </button>
