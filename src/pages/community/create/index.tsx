@@ -1,6 +1,6 @@
 // 커뮤니티_게시글 작성
 
-import { CameraIcon, XIcon } from "@public/svgs";
+import { CameraIcon, DropdownArrowIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -95,9 +95,10 @@ export default function CreatePost() {
         <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
           <div className={`flex rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
             <div
-              className={`content-center h-full relative px-6 py-3 grow select-none`}
+              className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
               onClick={showTag}>
               {tag}
+              <DropdownArrowIcon className={`self-center`}/>
               <div
                 className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isTagOpen ? `flex` : `hidden`}`}>
                 {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
@@ -113,9 +114,10 @@ export default function CreatePost() {
 
           <div className={`flex rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
             <div
-              className={`content-center h-full relative px-6 py-3 grow select-none`}
+              className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
               onClick={showCountry}>
               {country}
+              <DropdownArrowIcon className={`self-center`}/>
               <div
                 className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isCountryOpen ? `flex` : `hidden`}`}>
                 {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
