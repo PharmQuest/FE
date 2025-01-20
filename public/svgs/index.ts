@@ -14,3 +14,5 @@ export { default as ReportIcon } from "./report.svg";
 export { default as KebabIcon } from "./kebab.svg";
 export { default as CornerDownRightIcon } from "./corner-down-right.svg";
 export { default as MapFindIcon } from "./map-find.svg";
+export { default as CameraIcon } from "./camera.svg";
+
