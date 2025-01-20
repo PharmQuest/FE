@@ -17,20 +17,22 @@ export default function CreatePost() {
   const [uploadImage, setUploadImage] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadImage(reader.result);
+        if (reader.result && typeof reader.result === "string") {
+          setUploadImage(reader.result);
+        }
       };
       reader.readAsDataURL(file);
     }
   }
 
-  const textareaRef = useRef(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleTextarea = (e: React.ChangeEvent) => {
+  const handleTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -38,25 +40,25 @@ export default function CreatePost() {
     }
   }
 
-  const showTag = (e) => {
+  const showTag = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setIsTagOpen(!isTagOpen);
     setIsCountryOpen(false);
   }
 
-  const selectTag = (e) => {
+  const selectTag = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setTag(e.currentTarget.innerText);
     setIsTagOpen(false);
   }
 
-  const showCountry = (e) => {
+  const showCountry = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setIsCountryOpen(!isCountryOpen);
     setIsTagOpen(false);
   }
 
-  const selectCountry = (e) => {
+  const selectCountry = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setCountry(e.currentTarget.innerText);
     setIsCountryOpen(false);
@@ -98,7 +100,7 @@ export default function CreatePost() {
               className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
               onClick={showTag}>
               {tag}
-              <DropdownArrowIcon className={`self-center`}/>
+              <DropdownArrowIcon className={`self-center`} />
               <div
                 className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isTagOpen ? `flex` : `hidden`}`}>
                 {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
@@ -117,7 +119,7 @@ export default function CreatePost() {
               className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
               onClick={showCountry}>
               {country}
-              <DropdownArrowIcon className={`self-center`}/>
+              <DropdownArrowIcon className={`self-center`} />
               <div
                 className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isCountryOpen ? `flex` : `hidden`}`}>
                 {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
