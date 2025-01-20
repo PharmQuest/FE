@@ -26,7 +26,7 @@ const Header = () => {
           pathName === "/map" ? "bg-white" : "bg-background"
         }`}
         >
-        <LogoIcon/>
+        <LogoIcon onClick={() => router.push("/")}/>
         {/* <button
           onClick={() => router.push("/")}
           className="flex grow my-7 w-[127px] h-[46px] px-10 py-2 bg-[#c6c6c6]/50 justify-center items-center gap-2.5 inline-flex text-[#284440] text-xl font-semibold font-['Inter']"
@@ -77,7 +77,7 @@ const Header = () => {
             </button>
           ) : (
             <div className="flex gap-3 items-center">
-              <UserIcon/>
+              <UserIcon onClick={() => router.push("/mypage")}/>
               <button
                 onClick={handleLoginClick}
                 className="h-9 px-5 py-1.5 flex grow py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"

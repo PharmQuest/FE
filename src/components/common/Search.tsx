@@ -1,4 +1,5 @@
 import React from "react";
+import {SearchIcon} from "@public/svgs"
 
 interface SearchProps {
   textLabel?: string; // TextLabel은 선택적
@@ -18,11 +19,12 @@ const Search: React.FC<SearchProps> = ({
 
       {/* 검색창 */}
       <div className="flex items-center h-10 bg-white rounded-full px-4 py-3 gap-2 flex-grow shadow-md">
-        <img
+        {/* <img
           src="/svgs/search.svg"
           alt="검색아이콘"
           className="w-6 h-6"
-        />
+        /> */}
+        <SearchIcon/>
         <input
           type="text"
           className="w-full bg-transparent text-body1-r text-gray-600 placeholder-gray-400 focus:outline-none"
@@ -32,11 +34,12 @@ const Search: React.FC<SearchProps> = ({
 
       {/* 위치선택 */}
       <button className="flex items-center h-10 bg-white rounded-full px-4 py-3 text-body1-r text-gray-800 shadow-md">
-        <img
-          src="/svgs/map-pin.svg"
-          alt="위치 아이콘"
+        {/* <img
+          src="/svgs/search.svg"
+          alt="검색아이콘"
           className="w-6 h-6"
-        />
+        /> */}
+        <SearchIcon/>
         <span className="ml-2">{countryLabel}</span>
       </button>
     </div>
