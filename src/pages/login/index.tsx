@@ -13,17 +13,14 @@ export default function Login() {
 
       <div className={`flex flex-col items-center gap-[30px]`}>
         <button className={`pl-[287px] w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] bg-[#FEE500]`}>
-          {/* <img src='/svgs/kakao.svg' className={`pl-[287px]`}/> */}
           <KakaoIcon/>
           카카오 로그인
         </button>
         <button className={`pl-[287px] w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] bg-[#03CF5D]`}>
-          {/* <img src='/svgs/naver.svg' className={`pl-[287px]`}/> */}
           <NaverIcon/>
           네이버 로그인
         </button>
         <button className={`pl-[287px] w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] border-[#CBCBCB] border border-solid`}>
-          {/* <img src='/svgs/google.svg' className={`pl-[287px]`}/> */}
           <GoogleIcon/>
           구글 로그인
         </button>
