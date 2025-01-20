@@ -1,5 +1,6 @@
 // 약국찾기 메인화면
 import React, { useState } from "react";
+import {MapFindIcon} from "@public/svgs"
 
 export default function Map() {
   const [isSearchOpen, setIsSearchOpen] = useState(true); // 검색창 열림 상태 관리
@@ -48,10 +49,7 @@ export default function Map() {
             </div>
             {/* 경로 */}
             <div className="w-[30px] h-[52px] ml-[1.6px]">
-              <div className="w-[30px] h-[30px] shrink-0 rounded-full border-2 border-gray-400 bg-white mb-1 mr-7">
-                {/* 아이콘 */}
-              </div>
-              <div className="text-gray-400 text-xs font-semibold font-['Pretendard Variable'] leading-[18px] text-center">경로</div>
+              <MapFindIcon/>
             </div>
           </div>
           {/* 약국 정보2 */}
@@ -75,10 +73,7 @@ export default function Map() {
             </div>
             {/* 경로 */}
             <div className="w-[30px] h-[52px] ml-[1.6px]">
-              <div className="w-[30px] h-[30px] shrink-0 rounded-full border-2 border-gray-400 bg-white mb-1 mr-7">
-                {/* 아이콘 */}
-              </div>
-              <div className="text-gray-400 text-xs font-semibold font-['Pretendard Variable'] leading-[18px] text-center">경로</div>
+              <MapFindIcon/>
             </div>
           </div>
           

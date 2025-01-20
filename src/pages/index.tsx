@@ -4,45 +4,49 @@ import FilterButton from '@/components/common/FilterButton';
 export default function Home() {
   return (
     <>
-      <div className='w-[1440px] h-[640px] bg-[#d1e6e7]'>
-        <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex mt-[156px] ml-[260px] text-white font-['Pretendard Variable']">
-            <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">상비약 리스트 &gt;</div>
-            <div className="text-left text-base font-normal leading-normal">증상 및 약 이름을 검색하고<br/>필요한 상비약 정보를 얻을 수 있어요.</div>
-        </button>
-        <button className="ml-5 mb-10 w-[293px] h-[171px] pl-5 py-6 bg-[#006367] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex mt-[156px] text-white font-['Pretendard Variable']">
-            <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">약국 찾기 &gt;</div>
-            <div className="text-left text-base font-normal leading-normal">근처에 있는 약국을 검색하고<br/>길 찾기 서비스를 받을 수 있어요.</div>
-        </button>
-        <Search/>
-        {/* 내가 만든 검색 버튼 */}
-        {/* <div className="w-[797px] h-[54px] pl-6 py-3 bg-white rounded-full justify-start items-center gap-3 inline-flex mt-10 ml-[260px]">
-          <img
-            src="/svgs/search.svg"
-            alt="검색아이콘"
-            className="w-6 h-6"
-          />
-          <div className="w-[30px] h-[30px] relative  overflow-hidden">
-              <div className="w-[22.50px] h-[22.50px] left-[3.75px] top-[3.75px] absolute">
-              </div>
-          </div>
-          <input placeholder="복통약" className="text-[#999999] text-xl font-medium font-['Pretendard Variable'] leading-[30px]"></input>
-        </div> */}
-            <div className='flex gap-3 ml-[260px] mt-4'>
-            <FilterButton text='진통/해열'/>
-            <FilterButton text='소화/위장'/>
-            <FilterButton text='감기/기침'/>
-            <FilterButton text='알레르기'/>
-            <FilterButton text='상처/소독'/>
-            <FilterButton text='멀미'/>
-            <FilterButton text='안약'/>
-            <FilterButton text='기타'/>
+      <div className='h-[640px] bg-[#d1e6e7] px-[260px] pt-[120px]'>
+        <div className="flex flex-col grow">
+            <div className='flex gap-5'>
+                <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex text-white font-['Pretendard Variable']">
+                    <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">상비약 리스트 &gt;</div>
+                    <div className="text-left text-base font-normal leading-normal">증상 및 약 이름을 검색하고<br/>필요한 상비약 정보를 얻을 수 있어요.</div>
+                </button>
+                <button className="mb-10 w-[293px] h-[171px] pl-5 py-6 bg-[#006367] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex text-white font-['Pretendard Variable']">
+                    <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">약국 찾기 &gt;</div>
+                    <div className="text-left text-base font-normal leading-normal">근처에 있는 약국을 검색하고<br/>길 찾기 서비스를 받을 수 있어요.</div>
+                </button>
             </div>
-            <div className="text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px] mt-12 ml-[356px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
+            <Search/>
+            {/* 내가 만든 검색 버튼 */}
+            {/* <div className="w-[797px] h-[54px] pl-6 py-3 bg-white rounded-full justify-start items-center gap-3 inline-flex mt-10 ml-[260px]">
+            <img
+                src="/svgs/search.svg"
+                alt="검색아이콘"
+                className="w-6 h-6"
+            />
+            <div className="w-[30px] h-[30px] relative  overflow-hidden">
+                <div className="w-[22.50px] h-[22.50px] left-[3.75px] top-[3.75px] absolute">
+                </div>
+            </div>
+            <input placeholder="복통약" className="text-[#999999] text-xl font-medium font-['Pretendard Variable'] leading-[30px]"></input>
+            </div> */}
+                <div className='flex gap-3 mt-4'>
+                <FilterButton text='진통/해열'/>
+                <FilterButton text='소화/위장'/>
+                <FilterButton text='감기/기침'/>
+                <FilterButton text='알레르기'/>
+                <FilterButton text='상처/소독'/>
+                <FilterButton text='멀미'/>
+                <FilterButton text='안약'/>
+                <FilterButton text='기타'/>
+                </div>
+                <div className="mb-6 mt-12 text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
+            </div>
         </div>
-        <div className='h-[366px] bg-white flex flex-col'>
-          <button className="mt-10 ml-[260px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] text-[28px] font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
+        <div className='h-[366px] bg-white flex grow flex-col px-[260px]'>
+          <button className="mt-10 h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] text-[28px] font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
           <div className='flex'>
-            <div className="mt-4 ml-[260px] w-[606px] h-[220px] flex-col justify-start items-start inline-flex">
+            <div className="mt-4 w-[606px] h-[220px] flex-col justify-start items-start inline-flex">
                 <div className="self-stretch py-2.5 justify-between items-center inline-flex">
                     <div className="justify-center items-center gap-2 flex">
                         <div className="h-6 px-1.5 pt-0.5 pb-px bg-[#cccccc] rounded justify-center items-center gap-2.5 flex">
@@ -93,14 +97,14 @@ export default function Home() {
                 </div>
             </div>
             {/* 광고 */}
-            <div className=" text-white ml-[21px] mt-4 w-[293px] h-[215px] bg-gradient-to-b from-black to-black">
+            <div className="ml-auto w-[293px] text-white ml-[21px] mt-4 h-[215px] bg-gradient-to-b from-black to-black">
                 {/* 광고 넘기기 버튼 */}
                 <div className='flex justify-center items-center ml-[192.57px] mt-[183px] gap-[9px]'>
                     <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&lt;</button>
                     <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
                     <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
                     <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                    <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&gt;</button>
+                    <button className="mr-[22.05px] w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&gt;</button>
                 </div>
             </div>
           </div>
