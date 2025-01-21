@@ -1,21 +1,45 @@
 // 커뮤니티_게시글 작성
 
-import { CameraIcon, DropdownArrowIcon, XIcon } from "@public/svgs";
+import { CameraIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import Dropdown from "./component/Dropdown";
+
+type DropdownInfo = {
+  key: string;
+  value: string;
+};
 
 export default function CreatePost() {
 
+  const categoryInfo: DropdownInfo[] = [
+    {key: "FORUM", value: "자유"},
+    {key: "PHARMACY", value: "약국"},
+    {key: "HOSPITAL", value: "병원"},
+    {key: "MEDICATION", value: "약"},
+    {key: "SYMPTOM", value: "증상"},
+    {key: "SUPPLEMENT", value: "영양제"},
+  ]
+  const countryInfo: DropdownInfo[] = [
+    {key: "NONE", value: "선택 안 함"},
+    {key: "KOREA", value: "한국"},
+    {key: "JAPAN", value: "일본"},
+    {key: "CHINA", value: "중국"},
+    {key: "USA", value: "미국"},
+    {key: "CANADA", value: "캐나다"},
+    {key: "AUSTRALIA", value: "호주"},
+    {key: "THAILAND", value: "태국"},
+    {key: "VIETNAM", value: "베트남"},
+    {key: "PHILIPPINES", value: "필리핀"},
+    {key: "SINGAPORE", value: "싱가포르"},
+    {key: "EUROPE", value: "유럽"},
+  ]
+
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
-  const [categoryValue, setCategoryValue] = useState("");
-  const [categoryText, setCategoryText] = useState("주제 선택");
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-
-  const [countryValue, setCountryValue] = useState("NONE");
-  const [countryText, setCountryText] = useState("위치 추가");
-  const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [category, setCategory] = useState("");
+  const [country, setCountry] = useState("NONE");
 
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -43,59 +67,20 @@ export default function CreatePost() {
     }
   }
 
-  const showCategory = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    setIsCategoryOpen(!isCategoryOpen);
-    setIsCountryOpen(false);
-  }
-
-  const selectCategory = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-
-    // 카테고리 드롭다운 text 설정
-    setCategoryText(e.currentTarget.innerText);
-
-    // 카테고리 Value 값 설정
-    const value = e.currentTarget.dataset.value
-    if (value){
-      setCategoryValue(value);
-    }
-    setIsCategoryOpen(false);
-  }
-
-  const showCountry = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    setIsCountryOpen(!isCountryOpen);
-    setIsCategoryOpen(false);
-  }
-
-  const selectCountry = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-
-    // 국가 드롭다운 text 설정
-    setCountryText(e.currentTarget.innerText);
-
-    // 국가 Value 값 설정
-    const value = e.currentTarget.dataset.value
-    if (value){
-      setCountryValue(value);
-    }
-    setIsCountryOpen(false);
-  }
-
   const closeDropDown = () => {
-    setIsCountryOpen(false);
-    setIsCategoryOpen(false);
+
   }
+
+
 
   useEffect(() => {
-    if (title.trim() && content.trim() && categoryValue.trim()) {
+    if (title.trim() && content.trim() && category.trim()) {
       setIsSubmitDisabled(false)
     }
     else {
       setIsSubmitDisabled(true)
     }
-  }, [title, content, categoryValue])
+  }, [title, content, category])
 
   return (
     // 게시글 작성 페이지 Container
@@ -112,52 +97,13 @@ export default function CreatePost() {
       </div>
       {/* 게시글 작성 box */}
       <div className={`p-6 flex gap-5 flex-col rounded-[8px] border border-gray-100 min-h-[726px]`}>
+
         {/* dropdown wrapper */}
         <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
-          <div className={`flex rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
-            <div
-              className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
-              onClick={showCategory}>
-              {categoryText}
-              <DropdownArrowIcon className={`self-center`} />
-              <div
-                className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isCategoryOpen ? `flex` : `hidden`}`}>
-                {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
-                <div data-value="FORUM" className={`hover:bg-gray-100`} onClick={selectCategory}>자유</div>
-                <div data-value="PHARMACY" className={`hover:bg-gray-100`} onClick={selectCategory}>약국</div>
-                <div data-value="HOSPITAL" className={`hover:bg-gray-100`} onClick={selectCategory}>병원</div>
-                <div data-value="MEDICATION" className={`hover:bg-gray-100`} onClick={selectCategory}>약</div>
-                <div data-value="SYMPTOM" className={`hover:bg-gray-100`} onClick={selectCategory}>증상</div>
-                <div data-value="SUPPLEMENT" className={`hover:bg-gray-100`} onClick={selectCategory}>영양제</div>
-              </div>
-            </div>
-          </div>
+          
+        <Dropdown info={categoryInfo} initialText={"주제 선택"} setValue={setCategory}/>
+        <Dropdown info={countryInfo} initialText={"위치 추가"} setValue={setCountry}/>
 
-          <div className={`flex rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
-            <div
-              className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
-              onClick={showCountry}>
-              {countryText}
-              <DropdownArrowIcon className={`self-center`} />
-              <div
-                className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isCountryOpen ? `flex` : `hidden`}`}>
-                {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
-                <div data-value="NONE" className={`hover:bg-gray-100`} onClick={selectCountry}>선택 안 함</div>
-                <div data-value="KOREA" className={`hover:bg-gray-100`} onClick={selectCountry}>한국</div>
-                <div data-value="JAPAN" className={`hover:bg-gray-100`} onClick={selectCountry}>일본</div>
-                <div data-value="CHINA" className={`hover:bg-gray-100`} onClick={selectCountry}>중국</div>
-                <div data-value="USA" className={`hover:bg-gray-100`} onClick={selectCountry}>미국</div>
-                <div data-value="CANADA" className={`hover:bg-gray-100`} onClick={selectCountry}>캐나다</div>
-                <div data-value="AUSTRALIA" className={`hover:bg-gray-100`} onClick={selectCountry}>호주</div>
-                <div data-value="THAILAND" className={`hover:bg-gray-100`} onClick={selectCountry}>태국</div>
-                <div data-value="VIETNAM" className={`hover:bg-gray-100`} onClick={selectCountry}>베트남</div>
-                <div data-value="PHILIPPINES" className={`hover:bg-gray-100`} onClick={selectCountry}>필리핀</div>
-                <div data-value="SINGAPORE" className={`hover:bg-gray-100`} onClick={selectCountry}>싱가포르</div>
-                <div data-value="EUROPE" className={`hover:bg-gray-100`} onClick={selectCountry}>유럽</div>
-              </div>
-            </div>
-
-          </div>
         </div>
 
         <input
