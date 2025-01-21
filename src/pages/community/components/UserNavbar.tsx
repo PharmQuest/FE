@@ -53,7 +53,7 @@ const UserNavbar = () => {
         <div className=" flex flex-col gap-3">
           <button
             className="w-full py-2 text-center bg-primary-500 text-white rounded-[4px] mt-4"
-            onClick={() => router.push("/community/post/create")}
+            onClick={() => router.push("/community/create")}
           >
             게시글 작성
           </button>
