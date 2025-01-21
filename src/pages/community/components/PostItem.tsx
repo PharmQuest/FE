@@ -13,7 +13,7 @@ interface PostItemProps {
   createdAt: string; // 날짜
   likeCount: number; // 좋아요 개수
   comments: number; // 댓글 개수
-  scraps: number; // 스크랩 개수
+  scrapeCount: number; // 스크랩 개수
 }
 
 const PostItem: React.FC<PostItemProps> = ({
@@ -25,7 +25,7 @@ const PostItem: React.FC<PostItemProps> = ({
   createdAt,
   likeCount,
   comments,
-  scraps,
+  scrapeCount,
 }) => {
   const router = useRouter();
 
@@ -49,7 +49,7 @@ const PostItem: React.FC<PostItemProps> = ({
         <p>{format(new Date(createdAt), "yyyy.MM.dd")}</p>
         <p>{likeCount}</p>
         <p>{comments}</p>
-        <p>{scraps}</p>
+        <p>{scrapeCount}</p>
       </div>
     </div>
   );
