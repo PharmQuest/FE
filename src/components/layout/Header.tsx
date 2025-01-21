@@ -31,7 +31,7 @@ const Header = () => {
             flex items-center
             // 1001px 이상
             xl:max-px-[260px] xl:w-[900px]
-            // 1000px
+            // 1000px일 때
             lg:px-[50px] lg:w-[900px]
             `}>
             <LogoIcon className="min-w-fit" onClick={() => router.push("/")}/>
@@ -103,7 +103,7 @@ const Header = () => {
           flex justify-between items-center mx-auto
           // 태블릿 (641px ~ 999px)
           md:w-[601px]
-          // 모바일 (640px 이하)
+          // 모바일 (641px 미만)
           w-full px-[20px]
         `}>
           <ListIcon/>
