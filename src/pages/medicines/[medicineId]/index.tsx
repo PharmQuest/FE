@@ -1,5 +1,7 @@
 // 상비약 상세 페이지
 
+import Image from "next/image";
+
 function MedicineInfo() {
   return (
     <>
@@ -12,7 +14,11 @@ function MedicineInfo() {
       <div className={`flex border border-gray-200`}>
         {/* 약 사진 */}
         <div className={`border-r`}>
-          <img src='/images/tylenol.png' />
+          <Image 
+            src="/images/tylenol.png"
+            alt="이미지"
+            width={250}
+            height={250}/>
         </div>
         <div className="grid grid-cols-[1fr,3fr] text-center flex-grow">
           <div className={`content-center border-b border-r`}>제품명</div>
