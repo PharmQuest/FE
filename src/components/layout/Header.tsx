@@ -94,7 +94,7 @@ const Header = () => {
       {/* (태블릿, 모바일)화면 크기가 1000px미만부터는 아래 헤더로 보이도록 */}
       <div className={`
         // 공통 스타일
-        h-[60px] w-full
+        h-[60px] w-full flex items-center
         ${pathName === "/map" ? "bg-white" : "bg-background"}
         lg:hidden
       `}>
@@ -102,7 +102,7 @@ const Header = () => {
           // 공통 스타일
           flex justify-between items-center mx-auto
           // 태블릿 (641px ~ 999px)
-          md:w-full md:px-[20px]
+          md:w-[601px]
           // 모바일 (640px 이하)
           w-full px-[20px]
         `}>
