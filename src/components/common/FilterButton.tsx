@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 interface FilterButtonProps {
   text: string;
   isSelected?: boolean;
