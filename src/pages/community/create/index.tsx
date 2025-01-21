@@ -8,14 +8,19 @@ export default function CreatePost() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [tag, setTag] = useState("자유 주제");
-  const [country, setCountry] = useState("위치 추가");
 
-  const [isTagOpen, setIsTagOpen] = useState(false);
+  const [categoryValue, setCategoryValue] = useState("");
+  const [categoryText, setCategoryText] = useState("주제 선택");
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+  const [countryValue, setCountryValue] = useState("NONE");
+  const [countryText, setCountryText] = useState("위치 추가");
   const [isCountryOpen, setIsCountryOpen] = useState(false);
 
   const [uploadImage, setUploadImage] = useState("");
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -30,9 +35,7 @@ export default function CreatePost() {
     }
   }
 
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const handleTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextareaHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -40,43 +43,59 @@ export default function CreatePost() {
     }
   }
 
-  const showTag = (e: React.MouseEvent<HTMLDivElement>) => {
+  const showCategory = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    setIsTagOpen(!isTagOpen);
+    setIsCategoryOpen(!isCategoryOpen);
     setIsCountryOpen(false);
   }
 
-  const selectTag = (e: React.MouseEvent<HTMLDivElement>) => {
+  const selectCategory = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    setTag(e.currentTarget.innerText);
-    setIsTagOpen(false);
+
+    // 카테고리 드롭다운 text 설정
+    setCategoryText(e.currentTarget.innerText);
+
+    // 카테고리 Value 값 설정
+    const value = e.currentTarget.dataset.value
+    if (value){
+      setCategoryValue(value);
+    }
+    setIsCategoryOpen(false);
   }
 
   const showCountry = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setIsCountryOpen(!isCountryOpen);
-    setIsTagOpen(false);
+    setIsCategoryOpen(false);
   }
 
   const selectCountry = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    setCountry(e.currentTarget.innerText);
+
+    // 국가 드롭다운 text 설정
+    setCountryText(e.currentTarget.innerText);
+
+    // 국가 Value 값 설정
+    const value = e.currentTarget.dataset.value
+    if (value){
+      setCountryValue(value);
+    }
     setIsCountryOpen(false);
   }
 
   const closeDropDown = () => {
     setIsCountryOpen(false);
-    setIsTagOpen(false);
+    setIsCategoryOpen(false);
   }
 
   useEffect(() => {
-    if (title.trim() && content.trim() && tag.trim()) {
-      setIsDisabled(false)
+    if (title.trim() && content.trim() && categoryValue.trim()) {
+      setIsSubmitDisabled(false)
     }
     else {
-      setIsDisabled(true)
+      setIsSubmitDisabled(true)
     }
-  }, [title, content, tag])
+  }, [title, content, categoryValue])
 
   return (
     // 게시글 작성 페이지 Container
@@ -87,7 +106,7 @@ export default function CreatePost() {
         </h1>
         <button
           className={`px-4 py-1 rounded-[4px] bg-primary-300 text-white disabled:bg-gray-100 disabled:text-gray-400`}
-          disabled={isDisabled}>
+          disabled={isSubmitDisabled}>
           등록
         </button>
       </div>
@@ -98,18 +117,18 @@ export default function CreatePost() {
           <div className={`flex rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
             <div
               className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
-              onClick={showTag}>
-              {tag}
+              onClick={showCategory}>
+              {categoryText}
               <DropdownArrowIcon className={`self-center`} />
               <div
-                className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isTagOpen ? `flex` : `hidden`}`}>
+                className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isCategoryOpen ? `flex` : `hidden`}`}>
                 {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
-                <div className={`hover:bg-gray-100`} onClick={selectTag}>자유</div>
-                <div className={`hover:bg-gray-100`} onClick={selectTag}>약국</div>
-                <div className={`hover:bg-gray-100`} onClick={selectTag}>병원</div>
-                <div className={`hover:bg-gray-100`} onClick={selectTag}>약</div>
-                <div className={`hover:bg-gray-100`} onClick={selectTag}>증상</div>
-                <div className={`hover:bg-gray-100`} onClick={selectTag}>영양제</div>
+                <div data-value="FORUM" className={`hover:bg-gray-100`} onClick={selectCategory}>자유</div>
+                <div data-value="PHARMACY" className={`hover:bg-gray-100`} onClick={selectCategory}>약국</div>
+                <div data-value="HOSPITAL" className={`hover:bg-gray-100`} onClick={selectCategory}>병원</div>
+                <div data-value="MEDICATION" className={`hover:bg-gray-100`} onClick={selectCategory}>약</div>
+                <div data-value="SYMPTOM" className={`hover:bg-gray-100`} onClick={selectCategory}>증상</div>
+                <div data-value="SUPPLEMENT" className={`hover:bg-gray-100`} onClick={selectCategory}>영양제</div>
               </div>
             </div>
           </div>
@@ -118,23 +137,23 @@ export default function CreatePost() {
             <div
               className={`flex justify-between content-center h-full relative px-6 py-3 grow select-none`}
               onClick={showCountry}>
-              {country}
+              {countryText}
               <DropdownArrowIcon className={`self-center`} />
               <div
                 className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isCountryOpen ? `flex` : `hidden`}`}>
                 {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>선택 안 함</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>한국</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>일본</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>중국</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>미국</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>캐나다</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>호주</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>태국</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>베트남</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>필리핀</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>싱가포르</div>
-                <div className={`hover:bg-gray-100`} onClick={selectCountry}>유럽</div>
+                <div data-value="NONE" className={`hover:bg-gray-100`} onClick={selectCountry}>선택 안 함</div>
+                <div data-value="KOREA" className={`hover:bg-gray-100`} onClick={selectCountry}>한국</div>
+                <div data-value="JAPAN" className={`hover:bg-gray-100`} onClick={selectCountry}>일본</div>
+                <div data-value="CHINA" className={`hover:bg-gray-100`} onClick={selectCountry}>중국</div>
+                <div data-value="USA" className={`hover:bg-gray-100`} onClick={selectCountry}>미국</div>
+                <div data-value="CANADA" className={`hover:bg-gray-100`} onClick={selectCountry}>캐나다</div>
+                <div data-value="AUSTRALIA" className={`hover:bg-gray-100`} onClick={selectCountry}>호주</div>
+                <div data-value="THAILAND" className={`hover:bg-gray-100`} onClick={selectCountry}>태국</div>
+                <div data-value="VIETNAM" className={`hover:bg-gray-100`} onClick={selectCountry}>베트남</div>
+                <div data-value="PHILIPPINES" className={`hover:bg-gray-100`} onClick={selectCountry}>필리핀</div>
+                <div data-value="SINGAPORE" className={`hover:bg-gray-100`} onClick={selectCountry}>싱가포르</div>
+                <div data-value="EUROPE" className={`hover:bg-gray-100`} onClick={selectCountry}>유럽</div>
               </div>
             </div>
 
@@ -156,7 +175,7 @@ export default function CreatePost() {
             placeholder="내용을 입력하세요."
             value={content}
             maxLength={3000}
-            onChange={handleTextarea}>
+            onChange={handleTextareaHeight}>
 
           </textarea>
           {uploadImage &&
