@@ -205,7 +205,9 @@ export default function CreatePost() {
               id="file"
               type="file"
               className={`hidden`}
-              onChange={handleImageUpload} />
+              onChange={handleImageUpload} 
+              // 파일 등록 사진으로 제한
+              accept="image/*"/>
 
             <p className={`text-gray-300`}>{content.length}/3000</p>
           </div>
