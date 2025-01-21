@@ -1,13 +1,13 @@
 interface FilterButtonProps {
   text: string;
   isSelected?: boolean;
-  onClickFn: () => void;
+  onClickFn?: () => void;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({
   text,
   isSelected = false,
-  onClickFn,
+  onClickFn = () => {},
 }) => {
 
   const baseClasses =
