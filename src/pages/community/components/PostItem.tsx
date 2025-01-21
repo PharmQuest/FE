@@ -21,6 +21,7 @@ const PostItem: React.FC<PostItemProps> = ({
   id,
   user,
   title,
+  // eslint-disable-next-line
   content,
   category,
   scrapeCount,
@@ -30,6 +31,9 @@ const PostItem: React.FC<PostItemProps> = ({
   isBestPost,
 }) => {
   const router = useRouter();
+
+  const date = new Date(createdAt);
+  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy,MM,dd")
 
   return (
     <div className="py-3 grid grid-cols-[1fr_8fr_5fr] gap-2 border-b border-solid border-gray-100">
@@ -48,7 +52,7 @@ const PostItem: React.FC<PostItemProps> = ({
       
       <div className="grid grid-cols-[7fr_7fr_4fr_4fr_4fr] text-center text-body2-r text-gray-300 w-full">
         <p>{user}</p>
-        <p>{format(new Date(createdAt), "yyyy.MM.dd")}</p>
+        <p>{formattedDate}</p>
         <p>{likeCount}</p>
         <p>{commentCount}</p>
         <p>{scrapeCount}</p>
