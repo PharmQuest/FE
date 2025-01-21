@@ -23,6 +23,7 @@ export default function CreatePost() {
   ]
   const countryInfo: DropdownInfo[] = [
     {key: "NONE", value: "선택 안 함"},
+    // Swagger에는 한국이 없던데 어떻게 할지...?
     {key: "KOREA", value: "한국"},
     {key: "JAPAN", value: "일본"},
     {key: "CHINA", value: "중국"},
