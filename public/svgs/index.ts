@@ -17,3 +17,7 @@ export { default as MapFindIcon } from "./map-find.svg";
 export { default as CameraIcon } from "./camera.svg";
 export { default as XIcon } from "./x.svg";
 export { default as DropdownArrowIcon } from "./dropdown-arrow.svg";
+export { default as LogoIcon } from "./logo.svg";
+export { default as UserIcon } from "./user.svg";
+export { default as ListIcon } from "./list.svg";
+export { default as AccountCircleIcon } from "./account_circle.svg";
