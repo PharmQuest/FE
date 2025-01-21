@@ -3,7 +3,8 @@
 import { CameraIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Dropdown from "./component/Dropdown";
+import Dropdown from "../components/Dropdown";
+import useCustomMutation from "../hooks/useCustomMutation";
 
 type DropdownInfo = {
   key: string;
@@ -35,15 +36,10 @@ export default function CreatePost() {
     {key: "EUROPE", value: "유럽"},
   ]
 
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-
-  // build error 방지
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [country, setCountry] = useState("NONE");
-  
 
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -71,11 +67,25 @@ export default function CreatePost() {
     }
   }
 
-  const closeDropDown = () => {
 
+  // 추후에 url 및 데이터 구조 수정 필요
+  const mutate = useCustomMutation(
+    `http://localhost:8080/community/1/posts`,
+    {
+      title,
+      content,
+      country,
+      category,
+    },
+  )
+
+  const handleSubmit = async () => {
+    try{
+      await mutate()
+    } catch (error) {
+      console.log(error)
+    }
   }
-
-
 
   useEffect(() => {
     if (title.trim() && content.trim() && category.trim()) {
@@ -85,17 +95,18 @@ export default function CreatePost() {
       setIsSubmitDisabled(true)
     }
   }, [title, content, category])
-
+  
   return (
     // 게시글 작성 페이지 Container
-    <div className={`pl-[260px] pr-[260px]`} onClick={closeDropDown}>
+    <div className={`pl-[260px] pr-[260px]`}>
       <div className={`flex mt-[48px] mb-[12px] justify-between`}>
         <h1 className={`text-display2-b text-gray-600`}>
           게시글 작성
         </h1>
         <button
           className={`px-4 py-1 rounded-[4px] bg-primary-300 text-white disabled:bg-gray-100 disabled:text-gray-400`}
-          disabled={isSubmitDisabled}>
+          disabled={isSubmitDisabled}
+          onClick={handleSubmit}>
           등록
         </button>
       </div>
