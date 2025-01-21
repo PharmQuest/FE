@@ -3,11 +3,13 @@ import React, { useState } from "react";
 interface FilterButtonProps {
   text: string;
   isSelected?: boolean;
+  onClickFn: () => void;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({
   text,
   isSelected = false,
+  onClickFn,
 }) => {
   const [selected, setSelected] = useState(isSelected);
 
@@ -21,7 +23,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
       className={`${baseClasses} ${
         selected ? selectedClasses : unselectedClasses
       }`}
-      onClick={() => setSelected(!selected)}
+      onClick={() => onClickFn}
     >
       {text}
     </button>
