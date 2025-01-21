@@ -19,7 +19,6 @@ const Dropdown: React.FC<DropdownProps> = ({info, initialText, setValue}) => {
 
   const showDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    console.log(isOpen)
     setIsOpen(!isOpen);
   }
 
