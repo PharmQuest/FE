@@ -11,7 +11,6 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   isSelected = false,
   onClickFn,
 }) => {
-  const [selected, setSelected] = useState(isSelected);
 
   const baseClasses =
     "w-fit h-fit px-3 rounded-[1000px] text-subhead1-sb border-[1px] border-solid cursor-pointer";
@@ -21,9 +20,9 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   return (
     <button
       className={`${baseClasses} ${
-        selected ? selectedClasses : unselectedClasses
+        isSelected ? selectedClasses : unselectedClasses
       }`}
-      onClick={() => onClickFn}
+      onClick={onClickFn}
     >
       {text}
     </button>
