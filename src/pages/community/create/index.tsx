@@ -39,7 +39,11 @@ export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+
+  // build error 방지
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [country, setCountry] = useState("NONE");
+  
 
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
