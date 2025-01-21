@@ -5,27 +5,29 @@ import { useRouter } from "next/router";
 import { format } from "date-fns";
 
 interface PostItemProps {
-  id: string; // id
-  isBest: boolean; // 베스트 게시글 여부
-  category: string; // 카테고리
-  title: string; // 제목
-  user: string; // 글쓴이
-  createdAt: string; // 날짜
-  likeCount: number; // 좋아요 개수
-  comments: number; // 댓글 개수
-  scrapeCount: number; // 스크랩 개수
+  id: number;
+  user: string;
+  title: string;
+  content: string;
+  category: string;
+  scrapeCount: number;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  isBestPost: boolean;
 }
 
 const PostItem: React.FC<PostItemProps> = ({
   id,
-  isBest,
-  category,
-  title,
   user,
-  createdAt,
-  likeCount,
-  comments,
+  title,
+  content,
+  category,
   scrapeCount,
+  likeCount,
+  commentCount,
+  createdAt,
+  isBestPost,
 }) => {
   const router = useRouter();
 
@@ -40,7 +42,7 @@ const PostItem: React.FC<PostItemProps> = ({
         <p className={`max-w-[428px] truncate`}>
           {title}
         </p>
-        {isBest && <Tag variant="best" />}
+        {isBestPost && <Tag variant="best" />}
       </div>
       
       
@@ -48,7 +50,7 @@ const PostItem: React.FC<PostItemProps> = ({
         <p>{user}</p>
         <p>{format(new Date(createdAt), "yyyy.MM.dd")}</p>
         <p>{likeCount}</p>
-        <p>{comments}</p>
+        <p>{commentCount}</p>
         <p>{scrapeCount}</p>
       </div>
     </div>

@@ -3,6 +3,19 @@ import PostItem from "./PostItem";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+interface Post {
+  id: number;
+  user: string;
+  title: string;
+  content: string;
+  category: string;
+  scrapeCount: number;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  isBestPost: boolean;
+}
+
 const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
 
   const {data} = useQuery(
@@ -31,17 +44,18 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
           <p>스크랩</p>
         </div>
       </div>
-      {data?.data?.result?.postList.map((post, index) => (
+      {data?.data?.result?.postList.map((post: Post, index: number) => (
         <PostItem
           key={index}
           id={post.id}
-          isBest={post.isBestPost}
+          isBestPost={post.isBestPost}
           category={post.category}
           title={post.title}
+          content={post.content}
           user={post.user}
           createdAt={post.createdAt}
           likeCount={post.likeCount}
-          comments={post.comments}
+          commentCount={post.commentCount}
           scrapeCount={post.scrapeCount}
         />
       ))}
