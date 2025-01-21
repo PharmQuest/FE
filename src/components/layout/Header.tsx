@@ -9,16 +9,16 @@ const Header = () => {
   const router = useRouter();
   const pathName = router.pathname;
 
-  // 로그인 버튼 클릭 핸들러
+  // 로그인
   const handleLoginClick = () => {
-    setIsLoggedIn(true); // 로그인 상태로 변경
-    router.push("/")
+    setIsLoggedIn(true); // 로그아웃 상태로 변경
+    router.push("/login")    
   };
 
-  // 마이페이지 버튼 클릭 핸들러 (로그아웃 기능 예시)
+  // 로그아웃
   const handleLogoutClick = () => {
-    setIsLoggedIn(false); // 로그아웃 상태로 변경
-    router.push("/login")
+    setIsLoggedIn(false); // 로그인 상태로 변경
+    router.push("/")
   };
 
   return (
@@ -71,22 +71,24 @@ const Header = () => {
               </button>
               {/* 로그인 상태에 따라 버튼 렌더링 */}
               {isLoggedIn ? (
-                <button
-                  onClick={handleLogoutClick}
-                  className="growh-10 px-6 py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
-                >
-                  로그인
-                </button>
-              ) : (
+                // isLoggedIn이 true
                 <div className="flex gap-3 items-center">
                   <UserIcon onClick={() => router.push("/mypage")}/>
                   <button
-                    onClick={handleLoginClick}
+                    onClick={handleLogoutClick}
                     className="h-9 px-5 grow py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
                   >
                     로그아웃
                   </button>
                 </div>
+              ) : (   
+                // isLoggedIn이 false             
+                <button
+                onClick={handleLoginClick}
+                className="growh-10 px-6 py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+                >
+                  로그인
+                </button>
               )}
           </div>
         </div>
