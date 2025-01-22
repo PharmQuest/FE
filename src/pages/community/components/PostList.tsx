@@ -55,7 +55,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
           user={post.user}
           createdAt={post.createdAt}
           likeCount={post.likeCount}
-          commentCount={post.commentCount}
+          commentCount={post.commentCount || 0}
           scrapeCount={post.scrapeCount}
         />
       ))}
