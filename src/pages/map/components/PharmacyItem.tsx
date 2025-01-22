@@ -18,7 +18,7 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
   return (
     <>
       {/* 약국 정보 */}
-      <div className="h-[126px] bg-white border-b border-gray-100 pl-7 py-5 flex justify-start items-center gap-3 self-stretch">
+      <div className="h-[126px] bg-white border-b border-gray-100 px-7 py-5 flex justify-start items-center gap-3 self-stretch">
         <div className="w-[86px] h-[86px] bg-[#cccccc] rounded" />
         <div className="flex w-[145px] flex-col items-start">
           <div className="flex items-center mb-3 gap-[3px]">
@@ -42,7 +42,7 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
           </div>
         </div>
         {/* 경로 */}
-        <div className="w-[30px] h-[52px] justify-self-end px-">
+        <div className="w-[30px] h-[52px] ml-auto">
           <MapFindIcon />
         </div>
       </div>
