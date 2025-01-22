@@ -7,7 +7,6 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 
 export default function Post() {
-
   const params = useParams() || {};
   const postId = params.postId || null;
   const {data} = useQuery(
@@ -15,29 +14,56 @@ export default function Post() {
       queryKey: ['post', postId],
       queryFn: async () => await axios.get(`http://localhost:8080/community/posts/${postId}`),
       placeholderData: keepPreviousData,
+      enabled: !!postId,
     },
   );
   
-  const postItems = data?.data?.result
+  const postItem = data?.data?.result
+
+  const formattedCategory = (category: string) => {
+    switch (category) {
+      case "자유":
+        return "FORUM";
+        
+      case "약국":
+        return "PHARMACY";
+      
+      case "병원":
+        return "HOSPITAL";
+      
+      case "약":
+        return "MEDICATION";
+      
+      case "증상":
+        return "SYMPTOM";
+      
+      case "영양제":
+        return "SUPPLEMENT";
+      
+      default:
+
+        return "ALL";
+    }
+  }
 
   return (
     <div className="flex flex-col px-[260px]">
       <ViewPost
-        isBestPost={postItems?.isBestPost}
-        category={postItems?.category}
-        title={postItems?.title}
-        user={postItems?.user}
-        createdAt={postItems?.createdAt}
-        content={postItems?.content}
-        likeCount={postItems?.likeCount}
-        comments={postItems?.comments?.length || 0}
-        scrapeCount={postItems?.scrapeCount}
+        isBestPost={postItem?.isBestPost}
+        category={postItem?.category}
+        title={postItem?.title}
+        user={postItem?.user}
+        createdAt={postItem?.createdAt}
+        content={postItem?.content}
+        likeCount={postItem?.likeCount}
+        comments={postItem?.comments?.length || 0}
+        scrapeCount={postItem?.scrapeCount}
       />
       <CommentInput /> 
       <CommentList />
       <div className="flex flex-col mt-[60px] mb-[170px]">
         <p className="text-display2-b text-gray-600 mb-3">같은 주제 게시글</p>
-        <PostList />
+        <PostList category={formattedCategory(postItem?.category)}/>
       </div>
     </div>
   );

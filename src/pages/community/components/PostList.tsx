@@ -47,7 +47,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
       {data?.data?.result?.postList.map((post: Post, index: number) => (
         <PostItem
           key={index}
-          id={post.id || 1}
+          id={post.id || 2}
           isBestPost={post.isBestPost}
           category={post.category}
           title={post.title}
