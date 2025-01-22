@@ -12,7 +12,7 @@ export default function Map() {
   return (
     <>
       <hr className="border-b border-solid border-gray-100" />
-      <div className="w-full  flex flex-rowW">
+      <div className="w-full  flex flex-row">
         {isSearchOpen && <SearchPanel />}
 
         {/* 검색창 접기 */}
