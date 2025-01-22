@@ -20,7 +20,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
 
   const {data} = useQuery(
     {
-      queryKey: ['post', category],
+      queryKey: ['posts', category],
       queryFn: async () => await axios.get("http://localhost:8080/community/posts/lists",{
         params: {
           category,
@@ -47,7 +47,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
       {data?.data?.result?.postList.map((post: Post, index: number) => (
         <PostItem
           key={index}
-          id={post.id}
+          id={post.id || 1}
           isBestPost={post.isBestPost}
           category={post.category}
           title={post.title}

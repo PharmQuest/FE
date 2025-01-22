@@ -33,7 +33,7 @@ const PostItem: React.FC<PostItemProps> = ({
   const router = useRouter();
 
   const date = new Date(createdAt);
-  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy,MM,dd")
+  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
   return (
     <div className="py-3 grid grid-cols-[1fr_8fr_5fr] gap-2 border-b border-solid border-gray-100">
