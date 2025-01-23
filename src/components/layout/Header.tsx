@@ -25,8 +25,7 @@ const Header = () => {
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
       <div
-        className={`hidden lg:flex grow justify-center items-center h-[110px] w-full
-          ${ pathName === "/map" ? "bg-white" : "bg-background" }`}>
+        className={`hidden lg:flex grow justify-center items-center h-[110px] w-full bg-background`}>
           <div className={`
             flex items-center
             // 1001px 이상
