@@ -34,7 +34,7 @@ const Header = () => {
             // 1000px일 때
             lg:px-[50px] lg:w-[900px]
             `}>
-            <LogoIcon className="min-w-fit" onClick={() => router.push("/")}/>
+            <LogoIcon className="min-w-fit cursor-pointer" onClick={() => router.push("/")}/>
             <div className="whitespace-nowrap flex grow ml-[52px] h-[46px] justify-between items-center">
               <button
                 onClick={() => router.push("/medicines")}
