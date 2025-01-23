@@ -1,5 +1,6 @@
-import React from "react";
-import {SearchIcon} from "@public/svgs"
+import React, { useState } from "react";
+import { MapPinIcon, SearchBar, SearchIcon, XIcon } from "@public/svgs"
+import { useRouter } from "next/router";
 
 interface SearchProps {
   textLabel?: string; // TextLabel은 선택적
@@ -10,6 +11,12 @@ const Search: React.FC<SearchProps> = ({
   textLabel,
   countryLabel = "전체", // 기본값
 }) => {
+
+  const router = useRouter();
+  const pathName = router.pathname;
+
+  const [searchText, setSearchText] = useState("");
+
   return (
     <div className="w-[100%] flex items-center gap-4">
       {/* TextLabel */}
@@ -18,20 +25,29 @@ const Search: React.FC<SearchProps> = ({
       )}
 
       {/* 검색창 */}
-      <div className="flex items-center h-10 bg-white rounded-full px-4 py-3 gap-2 flex-grow shadow-md">
-        <SearchIcon/>
-        <input
-          type="text"
-          className="w-full bg-transparent text-body1-r text-gray-600 placeholder-gray-400 focus:outline-none"
-          placeholder="복통약"
-        />
+      <div className={`flex items-center bg-white rounded-full flex-grow shadow-md ${pathName === '/' ? `h-[54px] px-6 py-3 gap-5` : `h-10 px-4 py-2 gap-4`} `}>
+        {/* 위치선택 */}
+        <button className={`flex items-center gap-2 bg-none rounded-full text-gray-500`}>
+          <MapPinIcon className={`${pathName === '/' ? `w-7` : `w-5`}`} />
+          <p className={`${pathName === '/' ? `w-[35px] text-headline-m` : `w-7 text-body1-r`}`}>{countryLabel}</p>
+        </button>
+        <SearchBar />
+        <div className={`flex gap-2 grow`}>
+          <SearchIcon className={`${pathName === '/' ? `w-[30px]` : `w-6`}`} />
+          <input
+            type="text"
+            className={`grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${pathName === '/' ? `text-headline-m` : `text-body1-r`}`}
+            placeholder="복통약"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
+        {searchText &&
+          <XIcon
+            className={`cursor-pointer ${pathName === '/' ? `w-5` : `w-4 mr-1`}`}
+            onClick={() => setSearchText('')} />
+        }
       </div>
-
-      {/* 위치선택 */}
-      <button className="flex items-center h-10 bg-white rounded-full px-4 py-3 text-body1-r text-gray-800 shadow-md">
-        <SearchIcon/>
-        <span className="ml-2">{countryLabel}</span>
-      </button>
     </div>
   );
 };
