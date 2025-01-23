@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -15,6 +16,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const queryClient = new QueryClient()
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0, 
+      behavior: 'smooth'
+    });
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
@@ -23,10 +31,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="og:description" content={pageData.description} />
         <title>{pageData.title}</title>
       </Head>
-      <Header/>
-      <Component {...pageProps} />
-      <Footer/>
-      <ReactQueryDevtools initialIsOpen={false}/>
+      <Header />
+      <Component {...pageProps} className={`dsadsa`} />
+      <Footer />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }
