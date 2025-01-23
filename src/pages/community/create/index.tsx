@@ -14,27 +14,26 @@ type DropdownInfo = {
 export default function CreatePost() {
 
   const categoryInfo: DropdownInfo[] = [
-    {key: "FORUM", value: "자유"},
-    {key: "PHARMACY", value: "약국"},
-    {key: "HOSPITAL", value: "병원"},
-    {key: "MEDICATION", value: "약"},
-    {key: "SYMPTOM", value: "증상"},
-    {key: "SUPPLEMENT", value: "영양제"},
+    { key: "FORUM", value: "자유" },
+    { key: "PHARMACY", value: "약국" },
+    { key: "HOSPITAL", value: "병원" },
+    { key: "MEDICATION", value: "약" },
+    { key: "SYMPTOM", value: "증상" },
+    { key: "SUPPLEMENT", value: "영양제" },
   ]
   const countryInfo: DropdownInfo[] = [
-    {key: "NONE", value: "선택 안 함"},
-    // Swagger에는 한국이 없던데 어떻게 할지...?
-    {key: "KOREA", value: "한국"},
-    {key: "JAPAN", value: "일본"},
-    {key: "CHINA", value: "중국"},
-    {key: "USA", value: "미국"},
-    {key: "CANADA", value: "캐나다"},
-    {key: "AUSTRALIA", value: "호주"},
-    {key: "THAILAND", value: "태국"},
-    {key: "VIETNAM", value: "베트남"},
-    {key: "PHILIPPINES", value: "필리핀"},
-    {key: "SINGAPORE", value: "싱가포르"},
-    {key: "EUROPE", value: "유럽"},
+    { key: "NONE", value: "선택 안 함" },
+    { key: "KOREA", value: "한국" },
+    { key: "JAPAN", value: "일본" },
+    { key: "CHINA", value: "중국" },
+    { key: "USA", value: "미국" },
+    { key: "CANADA", value: "캐나다" },
+    { key: "AUSTRALIA", value: "호주" },
+    { key: "THAILAND", value: "태국" },
+    { key: "VIETNAM", value: "베트남" },
+    { key: "PHILIPPINES", value: "필리핀" },
+    { key: "SINGAPORE", value: "싱가포르" },
+    { key: "EUROPE", value: "유럽" },
   ]
 
   const [title, setTitle] = useState("");
@@ -71,7 +70,7 @@ export default function CreatePost() {
 
   // 추후에 url 및 데이터 구조 수정 필요
   const mutate = useCustomMutation(
-    `http://localhost:8080/community/1/posts`,
+    `http://localhost:8080/community/posts`,
     {
       title,
       content,
@@ -81,7 +80,7 @@ export default function CreatePost() {
   )
 
   const handleSubmit = async () => {
-    try{
+    try {
       await mutate()
     } catch (error) {
       console.log(error)
@@ -96,7 +95,7 @@ export default function CreatePost() {
       setIsSubmitDisabled(true)
     }
   }, [title, content, category])
-  
+
   return (
     // 게시글 작성 페이지 Container
     <div className={`pl-[260px] pr-[260px]`}>
@@ -116,9 +115,9 @@ export default function CreatePost() {
 
         {/* dropdown wrapper */}
         <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
-          
-        <Dropdown info={categoryInfo} initialText={"주제 선택"} setValue={setCategory}/>
-        <Dropdown info={countryInfo} initialText={"위치 추가"} setValue={setCountry}/>
+
+          <Dropdown info={categoryInfo} initialText={"주제 선택"} setValue={setCategory} />
+          <Dropdown info={countryInfo} initialText={"위치 추가"} setValue={setCountry} />
 
         </div>
 
@@ -167,9 +166,9 @@ export default function CreatePost() {
               id="file"
               type="file"
               className={`hidden`}
-              onChange={handleImageUpload} 
+              onChange={handleImageUpload}
               // 파일 등록 사진으로 제한
-              accept="image/*"/>
+              accept="image/*" />
 
             <p className={`text-gray-300`}>{content.length}/3000</p>
           </div>

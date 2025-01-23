@@ -47,7 +47,8 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
       {data?.data?.result?.postList.map((post: Post, index: number) => (
         <PostItem
           key={index}
-          id={post.id || 2}
+          id={index+1}
+          // id={post.id}       id 넘겨주면 수정할 계획
           isBestPost={post.isBestPost}
           category={post.category}
           title={post.title}
