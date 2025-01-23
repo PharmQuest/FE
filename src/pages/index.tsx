@@ -4,7 +4,7 @@ import FilterButton from '@/components/common/FilterButton';
 export default function Home() {
   return (
     <>
-      <div className='h-[640px] bg-[#d1e6e7] px-[260px] pt-[120px]'>
+      <div className='bg-[#d1e6e7] px-[260px] pt-[120px]'>
         <div className="flex flex-col grow">
             <div className='flex gap-5'>
                 <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex text-white font-['Pretendard Variable']">
