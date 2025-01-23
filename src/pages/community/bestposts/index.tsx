@@ -5,7 +5,6 @@ import UserNavbar from "../components/UserNavbar";
 import Posts from "../../../mocks/popularPosts";
 import { useEffect, useState } from "react";
 
-
 export default function Community() {
 
   const [position, setPosition] = useState(48);
