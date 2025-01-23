@@ -1,11 +1,11 @@
 import React from "react";
 import PopularPostItem from "./PopularPostItem";
-import popularPosts from "../../../mocks/popularPosts";
 
-const PopularPostList = () => {
+
+const PopularPostList = ({posts, bgColor = "white"}) => {
   return (
     <div className="flex flex-col gap-3 w-full">
-      {popularPosts.map((post, index) => (
+      {posts.map((post, index) => (
         <PopularPostItem
           key={index}
           id={post.id}
@@ -16,6 +16,7 @@ const PopularPostList = () => {
           likes={post.likes}
           comments={post.comments}
           scraps={post.scraps}
+          bgColor={bgColor}
         />
       ))}
     </div>
