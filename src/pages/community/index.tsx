@@ -4,14 +4,18 @@ import PopularPostList from "./components/PopularPostList";
 import UserNavbar from "./components/UserNavbar";
 import PostList from "./components/PostList";
 import { useState } from "react";
+import { ArrowRightIcon } from "@public/svgs";
+import { useRouter } from "next/router";
 
-interface Category{
+interface Category {
   value: string;
   text: string;
   isSelected: boolean;
 }
 
 export default function Community() {
+
+  const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>([
     { value: "ALL", text: "전체", isSelected: true },
@@ -27,11 +31,11 @@ export default function Community() {
 
   const handleFilterButton = (category: Category) => {
     setCategory(category.value)
-    setCategories((prev) => 
-      prev.map(item => 
-        item.value === category.value 
-        ? { ...item, isSelected: true } 
-        : { ...item, isSelected: false }
+    setCategories((prev) =>
+      prev.map(item =>
+        item.value === category.value
+          ? { ...item, isSelected: true }
+          : { ...item, isSelected: false }
       )
     )
   }
@@ -39,10 +43,23 @@ export default function Community() {
   return (
     <div>
       <div className="px-[260px] mt-9">
-        <p className="text-display2-b text-gray-600">BEST 인기글</p>
         <div className="flex flex-row gap-x-4 mt-3">
-          <PopularPostList />
-          <UserNavbar />
+          <div className={`flex flex-col`}>
+            <div className={`flex justify-between mb-3`}>
+              <p className="text-display2-b text-gray-600">BEST 인기글</p>
+              <p
+                className={`flex text-gray-400 text-subhead1-sb items-center gap-2 cursor-pointer mr-2`}
+                onClick={() => router.push('/community/bestposts')}>
+                더보기
+                <ArrowRightIcon className={`content-center mb-0.5`} />
+              </p>
+            </div>
+            <PopularPostList />
+          </div>
+          <div>
+            <p className={`h-9 mb-3`} />
+            <UserNavbar />
+          </div>
         </div>
         <div className="flex flex-row items-center gap-3 mt-20 mb-4">
           <p className="text-display2-b text-gray-600">게시글</p>
@@ -53,6 +70,12 @@ export default function Community() {
               isSelected={category.isSelected}
               onClickFn={() => handleFilterButton(category)} />
           ))}
+          <p
+            className={`flex text-gray-400 text-subhead1-sb items-center gap-2 cursor-pointer ml-auto mt-3`}
+            onClick={() => router.push('/community/posts')}>
+            더보기
+            <ArrowRightIcon className={`content-center mb-0.5`} />
+          </p>
         </div>
         <PostList category={category} />
       </div>
