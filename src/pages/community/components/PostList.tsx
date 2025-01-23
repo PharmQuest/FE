@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostItem from "./PostItem";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -18,16 +18,26 @@ interface Post {
 
 const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // 클라이언트 측에서만 실행되도록 설정
+  }, []);
+
   const {data} = useQuery(
     {
       queryKey: ['posts', category],
-      queryFn: async () => await axios.get("http://localhost:8080/community/posts/lists",{
-        params: {
-          category,
-          page: 1,
-        }
-      }),
+      queryFn: async () => {
+        const response = await axios.get("http://localhost:8080/community/posts/lists",{
+          params: {
+            category,
+            page: 1,
+          }
+        })
+        return response.data;
+    },
       placeholderData: keepPreviousData,
+      enabled: isClient,
     },
   );
 
@@ -44,7 +54,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
           <p>스크랩</p>
         </div>
       </div>
-      {data?.data?.result?.postList.map((post: Post, index: number) => (
+      {data?.result?.postList.map((post: Post, index: number) => (
         <PostItem
           key={index}
           id={index+1}
