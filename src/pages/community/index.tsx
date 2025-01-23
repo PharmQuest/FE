@@ -6,6 +6,7 @@ import PostList from "./components/PostList";
 import { useState } from "react";
 import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
+import popularPosts from "@/mocks/popularPosts";
 
 interface Category {
   value: string;
@@ -54,7 +55,7 @@ export default function Community() {
                 <ArrowRightIcon className={`content-center mb-0.5`} />
               </p>
             </div>
-            <PopularPostList />
+            <PopularPostList posts={popularPosts.slice(0, 3)} bgColor={"primary-50"}/>
           </div>
           <div>
             <p className={`h-9 mb-3`} />
