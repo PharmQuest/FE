@@ -31,7 +31,7 @@ const Search: React.FC<SearchProps> = ({
           <MapPinIcon className={`${pathName === '/' ? `w-7` : `w-5`}`} />
           <p className={`${pathName === '/' ? `w-[35px] text-headline-m` : `w-7 text-body1-r`}`}>{countryLabel}</p>
         </button>
-        <SearchBar />
+        <SearchBar className={`${pathName === '/' ? `h-[22px]` : `h-4`}`}/>
         <div className={`flex gap-2 grow`}>
           <SearchIcon className={`${pathName === '/' ? `w-[30px]` : `w-6`}`} />
           <input
