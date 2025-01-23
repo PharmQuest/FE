@@ -4,7 +4,7 @@ import FilterButton from '@/components/common/FilterButton';
 export default function Home() {
   return (
     <>
-      <div className='h-[640px] bg-[#d1e6e7] px-[260px] pt-[120px]'>
+      <div className='bg-[#d1e6e7] px-[260px] pt-[120px]'>
         <div className="flex flex-col grow">
             <div className='flex gap-5'>
                 <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex text-white font-['Pretendard Variable']">
@@ -31,14 +31,14 @@ export default function Home() {
             <input placeholder="복통약" className="text-[#999999] text-xl font-medium font-['Pretendard Variable'] leading-[30px]"></input>
             </div> */}
                 <div className='flex gap-3 mt-4'>
-                <FilterButton text='진통/해열'/>
-                <FilterButton text='소화/위장'/>
-                <FilterButton text='감기/기침'/>
-                <FilterButton text='알레르기'/>
-                <FilterButton text='상처/소독'/>
-                <FilterButton text='멀미'/>
-                <FilterButton text='안약'/>
-                <FilterButton text='기타'/>
+                <FilterButton text='진통/해열' isHomeButton={true}/>
+                <FilterButton text='소화/위장' isHomeButton={true}/>
+                <FilterButton text='감기/기침' isHomeButton={true}/>
+                <FilterButton text='알레르기' isHomeButton={true}/>
+                <FilterButton text='상처/소독' isHomeButton={true}/>
+                <FilterButton text='멀미' isHomeButton={true}/>
+                <FilterButton text='안약' isHomeButton={true}/>
+                <FilterButton text='기타' isHomeButton={true}/>
                 </div>
                 <div className="mb-6 mt-12 text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
             </div>
