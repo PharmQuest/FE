@@ -4,22 +4,32 @@ import CommentList from "../components/CommentList";
 import PostList from "../../components/PostList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import axios from "axios";
 import axiosPOSTInstance from "../../apis/axios-instance";
+import { useEffect, useState } from "react";
 
 export default function Post() {
   const params = useParams() || {};
   const postId = params.postId || null;
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // 클라이언트 측에서만 실행되도록 설정
+  }, []);
+
   const { data } = useQuery(
     {
       queryKey: ['post', postId],
-      queryFn: async () => await axiosPOSTInstance.get(`http://localhost:8080/community/posts/${postId}`),
+      queryFn: async () => {
+        const response = await axiosPOSTInstance.get(`http://localhost:8080/community/posts/${postId}`)
+        return response.data;
+      },
       placeholderData: keepPreviousData,
-      enabled: !!postId,
+      enabled: !!postId && isClient,
     },
   );
 
-  const postItem = data?.data?.result
+  const postItem = data?.result
 
   const formattedCategory = (category: string) => {
     switch (category) {
