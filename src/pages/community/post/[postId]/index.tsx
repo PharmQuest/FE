@@ -4,7 +4,7 @@ import CommentList from "../components/CommentList";
 import PostList from "../../components/PostList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import axiosPOSTInstance from "../../apis/axios-instance";
+import axiosPOSTInstance from "@/apis/axios-instance";
 import { useEffect, useState } from "react";
 
 export default function Post() {
