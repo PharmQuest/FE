@@ -1,4 +1,15 @@
-<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M22.5 7.5L7.5 22.5" stroke="#333333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.5 7.5L22.5 22.5" stroke="#333333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    id="Union"
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M15.707 1.707C16.098 1.317 16.098 0.683 15.707 0.293C15.317 -0.098 14.683 -0.098 14.293 0.293L8 6.586 1.707 0.293C1.317 -0.098 0.683 -0.098 0.293 0.293-0.098 0.683-0.098 1.317 0.293 1.707L6.586 8 0.293 14.293C-0.098 14.683-0.098 15.317 0.293 15.707 0.683 16.098 1.317 16.098 1.707 15.707L8 9.414 14.293 15.707C14.683 16.098 15.317 16.098 15.707 15.707 16.098 15.317 16.098 14.683 15.707 14.293L9.414 8 15.707 1.707Z"
+    fill="#282828"
+  />
 </svg>
