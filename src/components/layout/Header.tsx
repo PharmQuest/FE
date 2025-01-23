@@ -30,27 +30,27 @@ const Header = () => {
           <div className={`
             flex items-center
             // 1001px 이상
-            xl:max-px-[260px] xl:w-[900px]
+            xl:max-px-[260px] xl:w-[900px] xl:gap-12
             // 1000px일 때
-            lg:px-[50px] lg:w-[900px]
+            lg:w-[900px] 
             `}>
             <LogoIcon className="min-w-fit cursor-pointer" onClick={() => router.push("/")}/>
-            <div className="whitespace-nowrap flex grow ml-[52px] h-[46px] justify-between items-center">
+            <div className="whitespace-nowrap flex grow h-[46px] justify-between items-center">
               <button
                 onClick={() => router.push("/medicines")}
-                className="grow px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 상비약 리스트
               </button>
               <button
                 onClick={() => router.push("/map")}
-                className="grow px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 약국 찾기
               </button>
               <button
                 onClick={() => router.push("/community")}
-                className="grow px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-1 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 커뮤니티
                 {/* 로그인하면 보임 */}
@@ -65,7 +65,7 @@ const Header = () => {
               </button>
               <button
                 onClick={() => router.push("/supplements")}
-                className="grow px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 해외 인기 영양제
               </button>
