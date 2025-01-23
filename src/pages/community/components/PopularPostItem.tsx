@@ -13,6 +13,7 @@ interface PopularPostItemProps {
   likes: number; // 좋아요 개수
   comments: number; // 댓글 개수
   scraps: number; // 스크랩 개수
+  bgColor?: string; // 배경색
 }
 
 const PopularPostItem: React.FC<PopularPostItemProps> = ({
@@ -24,12 +25,13 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
   likes,
   comments,
   scraps,
+  bgColor,
 }) => {
   const router = useRouter();
 
   return (
     <div
-      className="flex flex-col w-auto h-[117px] gap-2 px-5 py-4 bg-primary-50 rounded-lg cursor-pointer"
+      className={`flex flex-col w-auto h-[117px] gap-2 px-5 py-4 bg-${bgColor} rounded-lg cursor-pointer`}
       onClick={() => {
         router.push(`/community/post/${id}`);
       }}
@@ -39,7 +41,7 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
         <p className="text-subhead1-sb">{title}</p>
         <Tag variant="best" />
       </div>
-      <p className="text-body1-r text-gray-500">{content}</p>
+      <p className="text-body1-r text-gray-500 truncate">{content}</p>
       <div className="flex flex-row justify-between text-body2-r text-gray-400">
         <p>{date}</p>
         <div className="flex flex-row gap-[10px]">
