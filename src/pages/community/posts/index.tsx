@@ -4,6 +4,7 @@ import UserNavbar from "../components/UserNavbar";
 import { useEffect, useState } from "react";
 import PostList from "../components/PostList";
 import FilterButton from "@/components/common/FilterButton";
+import { useRouter } from "next/router";
 
 interface Category {
   value: string;
@@ -12,6 +13,8 @@ interface Category {
 }
 
 export default function Community() {
+
+  const router = useRouter();
 
   const [position, setPosition] = useState(48);
 
@@ -36,6 +39,9 @@ export default function Community() {
           : { ...item, isSelected: false }
       )
     )
+    router.push({
+      pathname: router.pathname,
+    })
   }
 
   const handleScroll = () => {
@@ -57,7 +63,7 @@ export default function Community() {
       <div className="px-[260px] mt-9">
         <div className="flex flex-row gap-x-4 mt-3 ">
           <div className={`flex flex-col grow`}>
-            <div className="flex flex-row items-center gap-3 mt-20 mb-4">
+            <div className="flex flex-row items-center gap-3 mb-4">
               <p className="text-display2-b text-gray-600">게시글</p>
               {categories.map((category) => (
                 <FilterButton
