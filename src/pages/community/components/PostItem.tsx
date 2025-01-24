@@ -36,7 +36,7 @@ const PostItem: React.FC<PostItemProps> = ({
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
   return (
-    <div className="py-3 grid grid-cols-[1fr_8fr_5fr] gap-2 border-b border-solid border-gray-100">
+    <div className="py-3 grid grid-cols-[1fr_7fr_6fr] gap-2 border-b border-solid border-gray-100">
       
       <SubjectTag text={category} />
       <div
@@ -50,7 +50,7 @@ const PostItem: React.FC<PostItemProps> = ({
       </div>
       
       
-      <div className="grid grid-cols-[7fr_7fr_4fr_4fr_4fr] text-center text-body2-r text-gray-300 w-full">
+      <div className="grid grid-cols-[7fr_7fr_4fr_4fr_5fr] text-center text-body2-r text-gray-300 w-full">
         <p>{user}</p>
         <p>{formattedDate}</p>
         <p>{likeCount}</p>
