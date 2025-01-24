@@ -30,7 +30,7 @@ export default function Community() {
         <div className="flex flex-row gap-x-4 mt-3 ">
           <div className={`flex flex-col grow`}>
             <div className={`flex justify-between mb-3`}>
-              <p className="text-display2-b text-gray-600">BEST 인기글</p>
+              <p className="text-display2-b text-gray-600 mx-5">BEST 인기글</p>
             </div>
             <PopularPostList posts={Posts} />
           </div>

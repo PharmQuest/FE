@@ -15,11 +15,12 @@ interface Post{
 interface PopularPostListProps {
   posts: Post[];
   bgColor?: string;
+  gap?: number;
 }
 
-const PopularPostList: React.FC<PopularPostListProps> = ({posts, bgColor = "white"}) => {
+const PopularPostList: React.FC<PopularPostListProps> = ({posts, bgColor = "white", gap=0}) => {
   return (
-    <div className="flex flex-col gap-3 w-full">
+    <div className={`flex flex-col gap-${gap} w-full`}>
       {posts?.map((post, index) => (
         <PopularPostItem
           key={index}

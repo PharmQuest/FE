@@ -55,7 +55,7 @@ export default function Community() {
                 <ArrowRightIcon className={`content-center mb-0.5`} />
               </p>
             </div>
-            <PopularPostList posts={popularPosts.slice(0, 3)} bgColor={"primary-50"}/>
+            <PopularPostList posts={popularPosts.slice(0, 3)} bgColor={"primary-50"} gap={3}/>
           </div>
           <div>
             <p className={`h-9 mb-3`} />

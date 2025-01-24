@@ -31,7 +31,7 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
 
   return (
     <div
-      className={`flex flex-col w-auto h-[117px] gap-2 px-5 py-4 bg-${bgColor} rounded-lg cursor-pointer`}
+      className={`flex flex-col w-auto h-[117px] gap-2 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === 'white' ? `mx-5 py-4` : `px-5 py-4 rounded-lg`}`}
       onClick={() => {
         router.push(`/community/post/${id}`);
       }}
