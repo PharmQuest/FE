@@ -27,11 +27,11 @@ const Header = () => {
       <div
         className={`hidden lg:flex grow justify-center items-center h-[110px] w-full bg-background`}>
           <div className={`
-            flex items-center
+            flex items-center w-[900px] gap-12
             // 1001px 이상
-            xl:max-px-[260px] xl:w-[900px] xl:gap-12
+            xl:px-auto
             // 1000px일 때
-            lg:w-[900px]  lg:gap-12
+            lg:px-[50px]
             `}>
             <LogoIcon className="min-w-fit cursor-pointer" onClick={() => router.push("/")}/>
             <div className="whitespace-nowrap flex grow h-[46px] justify-between items-center">
