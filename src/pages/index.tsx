@@ -17,31 +17,18 @@ export default function Home() {
                 </button>
             </div>
             <Search/>
-            {/* 내가 만든 검색 버튼 */}
-            {/* <div className="w-[797px] h-[54px] pl-6 py-3 bg-white rounded-full justify-start items-center gap-3 inline-flex mt-10 ml-[260px]">
-            <img
-                src="/svgs/search.svg"
-                alt="검색아이콘"
-                className="w-6 h-6"
-            />
-            <div className="w-[30px] h-[30px] relative  overflow-hidden">
-                <div className="w-[22.50px] h-[22.50px] left-[3.75px] top-[3.75px] absolute">
-                </div>
+            <div className='flex gap-3 mt-4'>
+            <FilterButton text='진통/해열' isHomeButton={true}/>
+            <FilterButton text='소화/위장' isHomeButton={true}/>
+            <FilterButton text='감기/기침' isHomeButton={true}/>
+            <FilterButton text='알레르기' isHomeButton={true}/>
+            <FilterButton text='상처/소독' isHomeButton={true}/>
+            <FilterButton text='멀미' isHomeButton={true}/>
+            <FilterButton text='안약' isHomeButton={true}/>
+            <FilterButton text='기타' isHomeButton={true}/>
             </div>
-            <input placeholder="복통약" className="text-[#999999] text-xl font-medium font-['Pretendard Variable'] leading-[30px]"></input>
-            </div> */}
-                <div className='flex gap-3 mt-4'>
-                <FilterButton text='진통/해열' isHomeButton={true}/>
-                <FilterButton text='소화/위장' isHomeButton={true}/>
-                <FilterButton text='감기/기침' isHomeButton={true}/>
-                <FilterButton text='알레르기' isHomeButton={true}/>
-                <FilterButton text='상처/소독' isHomeButton={true}/>
-                <FilterButton text='멀미' isHomeButton={true}/>
-                <FilterButton text='안약' isHomeButton={true}/>
-                <FilterButton text='기타' isHomeButton={true}/>
-                </div>
-                <div className="mb-6 mt-12 text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
-            </div>
+            <div className="mb-6 mt-12 text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
+        </div>
         </div>
         <div className='h-[366px] bg-white flex grow flex-col px-[260px]'>
           <button className="mt-10 h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] text-[28px] font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
