@@ -2,6 +2,8 @@
 import PostItem from "./PostItem";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import PageNavigator from "./PageNavigator";
+import { useRouter } from "next/router";
 
 interface Post {
   id: number;
@@ -18,11 +20,14 @@ interface Post {
 
 const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
 
+  const router = useRouter();
+  const page = router.query.page ? parseInt(router.query.page as string, 10) : 1;
+
   const getPosts = async () => {
     const response = await axios.get("http://localhost:8080/community/posts/lists",{
       params: {
         category,
-        page: 1,
+        page: page,
       }
     });
     return response.data;
@@ -30,7 +35,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
 
   const {data} = useQuery(
     {
-      queryKey: ['posts', category],
+      queryKey: ['posts', category, page],
       queryFn: getPosts,
       placeholderData: keepPreviousData,
     },
@@ -65,6 +70,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
           scrapeCount={post.scrapeCount}
         />
       ))}
+      <PageNavigator totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast}/>
     </div>
   );
 };
