@@ -84,7 +84,7 @@ export default function Home() {
                 </div>
             </div>
             {/* 광고 */}
-            <div className="ml-auto w-[293px] text-white ml-[21px] mt-4 h-[215px] bg-gradient-to-b from-black to-black">
+            <div className="ml-auto w-[293px] text-white mt-4 h-[215px] bg-gradient-to-b from-black to-black">
                 {/* 광고 넘기기 버튼 */}
                 <div className='flex justify-center items-center ml-[192.57px] mt-[183px] gap-[9px]'>
                     <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&lt;</button>
