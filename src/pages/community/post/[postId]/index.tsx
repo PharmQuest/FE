@@ -5,17 +5,10 @@ import PostList from "../../components/PostList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import axiosPOSTInstance from "@/apis/axios-instance";
-import { useEffect, useState } from "react";
 
 export default function Post() {
   const params = useParams() || {};
   const postId = params.postId || null;
-
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true); // 클라이언트 측에서만 실행되도록 설정
-  }, []);
 
   const { data } = useQuery(
     {
@@ -25,7 +18,6 @@ export default function Post() {
         return response.data;
       },
       placeholderData: keepPreviousData,
-      enabled: !!postId && isClient,
     },
   );
 

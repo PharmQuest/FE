@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+
 import PostItem from "./PostItem";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -18,35 +18,30 @@ interface Post {
 
 const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true); // 클라이언트 측에서만 실행되도록 설정
-  }, []);
+  const getPosts = async () => {
+    const response = await axios.get("http://localhost:8080/community/posts/lists",{
+      params: {
+        category,
+        page: 1,
+      }
+    });
+    return response.data;
+  }
 
   const {data} = useQuery(
     {
       queryKey: ['posts', category],
-      queryFn: async () => {
-        const response = await axios.get("http://localhost:8080/community/posts/lists",{
-          params: {
-            category,
-            page: 1,
-          }
-        })
-        return response.data;
-    },
+      queryFn: getPosts,
       placeholderData: keepPreviousData,
-      enabled: isClient,
     },
   );
 
   return (
     <div className="flex flex-col">
-      <div className="py-3 grid grid-cols-[1fr_8fr_5fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300">
+      <div className="py-3 grid grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300">
         <p>주제</p>
         <p>제목</p>
-        <div className="grid grid-cols-[7fr_7fr_4fr_4fr_4fr] text-center w-full">
+        <div className="grid grid-cols-[7fr_7fr_4fr_4fr_5fr] text-center w-full">
           <p>작성자</p>
           <p>등록일</p>
           <p>추천</p>
