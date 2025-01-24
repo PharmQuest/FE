@@ -31,7 +31,7 @@ const Header = () => {
             // 1001px 이상
             xl:max-px-[260px] xl:w-[900px] xl:gap-12
             // 1000px일 때
-            lg:w-[900px] 
+            lg:w-[900px]  lg:gap-12
             `}>
             <LogoIcon className="min-w-fit cursor-pointer" onClick={() => router.push("/")}/>
             <div className="whitespace-nowrap flex grow h-[46px] justify-between items-center">
