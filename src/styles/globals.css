@@ -41,3 +41,11 @@
     list-style: none;
   }
 }
+/* 스크롤바 숨기기 스타일 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
