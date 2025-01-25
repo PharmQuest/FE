@@ -6,8 +6,8 @@ import PageNavigator from "./PageNavigator";
 import { useRouter } from "next/router";
 
 interface Post {
-  id: number;
-  user: string;
+  postId: number;
+  userName: string;
   title: string;
   content: string;
   category: string;
@@ -24,10 +24,10 @@ const PostList: React.FC<{category?: string, isHiddenPage?: boolean }> = ({ cate
   const page = router.query.page ? parseInt(router.query.page as string, 10) : 1;
 
   const getPosts = async () => {
-    const response = await axios.get("http://localhost:8080/community/posts/lists",{
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`,{
       params: {
         category,
-        page: page,
+        page,
       }
     });
     return response.data;
@@ -57,13 +57,12 @@ const PostList: React.FC<{category?: string, isHiddenPage?: boolean }> = ({ cate
       {data?.result?.postList.map((post: Post, index: number) => (
         <PostItem
           key={index}
-          id={index+1}
-          // id={post.id}       id 넘겨주면 수정할 계획
+          postId={post.postId}  
           isBestPost={post.isBestPost}
           category={post.category}
           title={post.title}
           content={post.content}
-          user={post.user}
+          userName={post.userName}
           createdAt={post.createdAt}
           likeCount={post.likeCount}
           commentCount={post.commentCount || 0}
