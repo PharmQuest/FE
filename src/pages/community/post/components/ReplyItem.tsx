@@ -4,7 +4,7 @@ import {
   KebabIcon,
   LikeIcon,
 } from "@public/svgs";
-import React from "react";
+import React, { useState } from "react";
 import Tag from "../../components/Tag";
 
 interface ReplyItemProps {
@@ -23,6 +23,14 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   likes,
   parentWriter,
 }) => {
+
+  const [isLike, setIsLike] = useState(false);
+
+  const handleLike = () => {
+    setIsLike(!isLike);
+  }
+
+
   return (
     <div>
       <div className="flex flex-col gap-2 pl-10 pr-3 py-5 border-b border-solid border-gray-100">
@@ -43,7 +51,10 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
           <p>{date}</p>
           <div className="flex flex-row gap-[10px]">
             <div className="flex flex-row">
-              <LikeIcon className="cursor-pointer mr-[2px]" />
+              <LikeIcon 
+                fill={isLike ? "#FF8686" : "none"}
+                className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
+                onClick={() => handleLike()}/>
               {likes}
             </div>
             <div className="flex flex-row cursor-pointer">
