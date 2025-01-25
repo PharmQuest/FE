@@ -10,7 +10,7 @@ const CommentList = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-gray-50 p-5">
       {comments.map((comment) => {
         if (comment.parentId) {
           // 답글
