@@ -43,7 +43,7 @@ export default function Community() {
 
   return (
     <div>
-      <div className="px-[260px] mt-9">
+      <div className="max-w-[900px] mx-auto mt-9">
         <div className="flex flex-row gap-x-4 mt-3">
           <div className={`flex flex-col`}>
             <div className={`flex justify-between mb-3`}>

@@ -98,7 +98,7 @@ export default function CreatePost() {
 
   return (
     // 게시글 작성 페이지 Container
-    <div className={`pl-[260px] pr-[260px]`}>
+    <div className={`max-w-[900px] mx-auto`}>
       <div className={`flex mt-[48px] mb-[12px] justify-between`}>
         <h1 className={`text-display2-b text-gray-600`}>
           게시글 작성

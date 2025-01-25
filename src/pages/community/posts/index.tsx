@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import PostList from "../components/PostList";
 import FilterButton from "@/components/common/FilterButton";
 import { useRouter } from "next/router";
+import useScroll from "../hooks/useScroll";
 
 interface Category {
   value: string;
@@ -17,7 +18,7 @@ export default function Posts() {
   const router = useRouter();
   const categoryQuery = router.query.category as string || "ALL";
 
-  const [position, setPosition] = useState(48);
+  const {position, handleScroll} = useScroll(700);
 
   const [categories, setCategories] = useState<Category[]>([
     { value: "ALL", text: "전체", isSelected: true },
@@ -48,12 +49,6 @@ export default function Posts() {
     })
   }
 
-  const handleScroll = () => {
-    // 추후 throttling 적용 예정
-    const scrollTop = (window.scrollY - 148 > 48) ? (window.scrollY - 148) : 48;
-    setPosition(scrollTop);
-  };
-
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
@@ -63,8 +58,8 @@ export default function Posts() {
   }, []);
 
   return (
-    <div className={`relative overflow-hidden`}>
-      <div className="px-[260px] mt-9">
+    <div className={`overflow-hidden min-h-[calc(100vh-169px-188px)]`}>
+      <div className="max-w-[900px] mx-auto mt-9 min-h-[460px]">
         <div className="flex flex-row gap-x-4 mt-3 ">
           <div className={`flex flex-col grow`}>
             <div className="flex flex-row items-center gap-3 mb-4">
