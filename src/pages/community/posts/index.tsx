@@ -12,9 +12,10 @@ interface Category {
   isSelected: boolean;
 }
 
-export default function Community() {
+export default function Posts() {
 
   const router = useRouter();
+  const categoryQuery = router.query.category as string || "ALL";
 
   const [position, setPosition] = useState(48);
 
@@ -28,19 +29,22 @@ export default function Community() {
     { value: "SUPPLEMENT", text: "영양제", isSelected: false },
   ]);
 
-  const [category, setCategory] = useState("ALL");
+  useEffect(() => {
+    setCategories((prevCategories) =>
+      prevCategories.map((category) => ({
+        ...category,
+        isSelected: category.value === categoryQuery, // Match value with categoryQuery
+      }))
+    );
+  }, [categoryQuery]);
+
+  const [category, setCategory] = useState(router.query.category as string || "ALL");
 
   const handleFilterButton = (category: Category) => {
     setCategory(category.value)
-    setCategories((prev) =>
-      prev.map(item =>
-        item.value === category.value
-          ? { ...item, isSelected: true }
-          : { ...item, isSelected: false }
-      )
-    )
     router.push({
       pathname: router.pathname,
+      query: {category: category.value}
     })
   }
 
@@ -73,7 +77,7 @@ export default function Community() {
                   onClickFn={() => handleFilterButton(category)} />
               ))}
             </div>
-            <PostList category={category} isHiddenPage={false}/>
+            <PostList category={category} isHiddenPage={false} />
           </div>
 
           <div className={`relative transition-all duration-500 ease-out`}
