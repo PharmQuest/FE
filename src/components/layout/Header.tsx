@@ -29,7 +29,6 @@ const Header = () => {
           <div className={`
             flex items-center w-[900px] gap-12
             // 1001px 이상
-            xl:px-auto
             // 1000px일 때
             lg:px-[50px]
             `}>
