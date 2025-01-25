@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { format } from "date-fns";
 
 interface PostItemProps {
-  id: number;
-  user: string;
+  postId: number;
+  userName: string;
   title: string;
   content: string;
   category: string;
@@ -18,8 +18,8 @@ interface PostItemProps {
 }
 
 const PostItem: React.FC<PostItemProps> = ({
-  id,
-  user,
+  postId,
+  userName,
   title,
   // eslint-disable-next-line
   content,
@@ -41,7 +41,7 @@ const PostItem: React.FC<PostItemProps> = ({
       <SubjectTag text={category} />
       <div
         className="truncate flex text-body1-r text-gray-500 cursor-pointer gap-2"
-        onClick={() => router.push(`/community/post/${id}`)}
+        onClick={() => router.push(`/community/post/${postId}`)}
       >
         <p className={`max-w-[428px] truncate`}>
           {title}
@@ -51,7 +51,7 @@ const PostItem: React.FC<PostItemProps> = ({
       
       
       <div className="grid grid-cols-[7fr_7fr_4fr_4fr_5fr] text-center text-body2-r text-gray-300 w-full">
-        <p>{user}</p>
+        <p>{userName}</p>
         <p>{formattedDate}</p>
         <p>{likeCount}</p>
         <p>{commentCount}</p>

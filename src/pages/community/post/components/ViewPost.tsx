@@ -1,8 +1,7 @@
 import {
   CommentIcon,
-  ExternalIcon,
+  KebabIcon,
   LikeIcon,
-  ReportIcon,
   ScrapIcon,
 } from "@public/svgs";
 import Tag from "../../components/Tag";
@@ -14,7 +13,7 @@ interface ViewPostProps {
   category: string;
   title: string;
   isBestPost?: boolean;
-  user: string;
+  userName: string;
   createdAt: string;
   content: string;
   likeCount: number;
@@ -26,7 +25,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
   isBestPost = false,
   category,
   title,
-  user,
+  userName,
   createdAt,
   content,
   likeCount,
@@ -47,23 +46,22 @@ const ViewPost: React.FC<ViewPostProps> = ({
         </div>
 
         <div className="flex flex-row gap-5 text-body1-r text-gray-300">
-          <p>{user}</p> |<p>{formattedDate}</p>
+          <p>{userName}</p> 
+          | 
+          <p>{formattedDate}</p> 
+          <KebabIcon onClick={() => {}}/>
         </div>
       </div>
 
       <div className="mt-8 mb-12 text-body1-r text-gray-500">{content}</div>
 
-      <div className="flex flex-row justify-between text-gray-400">
+      <div className="flex flex-row justify-end text-gray-400">
         <div className="flex flex-row text-subhead1-sb items-center gap-0.5">
           <LikeIcon /> {likeCount}
           <CommentIcon className="ml-3" />
           {comments}
           <ScrapIcon className="ml-3" />
           {scrapeCount}
-        </div>
-        <div className="flex flex-row gap-1 text-subhead2-sb items-center">
-          <ExternalIcon /> URL 복사
-          <ReportIcon className="ml-4" /> 신고하기
         </div>
       </div>
     </div>
