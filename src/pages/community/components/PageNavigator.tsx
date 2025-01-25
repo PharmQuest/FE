@@ -10,7 +10,7 @@ const PageNavigator = ({ totalPage, isFirst, isLast, isHiddenPage }: { totalPage
   const pageNavigate = (page: number) => {
     router.push({
       pathname: pathName,
-      query: { page: page }
+      query: { ...router.query, page: page }
     })
   }
 
