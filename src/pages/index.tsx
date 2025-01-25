@@ -80,11 +80,12 @@ export default function Home() {
                     <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] lg:text-[28px] text-xl font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
                     <div className='flex
                                     // 1000px 이상
-                                    lg:flex-row
+                                    lg:flex-row lg:justify-between
                                     // 1000px 이하
                                     flex-col'>
                         {/* 커뮤니티 */}
-                        <div className="lg:mt-4 mt-5 lg:mb-4 mb-3 mr-4 h-[220px] flex-col justify-start items-start inline-flex">
+                        <div className="lg:w-[500px] lg:mt-4 lg:mb-4
+                                        mt-5 mb-3 mr-4 h-[220px] flex-col justify-start items-start flex">
                             {/* 베스트 글 */}
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
                                 <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
@@ -137,29 +138,31 @@ export default function Home() {
                             </div>
                         </div>
                         {/* 광고 */}
-                        <div className="w-full flex justify-center lg:justify-end">
-                            <div className="lg:w-[287px] lg:h-[215px]
-                                            // 641px-999px
-                                            md:w-[601px] md:h-[240px]
-                                            // 393px-640px
-                                            sm:w-[353px] sm:h-[238px]
-                                            // 393이하
-                                            w-[353px] h-[238px]
+                        <div className="w-full flex justify-center lg:justify-end lg:w-[287px]">
+                            <div className="relative
+                                            // 1000px 이상 (lg)
+                                            lg:w-[287px] lg:h-[215px]
+                                            // 641px-999px (md)
+                                            md:max-w-[601px] md:w-full md:h-[240px]
+                                            // 393px-640px (sm)
+                                            sm:w-full sm:h-[238px]
+                                            // 393px 미만
+                                            w-full max-w-[601px] h-[238px]
                                             text-white mt-4 bg-gradient-to-b from-black to-black">
                                 {/* 광고 넘기기 버튼 */}
-                                <div className='flex justify-center items-center ml-[192.57px] mt-[183px] gap-[9px]'>
+                                <div className='absolute right-[20px] bottom-[18px] flex justify-center items-center gap-[9px]'>
                                     <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&lt;</button>
                                     <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
                                     <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
                                     <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                                    <button className="mr-[22.05px] w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&gt;</button>
+                                    <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&gt;</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>       
+        </div> 
     </>
   );
 }
