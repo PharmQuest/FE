@@ -5,7 +5,8 @@ export default function Home() {
   return (
     <>
         <div className='bg-[#d1e6e7] pb-[36px] flex justify-center'>
-            <div className=" flex flex-col //grow
+            {/* 1000px 이상일 때 */}
+            <div className="hidden lg:flex lg:flex-col //grow
                             // 1001 ~ 1440px
                             xl:w-[900px]
                             // 1000일 때
@@ -21,7 +22,7 @@ export default function Home() {
                     </button>
                 </div>
                 <Search/>
-                <div className='flex gap-3 mt-4'>
+                <div className='flex lg:gap-3 gap-2 mt-4'>
                     <FilterButton text='진통/해열' isHomeButton={true}/>
                     <FilterButton text='소화/위장' isHomeButton={true}/>
                     <FilterButton text='감기/기침' isHomeButton={true}/>
@@ -32,6 +33,35 @@ export default function Home() {
                     <FilterButton text='기타' isHomeButton={true}/>
                 </div>
                 <div className="mt-[36px] text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, 해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
+            </div>
+            {/* 1000px 미만일 때 */}
+            <div className='lg:hidden
+                            // 태블릿 (642px-999px)
+                            md:w-[601px]
+                            // 모바일 (641px 미만)
+                            w-full px-5'>
+                <div className="text-center text-[#999999] text-sm font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, <br/>해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
+                <div className='flex gap-4 mt-5 justify-center'>
+                    <button className=" w-[173px] h-[114px] px-4 py-5 bg-[#138e5d] rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']">
+                        <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">상비약 리스트 &gt;</div>
+                        <div className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">증상 및 약 이름을 검색하고 필요한<br/>상비약 정보를 얻을 수 있어요.</div>
+                    </button>
+                    <button className="mb-10 w-[173px] h-[114px] px-4 py-5 bg-[#006367] rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']">
+                        <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">약국 찾기 &gt;</div>
+                        <div className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">근처에 있는 약국을 검색하고<br/>길 찾기 서비스를 받을 수 있어요.</div>
+                    </button>
+                </div>
+                <Search/>
+                <div className='flex gap-3 mt-4'>
+                    <FilterButton text='진통/해열' isHomeButton={true}/>
+                    <FilterButton text='소화/위장' isHomeButton={true}/>
+                    <FilterButton text='감기/기침' isHomeButton={true}/>
+                    <FilterButton text='알레르기' isHomeButton={true}/>
+                    <FilterButton text='상처/소독' isHomeButton={true}/>
+                    <FilterButton text='멀미' isHomeButton={true}/>
+                    <FilterButton text='안약' isHomeButton={true}/>
+                    <FilterButton text='기타' isHomeButton={true}/>
+                </div>
             </div>
         </div>
         <div className='bg-white flex justify-center'>
