@@ -73,7 +73,7 @@ export default function Community() {
                   onClickFn={() => handleFilterButton(category)} />
               ))}
             </div>
-            <PostList category={category} />
+            <PostList category={category} isHiddenPage={false}/>
           </div>
 
           <div className={`relative transition-all duration-500 ease-out`}
