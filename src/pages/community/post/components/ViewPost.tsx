@@ -6,7 +6,7 @@ import {
 } from "@public/svgs";
 import Tag from "../../components/Tag";
 import SubjectTag from "../../components/SubjectTag";
-import React from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 
 interface ViewPostProps {
@@ -32,9 +32,14 @@ const ViewPost: React.FC<ViewPostProps> = ({
   comments,
   scrapeCount,
 }) => {
-
   const date = new Date(createdAt);
-    const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
+  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
+
+  const [isLike, setIsLike] = useState(false);
+
+  const handleLike = () => {
+    setIsLike(!isLike);
+  }
 
   return (
     <div className="mt-11 mb-8">
@@ -46,10 +51,10 @@ const ViewPost: React.FC<ViewPostProps> = ({
         </div>
 
         <div className="flex flex-row gap-5 text-body1-r text-gray-300">
-          <p>{userName}</p> 
-          | 
-          <p>{formattedDate}</p> 
-          <KebabIcon onClick={() => {}}/>
+          <p>{userName}</p>
+          |
+          <p>{formattedDate}</p>
+          <KebabIcon onClick={() => { }} />
         </div>
       </div>
 
@@ -57,7 +62,11 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
       <div className="flex flex-row justify-end text-gray-400">
         <div className="flex flex-row text-subhead1-sb items-center gap-0.5">
-          <LikeIcon /> {likeCount}
+          <LikeIcon
+            fill={isLike ? "#FF8686" : "none"}
+            className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
+            onClick={() => handleLike()} />
+          {likeCount}
           <CommentIcon className="ml-3" />
           {comments}
           <ScrapIcon className="ml-3" />
