@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CommentIcon, KebabIcon, LikeIcon } from "@public/svgs";
 
 interface CommentItemProps {
@@ -15,6 +15,13 @@ const CommentItem: React.FC<CommentItemProps> = ({
   date,
   likes,
 }) => {
+
+  const [isLike, setIsLike] = useState(false);
+
+  const handleLike = () => {
+    setIsLike(!isLike);
+  }
+
   return (
     <div className="flex flex-col gap-2 px-3 py-5 border-b border-solid border-gray-100">
       <div className="flex flex-row justify-between">
@@ -26,7 +33,10 @@ const CommentItem: React.FC<CommentItemProps> = ({
         <p>{date}</p>
         <div className="flex flex-row gap-[10px]">
           <div className="flex flex-row">
-            <LikeIcon className="cursor-pointer mr-[2px]" />
+            <LikeIcon
+              fill={isLike ? "#FF8686" : "none"}
+              className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
+              onClick={() => handleLike()} />
             {likes}
           </div>
           <div className="flex flex-row cursor-pointer">

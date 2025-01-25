@@ -70,7 +70,7 @@ export default function CreatePost() {
 
   // 추후에 url 및 데이터 구조 수정 필요
   const mutate = useCustomMutation(
-    `http://localhost:8080/community/posts`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`,
     {
       title,
       content,
