@@ -39,10 +39,9 @@ export default function Home() {
                             // 태블릿 (642px-999px)
                             md:w-[601px]
                             // 모바일 (641px 미만)
-                            w-full px-5
-                            whitespace-nowrap'>
+                            w-full px-5'>
                 <div className="text-center text-[#999999] text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, <br/>해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
-                <div className='flex gap-4 mt-5 w-full'>
+                <div className='flex gap-4 mt-5 w-full whitespace-nowrap'>
                     <button className="flex-1 h-[114px] px-4 py-5 bg-[#138e5d] rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']">
                         <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">상비약 리스트 &gt;</div>
                         <div className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">증상 및 약 이름을 검색하고 필요한<br/>상비약 정보를 얻을 수 있어요.</div>
@@ -85,72 +84,82 @@ export default function Home() {
                                     // 1000px 이하
                                     flex-col'>
                         {/* 커뮤니티 */}
-                        <div className="whitespace-nowrap lg:mt-4 mt-5 lg:mb-4 mb-3 mr-4 h-[220px] flex-col justify-start items-start inline-flex">
-                            <div className="self-stretch py-2.5 justify-between items-center inline-flex">
-                                <div className="justify-center items-center gap-2 flex">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex">
+                        <div className="lg:mt-4 mt-5 lg:mb-4 mb-3 mr-4 h-[220px] flex-col justify-start items-start inline-flex">
+                            {/* 베스트 글 */}
+                            <div className="self-stretch py-2.5 justify-between items-start inline-flex">
+                                <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">자유주제</div>
                                     </div>
-                                    <div className="text-center text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal">배 아플 때 이거 먹어도 되나요?</div>
+                                    <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">배 아플 때 이거 먹어도 되나요?</div>
                                     <div className="px-1.5 py-0.5 rounded-full border-2 border-[#ff7700] justify-center items-center gap-2.5 flex">
-                                        <div className="text-center text-[#ff7700] text-xs font-semibold font-['Pretendard Variable'] leading-[18px]">BEST</div>
+                                        <div className="text-center text-[#ff7700] lg:text-xs text-[10px] font-semibold font-['Pretendard Variable'] leading-[18px]">BEST</div>
                                     </div>
                                 </div>
-                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px]">2024.12.25.</div>
+                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">2024.12.25.</div>
                             </div>
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
-                                <div className="justify-center items-center gap-2 flex">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex">
+                                <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">영양제</div>
                                     </div>
-                                    <div className="text-center text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal">영양제 추천 리스트입니다 ~</div>
+                                    <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">영양제 추천 리스트입니다 ~</div>
                                 </div>
-                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px]">2024.12.25.</div>
+                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">2024.12.25.</div>
                             </div>
-                            {/* text 확인 */}
+                            {/* 글자 길이 확인 */}
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
-                                <div className="justify-center items-center gap-2 flex">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex">
+                                <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">약국</div>
                                     </div>
-                                    <div className="text-center text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal">약국 약사님이 엄청 친절하시더라구요. 여기까지만 나오게...</div>
+                                    <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">약국 약사님이 엄청 친절하시더라구요. 텍스트 여기까지만 나오게 설정해주세요.</div>
                                 </div>
-                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px]">2024.12.25.</div>
+                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">2024.12.25.</div>
                             </div>
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
-                                <div className="justify-center items-center gap-2 flex">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex">
+                                <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">병원</div>
                                     </div>
-                                    <div className="text-center text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal">***역 인근 병원 좀 추천해주세요!!!</div>
+                                    <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">***역 인근 병원 좀 추천해주세요!!!ㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
                                 </div>
-                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px]">2024.12.25.</div>
+                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">2024.12.25.</div>
                             </div>
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
-                                <div className="justify-center items-center gap-2 flex">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex">
+                                <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">증상</div>
                                     </div>
-                                    <div className="text-center text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal">목 아플 때 @@약 드셔보신 분 계신가요?</div>
+                                    <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">목 아플 때 @@약 드셔보신 분 계신가요?</div>
                                 </div>
-                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px]">2024.12.25.</div>
+                                <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">2024.12.25.</div>
                             </div>
                         </div>
                         {/* 광고 */}
-                        <div className="lg:ml-auto lg:w-[287px] w-[353px] mx-auto text-white mt-4 h-[215px] bg-gradient-to-b from-black to-black">
-                            {/* 광고 넘기기 버튼 */}
-                            <div className='flex justify-center items-center ml-[192.57px] mt-[183px] gap-[9px]'>
-                                <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&lt;</button>
-                                <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                                <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                                <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                                <button className="mr-[22.05px] w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&gt;</button>
+                        <div className="w-full flex justify-center lg:justify-end">
+                            <div className="lg:w-[287px] lg:h-[215px]
+                                            // 641px-999px
+                                            md:w-[601px] md:h-[240px]
+                                            // 393px-640px
+                                            sm:w-[353px] sm:h-[238px]
+                                            // 393이하
+                                            w-[353px] h-[238px]
+                                            text-white mt-4 bg-gradient-to-b from-black to-black">
+                                {/* 광고 넘기기 버튼 */}
+                                <div className='flex justify-center items-center ml-[192.57px] mt-[183px] gap-[9px]'>
+                                    <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&lt;</button>
+                                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
+                                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
+                                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
+                                    <button className="mr-[22.05px] w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&gt;</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>       
     </>
   );
 }
