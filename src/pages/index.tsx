@@ -4,7 +4,7 @@ import FilterButton from '@/components/common/FilterButton';
 export default function Home() {
   return (
     <>
-        <div className='bg-[#d1e6e7] pb-[36px] flex justify-center'>
+        <div className='bg-[#d1e6e7] lg:pb-[36px] pb-6 flex justify-center'>
             {/* 1000px 이상일 때 */}
             <div className="hidden lg:flex lg:flex-col //grow
                             // 1001 ~ 1440px
@@ -52,7 +52,7 @@ export default function Home() {
                     </button>
                 </div>
                 <Search/>
-                <div className='flex gap-3 mt-4'>
+                <div className='flex gap-3 mt-3'>
                     <FilterButton text='진통/해열' isHomeButton={true}/>
                     <FilterButton text='소화/위장' isHomeButton={true}/>
                     <FilterButton text='감기/기침' isHomeButton={true}/>
@@ -77,14 +77,14 @@ export default function Home() {
                 w-full px-5
             `}>
                 <div className='lg:h-[366px] h-fit flex grow flex-col'>
-                    <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] text-[28px] font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
+                    <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] lg:text-[28px] text-xl font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
                     <div className='flex
                                     // 1000px 이상
                                     lg:flex-row
                                     // 1000px 이하
                                     flex-col'>
                         {/* 커뮤니티 */}
-                        <div className="mt-4 mr-4 lg:w-[606px] h-[220px] flex-col justify-start items-start inline-flex">
+                        <div className="lg:mt-4 mt-5 lg:mb-4 mb-3 mr-4 lg:w-[606px] h-[220px] flex-col justify-start items-start inline-flex">
                             <div className="self-stretch py-2.5 justify-between items-center inline-flex">
                                 <div className="justify-center items-center gap-2 flex">
                                     <div className="h-6 px-1.5 pt-0.5 pb-px bg-[#cccccc] rounded justify-center items-center gap-2.5 flex">
