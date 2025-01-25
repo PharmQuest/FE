@@ -4,7 +4,7 @@ import PopularPostList from "../components/PopularPostList";
 import UserNavbar from "../components/UserNavbar";
 import Posts from "../../../mocks/popularPosts";
 import { useEffect } from "react";
-import useScroll from "../hooks/useScroll";
+import useScroll from "../../../hooks/community/useScroll";
 
 export default function Community() {
 

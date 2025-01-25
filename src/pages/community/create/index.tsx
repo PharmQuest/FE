@@ -4,7 +4,7 @@ import { CameraIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
-import useCustomMutation from "../hooks/useCustomMutation";
+import useCustomMutation from "../../../hooks/community/useCustomMutation";
 
 type DropdownInfo = {
   key: string;

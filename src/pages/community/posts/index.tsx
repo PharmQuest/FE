@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import PostList from "../components/PostList";
 import FilterButton from "@/components/common/FilterButton";
 import { useRouter } from "next/router";
-import useScroll from "../hooks/useScroll";
+import useScroll from "../../../hooks/community/useScroll";
 
 interface Category {
   value: string;
