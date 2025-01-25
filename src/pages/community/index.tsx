@@ -72,7 +72,7 @@ export default function Community() {
               onClickFn={() => handleFilterButton(category)} />
           ))}
           <p
-            className={`flex text-gray-400 text-subhead1-sb items-center gap-2 cursor-pointer ml-auto mt-3`}
+            className={`flex text-gray-400 text-subhead1-sb items-center gap-2 cursor-pointer mr-4 ml-auto mt-3`}
             onClick={() => router.push('/community/posts')}>
             더보기
             <ArrowRightIcon className={`content-center mb-0.5`} />
