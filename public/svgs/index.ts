@@ -22,3 +22,4 @@ export { default as UserIcon } from "./user.svg";
 export { default as ListIcon } from "./list.svg";
 export { default as AccountCircleIcon } from "./account_circle.svg";
 export { default as SearchBar } from "./search-bar.svg";
+export { default as FooterLogo } from "./footer_logo.svg";
