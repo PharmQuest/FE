@@ -13,7 +13,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
 }) => {
   const [selected, setSelected] = useState(isSelected);
 
-  const baseClasses = `rounded-[1000px] w-fit h-fit cursor-pointer ${isHomeButton ? `px-5 py-1.5 text-body1-r` : `px-3 py-0.5 text-subhead1-sb border-[1px] border-solid`}`;
+  const baseClasses = `whitespace-nowrap rounded-[1000px] lg:w-fit w-[78px] lg:h-fit h-[30px] cursor-pointer ${isHomeButton ? `lg:px-5 px-4 lg:py-1.5 lg:text-body1-r text-xs` : `px-3 py-0.5 text-subhead1-sb border-[1px] border-solid`}`;
   const selectedClasses = "bg-point text-white border-point";
   const unselectedClasses = `bg-white ${isHomeButton ? `text-gray-400  opacity-50` : `text-gray-300 border-gray-300`}`;
 
