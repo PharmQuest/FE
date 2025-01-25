@@ -62,8 +62,10 @@ export default function Post() {
         comments={postItem?.comments?.length || 0}
         scrapeCount={postItem?.scrapeCount}
       />
-      <CommentInput />
-      <CommentList />
+      <div className={`flex flex-col gap-5`}>
+        <CommentInput />
+        <CommentList />
+      </div>
       <div className="flex flex-col mt-[60px] mb-[170px]">
         <p className="text-display2-b text-gray-600 mb-3">같은 주제 게시글</p>
         <PostList category={formattedCategory(postItem?.category)} />
