@@ -51,7 +51,7 @@ const PostItem: React.FC<PostItemProps> = ({
       
       
       <div className="grid grid-cols-[7fr_7fr_4fr_4fr_5fr] text-center text-body2-r text-gray-300 w-full">
-        <p>{userName}</p>
+        <p className={`w-[70px] truncate`}>{userName}</p>
         <p>{formattedDate}</p>
         <p>{likeCount}</p>
         <p>{commentCount}</p>

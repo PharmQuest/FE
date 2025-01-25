@@ -41,10 +41,13 @@ const PostList: React.FC<{category?: string, isHiddenPage?: boolean }> = ({ cate
     },
   );
 
+  const postList = router.pathname === '/community' ? data?.result?.postList.slice(0, 10) : data?.result?.postList
+      
+
   return (
     <div className="flex flex-col">
       <div className="py-3 grid grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300">
-        <p>주제</p>
+        <p className={`w-16 text-center`}>주제</p>
         <p>제목</p>
         <div className="grid grid-cols-[7fr_7fr_4fr_4fr_5fr] text-center w-full">
           <p>작성자</p>
@@ -54,7 +57,7 @@ const PostList: React.FC<{category?: string, isHiddenPage?: boolean }> = ({ cate
           <p>스크랩</p>
         </div>
       </div>
-      {data?.result?.postList.map((post: Post, index: number) => (
+      {postList?.map((post: Post, index: number) => (
         <PostItem
           key={index}
           postId={post.postId}  
