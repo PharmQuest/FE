@@ -18,7 +18,7 @@ interface Post {
   isBestPost: boolean;
 }
 
-const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
+const PostList: React.FC<{category?: string, isHiddenPage?: boolean }> = ({ category = "ALL", isHiddenPage = true}) => {
 
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string, 10) : 1;
@@ -70,7 +70,7 @@ const PostList: React.FC<{category?: string }> = ({ category = "ALL" }) => {
           scrapeCount={post.scrapeCount}
         />
       ))}
-      <PageNavigator totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast}/>
+      <PageNavigator totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} isHiddenPage={isHiddenPage}/>
     </div>
   );
 };

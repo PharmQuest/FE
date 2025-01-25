@@ -1,13 +1,11 @@
 import { ArrowRightIcon } from "@public/svgs"
 import { useRouter } from "next/router";
 
-const PageNavigator = ({ totalPage, isFirst, isLast }: { totalPage: number, isFirst: boolean, isLast: boolean }) => {
+const PageNavigator = ({ totalPage, isFirst, isLast, isHiddenPage }: { totalPage: number, isFirst: boolean, isLast: boolean, isHiddenPage: boolean }) => {
 
   const router = useRouter();
   const pathName = router.pathname;
   const currentPage = router.query.page ? parseInt(router.query.page as string, 10) : 1;
-
-  const isHidden = pathName === "/community"
 
   const pageNavigate = (page: number) => {
     router.push({
@@ -17,7 +15,7 @@ const PageNavigator = ({ totalPage, isFirst, isLast }: { totalPage: number, isFi
   }
 
   return (
-    !isHidden &&
+    !isHiddenPage &&
     <div className={`flex gap-3 mx-auto mt-12 items-center`}>
       {!isFirst && 
         <ArrowRightIcon 
