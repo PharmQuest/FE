@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AdditionalHeader from "./AdditionalHeader";
 import {LogoIcon, UserIcon, ListIcon, AccountCircleIcon} from "@public/svgs"
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const sidebarRef = useRef(null); // 사이드바 참조 생성
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const router = useRouter();
   const pathName = router.pathname;
@@ -19,6 +21,30 @@ const Header = () => {
   const handleLogoutClick = () => {
     setIsLoggedIn(false); // 로그인 상태로 변경
     router.push("/")
+  };
+
+  // 사이드바 외부 클릭 감지
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    if (isSidebarOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSidebarOpen]);
+
+  // 메뉴 버튼 클릭하면
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
@@ -106,11 +132,57 @@ const Header = () => {
           // 모바일 (641px 미만)
           w-full px-[20px]
         `}>
-          <ListIcon/>
+          <ListIcon className="cursor-pointer" onClick={toggleSidebar}/>
           <LogoIcon onClick={() => router.push("/")}/>
           <AccountCircleIcon onClick={() => router.push("/mypage")}/>
         </div>
       </div>
+      {/* 사이드바 */}
+      {isSidebarOpen && (
+        <div ref={sidebarRef} className="fixed top-0 left-0 h-screen w-[240px] bg-white shadow-lg z-50">
+          <div className="h-[662px] p-5">
+            {/* 사이드바 내용 */}
+            <div className="flex flex-col">
+              <div className="h-[150px] border-b border-gray-100 flex flex-col justify-center items-center">
+                <LogoIcon className="min-w-fit cursor-pointer" onClick={() => router.push("/")}/>
+                <button onClick={handleLoginClick} className="mt-[25px] w-[168px] h-10 px-[38px] py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal">로그인</button>
+              </div>              
+              <div className="h-16 px-8 py-5 border-b border-gray-100">
+                <button onClick={() => router.push("/medicines")} className="w-full">
+                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                    <span>상비약 리스트</span>
+                    <span>&gt;</span>
+                  </div>
+                </button>
+              </div>
+              <div className="h-16 px-8 py-5 border-b border-gray-100">
+                <button onClick={() => router.push("/map")} className="w-full">
+                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                    <span>약국 찾기</span>
+                    <span>&gt;</span>
+                  </div>
+                </button> 
+              </div> 
+              <div className="h-16 px-8 py-5 border-b border-gray-100">     
+                <button onClick={() => router.push("/community")} className="w-full">
+                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                    <span>커뮤니티</span>
+                    <span>&gt;</span>
+                  </div>
+                </button>
+              </div>
+              <div className="h-16 px-8 py-5 border-b border-gray-100">     
+                <button onClick={() => router.push("/supplements")} className="w-full">
+                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                    <span>해외 인기 영양제</span>
+                    <span>&gt;</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdditionalHeader>
   );
 };
