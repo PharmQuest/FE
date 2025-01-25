@@ -117,7 +117,7 @@ export default function CreatePost() {
         <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
 
           <Dropdown info={categoryInfo} initialText={"주제 선택"} setValue={setCategory} />
-          <Dropdown info={countryInfo} initialText={"위치 추가"} setValue={setCountry} />
+          <Dropdown info={countryInfo} initialText={"위치 추가 (선택)"} setValue={setCountry} />
 
         </div>
 
