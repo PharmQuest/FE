@@ -52,7 +52,7 @@ export default function Home() {
                     </button>
                 </div>
                 <Search/>
-                <div className='flex gap-3 mt-3'>
+                <div className='flex gap-3 mt-3 overflow-x-auto scrollbar-hide'>
                     <FilterButton text='진통/해열' isHomeButton={true}/>
                     <FilterButton text='소화/위장' isHomeButton={true}/>
                     <FilterButton text='감기/기침' isHomeButton={true}/>
@@ -84,7 +84,7 @@ export default function Home() {
                                     // 1000px 이하
                                     flex-col'>
                         {/* 커뮤니티 */}
-                        <div className="lg:w-[500px] lg:mt-4 lg:mb-4
+                        <div className="lg:w-[483px] lg:mt-4 lg:mb-4
                                         mt-5 mb-3 mr-4 h-[220px] flex-col justify-start items-start flex">
                             {/* 베스트 글 */}
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
