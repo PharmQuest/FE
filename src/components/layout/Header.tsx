@@ -5,7 +5,7 @@ import {LogoIcon, UserIcon, ListIcon, AccountCircleIcon} from "@public/svgs"
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const sidebarRef = useRef(null); // 사이드바 참조 생성
+  const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref 타입 지정
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const router = useRouter();
@@ -25,8 +25,8 @@ const Header = () => {
 
   // 사이드바 외부 클릭 감지
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
         setIsSidebarOpen(false);
       }
     };
