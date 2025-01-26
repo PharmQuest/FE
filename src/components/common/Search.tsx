@@ -38,7 +38,7 @@ const Search: React.FC<SearchProps> = ({
         </button>
         <SearchBarIcon className={`${isHomePage ? `lg:h-[22px] h-3` : `h-4`}`}/>
         <div className={`flex gap-2 grow`}>
-          <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-3` : `w-6`}`} />
+          <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5` : `w-6`}`} />
           <input
             type="text"
             className={`grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
