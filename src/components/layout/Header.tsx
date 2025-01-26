@@ -139,49 +139,55 @@ const Header = () => {
       </div>
       {/* 사이드바 */}
       {isSidebarOpen && (
-        <div ref={sidebarRef} className="fixed top-0 left-0 h-screen w-[240px] bg-white shadow-lg z-50">
-          <div className="h-[662px] p-5">
-            {/* 사이드바 내용 */}
-            <div className="flex flex-col">
-              <div className="h-[150px] border-b border-gray-100 flex flex-col justify-center items-center">
-                <LogoIcon className="min-w-fit cursor-pointer" onClick={() => router.push("/")}/>
-                <button onClick={handleLoginClick} className="mt-[25px] w-[168px] h-10 px-[38px] py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal">로그인</button>
-              </div>              
-              <div className="h-16 px-8 py-5 border-b border-gray-100">
-                <button onClick={() => router.push("/medicines")} className="w-full">
-                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
-                    <span>상비약 리스트</span>
-                    <span>&gt;</span>
-                  </div>
-                </button>
-              </div>
-              <div className="h-16 px-8 py-5 border-b border-gray-100">
-                <button onClick={() => router.push("/map")} className="w-full">
-                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
-                    <span>약국 찾기</span>
-                    <span>&gt;</span>
-                  </div>
-                </button> 
-              </div> 
-              <div className="h-16 px-8 py-5 border-b border-gray-100">     
-                <button onClick={() => router.push("/community")} className="w-full">
-                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
-                    <span>커뮤니티</span>
-                    <span>&gt;</span>
-                  </div>
-                </button>
-              </div>
-              <div className="h-16 px-8 py-5 border-b border-gray-100">     
-                <button onClick={() => router.push("/supplements")} className="w-full">
-                  <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
-                    <span>해외 인기 영양제</span>
-                    <span>&gt;</span>
-                  </div>
-                </button>
+        <>
+          {/* 사이드바 말고 나머지 배경에 #000000 opacity 30% 적용 */}
+          <div onClick={() => setIsSidebarOpen(false)} // 오버레이 클릭 시 사이드바 닫기
+              className="fixed top-0 left-0 w-full h-full bg-black/30 z-40"></div>
+          {/* 사이드바 부분 */}
+          <div ref={sidebarRef} className="fixed top-0 left-0 h-screen w-[240px] bg-white shadow-lg z-50">
+            <div className="h-[662px] p-5">
+              {/* 사이드바 안에 내용 */}
+              <div className="flex flex-col">
+                <div className="h-[150px] border-b border-gray-100 flex flex-col justify-center items-center">
+                  <LogoIcon className="min-w-fit cursor-pointer" onClick={() => { router.push("/"); setIsSidebarOpen(false); }}/>
+                  <button onClick={() => { handleLoginClick(); setIsSidebarOpen(false); }}  className="mt-[25px] w-[168px] h-10 px-[38px] py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal">로그인</button>
+                </div>              
+                <div className="h-16 px-8 py-5 border-b border-gray-100">
+                  <button onClick={() => { router.push("/medicines"); setIsSidebarOpen(false); }} className="w-full">
+                    <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                      <span>상비약 리스트</span>
+                      <span>&gt;</span>
+                    </div>
+                  </button>
+                </div>
+                <div className="h-16 px-8 py-5 border-b border-gray-100">
+                  <button onClick={() => { router.push("/map"); setIsSidebarOpen(false); }} className="w-full">
+                    <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                      <span>약국 찾기</span>
+                      <span>&gt;</span>
+                    </div>
+                  </button> 
+                </div> 
+                <div className="h-16 px-8 py-5 border-b border-gray-100">     
+                  <button onClick={() => { router.push("/community"); setIsSidebarOpen(false); }} className="w-full">
+                    <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                      <span>커뮤니티</span>
+                      <span>&gt;</span>
+                    </div>
+                  </button>
+                </div>
+                <div className="h-16 px-8 py-5 border-b border-gray-100">     
+                  <button onClick={() => { router.push("/supplements"); setIsSidebarOpen(false); }} className="w-full">
+                    <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
+                      <span>해외 인기 영양제</span>
+                      <span>&gt;</span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </AdditionalHeader>
   );
