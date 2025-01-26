@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapPinIcon, SearchBar, SearchIcon, XIcon } from "@public/svgs"
+import { MapPinIcon, SearchBarIcon, SearchIcon, XIcon } from "@public/svgs"
 import { useRouter } from "next/router";
 
 interface SearchProps {
@@ -32,7 +32,7 @@ const Search: React.FC<SearchProps> = ({
           <MapPinIcon className={`${isHomePage ? `lg:w-7 w-4` : `w-5`}`} />
           <p className={`${isHomePage ? `w-[35px] lg:text-headline-m text-sm text-[#006367]` : `w-7 text-body1-r`}`}>{countryLabel}</p>
         </button>
-        <SearchBar className={`${isHomePage ? `lg:h-[22px] h-3` : `h-4`}`}/>
+        <SearchBarIcon className={`${isHomePage ? `lg:h-[22px] h-3` : `h-4`}`}/>
         <div className={`flex gap-2 grow`}>
           <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-3` : `w-6`}`} />
           <input
