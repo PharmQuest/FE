@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapPinIcon, SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon, SmallGreenMapPinIcon } from "@public/svgs"
+import { SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon, SmallGreenMapPinIcon } from "@public/svgs"
 import { useRouter } from "next/router";
 
 interface SearchProps {
