@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useRef } from "react";
 import AdditionalHeader from "./AdditionalHeader";
-import {LogoIcon, UserIcon, MenuLogoIcon, AccountCircleIcon} from "@public/svgs"
+import {LogoIcon, UserIcon, MenuLogoIcon, AccountCircleIcon, GTIcon} from "@public/svgs"
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -156,7 +156,7 @@ const Header = () => {
                   <button onClick={() => { router.push("/medicines"); setIsSidebarOpen(false); }} className="w-full">
                     <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
                       <span>상비약 리스트</span>
-                      <span>&gt;</span>
+                      <span><GTIcon/></span>
                     </div>
                   </button>
                 </div>
@@ -164,7 +164,7 @@ const Header = () => {
                   <button onClick={() => { router.push("/map"); setIsSidebarOpen(false); }} className="w-full">
                     <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
                       <span>약국 찾기</span>
-                      <span>&gt;</span>
+                      <span><GTIcon/></span>
                     </div>
                   </button> 
                 </div> 
@@ -172,7 +172,7 @@ const Header = () => {
                   <button onClick={() => { router.push("/community"); setIsSidebarOpen(false); }} className="w-full">
                     <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
                       <span>커뮤니티</span>
-                      <span>&gt;</span>
+                      <span><GTIcon/></span>
                     </div>
                   </button>
                 </div>
@@ -180,7 +180,7 @@ const Header = () => {
                   <button onClick={() => { router.push("/supplements"); setIsSidebarOpen(false); }} className="w-full">
                     <div className="flex justify-between items-center text-[#333333] text-base font-bold font-['Pretendard Variable'] leading-normal">
                       <span>해외 인기 영양제</span>
-                      <span>&gt;</span>
+                      <span><GTIcon/></span>
                     </div>
                   </button>
                 </div>
