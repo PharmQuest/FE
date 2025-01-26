@@ -76,12 +76,8 @@ const Header = () => {
                         </div>
                       )}
               </button>
-              <button
-                onClick={() => router.push("/supplements")}
-                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
-              >
-                해외 인기 영양제
-              </button>
+              <button className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                      onClick={() => router.push("/supplements")}>해외 인기 영양제</button>
               {/* 로그인 상태에 따라 버튼 렌더링 */}
               {isLoggedIn ? (
                 // isLoggedIn이 true
