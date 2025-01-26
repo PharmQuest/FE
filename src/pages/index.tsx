@@ -91,7 +91,7 @@ export default function Home() {
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
                                 <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
                                     <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
-                                        <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">자유주제</div>
+                                        <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">자유</div>
                                     </div>
                                     <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">배 아플 때 이거 먹어도 되나요?</div>
                                     <div className="px-1.5 py-0.5 rounded-full border-2 border-[#ff7700] justify-center items-center gap-2.5 flex">
