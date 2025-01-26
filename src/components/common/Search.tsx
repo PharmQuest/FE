@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapPinIcon, SearchBarIcon, SearchIcon, XIcon } from "@public/svgs"
+import { MapPinIcon, SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon, SmallGreenMapPinIcon } from "@public/svgs"
 import { useRouter } from "next/router";
 
 interface SearchProps {
@@ -29,7 +29,11 @@ const Search: React.FC<SearchProps> = ({
       <div className={`flex items-center bg-white rounded-full flex-grow shadow-md ${isHomePage ? `lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-6 py-3 gap-5` : `h-10 px-4 py-2 gap-4`} `}>
         {/* 위치선택 */}
         <button className={`flex items-center gap-2 bg-none rounded-full text-gray-500`}>
-          <MapPinIcon className={`${isHomePage ? `lg:w-7 w-4` : `w-5`}`} />
+          {/* <GreenMapPinIcon className={`${isHomePage ? `lg:w-7` : `w-5`}`} /> */}
+          {/* 반응형 아이콘 */}
+          <GreenMapPinIcon className={`hidden lg:block ${isHomePage ? 'w-7' : 'w-5'}`} /> {/* lg에서만 보이는 GreenMapPinIcon */}
+          <SmallGreenMapPinIcon className={`lg:hidden ${isHomePage ? 'w-4' : 'w-5'}`} /> {/* lg 이하에서만 보이는 SmallGreenMapPinIcon */}
+          
           <p className={`${isHomePage ? `w-[35px] lg:text-headline-m text-sm text-[#006367]` : `w-7 text-body1-r`}`}>{countryLabel}</p>
         </button>
         <SearchBarIcon className={`${isHomePage ? `lg:h-[22px] h-3` : `h-4`}`}/>
