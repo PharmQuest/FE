@@ -45,7 +45,7 @@ const Search: React.FC<SearchProps> = ({
         </div>
         {searchText &&
           <XIcon
-            className={`cursor-pointer ${isHomePage ? `w-5` : `w-4 mr-1`}`}
+            className={`cursor-pointer ${isHomePage ? `lg:w-5 w-[6.67px]` : `w-4 mr-1`}`}
             onClick={() => setSearchText('')} />
         }
       </div>
