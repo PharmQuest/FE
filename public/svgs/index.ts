@@ -26,3 +26,5 @@ export { default as FooterLogoIcon } from "./footer_logo.svg";
 export { default as MenuLogoIcon } from "./menu.svg";
 export { default as GTIcon } from "./gt.svg";
 export { default as WhiteGTIcon } from "./white-gt.svg";
+export { default as GreenMapPinIcon } from "./green-map-pin.svg";
+export { default as SmallGreenMapPinIcon } from "./small-green-map-pin.svg";
