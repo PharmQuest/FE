@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useRef } from "react";
 import AdditionalHeader from "./AdditionalHeader";
-import {LogoIcon, UserIcon, MenuLogo, AccountCircleIcon} from "@public/svgs"
+import {LogoIcon, UserIcon, MenuLogoIcon, AccountCircleIcon} from "@public/svgs"
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -132,7 +132,7 @@ const Header = () => {
           // 모바일 (641px 미만)
           w-full px-[20px]
         `}>
-          <MenuLogo className="cursor-pointer" onClick={toggleSidebar}/>
+          <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar}/>
           <LogoIcon onClick={() => router.push("/")}/>
           <AccountCircleIcon onClick={() => router.push("/mypage")}/>
         </div>
