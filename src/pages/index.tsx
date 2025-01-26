@@ -93,11 +93,11 @@ export default function Home() {
                                     // 1000px 이하
                                     flex-col'>
                         {/* 커뮤니티 코드를 반복문으로 변경 */}
-                        <div className="lg:w-[483px] lg:mt-4 lg:mb-4 mt-5 mb-3 mr-4 h-[220px] flex-col justify-start items-start flex">
+                        <div className="lg:w-[483px] w-full lg:mt-4 lg:mb-4 mr-4 h-[145px] flex-col justify-start items-start flex">
                             {community.map((item, index) => (
-                                <div key={index} className="self-stretch py-2.5 justify-between items-start inline-flex">
-                                    <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
-                                        <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
+                                <div key={index} className="self-stretch lg:py-2.5 justify-between items-start inline-flex">
+                                    <div className="h-[29px] flex-1 justify-start items-center gap-2 flex min-w-0">
+                                        <div className="lg:w-16 w-[47px] lg:h-6 h-5 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                             <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">
                                                 {item.category}
                                             </div>
@@ -106,7 +106,7 @@ export default function Home() {
                                             {item.value}
                                         </div>
                                         {item.isBest && (
-                                            <div className="px-1.5 py-0.5 rounded-full border-2 border-[#ff7700] justify-center items-center gap-2.5 flex">
+                                            <div className="h-[20px] px-1.5 py-0.5 rounded-full border-2 border-[#ff7700] justify-center items-center gap-2.5 flex">
                                                 <div className="text-center text-[#ff7700] lg:text-xs text-[10px] font-semibold font-['Pretendard Variable'] leading-[18px]">
                                                     BEST
                                                 </div>
