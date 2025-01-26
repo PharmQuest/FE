@@ -92,7 +92,7 @@ export default function Home() {
                                     lg:flex-row lg:justify-between
                                     // 1000px 이하
                                     flex-col'>
-                        {/* 커뮤니티 */}
+                        {/* 커뮤니티 코드를 반복문으로 변경 */}
                         <div className="lg:w-[483px] lg:mt-4 lg:mb-4 mt-5 mb-3 mr-4 h-[220px] flex-col justify-start items-start flex">
                             {community.map((item, index) => (
                                 <div key={index} className="self-stretch py-2.5 justify-between items-start inline-flex">
