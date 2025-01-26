@@ -1,5 +1,5 @@
 import React from "react";
-import {FooterLogo} from "@public/svgs"
+import {FooterLogoIcon} from "@public/svgs"
 
 const Footer = () => {
 	return (
@@ -20,7 +20,7 @@ const Footer = () => {
 						<p className="cursor-pointer">개인정보처리방침</p>|
 						<p className="cursor-pointer">이용약관</p>
 					</div>
-					<FooterLogo/>
+					<FooterLogoIcon/>
 				</div>
 			</div>
 		</div>
