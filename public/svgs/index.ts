@@ -25,3 +25,4 @@ export { default as SearchBarIcon } from "./search-bar.svg";
 export { default as FooterLogoIcon } from "./footer_logo.svg";
 export { default as MenuLogoIcon } from "./menu.svg";
 export { default as GTIcon } from "./gt.svg";
+export { default as WhiteGTIcon } from "./white-gt.svg";
