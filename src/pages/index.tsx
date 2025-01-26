@@ -90,7 +90,7 @@ export default function Home() {
                             {/* 베스트 글 */}
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
                                 <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">자유주제</div>
                                     </div>
                                     <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">배 아플 때 이거 먹어도 되나요?</div>
@@ -102,7 +102,7 @@ export default function Home() {
                             </div>
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
                                 <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">영양제</div>
                                     </div>
                                     <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">영양제 추천 리스트입니다 ~</div>
@@ -112,7 +112,7 @@ export default function Home() {
                             {/* 글자 길이 확인 */}
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
                                 <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">약국</div>
                                     </div>
                                     <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">약국 약사님이 엄청 친절하시더라구요. 텍스트 여기까지만 나오게 설정해주세요.</div>
@@ -121,7 +121,7 @@ export default function Home() {
                             </div>
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
                                 <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">병원</div>
                                     </div>
                                     <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">***역 인근 병원 좀 추천해주세요!!!ㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
@@ -130,7 +130,7 @@ export default function Home() {
                             </div>
                             <div className="self-stretch py-2.5 justify-between items-start inline-flex">
                                 <div className="flex-1 justify-start items-center gap-2 flex min-w-0">
-                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px lg:bg-[#a0d1be] bg-[#cccccc] rounded justify-center items-center gap-2.5 flex shrink-0">
+                                    <div className="lg:w-16 w-[47px] h-6 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                         <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">증상</div>
                                     </div>
                                     <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">목 아플 때 @@약 드셔보신 분 계신가요?</div>
