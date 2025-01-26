@@ -1,5 +1,6 @@
 import Search from '@/components/common/Search';
 import FilterButton from '@/components/common/FilterButton';
+import {GTIcon, WhiteGTIcon} from "@public/svgs"
 
 export default function Home() {
   return (
@@ -13,11 +14,11 @@ export default function Home() {
                             lg:w-[900px] lg:px-[50px]">
                 <div className='flex gap-5 mt-[160px]'>
                     <button className=" w-[293px] h-[171px] pl-5 py-6 bg-[#138e5d] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex text-white font-['Pretendard Variable']">
-                        <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">상비약 리스트 &gt;</div>
+                        <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">상비약 리스트 <WhiteGTIcon/></div>
                         <div className="text-left text-base font-normal leading-normal">증상 및 약 이름을 검색하고<br/>필요한 상비약 정보를 얻을 수 있어요.</div>
                     </button>
                     <button className="mb-10 w-[293px] h-[171px] pl-5 py-6 bg-[#006367] rounded-xl flex-col justify-start items-start gap-[45px] inline-flex text-white font-['Pretendard Variable']">
-                        <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">약국 찾기 &gt;</div>
+                        <div className="justify-start items-center gap-2 inline-flex text-xl font-bold leading-[30px]">약국 찾기 <WhiteGTIcon/></div>
                         <div className="text-left text-base font-normal leading-normal">근처에 있는 약국을 검색하고<br/>길 찾기 서비스를 받을 수 있어요.</div>
                     </button>
                 </div>
@@ -43,11 +44,11 @@ export default function Home() {
                 <div className="text-center text-[#999999] text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로 하며, <br/>해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.</div>
                 <div className='flex gap-4 mt-5 w-full whitespace-nowrap'>
                     <button className="flex-1 h-[114px] px-4 py-5 bg-[#138e5d] rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']">
-                        <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">상비약 리스트 &gt;</div>
+                        <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">상비약 리스트 <WhiteGTIcon/></div>
                         <div className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">증상 및 약 이름을 검색하고 필요한<br/>상비약 정보를 얻을 수 있어요.</div>
                     </button>
                     <button className="flex-1 mb-6 h-[114px] px-4 py-5 bg-[#006367] rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']">
-                        <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">약국 찾기 &gt;</div>
+                        <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">약국 찾기 <WhiteGTIcon/></div>
                         <div className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">근처에 있는 약국을 검색하고<br/>길 찾기 서비스를 받을 수 있어요.</div>
                     </button>
                 </div>
@@ -77,7 +78,7 @@ export default function Home() {
                 w-full px-5
             `}>
                 <div className='lg:h-[366px] h-fit flex grow flex-col'>
-                    <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] lg:text-[28px] text-xl font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
+                    <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] lg:text-[28px] text-xl font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 <GTIcon/></button>
                     <div className='flex
                                     // 1000px 이상
                                     lg:flex-row lg:justify-between
