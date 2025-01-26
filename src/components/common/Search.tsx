@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon, SmallGreenMapPinIcon } from "@public/svgs"
+=======
+import { MapPinIcon, SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon, SmallGreenMapPinIcon } from "@public/svgs"
+>>>>>>> 85c6266 (:lipstick: 검색창 핀 반응형 사이즈 수정)
 import { useRouter } from "next/router";
 
 interface SearchProps {
