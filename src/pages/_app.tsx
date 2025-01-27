@@ -7,6 +7,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect } from "react";
 import NoticeModal from "./community/components/NoticeModal";
+import ReportModal from "./community/components/ReportModal";
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -35,6 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Header />
       <Component {...pageProps} className={`dsadsa`} />
       <NoticeModal/>
+      <ReportModal/>
       <Footer />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

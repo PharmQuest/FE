@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import useStore from "@/store/useStore";
 import { useRouter } from "next/router";
 import useUserCount from "@/hooks/community/useUserCount";
+import { MouseEvent } from "react";
 
 interface ViewPostProps {
   category: string;
@@ -71,7 +72,8 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
   const {
     setIsNoticeModalOpen,
-    setModalText,
+    setNoticeModalText,
+    setIsReportModalOpen,
   } = useStore((state) => state);
 
   const handleMenu = (e: MouseEvent) => {
@@ -81,8 +83,14 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
-    setModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.")
+    setNoticeModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.")
     setIsNoticeModalOpen(true);
+  }
+
+  const handleReport = (e: MouseEvent) => {
+    e.stopPropagation();
+    setIsReportModalOpen(true)
+    setIsMenuOpen(false)
   }
 
   useEffect(() => {
@@ -97,7 +105,6 @@ const ViewPost: React.FC<ViewPostProps> = ({
     }
 
   }, []);
-
 
 
 
@@ -120,7 +127,9 @@ const ViewPost: React.FC<ViewPostProps> = ({
               <div
                 className={`px-1 py-3 border-b border-solid border-gray-100`}
                 onClick={() => copyLink()}>URL 복사</div>
-              <div className={`px-1 py-3`}>신고하기</div>
+              <div 
+                className={`px-1 py-3`}
+                onClick={(e) => handleReport(e)}>신고하기</div>
             </div>
           }
         </div>

@@ -16,7 +16,7 @@ export default function CreatePost() {
 
   const {
     setIsNoticeModalOpen,
-    setModalText,
+    setNoticeModalText,
   } = useStore((state) => state)
 
   const categoryInfo: DropdownInfo[] = [
@@ -89,11 +89,11 @@ export default function CreatePost() {
     try {
       await mutate()
       setIsNoticeModalOpen(true);
-      setModalText("게시글 작성을 완료했습니다.")
+      setNoticeModalText("게시글 작성을 완료했습니다.")
     } catch (error) {
       console.log(error)
       setIsNoticeModalOpen(true);
-      setModalText("게시글 작성에 실패했습니다.")
+      setNoticeModalText("게시글 작성에 실패했습니다.")
     }
   }
 
