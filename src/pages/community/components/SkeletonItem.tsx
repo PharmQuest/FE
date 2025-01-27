@@ -1,8 +1,7 @@
-
 const SkeletonItem = () => {
 
   return (
-    <div className="py-3 h-12 grid grid-cols-[1fr_7fr_6fr] gap-2 border-b border-solid border-gray-100">
+    <div className="py-3 h-12 grid grid-cols-[1fr_7fr_6fr] gap-2 border-b border-solid border-gray-100 animate-pulse">
       <div className={`w-16 text-white rounded whitespace-nowrap flex justify-center items-center bg-gray-100`}/>
       <div className="truncate flex text-body1-r text-gray-500 cursor-pointer gap-2">
         <p className={`rounded w-[calc(100%-20px)] truncate bg-gray-100`}/>
