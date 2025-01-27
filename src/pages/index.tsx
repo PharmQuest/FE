@@ -87,7 +87,7 @@ export default function Home() {
             `}>
                 <div className='lg:h-[366px] h-fit flex grow flex-col'>
                     <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] lg:text-[28px] text-xl font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 <GTIcon/></button>
-                    <div className='flex
+                    <div className='flex                   
                                     // 1000px 이상
                                     lg:flex-row lg:justify-between
                                     // 1000px 이하
