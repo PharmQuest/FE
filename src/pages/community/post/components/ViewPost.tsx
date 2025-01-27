@@ -6,8 +6,9 @@ import {
 } from "@public/svgs";
 import Tag from "../../components/Tag";
 import SubjectTag from "../../components/SubjectTag";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
+import useStore from "@/store/useStore";
 
 interface ViewPostProps {
   category: string;
@@ -37,9 +38,40 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
   const [isLike, setIsLike] = useState(false);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const {
+    setIsNoticeModalOpen,
+    setModalText, 
+  } = useStore((state) => state);
+
+  const handleMenu = (e: MouseEvent) => {
+    e.stopPropagation();
+    setIsMenuOpen(!isMenuOpen)
+  }
+
   const handleLike = () => {
     setIsLike(!isLike);
   }
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.")
+    setIsNoticeModalOpen(true);
+  }
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setIsMenuOpen(false);
+    }
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+  }, []);
 
   return (
     <div className="mt-11 mb-8">
@@ -50,11 +82,19 @@ const ViewPost: React.FC<ViewPostProps> = ({
           {isBestPost && <Tag variant="best" />}
         </div>
 
-        <div className="flex flex-row gap-5 text-body1-r text-gray-300">
+        <div className="relative flex flex-row gap-5 text-body1-r text-gray-300">
           <p>{userName}</p>
           |
           <p>{formattedDate}</p>
-          <KebabIcon onClick={() => { }} />
+          <KebabIcon onClick={(e: MouseEvent) => {handleMenu(e)}} />
+          {isMenuOpen &&
+            <div className={`absolute right-0 top-[30px] w-[96px] px-2 shadow-custom-light bg-white text-gray-600 text-subhead1-sb`}>
+              <div 
+                className={`px-1 py-3 border-b border-solid border-gray-100`}
+                onClick={() => copyLink()}>URL 복사</div>
+              <div className={`px-1 py-3`}>신고하기</div>
+            </div>
+          }
         </div>
       </div>
 
