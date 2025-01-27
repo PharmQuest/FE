@@ -3,15 +3,21 @@ import { create } from 'zustand';
 type Store = {
   isNoticeModalOpen: boolean;
   setIsNoticeModalOpen: (value: boolean) => void;
-  modalText: string;
-  setModalText: (value: string) => void;
+  NoticeModalText: string;
+  setNoticeModalText: (value: string) => void;
+
+  isReportModalOpen: boolean;
+  setIsReportModalOpen: (value: boolean) => void;
 }
 
 const useStore = create<Store>((set) => ({
   isNoticeModalOpen: false,
   setIsNoticeModalOpen: (value: boolean) => set({isNoticeModalOpen: value}),
-  modalText: "",
-  setModalText: (value: string) => set({modalText: value})
+  NoticeModalText: "",
+  setNoticeModalText: (value: string) => set({NoticeModalText: value}),
+
+  isReportModalOpen: false,
+  setIsReportModalOpen: (value: boolean) => set({isReportModalOpen: value}),
 }))
 
 export default useStore;

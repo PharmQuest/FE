@@ -8,7 +8,7 @@ const NoticeModal = () => {
   const { 
     isNoticeModalOpen, 
     setIsNoticeModalOpen,
-    modalText,
+    NoticeModalText: modalText,
   } = useStore((state) => state);
 
   useEffect(() => {
