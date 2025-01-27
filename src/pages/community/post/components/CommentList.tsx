@@ -22,7 +22,7 @@ const CommentList = () => {
   }
 
   return (
-    <div className="flex flex-col bg-gray-50 p-5">
+    <div className="flex flex-col bg-gray-50 p-5 gap-5">
       {comments.map((comment) => {
         if (comment.parentId) {
           // 답글
@@ -56,7 +56,8 @@ const CommentList = () => {
         }
       })}
 
-      <div className={`flex gap-3 mx-auto mt-5 items-center`}>
+      {/* PageNavigator */}
+      <div className={`flex gap-3 mx-auto items-center`}>
         {!isFirst &&
           <ArrowRightIcon
             onClick={() => pageNavigate(currentPage - 1)}
