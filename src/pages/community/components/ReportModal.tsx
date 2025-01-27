@@ -77,7 +77,7 @@ const ReportModal = () => {
                   <p className={`text-headline-b`}>
                     신고 사유 선택
                   </p>
-                  <XIcon onClick={handleXbutton}/>
+                  <XIcon className={`p-0.5 mr-1`} onClick={handleXbutton}/>
                 </div>
                 <div
                   className={`flex flex-col`}>
