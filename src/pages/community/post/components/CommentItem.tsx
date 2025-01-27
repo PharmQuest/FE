@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import { CommentIcon, KebabIcon, LikeIcon } from "@public/svgs";
+import CommentInput from "./CommentInput";
 
 interface CommentItemProps {
-  id: string;
+  id: number;
   writer: string;
   content: string;
   date: string;
   likes: number;
+  replyId: number | null;
+  setReplyId: (id: number) => void;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
+  id,
   writer,
   content,
   date,
   likes,
+  replyId,
+  setReplyId,
 }) => {
 
   const [isLike, setIsLike] = useState(false);
@@ -39,11 +45,16 @@ const CommentItem: React.FC<CommentItemProps> = ({
               onClick={() => handleLike()} />
             {likes}
           </div>
-          <div className="flex flex-row cursor-pointer">
-            <CommentIcon /> 답글 달기
+          <div 
+            className="flex flex-row cursor-pointer"
+            onClick={() => setReplyId(id)}>
+            <CommentIcon/> 답글 달기
           </div>
         </div>
       </div>
+      {replyId === id && 
+        <CommentInput/>
+      }
     </div>
   );
 };

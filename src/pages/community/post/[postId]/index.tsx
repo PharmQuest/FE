@@ -52,8 +52,6 @@ export default function Post() {
     }
   }
 
-  console.log()
-
   return (
     <div className="flex flex-col max-w-[900px] mx-auto">
       <ViewPost

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import comments from "../../../../mocks/comments";
 import CommentItem from "./CommentItem";
 import ReplyItem from "./ReplyItem";
@@ -10,7 +10,9 @@ const CommentList = () => {
   const isLast=false;
   const currentPage=1;
 
-  const findParentWriter = (parentId: string) => {
+  const [replyId, setReplyId] = useState<number | null>(null);
+
+  const findParentWriter = (parentId: number) => {
     const parentComment = comments.find((comment) => comment.id === parentId);
     return parentComment?.writer || "";
   };
@@ -33,6 +35,8 @@ const CommentList = () => {
               date={comment.date}
               likes={comment.likes}
               parentWriter={findParentWriter(comment.parentId)}
+              replyId={replyId}
+              setReplyId={setReplyId}
             />
           );
         } else {
@@ -45,6 +49,8 @@ const CommentList = () => {
               content={comment.content}
               date={comment.date}
               likes={comment.likes}
+              replyId={replyId}
+              setReplyId={setReplyId}
             />
           );
         }
