@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect } from "react";
+import NoticeModal from "./community/components/NoticeModal";
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -33,6 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <Header />
       <Component {...pageProps} className={`dsadsa`} />
+      <NoticeModal/>
       <Footer />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
