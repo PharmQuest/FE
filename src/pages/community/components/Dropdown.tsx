@@ -58,7 +58,7 @@ const Dropdown: React.FC<DropdownProps> = ({info, initialText, setValue}) => {
         {dropdownText}
         <DropdownArrowIcon className={`self-center`} />
         <div
-          className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] select-none z-20 ${isOpen ? `flex` : `hidden`}`}>
+          className={`px-6 py-5 w-full top-14 left-0 absolute flex-col gap-4 bg-white rounded-[4px] shadow-custom-light select-none z-20 ${isOpen ? `flex` : `hidden`}`}>
           {/* 선택 항목이 잘 안보여서 임의로 hover 시 bg-color 설정 */}
 
           {info?.map((item, index) => (
