@@ -29,7 +29,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-2 px-3 py-5 border-b border-solid border-gray-100">
+    <div className="flex flex-col gap-2 px-3 pb-5 border-b border-solid border-gray-100">
       <div className="flex flex-row justify-between">
         <p className={`text-subhead1-sb text-gray-600`}>{writer}</p>
         <KebabIcon />
