@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import axiosPOSTInstance from "@/apis/axios-instance"
+import axiosInstance from "@/apis/axios-instance"
 
 const useCustomMutation = <TData>(
   url: string, 
@@ -12,7 +12,7 @@ const useCustomMutation = <TData>(
 
   const { mutateAsync } = useMutation({
     mutationFn: async () => {
-      const response = await axiosPOSTInstance.post(
+      const response = await axiosInstance.post(
         url,
         body,
       );
