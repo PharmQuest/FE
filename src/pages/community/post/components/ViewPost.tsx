@@ -9,6 +9,8 @@ import SubjectTag from "../../components/SubjectTag";
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import useStore from "@/store/useStore";
+import { useRouter } from "next/router";
+import useUserCount from "@/hooks/community/useUserCount";
 
 interface ViewPostProps {
   category: string;
@@ -20,6 +22,8 @@ interface ViewPostProps {
   likeCount: number;
   comments: number;
   scrapeCount: number;
+  isLiked: boolean;
+  isScraped: boolean;
 }
 
 const ViewPost: React.FC<ViewPostProps> = ({
@@ -32,26 +36,47 @@ const ViewPost: React.FC<ViewPostProps> = ({
   likeCount,
   comments,
   scrapeCount,
+  isLiked,
+  isScraped,
 }) => {
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
+  const router = useRouter();
 
-  const [isLike, setIsLike] = useState(false);
+  const postId = router.query.postId;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
+  const {
+    isOn: isPostLike,
+    onCount: postLikeCount,
+    handleOn: handleLike
+  } = useUserCount(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/likes`,
+    ["post", Number(postId)],
+    isLiked,
+    likeCount,
+  );
+
+  const {
+    isOn: isPostScrap,
+    onCount: postScrapCount,
+    handleOn: handleScrap
+  } = useUserCount(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/scraps`,
+    ["post", Number(postId)],
+    isScraped,
+    scrapeCount,
+  );
+
   const {
     setIsNoticeModalOpen,
-    setModalText, 
+    setModalText,
   } = useStore((state) => state);
 
   const handleMenu = (e: MouseEvent) => {
     e.stopPropagation();
     setIsMenuOpen(!isMenuOpen)
-  }
-
-  const handleLike = () => {
-    setIsLike(!isLike);
   }
 
   const copyLink = () => {
@@ -73,6 +98,9 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
   }, []);
 
+
+
+
   return (
     <div className="mt-11 mb-8">
       <div className="flex flex-row justify-between pb-4 border-b border-solid border-gray-100">
@@ -86,10 +114,10 @@ const ViewPost: React.FC<ViewPostProps> = ({
           <p>{userName}</p>
           |
           <p>{formattedDate}</p>
-          <KebabIcon onClick={(e: MouseEvent) => {handleMenu(e)}} />
+          <KebabIcon onClick={(e: MouseEvent) => { handleMenu(e) }} />
           {isMenuOpen &&
             <div className={`absolute right-0 top-[30px] w-[96px] px-2 shadow-custom-light bg-white text-gray-600 text-subhead1-sb`}>
-              <div 
+              <div
                 className={`px-1 py-3 border-b border-solid border-gray-100`}
                 onClick={() => copyLink()}>URL 복사</div>
               <div className={`px-1 py-3`}>신고하기</div>
@@ -103,14 +131,18 @@ const ViewPost: React.FC<ViewPostProps> = ({
       <div className="flex flex-row justify-end text-gray-400">
         <div className="flex flex-row text-subhead1-sb items-center gap-0.5">
           <LikeIcon
-            fill={isLike ? "#FF8686" : "none"}
-            className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
-            onClick={() => handleLike()} />
-          {likeCount}
+            fill={isPostLike ? "#FF8686" : "none"}
+            className={`cursor-pointer mr-[2px] ${isPostLike && `text-[#FF8686]`}`}
+            onClick={() => handleLike()}
+          />
+          {postLikeCount}
           <CommentIcon className="ml-3" />
           {comments}
-          <ScrapIcon className="ml-3" />
-          {scrapeCount}
+          <ScrapIcon 
+            fill={isPostScrap ? "#FFD755" : "none"}
+            className={`cursor-pointer ml-3 ${isPostScrap && `text-mark-scrap`}`} 
+            onClick={() => handleScrap()}/>
+          {postScrapCount}
         </div>
       </div>
     </div>
