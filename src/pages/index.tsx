@@ -95,7 +95,7 @@ export default function Home() {
                         {/* 커뮤니티 코드를 반복문으로 변경 */}
                         <div className="lg:w-[483px] w-full lg:mt-4 lg:mb-4 mr-4 h-[145px] flex-col justify-start items-start flex">
                             {community.map((item, index) => (
-                                <div key={index} className="self-stretch lg:py-2.5 justify-between items-start inline-flex">
+                                <div key={index} className="self-stretch lg:py-2 justify-between items-start inline-flex">
                                     <div className="h-[29px] flex-1 justify-start items-center gap-2 flex min-w-0">
                                         <div className="lg:w-16 w-[47px] lg:h-6 h-5 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                             <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">
