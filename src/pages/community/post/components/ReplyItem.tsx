@@ -39,7 +39,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
 
   return (
     <div>
-      <div className="flex flex-col gap-2 pl-10 pr-3 py-5 border-b border-solid border-gray-100">
+      <div className="flex flex-col gap-2 pl-10 pr-3 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-1">
             <CornerDownRightIcon />
