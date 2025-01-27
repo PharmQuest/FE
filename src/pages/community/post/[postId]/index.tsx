@@ -4,7 +4,7 @@ import CommentList from "../components/CommentList";
 import PostList from "../../components/PostList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import axiosPOSTInstance from "@/apis/axios-instance";
+import axiosInstance from "@/apis/axios-instance";
 import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 
@@ -15,9 +15,9 @@ export default function Post() {
 
   const { data } = useQuery(
     {
-      queryKey: ['post', postId],
+      queryKey: ["post", Number(postId)],
       queryFn: async () => {
-        const response = await axiosPOSTInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}?page=${1}`)
+        const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}?page=${1}`)
         return response.data;
       },
       placeholderData: keepPreviousData,
@@ -61,9 +61,12 @@ export default function Post() {
         userName={postItem?.userName}
         createdAt={postItem?.createdAt}
         content={postItem?.content}
-        likeCount={postItem?.likeCount}
+        likeCount={postItem?.likeCount || 0}
         comments={postItem?.comments?.length || 0}
-        scrapeCount={postItem?.scrapeCount}
+        scrapeCount={postItem?.scrapeCount || 0}
+        isLiked={postItem?.isLiked}
+        isScraped={postItem?.isScraped
+        }
       />
       <div className={`flex flex-col gap-5`}>
         <CommentInput />

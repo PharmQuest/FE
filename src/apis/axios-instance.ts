@@ -2,7 +2,7 @@ import axios from "axios";
 
 const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
-const axiosPOSTInstance = axios.create({
+const axiosInstance = axios.create({
   baseURL: "http://localhost:8080",
   headers: {
     // 임의로 토큰값 넣어서 개발...
@@ -12,4 +12,4 @@ const axiosPOSTInstance = axios.create({
   },
 });
 
-export default axiosPOSTInstance;
+export default axiosInstance;
