@@ -6,22 +6,28 @@ import {
 } from "@public/svgs";
 import React, { useState } from "react";
 import Tag from "../../components/Tag";
+import CommentInput from "./CommentInput";
 
 interface ReplyItemProps {
-  id: string;
+  id: number;
   writer: string;
   content: string;
   date: string;
   likes: number;
   parentWriter: string; // 부모 댓글 작성자
+  replyId: number | null;
+  setReplyId: (id: number) => void;
 }
 
 const ReplyItem: React.FC<ReplyItemProps> = ({
+  id,
   writer,
   content,
   date,
   likes,
   parentWriter,
+  replyId,
+  setReplyId,
 }) => {
 
   const [isLike, setIsLike] = useState(false);
@@ -57,11 +63,16 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
                 onClick={() => handleLike()}/>
               {likes}
             </div>
-            <div className="flex flex-row cursor-pointer">
+            <div 
+              className="flex flex-row cursor-pointer"
+              onClick={() => setReplyId(id)}>
               <CommentIcon /> 답글 달기
             </div>
           </div>
         </div>
+        {replyId === id &&
+          <CommentInput/>
+        }
       </div>
     </div>
   );
