@@ -14,24 +14,23 @@ const NoticeModal = () => {
   useEffect(() => {
     if (isNoticeModalOpen) {
       const timer = setTimeout(() => {
-        setIsNoticeModalOpen(false); // 3초 후 모달 닫기
-      }, 3000);
+        setIsNoticeModalOpen(false); // 1.5초 후 모달 닫기
+      }, 1500);
 
-      return () => clearTimeout(timer); // 컴포넌트가 언마운트될 때 타이머 클리어
+      return () => clearTimeout(timer);
     }
-  }); // isOpen이 변경될 때마다 효과 실행
+  });
 
   return (
     <Portal>
       <AnimatePresence>
         {isNoticeModalOpen && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center"
+            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={() => setIsNoticeModalOpen(false)}
           >
             <div className="px-4 py-2 bg-gray-400 text-white rounded">
               {modalText}
