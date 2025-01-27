@@ -1,38 +1,40 @@
 import Portal from "@/components/common/Portal";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
+import useStore from "@/store/useStore";
 
-type ModalProps = {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  text: string;
-};
+const NoticeModal = () => {
 
-const NoticeModal = ({ isOpen, setIsOpen, text }: ModalProps) => {
+  const { 
+    isNoticeModalOpen, 
+    setIsNoticeModalOpen,
+    modalText,
+  } = useStore((state) => state);
+
   useEffect(() => {
-    if (isOpen) {
+    if (isNoticeModalOpen) {
       const timer = setTimeout(() => {
-        setIsOpen(false); // 3초 후 모달 닫기
+        setIsNoticeModalOpen(false); // 3초 후 모달 닫기
       }, 3000);
 
       return () => clearTimeout(timer); // 컴포넌트가 언마운트될 때 타이머 클리어
     }
-  }, [isOpen]); // isOpen이 변경될 때마다 효과 실행
+  }); // isOpen이 변경될 때마다 효과 실행
 
   return (
     <Portal>
       <AnimatePresence>
-        {isOpen && (
+        {isNoticeModalOpen && (
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsNoticeModalOpen(false)}
           >
             <div className="px-4 py-2 bg-gray-400 text-white rounded">
-              {text}
+              {modalText}
             </div>
           </motion.div>
         )}

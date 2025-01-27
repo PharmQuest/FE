@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
 import useCustomMutation from "../../../hooks/community/useCustomMutation";
+import useStore from "@/store/useStore";
 
 type DropdownInfo = {
   key: string;
@@ -12,6 +13,11 @@ type DropdownInfo = {
 };
 
 export default function CreatePost() {
+
+  const {
+    setIsNoticeModalOpen,
+    setModalText,
+  } = useStore((state) => state)
 
   const categoryInfo: DropdownInfo[] = [
     { key: "FORUM", value: "자유" },
@@ -82,8 +88,12 @@ export default function CreatePost() {
   const handleSubmit = async () => {
     try {
       await mutate()
+      setIsNoticeModalOpen(true);
+      setModalText("게시글 작성을 완료했습니다.")
     } catch (error) {
       console.log(error)
+      setIsNoticeModalOpen(true);
+      setModalText("게시글 작성에 실패했습니다.")
     }
   }
 
