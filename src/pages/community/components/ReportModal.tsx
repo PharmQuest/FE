@@ -64,13 +64,14 @@ const ReportModal = () => {
       <AnimatePresence>
         {isReportModalOpen && (
           <motion.div
-            ref={modalRef}
             className="fixed inset-0 z-50 flex items-center justify-center bg-[#0000004D]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}>
-            <div className={`w-[400px] flex flex-col rounded bg-white text-gray-600 p-6 gap-8`}>
+            <div 
+              ref={modalRef}
+              className={`w-[400px] flex flex-col rounded bg-white text-gray-600 p-6 gap-8`}>
               <div className={`flex flex-col gap-2`}>
                 <div className={`flex items-center justify-between`}>
                   <p className={`text-headline-b`}>
