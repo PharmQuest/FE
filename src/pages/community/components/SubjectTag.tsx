@@ -18,7 +18,7 @@ const SubjectTag: React.FC<SubjectTagProps> = ({ text, variant = "light" }) => {
 
   return (
     <div
-      className={`${widthClass} ${bgColorClass} ${textSizeClass} text-white rounded whitespace-nowrap flex justify-center items-center`}
+      className={`${widthClass} ${bgColorClass} ${textSizeClass} max-h-[33px] text-white rounded whitespace-nowrap flex justify-center items-center`}
     >
       {text}
     </div>
