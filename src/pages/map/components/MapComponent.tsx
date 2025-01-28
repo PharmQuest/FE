@@ -72,6 +72,35 @@ const MapComponent: React.FC<{
     });
   }, []);
 
+  const updateMarkers = useCallback(
+    (pharmacies: Pharmacy[]) => {
+      if (!mapRef.current || !window.google?.maps) return;
+
+      markersRef.current.forEach((marker) => (marker.map = null));
+      markersRef.current = [];
+
+      const newMarkers = pharmacies
+        .map((pharmacy) => {
+          if (!pharmacy.geometry?.location) return null;
+
+          const marker = new google.maps.marker.AdvancedMarkerElement({
+            map: mapRef.current!,
+            position: pharmacy.geometry.location,
+            title: pharmacy.name,
+          });
+
+          marker.addListener("click", () => onPharmacySelect(pharmacy));
+          return marker;
+        })
+        .filter(
+          (m): m is google.maps.marker.AdvancedMarkerElement => m !== null
+        );
+
+      markersRef.current = newMarkers;
+    },
+    [onPharmacySelect]
+  );
+
   const fetchPharmacyDetails = useCallback(
     async (
       pharmacy: Pharmacy,
@@ -171,7 +200,7 @@ const MapComponent: React.FC<{
         return [];
       }
     },
-    [currentPosition, onPharmaciesFound]
+    [currentPosition, onPharmaciesFound, fetchPharmacyDetails, updateMarkers]
   );
 
   const initMap = useCallback(
@@ -225,35 +254,6 @@ const MapComponent: React.FC<{
       setIsMapMoved(false);
     }
   }, [searchNearbyPharmacies]);
-
-  const updateMarkers = useCallback(
-    (pharmacies: Pharmacy[]) => {
-      if (!mapRef.current || !window.google?.maps) return;
-
-      markersRef.current.forEach((marker) => (marker.map = null));
-      markersRef.current = [];
-
-      const newMarkers = pharmacies
-        .map((pharmacy) => {
-          if (!pharmacy.geometry?.location) return null;
-
-          const marker = new google.maps.marker.AdvancedMarkerElement({
-            map: mapRef.current!,
-            position: pharmacy.geometry.location,
-            title: pharmacy.name,
-          });
-
-          marker.addListener("click", () => onPharmacySelect(pharmacy));
-          return marker;
-        })
-        .filter(
-          (m): m is google.maps.marker.AdvancedMarkerElement => m !== null
-        );
-
-      markersRef.current = newMarkers;
-    },
-    [onPharmacySelect]
-  );
 
   useEffect(() => {
     const initializeMap = async () => {
