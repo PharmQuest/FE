@@ -1,6 +1,6 @@
 // 약국찾기 메인화면
 import React, { useState } from "react";
-import {MapFindIcon, SearchIcon} from "@public/svgs";
+import {MapFindIcon, FindSearchIcon, FindGTIcon, FindLTIcon} from "@public/svgs";
 
 export default function Map() {
   const [isSearchOpen, setIsSearchOpen] = useState(true); // 검색창 열림 상태 관리
@@ -18,8 +18,8 @@ export default function Map() {
         <div className="w-[380px] h-[1002px] shrink-0 border border-gray-100 border-t-0">
           {/* 검색 */}
           <div className='h-[120px] bg-white border-b border-gray-100 flex py-5 px-7 flex-col justify-start items-start gap-4 self-stretch'>
-            <div className='w-[324px] h-[40px] flex justify-start py-2 pl-2 pr-4 items-center gap-2 self-stretch mb-4 rounded-lg border-2 border-solid border-secondary-500'>
-              <SearchIcon/>
+            <div className='w-[324px] h-[40px] flex justify-start py-2 pl-2 pr-4 items-center gap-2 self-stretch  rounded-lg border-2 border-solid border-secondary-500'>
+              <FindSearchIcon/>
               <input placeholder="검색어를 입력하세요." className="text-gray-300 text-base font-normal font-['Pretendard Variable'] leading-normal"></input>              
             </div>
             <div className="font-['Pretendard Variable'] leading-normal text-subhead1-sb text-gray-400">검색 결과 2건</div>
@@ -44,7 +44,7 @@ export default function Map() {
               </div>
             </div>
             {/* 경로 */}
-            <div className="w-[30px] h-[52px] ml-[1.6px]">
+            <div className="w-[30px] h-[52px] ml-[30px]">
               <MapFindIcon/>
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function Map() {
               </div>
             </div>
             {/* 경로 */}
-            <div className="w-[30px] h-[52px] ml-[1.6px]">
+            <div className="w-[30px] h-[52px] pl-[30px]">
               <MapFindIcon/>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function Map() {
       )}
 
         {/* 검색창 접기 */}
-        <button onClick={toggleSearch} className="w-6 h-[46px] bg-white mt-[566px] mb-[426px] text-gray-300 border-l-0 border-b-2 border-t-2 border-r-2 border-solid border-gray-100 rounded-tr-[4px] rounded-br-[4px]">{isSearchOpen ? "<" : ">"}</button>
+        <button onClick={toggleSearch} className="w-6 h-[46px] pl-[7px] bg-white mt-[450px] mb-[426px] text-gray-300 border-l-0 border-b-2 border-t-2 border-r-2 border-solid border-gray-100 rounded-tr-[4px] rounded-br-[4px]">{isSearchOpen ? <FindLTIcon/> : <FindGTIcon/>}</button>
       </div>
     </>
   );
