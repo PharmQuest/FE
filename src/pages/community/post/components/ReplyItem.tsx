@@ -48,7 +48,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   setReplyParentId,
 }) => {
 
-  
+
 
   const [isLike, setIsLike] = useState(false);
 
@@ -57,7 +57,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   }
 
   const date = new Date(createdAt);
-    const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
+  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
   return (
     <div>
@@ -66,7 +66,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
           <div className="flex flex-row gap-1">
             <CornerDownRightIcon />
             <p>{userName}</p>
-            {postUserId === userId && <Tag variant="writer" /> }
+            {postUserId === userId && <Tag variant="writer" />}
           </div>
           <KebabIcon />
         </div>
@@ -79,23 +79,38 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
           <p>{formattedDate}</p>
           <div className="flex flex-row gap-[10px]">
             <div className="flex flex-row">
-              <LikeIcon 
+              <LikeIcon
                 fill={isLike ? "#FF8686" : "none"}
                 className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
-                onClick={() => handleLike()}/>
+                onClick={() => handleLike()} />
               {0}
             </div>
-            <div 
-              className="flex flex-row cursor-pointer"
+            <div
+              className="flex flex-row cursor-pointer gap-0.5"
               onClick={() => setReplyParentId(commentId)}>
               <CommentIcon /> 답글 달기
             </div>
           </div>
         </div>
         {replyParentId === commentId &&
-          <CommentInput/>
+          <CommentInput replyParentId={commentId} />
         }
       </div>
+      {replies?.map((reply) => (
+        <ReplyItem
+          postUserId={postUserId}
+          key={reply.commentId}
+          commentId={reply.commentId}
+          content={reply.content}
+          userId={reply.userId}
+          userName={reply.userName}
+          createdAt={reply.createdAt}
+          parentId={reply.parentId}
+          parentName={reply.parentName}
+          replies={reply.replies}
+          replyParentId={replyParentId}
+          setReplyParentId={setReplyParentId} />
+      ))}
     </div>
   );
 };
