@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
         <div className='bg-[#d1e6e7] lg:pb-[36px] pb-6 flex justify-center'>
-            {/* 1000px 이상일 때 */}
+            {/* 1000px 이상일 때*/}
             <div className="hidden lg:flex lg:flex-col //grow
                             // 1001 ~ 1440px
                             xl:w-[900px]
