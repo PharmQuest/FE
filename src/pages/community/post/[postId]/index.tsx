@@ -28,6 +28,7 @@ export default function Post() {
         return response.data;
       },
       placeholderData: keepPreviousData,
+      enabled: !!postId,
       retry: 0,
     },
   );
@@ -35,7 +36,7 @@ export default function Post() {
   const postItem = data?.result
 
   useEffect(() => {
-    if( isError && postId ) {
+    if( isError ) {
       setNoticeModalText("존재하지 않는 게시글입니다.");
       setIsNoticeModalOpen(true);
       router.push("/community")
@@ -78,7 +79,7 @@ export default function Post() {
         createdAt={postItem?.createdAt}
         content={postItem?.content}
         likeCount={postItem?.likeCount || 0}
-        comments={postItem?.comments?.length || 0}
+        commentCount={postItem?.comments?.length}
         scrapeCount={postItem?.scrapeCount || 0}
         isLiked={postItem?.isLiked}
         isScraped={postItem?.isScraped}
@@ -86,7 +87,7 @@ export default function Post() {
       />
       <div className={`flex flex-col gap-5`}>
         <CommentInput />
-        <CommentList />
+        <CommentList comments={postItem?.comments}/>
       </div>
       <div className="flex flex-col mt-[60px] mb-[170px]">
         <div className={`flex justify-between`}>
