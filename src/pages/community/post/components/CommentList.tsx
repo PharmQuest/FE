@@ -1,62 +1,50 @@
 import React, { useState } from "react";
-import comments from "../../../../mocks/comments";
 import CommentItem from "./CommentItem";
-import ReplyItem from "./ReplyItem";
 import { ArrowRightIcon } from "@public/svgs";
 
-const CommentList = () => {
-  const totalPage=2;
-  const isFirst=true;
-  const isLast=false;
-  const currentPage=1;
+interface Comment {
+  commentId: number;
+  content: string;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number | null;
+  parentName: string | null;
+  replies: Comment[];
+}
 
-  const [replyId, setReplyId] = useState<number | null>(null);
+const CommentList = ({ postUserId, comments }: { postUserId: number, comments: Comment[] }) => {
+  const totalPage = 2;
+  const isFirst = true;
+  const isLast = false;
+  const currentPage = 1;
 
-  const findParentWriter = (parentId: number) => {
-    const parentComment = comments.find((comment) => comment.id === parentId);
-    return parentComment?.writer || "";
-  };
+  const [replyParentId, setReplyParentId] = useState<number | null>(null);
 
   const pageNavigate = (page: number) => {
     console.log(page)
   }
-
+  
   return (
+    comments?.length > 0 &&
     <div className="flex flex-col bg-gray-50 p-5 gap-5">
-      {comments.map((comment) => {
-        if (comment.parentId) {
-          // 답글
-          return (
-            <ReplyItem
-              key={comment.id}
-              id={comment.id}
-              writer={comment.writer}
-              content={comment.content}
-              date={comment.date}
-              likes={comment.likes}
-              parentWriter={findParentWriter(comment.parentId)}
-              replyId={replyId}
-              setReplyId={setReplyId}
-            />
-          );
-        } else {
-          // 일반 댓글
-          return (
-            <CommentItem
-              key={comment.id}
-              id={comment.id}
-              writer={comment.writer}
-              content={comment.content}
-              date={comment.date}
-              likes={comment.likes}
-              replyId={replyId}
-              setReplyId={setReplyId}
-            />
-          );
-        }
-      })}
+      {comments?.map((comment) => (
+        <CommentItem
+          key={comment.commentId}
+          postUserId={postUserId}
+          commentId={comment.commentId}
+          content={comment.content}
+          userId={comment.userId}
+          userName={comment.userName}
+          createdAt={comment.createdAt}
+          replies={comment.replies}
+          replyParentId={replyParentId}
+          setReplyParentId={setReplyParentId} />
+      ))}
 
       {/* PageNavigator */}
+
+
       <div className={`flex gap-3 mx-auto items-center`}>
         {!isFirst &&
           <ArrowRightIcon

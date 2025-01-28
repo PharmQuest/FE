@@ -32,7 +32,7 @@ export default function Post() {
       retry: 0,
     },
   );
-
+  
   const postItem = data?.result
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function Post() {
       />
       <div className={`flex flex-col gap-5`}>
         <CommentInput />
-        <CommentList comments={postItem?.comments}/>
+        <CommentList postUserId={postItem?.userId} comments={postItem?.comments}/>
       </div>
       <div className="flex flex-col mt-[60px] mb-[170px]">
         <div className={`flex justify-between`}>
