@@ -8,10 +8,10 @@ import Tag from "../../components/Tag";
 import SubjectTag from "../../components/SubjectTag";
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
-import useStore from "@/store/useStore";
 import { useRouter } from "next/router";
 import useUserCount from "@/hooks/community/useUserCount";
 import { MouseEvent } from "react";
+import PostMenu from "./PostMenu";
 
 interface ViewPostProps {
   category: string;
@@ -25,6 +25,7 @@ interface ViewPostProps {
   scrapeCount: number;
   isLiked: boolean;
   isScraped: boolean;
+  isOwnPost: boolean;
 }
 
 const ViewPost: React.FC<ViewPostProps> = ({
@@ -39,12 +40,13 @@ const ViewPost: React.FC<ViewPostProps> = ({
   scrapeCount,
   isLiked,
   isScraped,
+  isOwnPost,
 }) => {
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
   const router = useRouter();
 
-  const postId = router.query.postId;
+  const postId = Number(router.query.postId);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -54,7 +56,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
     handleOn: handleLike
   } = useUserCount(
     `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/likes`,
-    ["post", Number(postId)],
+    ["post", postId],
     isLiked,
     likeCount,
   );
@@ -65,32 +67,14 @@ const ViewPost: React.FC<ViewPostProps> = ({
     handleOn: handleScrap
   } = useUserCount(
     `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/scraps`,
-    ["post", Number(postId)],
+    ["post", postId],
     isScraped,
     scrapeCount,
   );
 
-  const {
-    setIsNoticeModalOpen,
-    setNoticeModalText,
-    setIsReportModalOpen,
-  } = useStore((state) => state);
-
   const handleMenu = (e: MouseEvent) => {
     e.stopPropagation();
     setIsMenuOpen(!isMenuOpen)
-  }
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setNoticeModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.")
-    setIsNoticeModalOpen(true);
-  }
-
-  const handleReport = (e: MouseEvent) => {
-    e.stopPropagation();
-    setIsReportModalOpen(true)
-    setIsMenuOpen(false)
   }
 
   useEffect(() => {
@@ -122,16 +106,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
           |
           <p>{formattedDate}</p>
           <KebabIcon onClick={(e: MouseEvent) => { handleMenu(e) }} />
-          {isMenuOpen &&
-            <div className={`absolute right-0 top-[30px] w-[96px] px-2 shadow-custom-light bg-white text-gray-600 text-subhead1-sb`}>
-              <div
-                className={`px-1 py-3 border-b border-solid border-gray-100`}
-                onClick={() => copyLink()}>URL 복사</div>
-              <div 
-                className={`px-1 py-3`}
-                onClick={(e) => handleReport(e)}>신고하기</div>
-            </div>
-          }
+          <PostMenu postId={postId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnPost={isOwnPost}/>
         </div>
       </div>
 
@@ -147,10 +122,10 @@ const ViewPost: React.FC<ViewPostProps> = ({
           {postLikeCount}
           <CommentIcon className="ml-3" />
           {comments}
-          <ScrapIcon 
+          <ScrapIcon
             fill={isPostScrap ? "#FFD755" : "none"}
-            className={`cursor-pointer ml-3 ${isPostScrap && `text-mark-scrap`}`} 
-            onClick={() => handleScrap()}/>
+            className={`cursor-pointer ml-3 ${isPostScrap && `text-mark-scrap`}`}
+            onClick={() => handleScrap()} />
           {postScrapCount}
         </div>
       </div>
