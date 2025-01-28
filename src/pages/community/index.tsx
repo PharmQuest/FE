@@ -23,7 +23,7 @@ export default function Community() {
           <PopularPostList />
           <UserNavbar />
         </div>
-        <div className="flex flex-row items-center gap-3 mt-10 mb-4">
+        <div className="flex flex-row items-center gap-3 mt-20 mb-4">
           <p className="text-display2-b text-gray-600">게시글</p>
           {FILTER_CATEGORIES.map((category) => (
             <FilterButton key={category} text={category} />

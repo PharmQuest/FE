@@ -29,6 +29,12 @@ export default {
 				"caption1-r": ["12px", { lineHeight: "18px", fontWeight: "400" }],
 				"caption2-l": ["10px", { lineHeight: "15px", fontWeight: "300" }],
 			},
+			screens: {
+				'xl': '1001px',
+				'lg': '1000px',
+				'md': '641px',
+				'sm': '393px',
+			},
 		},
 	},
 	plugins: [],
