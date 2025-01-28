@@ -97,7 +97,7 @@ export default function Map() {
     <>
       <hr className="border-b border-solid border-gray-100"/>
       
-      <div className="bg-red-100 w-[404px] h-[1024px] shrink-0 flex flex-row relative">
+      <div className="w-[404px] h-[1024px] shrink-0 flex flex-row relative">
         {isSearchOpen && (
           <div className="w-[380px] h-full shrink-0 border border-gray-100 border-t-0 flex flex-col">
             {/* 검색 */}
