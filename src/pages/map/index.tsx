@@ -25,10 +25,10 @@ export default function Map() {
             <div className="font-['Pretendard Variable'] leading-normal text-subhead1-sb text-gray-400">검색 결과 2건</div>
           </div>
           {/* 약국 정보 */}
-          <div className="h-[126px] bg-white border-b border-gray-100 pl-7 py-5 flex justify-start items-center gap-3 self-stretch">
+          <div className="h-[126px] bg-white border-b border-gray-100 px-7 py-5 flex items-center self-stretch">
             <div className="w-[86px] h-[86px] bg-[#cccccc] rounded"/>
-            {/* 약국 정보 */}
-            <div className="flex w-[145px] flex-col items-start">
+            {/* 약국 정보1 */}
+            <div className="flex w-[145px] flex-col items-start ml-3">
               <div className="flex items-center mb-3 gap-[3px]">
                 <div className="text-subhead1-sb text-gray-600 text-[16px] font-['Pretendard Variable'] leading-normal">다아나약국</div>
                 <div className="h-[18px] flex px-1 justify-center items-center gap-2.5 rounded bg-primary-300 text-white text-xs font-semibold font-['Pretendard Variable'] leading-[18px]">영업중</div>
@@ -44,15 +44,15 @@ export default function Map() {
               </div>
             </div>
             {/* 경로 */}
-            <div className="w-[30px] h-[52px] ml-[30px]">
+            <div className="w-[30px] h-[52px] ml-auto">
               <MapFindIcon/>
             </div>
           </div>
           {/* 약국 정보2 */}
-          <div className="h-[126px] bg-white border-b border-gray-100 pl-7 py-5 flex justify-start items-center gap-3 self-stretch">
+          <div className="h-[126px] bg-white border-b border-gray-100 px-7 py-5 flex items-center self-stretch">
             <div className="w-[86px] h-[86px] bg-[#cccccc] rounded"/>
             {/* 약국 정보 */}
-            <div className="flex w-[145px] flex-col items-start">
+            <div className="flex w-[145px] flex-col items-start ml-3">
               <div className="flex items-center mb-3 gap-[3px]">
                 <div className="text-subhead1-sb text-gray-600 text-[16px] font-['Pretendard Variable'] leading-normal">다아나약국</div>
                 <div className="h-[18px] flex px-1 justify-center items-center gap-2.5 rounded bg-green-50 text-gray-400 text-xs font-semibold font-['Pretendard Variabl'] leading-[18px]">영업종료</div>
@@ -68,7 +68,7 @@ export default function Map() {
               </div>
             </div>
             {/* 경로 */}
-            <div className="w-[30px] h-[52px] pl-[30px]">
+            <div className="w-[30px] h-[52px] ml-auto">
               <MapFindIcon/>
             </div>
           </div>
