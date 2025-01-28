@@ -24,7 +24,6 @@ function MoreSupplements({ supplements, imageWidth = 168 }: MoreSupplementsProps
         {supplements.map((supplement) => (
           <SupplementCard
             key={supplement.id}
-            id={supplement.id}
             country={supplement.country}
             title={supplement.title}
             tags={supplement.tags}
