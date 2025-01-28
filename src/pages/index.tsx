@@ -113,7 +113,7 @@ export default function Home() {
                                             </div>
                                         )}
                                     </div>
-                                    <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">
+                                    <div className="flex items-center h-full text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">
                                         {item.calendar}
                                     </div>
                                 </div>
