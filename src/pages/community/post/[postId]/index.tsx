@@ -12,7 +12,7 @@ import useStore from "@/store/useStore";
 
 export default function Post() {
   const params = useParams() || {};
-  const postId = params.postId || null;
+  const postId = Number(params.postId) || null;
   const router = useRouter();
 
   const {
@@ -22,7 +22,7 @@ export default function Post() {
 
   const { data, isError } = useQuery(
     {
-      queryKey: ["post", Number(postId)],
+      queryKey: ["post", postId],
       queryFn: async () => {
         const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}?page=${1}`)
         return response.data;
@@ -86,7 +86,7 @@ export default function Post() {
         isOwnPost={postItem?.isOwnPost}
       />
       <div className={`flex flex-col gap-5`}>
-        <CommentInput />
+        <CommentInput/>
         <CommentList postUserId={postItem?.userId} comments={postItem?.comments}/>
       </div>
       <div className="flex flex-col mt-[60px] mb-[170px]">
