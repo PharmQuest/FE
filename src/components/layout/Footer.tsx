@@ -1,7 +1,11 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { FooterLogoIcon } from "@public/svgs";
 
 const Footer = () => {
+  const router = useRouter();
+  if (router.pathname === "/map") return null;
+
   return (
     <div className="w-full bg-secondary-500 text-white">
       <div
