@@ -36,19 +36,19 @@ const Header = () => {
             <div className="whitespace-nowrap flex grow h-[46px] justify-between items-center">
               <button
                 onClick={() => router.push("/medicines")}
-                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-gray-600 text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 상비약 리스트
               </button>
               <button
                 onClick={() => router.push("/map")}
-                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-gray-600 text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 약국 찾기
               </button>
               <button
                 onClick={() => router.push("/community")}
-                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-1 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-1 flex text-gray-600 text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 커뮤니티
                 {/* 로그인하면 보임 */}
@@ -63,7 +63,7 @@ const Header = () => {
               </button>
               <button
                 onClick={() => router.push("/supplements")}
-                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
+                className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-2.5 flex text-gray-600 text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
               >
                 해외 인기 영양제
               </button>

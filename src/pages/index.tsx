@@ -77,7 +77,7 @@ export default function Home() {
                 w-full px-5
             `}>
                 <div className='lg:h-[366px] h-fit flex grow flex-col'>
-                    <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-[#333333] lg:text-[28px] text-xl font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
+                    <button className="mt-[36px] h-[42px] justify-start items-center gap-3 inline-flex text-gray-600 lg:text-[28px] text-xl font-bold font-['Pretendard Variable'] leading-[42px]">커뮤니티 &gt;</button>
                     <div className='flex
                                     // 1000px 이상
                                     lg:flex-row lg:justify-between
