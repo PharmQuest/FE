@@ -8,7 +8,7 @@ interface MoreSupplementsProps {
     tags: string[];
     isBookmarked?: boolean;
   }[];
-  imageWidth?: number; // 이미지 크기를 조절할 수 있도록 prop 추가
+  imageWidth?: number; 
 }
 
 function MoreSupplements({ supplements, imageWidth = 168 }: MoreSupplementsProps) {
@@ -27,7 +27,7 @@ function MoreSupplements({ supplements, imageWidth = 168 }: MoreSupplementsProps
             country={supplement.country}
             title={supplement.title}
             tags={supplement.tags}
-            width={imageWidth} // 이미지 크기 조절 가능하도록 추가
+            width={imageWidth} 
           />
         ))}
       </div>
