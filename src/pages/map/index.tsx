@@ -112,33 +112,35 @@ export default function Map() {
             
             {/* 약국 목록을 반복문으로 */}
             <div className="flex-1 overflow-y-auto scrollbar-hide">
-            {pharmacies.map((pharmacy) => (
-              <div key={pharmacy.id} className="h-[126px] bg-white border-b border-gray-100 px-7 py-5 flex items-center self-stretch">
-                <div className="w-[86px] h-[86px] bg-[#cccccc] rounded"/>
-                {/* 약국 이름과 영업 정보 */}
-                <div className="flex w-[145px] flex-col items-start ml-3">
-                  <div className="flex items-center mb-3 gap-[3px]">
-                    <div className="text-subhead1-sb text-gray-600 text-[16px] font-['Pretendard Variable'] leading-normal">{pharmacy.name}</div>
-                    <div className={`h-[18px] flex px-1 justify-center items-center gap-2.5 rounded ${pharmacy.isOpen ? 'bg-primary-300 text-white' : 'bg-green-50 text-gray-400'} text-xs font-semibold font-['Pretendard Variable'] leading-[18px]`}>
-                      {pharmacy.isOpen ? '영업중' : '영업종료'}
+              {pharmacies.map((pharmacy) => (
+                // 아래 코드를 button으로 수정했더니 border-gray-100가 안 보여... 어쩌지?
+                <button key={pharmacy.id} className="h-[126px] bg-white outline outline-1 outline-gray-100 w-full hover:bg-gray-50 px-7 py-5 flex items-center self-stretch">
+                  <div className="w-[86px] h-[86px] bg-[#cccccc] rounded"/>
+                  {/* 약국 이름과 영업 정보 */}
+                  <div className="flex w-[145px] flex-col items-start ml-3">
+                    <div className="flex items-center mb-3 gap-[3px]">
+                      <div className="text-subhead1-sb text-gray-600 text-[16px] font-['Pretendard Variable'] leading-normal">{pharmacy.name}</div>
+                      <div className={`h-[18px] flex px-1 justify-center items-center gap-2.5 rounded ${pharmacy.isOpen ? 'bg-primary-300 text-white' : 'bg-green-50 text-gray-400'} text-xs font-semibold font-['Pretendard Variable'] leading-[18px]`}>
+                        {pharmacy.isOpen ? '영업중' : '영업종료'}
+                      </div>
+                    </div>
+                    {/* 약국 세부 정보 */}
+                    <div className="self-stretch h-11 flex-col justify-start items-start gap-0.5 flex">
+                      <div className="text-gray-400 text-sm font-normal font-['Pretendard Variable'] leading-[21px]">{pharmacy.operationTime}</div>
+                      <div className="items-center gap-1.5 inline-flex">
+                        <div className="text-gray-500 text-sm font-semibold">{pharmacy.distance}</div>
+                        <div className="w-0.5 h-0.5 bg-[#cccccc] rounded-full"></div>
+                        <div className="text-gray-400 text-sm">{pharmacy.address}</div>
+                      </div>
                     </div>
                   </div>
-                  {/* 약국 세부 정보 */}
-                  <div className="self-stretch h-11 flex-col justify-start items-start gap-0.5 flex">
-                    <div className="text-gray-400 text-sm font-normal font-['Pretendard Variable'] leading-[21px]">{pharmacy.operationTime}</div>
-                    <div className="items-center gap-1.5 inline-flex">
-                      <div className="text-gray-500 text-sm font-semibold">{pharmacy.distance}</div>
-                      <div className="w-0.5 h-0.5 bg-[#cccccc] rounded-full"></div>
-                      <div className="text-gray-400 text-sm">{pharmacy.address}</div>
-                    </div>
+                  {/* 경로 */}
+                  <div className="w-[30px] h-[52px] ml-auto">
+                    <MapFindIcon/>
                   </div>
-                </div>
-                {/* 경로 */}
-                <div className="w-[30px] h-[52px] ml-auto">
-                  <MapFindIcon/>
-                </div>
-              </div>
-            ))}</div>
+                </button>
+              ))}
+            </div>
           </div>
         )}
         {/* 검색창 접기 */}
