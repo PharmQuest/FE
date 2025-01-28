@@ -26,3 +26,6 @@ export { default as FooterLogoIcon } from "./footer_logo.svg";
 export { default as MenuLogoIcon } from "./menu.svg";
 export { default as GTIcon } from "./gt.svg";
 export { default as WhiteGTIcon } from "./white-gt.svg";
+export { default as FindLTIcon } from "./find-lt.svg";
+export { default as FindGTIcon } from "./find-gt.svg";
+export { default as FindSearchIcon } from "./find-search.svg";
