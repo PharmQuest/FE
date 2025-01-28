@@ -15,6 +15,7 @@ const CommentInput = () => {
         placeholder="댓글을 남겨보세요."
         className="text-body1-r text-gray-600 placeholder-gray-300 focus:outline-none"
         value={content}
+        maxLength={600}
         onChange={(e) => setContent(e.target.value)}
       />
       <div className="flex flex-row gap-3 justify-end">
