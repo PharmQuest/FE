@@ -95,6 +95,7 @@ export default function Map() {
 
   return (
     <>
+      <div className="flex">
       <hr className="border-b border-solid border-gray-100"/>
       
       <div className="w-[404px] h-[1024px] shrink-0 flex flex-row relative">
@@ -142,6 +143,9 @@ export default function Map() {
         )}
         {/* 검색창 접기 */}
         <button onClick={toggleSearch} className="w-6 h-[46px] pl-[7px] bg-white mt-[450px] mb-[426px] text-gray-300 border-l-0 border-b-2 border-t-2 border-r-2 border-solid border-gray-100 rounded-tr-[4px] rounded-br-[4px]">{isSearchOpen ? <FindLTIcon/> : <FindGTIcon/>}</button>
+      </div>
+      {/* 현 지도에서 검색 버튼 */}
+      <button className="fixed bottom-6 left-[825px] mt-[854px] h-11 px-[30px] py-2.5 bg-primary-500 rounded-full border border-[#138e5d] justify-center items-center gap-2 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal">현 지도에서 검색</button>
       </div>
     </>
   );
