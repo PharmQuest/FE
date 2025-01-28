@@ -3,17 +3,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import useStore from "@/store/useStore";
 import { useEffect, useRef, useState } from "react";
 import { CheckCircleIcon, CircleIcon, XIcon } from "@public/svgs";
+import axiosInstance from "@/apis/axios-instance";
+import { useRouter } from "next/router";
 
 const ReportModal = () => {
 
-  const reportReasons = [
-    { key: 1, text: "스팸홍보/도배" },
-    { key: 2, text: "음란물" },
-    { key: 3, text: "불법정보 포함" },
-    { key: 4, text: "욕설/비하/혐오/차별적 표현" },
-    { key: 5, text: "유출/사칭/사기" },
-    { key: 6, text: "불법촬영물 유통" },
-    { key: 7, text: "상업적 광고 및 판매" },
+  const reportTypes = [
+    // type 값은 추후 서버와 논의 필요요
+    { key:1, type: "OTHER", text: "스팸홍보/도배" },
+    { key:2, type: "OBSCENE_CONTENT", text: "음란물" },
+    { key:3, type: "OTHER", text: "불법정보 포함" },
+    { key:4, type: "ABUSIVE_LANGUAGE", text: "욕설/비하/혐오/차별적 표현" },
+    { key:5, type: "OTHER", text: "유출/사칭/사기" },
+    { key:6, type: "OTHER", text: "불법촬영물 유통" },
+    { key:7, type: "OTHER", text: "상업적 광고 및 판매" },
   ]
 
   const {
@@ -24,18 +27,30 @@ const ReportModal = () => {
   } = useStore((state) => state);
 
   const [reportKey, setReportKey] = useState<number | null>(null);
+  const [reportType, setReportType] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const postId = Number(router.query.postId);
 
-  const handleReportReason = (key: number) => {
+  const handleReportType = (key: number, type: string) => {
     setReportKey(key)
+    setReportType(type)
   }
 
-  const handleReport = () => {
-    setIsReportModalOpen(false)
-    setReportKey(null)
-    setIsNoticeModalOpen(true)
-    setNoticeModalText("신고가 정상적으로 접수되었습니다.")
+  const handleReport = async () => {
+    try {
+      await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/reports?type=${reportType}`)
+      setIsReportModalOpen(false)
+      setReportKey(null)
+      setNoticeModalText("신고가 정상적으로 접수되었습니다.")
+      setIsNoticeModalOpen(true)
+      router.push("/community");
+    } catch (error) {
+      console.log(error)
+      setNoticeModalText("신고 접수에 실패했습니다.")
+      setIsNoticeModalOpen(true)
+    }
   }
 
   const handleXbutton = () => {
@@ -81,11 +96,11 @@ const ReportModal = () => {
                 </div>
                 <div
                   className={`flex flex-col`}>
-                  {reportReasons?.map((item, index) => (
+                  {reportTypes?.map((item, index) => (
                     <div 
                       key={index} 
-                      className={`flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.key && `text-subhead1-sb text-primary-500`}`}
-                      onClick={() => handleReportReason(item.key)}>
+                      className={`flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.type && `text-subhead1-sb text-primary-500`}`}
+                      onClick={() => handleReportType(item.key, item.type)}>
                       {reportKey === item.key ? <CheckCircleIcon /> : <CircleIcon />}
                       {item.text}
                     </div>
