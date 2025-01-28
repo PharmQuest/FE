@@ -2,6 +2,17 @@ import React, { useState } from "react";
 import CommentItem from "./CommentItem";
 import { ArrowRightIcon } from "@public/svgs";
 
+interface Reply {
+  commentId: number;
+  content: string;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number;
+  parentName: string;
+  replies: Reply[];
+}
+
 interface Comment {
   commentId: number;
   content: string;
@@ -10,7 +21,7 @@ interface Comment {
   createdAt: string;
   parentId: number | null;
   parentName: string | null;
-  replies: Comment[];
+  replies: Reply[];
 }
 
 const CommentList = ({ postUserId, comments }: { postUserId: number, comments: Comment[] }) => {
@@ -43,7 +54,6 @@ const CommentList = ({ postUserId, comments }: { postUserId: number, comments: C
       ))}
 
       {/* PageNavigator */}
-
 
       <div className={`flex gap-3 mx-auto items-center`}>
         {!isFirst &&

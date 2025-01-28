@@ -53,10 +53,10 @@ const CommentItem: React.FC<CommentItemProps> = ({
     <div className={`flex flex-col gap-5`}>
       <div className="flex flex-col gap-2 px-3 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
-          <p className={`flex gap-1 text-subhead1-sb text-gray-600`}>
+          <div className={`flex gap-1 text-subhead1-sb text-gray-600`}>
             {userName}
             {postUserId === userId && <Tag variant="writer" /> }
-          </p>
+          </div>
           <KebabIcon />
         </div>
         <p className="text-body1-r text-gray-500">{content}</p>
@@ -71,14 +71,14 @@ const CommentItem: React.FC<CommentItemProps> = ({
               {0}
             </div>
             <div
-              className="flex flex-row cursor-pointer"
+              className="flex flex-row cursor-pointer gap-0.5"
               onClick={() => setReplyParentId(commentId)}>
               <CommentIcon /> 답글 달기
             </div>
           </div>
         </div>
         {replyParentId === commentId &&
-          <CommentInput />
+          <CommentInput replyParentId={replyParentId}/>
         }
       </div>
       {replies?.map((reply) => (
