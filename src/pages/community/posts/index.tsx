@@ -34,7 +34,7 @@ export default function Posts() {
     setCategories((prevCategories) =>
       prevCategories.map((category) => ({
         ...category,
-        isSelected: category.value === categoryQuery, // Match value with categoryQuery
+        isSelected: category.value === categoryQuery,
       }))
     );
   }, [categoryQuery]);
@@ -56,6 +56,8 @@ export default function Posts() {
       window.removeEventListener('scroll', handleScroll);
     }
   }, []);
+
+
 
   return (
     <div className={`overflow-hidden min-h-[calc(100vh-169px-188px)]`}>
