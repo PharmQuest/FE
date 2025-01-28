@@ -74,7 +74,7 @@ export default function Home() {
             </div>
         </div>
         {/* 흰 배경 */}
-        <div className='bg-white flex justify-center'>
+        <div className='bg-white flex justify-center mb-[48px]'>
             <div className={`
                 // 1001px 이상
                 xl:w-[900px]
