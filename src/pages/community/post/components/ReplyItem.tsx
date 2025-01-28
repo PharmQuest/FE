@@ -7,28 +7,48 @@ import {
 import React, { useState } from "react";
 import Tag from "../../components/Tag";
 import CommentInput from "./CommentInput";
+import { format } from "date-fns";
+
+interface Reply {
+  commentId: number;
+  content: string;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number;
+  parentName: string;
+  replies: Reply[];
+}
 
 interface ReplyItemProps {
-  id: number;
-  writer: string;
+  postUserId: number;
+  commentId: number;
   content: string;
-  date: string;
-  likes: number;
-  parentWriter: string; // 부모 댓글 작성자
-  replyId: number | null;
-  setReplyId: (id: number) => void;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number;
+  parentName: string;
+  replies: Reply[];
+  replyParentId: number | null;
+  setReplyParentId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const ReplyItem: React.FC<ReplyItemProps> = ({
-  id,
-  writer,
+  postUserId,
+  commentId,
   content,
-  date,
-  likes,
-  parentWriter,
-  replyId,
-  setReplyId,
+  userId,
+  userName,
+  createdAt,
+  parentId,
+  parentName,
+  replies,
+  replyParentId,
+  setReplyParentId,
 }) => {
+
+  
 
   const [isLike, setIsLike] = useState(false);
 
@@ -36,6 +56,8 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
     setIsLike(!isLike);
   }
 
+  const date = new Date(createdAt);
+    const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
   return (
     <div>
@@ -43,34 +65,34 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-1">
             <CornerDownRightIcon />
-            <p>{writer}</p>
-            <Tag variant="writer" />
+            <p>{userName}</p>
+            {postUserId === userId && <Tag variant="writer" /> }
           </div>
           <KebabIcon />
         </div>
         <div className="flex flex-row gap-2">
-          <p className="text-subhead1-sb text-secondary-500">@{parentWriter}</p>
+          <p className="text-subhead1-sb text-secondary-500">@{parentName}</p>
           <p className="text-body1-r text-gray-500">{content}</p>
         </div>
 
         <div className="flex flex-row justify-between text-body2-r text-gray-400">
-          <p>{date}</p>
+          <p>{formattedDate}</p>
           <div className="flex flex-row gap-[10px]">
             <div className="flex flex-row">
               <LikeIcon 
                 fill={isLike ? "#FF8686" : "none"}
                 className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
                 onClick={() => handleLike()}/>
-              {likes}
+              {0}
             </div>
             <div 
               className="flex flex-row cursor-pointer"
-              onClick={() => setReplyId(id)}>
+              onClick={() => setReplyParentId(commentId)}>
               <CommentIcon /> 답글 달기
             </div>
           </div>
         </div>
-        {replyId === id &&
+        {replyParentId === commentId &&
           <CommentInput/>
         }
       </div>

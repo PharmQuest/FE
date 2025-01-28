@@ -21,7 +21,7 @@ interface ViewPostProps {
   createdAt: string;
   content: string;
   likeCount: number;
-  comments: number;
+  commentCount: number;
   scrapeCount: number;
   isLiked: boolean;
   isScraped: boolean;
@@ -36,7 +36,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
   createdAt,
   content,
   likeCount,
-  comments,
+  commentCount,
   scrapeCount,
   isLiked,
   isScraped,
@@ -90,8 +90,6 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
   }, []);
 
-
-
   return (
     <div className="mt-11 mb-8">
       <div className="flex flex-row justify-between pb-4 border-b border-solid border-gray-100">
@@ -121,7 +119,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
           />
           {postLikeCount}
           <CommentIcon className="ml-3" />
-          {comments}
+          {commentCount}
           <ScrapIcon
             fill={isPostScrap ? "#FFD755" : "none"}
             className={`cursor-pointer ml-3 ${isPostScrap && `text-mark-scrap`}`}
