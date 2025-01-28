@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NoticeModal from "./community/components/NoticeModal";
 import ReportModal from "./community/post/components/ReportModal";
 
@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
     description: '해외 약정보는? 어디약에서!'
   }
 
-  const queryClient = new QueryClient()
+  const [queryClient] = useState(() => new QueryClient());
 
   useEffect(() => {
     window.scrollTo({
