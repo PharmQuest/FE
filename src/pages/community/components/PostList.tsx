@@ -46,8 +46,6 @@ const PostList: React.FC<{ category?: string, isHiddenPage?: boolean }> = ({ cat
   const listNum = router.pathname === '/community' ? 10 : 20
 
   return (
-
-
     <div className="flex flex-col">
       <div className="py-3 grid grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300">
         <p className={`w-16 text-center`}>주제</p>
