@@ -7,13 +7,20 @@ import { useParams } from "next/navigation";
 import axiosInstance from "@/apis/axios-instance";
 import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import useStore from "@/store/useStore";
 
 export default function Post() {
   const params = useParams() || {};
   const postId = params.postId || null;
   const router = useRouter();
 
-  const { data } = useQuery(
+  const {
+    setNoticeModalText,
+    setIsNoticeModalOpen,
+  } = useStore();
+
+  const { data, isError } = useQuery(
     {
       queryKey: ["post", Number(postId)],
       queryFn: async () => {
@@ -21,10 +28,19 @@ export default function Post() {
         return response.data;
       },
       placeholderData: keepPreviousData,
+      retry: 0,
     },
   );
 
   const postItem = data?.result
+
+  useEffect(() => {
+    if( isError && postId ) {
+      setNoticeModalText("존재하지 않는 게시글입니다.");
+      setIsNoticeModalOpen(true);
+      router.push("/community")
+    }
+  }, [isError])
 
   const formattedCategory = (category: string) => {
     switch (category) {
@@ -65,8 +81,8 @@ export default function Post() {
         comments={postItem?.comments?.length || 0}
         scrapeCount={postItem?.scrapeCount || 0}
         isLiked={postItem?.isLiked}
-        isScraped={postItem?.isScraped
-        }
+        isScraped={postItem?.isScraped}
+        isOwnPost={postItem?.isOwnPost}
       />
       <div className={`flex flex-col gap-5`}>
         <CommentInput />
@@ -78,8 +94,8 @@ export default function Post() {
           <p
             className={`flex text-gray-400 text-subhead1-sb items-center gap-2 cursor-pointer mr-3`}
             onClick={() => router.push({
-              pathname : '/community/posts',
-              query : {category: formattedCategory(postItem?.category)}
+              pathname: '/community/posts',
+              query: { category: formattedCategory(postItem?.category) }
             })}>
             더보기
             <ArrowRightIcon className={`content-center mb-0.5`} />
