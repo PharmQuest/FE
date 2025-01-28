@@ -4,7 +4,8 @@ import {MapFindIcon, FindSearchIcon, FindGTIcon, FindLTIcon} from "@public/svgs"
 
 export default function Map() {
   const [isSearchOpen, setIsSearchOpen] = useState(true); // 검색창 열림 상태 관리
-  
+  const [selectedPharmacy, setSelectedPharmacy] = useState<number | null>(null);
+
   const pharmacies = [
     {
       id: 1,
@@ -114,7 +115,9 @@ export default function Map() {
             <div className="flex-1 overflow-y-auto scrollbar-hide">
               {pharmacies.map((pharmacy) => (
                 // 아래 코드를 button으로 수정했더니 border-gray-100가 안 보여... 어쩌지?
-                <button key={pharmacy.id} className="h-[126px] bg-white outline outline-1 outline-gray-100 w-full hover:bg-gray-50 px-7 py-5 flex items-center self-stretch">
+                <button key={pharmacy.id}
+                        onClick={() => setSelectedPharmacy(pharmacy.id === selectedPharmacy ? null : pharmacy.id)}
+                        className="h-[126px] bg-white outline outline-1 outline-gray-100 w-full hover:bg-gray-50 px-7 py-5 flex items-center self-stretch">
                   <div className="w-[86px] h-[86px] bg-[#cccccc] rounded"/>
                   {/* 약국 이름과 영업 정보 */}
                   <div className="flex w-[145px] flex-col items-start ml-3">
@@ -141,6 +144,12 @@ export default function Map() {
                 </button>
               ))}
             </div>
+          </div>
+        )}
+        {/* // 검색창 접기 버튼 바로 전에 조건부 렌더링 추가 */}
+        {isSearchOpen && selectedPharmacy && (
+          <div className="absolute right-6 w-[100px] h-[100px] bg-red-100 flex items-center justify-center text-lg font-semibold">
+            ID: {selectedPharmacy}
           </div>
         )}
         {/* 검색창 접기 */}
