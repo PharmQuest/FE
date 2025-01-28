@@ -3,24 +3,26 @@ import React, { useState } from "react";
 interface FilterButtonProps {
   text: string;
   isSelected?: boolean;
+  isHomeButton?: boolean;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({
   text,
   isSelected = false,
+  isHomeButton = false,
 }) => {
   const [selected, setSelected] = useState(isSelected);
 
-  const baseClasses =
-    "w-fit h-fit px-3 rounded-[1000px] text-subhead1-sb border-[1px] border-solid cursor-pointer";
-  const selectedClasses = "bg-point text-white border-point";
-  const unselectedClasses = "bg-white text-gray-300 border-gray-300";
+  const baseClasses = `whitespace-nowrap rounded-[1000px] lg:w-fit w-[78px] lg:h-fit h-[30px] cursor-pointer ${isHomeButton ? `lg:px-5 px-4 lg:py-1.5 lg:text-body1-r text-xs` : `px-3 py-0.5 text-subhead1-sb border-[1px] border-solid`}`;
+  const selectedClasses = isHomeButton 
+  ? "bg-white text-[#707070] border-point font-semibold" // 메인화면은 흰색 배경으로
+  : "bg-point text-white border-point"
+  const unselectedClasses = `bg-white ${isHomeButton ? `text-gray-400  opacity-50` : `text-gray-300 border-gray-300`}`;
 
   return (
     <button
-      className={`${baseClasses} ${
-        selected ? selectedClasses : unselectedClasses
-      }`}
+      className={`${baseClasses} 
+      ${selected ? selectedClasses : unselectedClasses}`}
       onClick={() => setSelected(!selected)}
     >
       {text}
