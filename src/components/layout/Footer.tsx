@@ -14,7 +14,7 @@ const Footer = () => {
                 md:w-[601px]
                 // 모바일 (641px 미만)
                 w-full px-5">
-				<div className=" flex flex-col mt-[48px] gap-6 pt-3 pb-6">
+				<div className=" flex flex-col gap-6 pt-3 pb-6">
 					<div className="flex flex-row gap-3 lg:text-subhead1-sb text-sm">
 						<p className="cursor-pointer">Service 안내</p>|
 						<p className="cursor-pointer">개인정보처리방침</p>|
