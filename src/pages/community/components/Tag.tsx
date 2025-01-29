@@ -1,7 +1,7 @@
 import React from "react";
 
 interface TagProps {
-  variant: "best" | "writer"; // 태그 종류
+  variant: "best" | "writer" | "bestBig"; // 태그 종류
   text?: string; // 태그 텍스트
   className?: string;
 }
