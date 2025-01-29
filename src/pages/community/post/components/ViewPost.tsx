@@ -92,19 +92,27 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
   return (
     <div className="mt-11 mb-8">
-      <div className="flex flex-row justify-between pb-4 border-b border-solid border-gray-100">
+      <div className="flex flex-row justify-between pb-4 border-b border-solid border-gray-100 gap-3">
         <div className="flex flex-row gap-3">
-          <SubjectTag text={category} variant="light-big" />
-          <p className="text-headline-b text-gray-500">{title}</p>
-          {isBestPost && <Tag variant="best" />}
+          <SubjectTag text={category} variant="light-big" className={`h-[33px]`} />
+          <div className="flex text-headline-b text-gray-500 gap-3 mt-[1.5px]">
+            <div className={`max-w-[475px] break-words`}>
+              {title}
+            </div>
+            {!isBestPost &&
+              <div className={`h-full`}>
+              <Tag variant="best" className={`w-[56px] h-6 px-2 text-subhead1-sb items-center mt-[3.5px]`} />
+              </div>
+            }
+          </div>
         </div>
 
-        <div className="relative flex flex-row gap-5 text-body1-r text-gray-300">
+        <div className="relative flex flex-row gap-5 text-body1-r text-gray-300 mt-[4.5px]">
           <p>{userName}</p>
           |
           <p>{formattedDate}</p>
           <KebabIcon onClick={(e: MouseEvent) => { handleMenu(e) }} />
-          <PostMenu postId={postId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnPost={isOwnPost}/>
+          <PostMenu postId={postId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnPost={isOwnPost} />
         </div>
       </div>
 
