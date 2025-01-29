@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import axiosInstance from "@/apis/axios-instance";
 
@@ -7,6 +7,7 @@ const useCustomMutation = <TData>(
   body: TData,
   type?: string,
 ) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const { mutateAsync } = useMutation({
@@ -26,6 +27,9 @@ const useCustomMutation = <TData>(
       }
     },
     onSuccess: () => {
+      queryClient.removeQueries({
+        predicate: (query) => query.queryKey[0] === "posts",
+      });
       router.push("/community");
     },
   });
