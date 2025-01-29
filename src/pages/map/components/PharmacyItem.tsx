@@ -12,7 +12,7 @@ interface PharmacyItemProps {
 }
 
 const PharmacyItem: React.FC<PharmacyItemProps> = ({
-  pharmacy,
+  pharmacy = {},
   isSelected,
   onClick,
   currentPosition,
@@ -49,6 +49,7 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
             src={pharmacy.photos[0].getUrl({ maxWidth: 86, maxHeight: 86 })}
             alt={pharmacy.name || "약국 이미지"}
             fill
+            priority
             className="object-cover rounded"
             unoptimized
           />

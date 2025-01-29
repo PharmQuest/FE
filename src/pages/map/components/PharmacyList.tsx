@@ -10,14 +10,14 @@ interface PharmacyListProps {
 }
 
 const PharmacyList: React.FC<PharmacyListProps> = ({
-  pharmacies,
+  pharmacies = [],
   selectedPharmacy,
   onPharmacyClick,
   currentPosition,
 }) => {
   return (
     <div className="flex flex-col overflow-y-scroll flex-1">
-      {pharmacies.map((pharmacy) => (
+      {pharmacies?.map((pharmacy) => (
         <PharmacyItem
           key={pharmacy.place_id}
           pharmacy={pharmacy}
