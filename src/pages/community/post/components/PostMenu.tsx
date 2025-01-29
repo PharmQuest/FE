@@ -1,4 +1,5 @@
 import axiosInstance from "@/apis/axios-instance";
+import usePostMutation from "@/hooks/community/usePostMutation";
 import useStore from "@/store/useStore";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
@@ -13,6 +14,13 @@ interface PostMenuProp {
 const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, isOwnPost }) => {
 
   const router = useRouter();
+
+  // 추후에 url 및 데이터 구조 수정 필요
+  const mutate = usePostMutation(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`,
+    {},
+    "delete",
+  )
 
   const {
     setNoticeModalText,
@@ -32,7 +40,7 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`);
+      await mutate();
       setNoticeModalText("게시글을 삭제하였습니다.");
       setIsNoticeModalOpen(true);
       router.push("/community");
