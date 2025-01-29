@@ -4,7 +4,7 @@ import { CameraIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
-import useCustomMutation from "../../../hooks/community/useCustomMutation";
+import usePostMutation from "../../../hooks/community/usePostMutation";
 import useStore from "@/store/useStore";
 
 type DropdownInfo = {
@@ -75,7 +75,7 @@ export default function CreatePost() {
 
 
   // 추후에 url 및 데이터 구조 수정 필요
-  const mutate = useCustomMutation(
+  const mutate = usePostMutation(
     `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`,
     {
       title,
@@ -114,7 +114,7 @@ export default function CreatePost() {
           게시글 작성
         </h1>
         <button
-          className={`px-4 py-1 rounded-[4px] bg-primary-300 text-white disabled:bg-gray-100 disabled:text-gray-400`}
+          className={`px-4 py-1 rounded-[4px] bg-primary-300 text-subhead1-sb text-white disabled:bg-gray-100 disabled:text-gray-400`}
           disabled={isSubmitDisabled}
           onClick={handleSubmit}>
           등록
@@ -126,8 +126,8 @@ export default function CreatePost() {
         {/* dropdown wrapper */}
         <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
 
-          <Dropdown info={categoryInfo} initialText={"주제 선택"} setValue={setCategory} />
-          <Dropdown info={countryInfo} initialText={"위치 추가 (선택)"} setValue={setCountry} />
+          <Dropdown info={categoryInfo} initialText={"주제 선택"} value={category} setValue={setCategory} />
+          <Dropdown info={countryInfo} initialText={"위치 추가 (선택)"} value={country} setValue={setCountry} />
 
         </div>
 
