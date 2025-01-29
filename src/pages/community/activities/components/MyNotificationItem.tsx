@@ -1,7 +1,7 @@
 import React from "react";
 
 interface MyNotificationItemProps {
-  id: string;
+  id: number;
   writer: string;
   content: string;
   title: string;

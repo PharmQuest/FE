@@ -41,6 +41,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   userId,
   userName,
   createdAt,
+  // eslint-disable-next-line
   parentId,
   parentName,
   replies,

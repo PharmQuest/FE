@@ -1,5 +1,4 @@
 import { ArrowRightIcon } from "@public/svgs"
-import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 
 interface PageNavigatorProps {
@@ -7,7 +6,7 @@ interface PageNavigatorProps {
   isFirst: boolean;
   isLast: boolean; 
   page: number;
-  setPage: Dispatch<SetStateAction<number>>;
+  setPage: Dispatch<SetStateAction<number>> | null;
   className?: string;
 }
 
@@ -16,7 +15,9 @@ const PageNavigator: React.FC<PageNavigatorProps> = ({ totalPage, isFirst, isLas
   const currentPage = page
 
   const pageNavigate = (page: number) => {
-    setPage(page)
+    if (setPage){
+      setPage(page)
+    }
   }
 
   return (

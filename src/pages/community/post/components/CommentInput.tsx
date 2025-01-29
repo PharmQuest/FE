@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import GrayButton from "../../components/GrayButton";
 import axiosInstance from "@/apis/axios-instance";
 import { useParams } from "next/navigation";

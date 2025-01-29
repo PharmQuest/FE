@@ -1,7 +1,7 @@
 import React from "react";
 
 interface MyCommentItemProps {
-  id: string;
+  id: number;
   content: string;
   title: string;
   date: string;
