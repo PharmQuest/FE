@@ -1,4 +1,3 @@
-import axiosInstance from "@/apis/axios-instance";
 import usePostMutation from "@/hooks/community/usePostMutation";
 import useStore from "@/store/useStore";
 import { useRouter } from "next/router";

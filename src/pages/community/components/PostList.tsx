@@ -21,13 +21,13 @@ interface Post {
 
 interface PostListProps {
   page?: number;
-  setPage?: Dispatch<SetStateAction<number>>;
+  setPage?: Dispatch<SetStateAction<number>> | null;
   category?: string; 
   isPageHidden?: boolean;
   postLimit?: number;
 }
 
-const PostList: React.FC<PostListProps> = ({ page = 1, setPage, category = "ALL", isPageHidden = false, postLimit }) => {
+const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category = "ALL", isPageHidden = false, postLimit }) => {
 
   const getPosts = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`, {
@@ -82,7 +82,7 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage, category = "ALL"
               scrapeCount={post.scrapeCount}
             />
           ))}
-          {!isPageHidden &&
+          {!isPageHidden && 
             <PageNavigator className={`mt-12`} page={page} totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} setPage={setPage}/>
           }
         </>
