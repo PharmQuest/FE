@@ -3,9 +3,10 @@ import React from "react";
 interface SubjectTagProps {
   text: string;
   variant?: "light" | "dark" | "light-big";
+  className?: string;
 }
 
-const SubjectTag: React.FC<SubjectTagProps> = ({ text, variant = "light" }) => {
+const SubjectTag: React.FC<SubjectTagProps> = ({ text, variant = "light", className }) => {
   const bgColorClass =
     variant === "light" || variant === "light-big"
       ? "bg-primary-200"
@@ -18,7 +19,7 @@ const SubjectTag: React.FC<SubjectTagProps> = ({ text, variant = "light" }) => {
 
   return (
     <div
-      className={`${widthClass} ${bgColorClass} ${textSizeClass} max-h-[33px] text-white rounded whitespace-nowrap flex justify-center items-center`}
+      className={`${widthClass} ${bgColorClass} ${textSizeClass} text-white rounded whitespace-nowrap flex justify-center items-center ${className}`}
     >
       {text}
     </div>
