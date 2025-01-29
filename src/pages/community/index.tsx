@@ -78,7 +78,7 @@ export default function Community() {
             <ArrowRightIcon className={`content-center mb-0.5`} />
           </p>
         </div>
-        <PostList category={category} />
+        <PostList page={1} category={category} isPageHidden={true} postLimit={10} />
       </div>
     </div>
   );

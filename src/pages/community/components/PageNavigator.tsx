@@ -1,22 +1,26 @@
 import { ArrowRightIcon } from "@public/svgs"
 import { useRouter } from "next/router";
+import { Dispatch, SetStateAction } from "react";
 
-const PageNavigator = ({ totalPage, isFirst, isLast, isHiddenPage }: { totalPage: number, isFirst: boolean, isLast: boolean, isHiddenPage: boolean }) => {
+interface PageNavigatorProps {
+  totalPage: number; 
+  isFirst: boolean;
+  isLast: boolean; 
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  className?: string;
+}
 
-  const router = useRouter();
-  const pathName = router.pathname;
-  const currentPage = router.query.page ? parseInt(router.query.page as string, 10) : 1;
+const PageNavigator: React.FC<PageNavigatorProps> = ({ totalPage, isFirst, isLast, page, setPage, className="" }) => {
+
+  const currentPage = page
 
   const pageNavigate = (page: number) => {
-    router.push({
-      pathname: pathName,
-      query: { ...router.query, page: page }
-    })
+    setPage(page)
   }
 
   return (
-    !isHiddenPage &&
-    <div className={`flex gap-3 mx-auto mt-12 items-center`}>
+    <div className={`flex gap-3 mx-auto items-center ${className}`}>
       {!isFirst && 
         <ArrowRightIcon 
           onClick={() => pageNavigate(currentPage - 1)}
