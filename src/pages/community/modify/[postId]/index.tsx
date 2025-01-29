@@ -101,14 +101,14 @@ export default function ModifyPost() {
 
   // 추후에 url 및 데이터 구조 수정 필요
   const mutate = usePostMutation(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`,
     {
       title,
       content,
       country,
       category,
     },
-    "patch"
+    "patch",
   )
 
   const handleSubmit = async () => {
