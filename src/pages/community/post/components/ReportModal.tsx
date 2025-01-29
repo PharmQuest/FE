@@ -99,7 +99,7 @@ const ReportModal = () => {
                   {reportTypes?.map((item, index) => (
                     <div 
                       key={index} 
-                      className={`flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.type && `text-subhead1-sb text-primary-500`}`}
+                      className={`flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.key && `text-subhead1-sb text-primary-500`}`}
                       onClick={() => handleReportType(item.key, item.type)}>
                       {reportKey === item.key ? <CheckCircleIcon /> : <CircleIcon />}
                       {item.text}
