@@ -9,6 +9,8 @@ import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useStore from "@/store/useStore";
+import { AxiosError } from "axios";
+import useFormatCategory from "@/hooks/community/useFormatCategory";
 
 export default function Post() {
   const params = useParams() || {};
@@ -16,13 +18,14 @@ export default function Post() {
   const router = useRouter();
 
   const [commentPage, setCommentPage] = useState(1);
+  const formatCategory = useFormatCategory()
 
   const {
     setNoticeModalText,
     setIsNoticeModalOpen,
   } = useStore();
 
-  const { data, isError } = useQuery(
+  const { data, error } = useQuery(
     {
       queryKey: ["post", postId, commentPage],
       queryFn: async () => {
@@ -38,38 +41,13 @@ export default function Post() {
   const postItem = data?.result
 
   useEffect(() => {
-    if( isError ) {
+    const axiosError = error as AxiosError<{ code?: string }>
+    if(axiosError?.response?.data.code === "POST4005" ) {
       setNoticeModalText("존재하지 않는 게시글입니다.");
       setIsNoticeModalOpen(true);
       router.push("/community")
     }
-  }, [isError])
-
-  const formattedCategory = (category: string) => {
-    switch (category) {
-      case "자유":
-        return "FORUM";
-
-      case "약국":
-        return "PHARMACY";
-
-      case "병원":
-        return "HOSPITAL";
-
-      case "약":
-        return "MEDICATION";
-
-      case "증상":
-        return "SYMPTOM";
-
-      case "영양제":
-        return "SUPPLEMENT";
-
-      default:
-
-        return "ALL";
-    }
-  }
+  }, [error])
 
   return (
     <div className="flex flex-col max-w-[900px] mx-auto">
@@ -105,13 +83,13 @@ export default function Post() {
             className={`flex text-gray-400 text-subhead1-sb items-center gap-2 cursor-pointer mr-3`}
             onClick={() => router.push({
               pathname: '/community/posts',
-              query: { category: formattedCategory(postItem?.category) }
+              query: { category: formatCategory(postItem?.category) }
             })}>
             더보기
             <ArrowRightIcon className={`content-center mb-0.5`} />
           </p>
         </div>
-        <PostList category={formattedCategory(postItem?.category)} postLimit={10} isPageHidden={true}/>
+        <PostList category={formatCategory(postItem?.category)} postLimit={10} isPageHidden={true}/>
       </div>
     </div>
   );
