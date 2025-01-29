@@ -6,6 +6,10 @@ interface RatingStarsProps {
 }
 
 const RatingStars: React.FC<RatingStarsProps> = ({ rating }) => {
+  if (!rating && rating !== 0) {
+    return null;
+  }
+
   const totalStars = 5;
   const fullStars = Math.floor(rating);
 
