@@ -99,9 +99,9 @@ const ViewPost: React.FC<ViewPostProps> = ({
             <div className={`max-w-[475px] break-words`}>
               {title}
             </div>
-            {!isBestPost &&
+            {isBestPost &&
               <div className={`h-full`}>
-              <Tag variant="best" className={`w-[56px] h-6 px-2 text-subhead1-sb items-center mt-[3.5px]`} />
+                <Tag variant="best" className={`w-[56px] h-6 px-2 text-subhead1-sb items-center mt-0.5`} />
               </div>
             }
           </div>
