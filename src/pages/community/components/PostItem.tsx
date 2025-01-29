@@ -8,7 +8,6 @@ interface PostItemProps {
   postId: number;
   userName: string;
   title: string;
-  content: string;
   category: string;
   scrapeCount: number;
   likeCount: number;
@@ -21,8 +20,6 @@ const PostItem: React.FC<PostItemProps> = ({
   postId,
   userName,
   title,
-  // eslint-disable-next-line
-  content,
   category,
   scrapeCount,
   likeCount,

@@ -2,17 +2,18 @@ import { DropdownArrowIcon } from "@public/svgs";
 import { useEffect, useState } from "react";
 
 type DropdownInfo = {
-  key: string;
-  value: string;
+  key: string;      // ex) FORUM, PHARMACY / KOREA, JAPAN
+  value: string;    // ex) 자유, 약국 / 한국, 일본
 };
 
 type DropdownProps = {
   info: DropdownInfo[];
   initialText: string;
+  value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({info, initialText, setValue}) => {
+const Dropdown: React.FC<DropdownProps> = ({info, initialText, value, setValue}) => {
 
   const [dropdownText, setDropdownText] = useState(initialText);
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +51,10 @@ const Dropdown: React.FC<DropdownProps> = ({info, initialText, setValue}) => {
 
   }, []);
 
+  useEffect(() => {
+    setDropdownText(initialText)
+  }, [initialText])
+
   return (
     <div className={`flex rounded-[4px] border border-gray-100 text-gray-600 text-subhead1-sb outline-0 grow`}>
       <div
@@ -66,7 +71,7 @@ const Dropdown: React.FC<DropdownProps> = ({info, initialText, setValue}) => {
               key={index}
               data-value={item.key}
               onClick={selectContent}
-              className={`hover:bg-gray-100`}>
+              className={`hover:bg-gray-100 ${value === item.key && `text-secondary-500`}`}>
               {item.value}
             </div>
           ))}

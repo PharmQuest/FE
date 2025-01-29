@@ -75,7 +75,6 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage, category = "ALL"
               isBestPost={post.isBestPost}
               category={post.category}
               title={post.title}
-              content={post.content}
               userName={post.userName}
               createdAt={post.createdAt}
               likeCount={post.likeCount}
