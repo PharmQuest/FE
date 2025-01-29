@@ -10,6 +10,11 @@ const Tag: React.FC<TagProps> = ({ variant, text, className }) => {
   const styles = {
     best: {
       container:
+        "w-fit px-[6px] rounded-[1000px] border-2 border-solid border-point text-subhead3-sb text-point flex self-center",
+      defaultText: "BEST",
+    },
+    bestBig: {
+      container:
         "w-fit px-[6px] rounded-[1000px] border-2 border-solid border-point text-point flex self-center",
       defaultText: "BEST",
     },

@@ -35,7 +35,7 @@ const PostItem: React.FC<PostItemProps> = ({
   return (
     <div className="py-3 grid grid-cols-[1fr_7fr_6fr] gap-2 border-b border-solid border-gray-100">
 
-      <SubjectTag text={category} />
+      <SubjectTag text={category} className={`h-6`}/>
       <div
         className="truncate flex text-body1-r text-gray-500 cursor-pointer gap-2"
         onClick={() => router.push(`/community/post/${postId}`)}
