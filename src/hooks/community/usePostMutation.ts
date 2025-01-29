@@ -4,7 +4,7 @@ import axiosInstance from "@/apis/axios-instance";
 
 const useCustomMutation = <TData>(
   url: string,
-  body: TData,
+  body?: TData,
   type?: string,
 ) => {
   const queryClient = useQueryClient();
@@ -16,6 +16,12 @@ const useCustomMutation = <TData>(
         // 게시글 수정 시
         case "patch": {
           const response = await axiosInstance.patch(url, body);
+          return response;
+        }
+
+        // 게시글 삭제 시
+        case "delete": {
+          const response = await axiosInstance.delete(url);
           return response;
         }
 
