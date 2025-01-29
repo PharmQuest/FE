@@ -3,8 +3,8 @@ import PostItem from "./PostItem";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import PageNavigator from "./PageNavigator";
-import { useRouter } from "next/router";
 import SkeletonList from "./SkeletonList";
+import { Dispatch, SetStateAction } from "react";
 
 interface Post {
   postId: number;
@@ -19,10 +19,15 @@ interface Post {
   isBestPost: boolean;
 }
 
-const PostList: React.FC<{ category?: string, isHiddenPage?: boolean }> = ({ category = "ALL", isHiddenPage = true }) => {
+interface PostListProps {
+  page?: number;
+  setPage?: Dispatch<SetStateAction<number>>;
+  category?: string; 
+  isPageHidden?: boolean;
+  postLimit?: number;
+}
 
-  const router = useRouter();
-  const page = router.query.page ? parseInt(router.query.page as string, 10) : 1;
+const PostList: React.FC<PostListProps> = ({ page = 1, setPage, category = "ALL", isPageHidden = false, postLimit }) => {
 
   const getPosts = async () => {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`, {
@@ -42,8 +47,7 @@ const PostList: React.FC<{ category?: string, isHiddenPage?: boolean }> = ({ cat
     },
   );
 
-  const postList = router.pathname === '/community' ? data?.result?.postList.slice(0, 10) : data?.result?.postList
-  const listNum = router.pathname === '/community' ? 10 : 20
+  const postList = postLimit ? data?.result?.postList.slice(0, postLimit) : data?.result?.postList
 
   return (
     <div className="flex flex-col">
@@ -61,7 +65,7 @@ const PostList: React.FC<{ category?: string, isHiddenPage?: boolean }> = ({ cat
         </div>
       </div>
       {isPending ? (
-        <SkeletonList listNum={listNum} />
+        <SkeletonList listNum={postLimit || 20} />
       ) : (
         <>
           {postList?.map((post: Post, index: number) => (
@@ -79,7 +83,9 @@ const PostList: React.FC<{ category?: string, isHiddenPage?: boolean }> = ({ cat
               scrapeCount={post.scrapeCount}
             />
           ))}
-          <PageNavigator totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} isHiddenPage={isHiddenPage} />
+          {!isPageHidden &&
+            <PageNavigator className={`mt-12`} page={page} totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} setPage={setPage}/>
+          }
         </>
       )}
     </div>

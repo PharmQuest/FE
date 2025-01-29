@@ -16,10 +16,10 @@ interface Category {
 export default function Posts() {
 
   const router = useRouter();
-  const categoryQuery = router.query.category as string || "ALL";
 
   const {position, handleScroll} = useScroll(700);
 
+  const [page, setPage] = useState<number>(1)
   const [categories, setCategories] = useState<Category[]>([
     { value: "ALL", text: "전체", isSelected: true },
     { value: "FORUM", text: "자유", isSelected: false },
@@ -30,23 +30,20 @@ export default function Posts() {
     { value: "SUPPLEMENT", text: "영양제", isSelected: false },
   ]);
 
+  const [categoryValue, setCategoryValue] = useState(router.query.category as string || "ALL");
+
   useEffect(() => {
     setCategories((prevCategories) =>
       prevCategories.map((category) => ({
         ...category,
-        isSelected: category.value === categoryQuery,
+        isSelected: category.value === categoryValue,
       }))
     );
-  }, [categoryQuery]);
-
-  const [category, setCategory] = useState(router.query.category as string || "ALL");
+  }, [categoryValue]);
 
   const handleFilterButton = (category: Category) => {
-    setCategory(category.value)
-    router.push({
-      pathname: router.pathname,
-      query: {category: category.value}
-    })
+    setCategoryValue(category.value)
+    setPage(1)
   }
 
   useEffect(() => {
@@ -74,7 +71,11 @@ export default function Posts() {
                   onClickFn={() => handleFilterButton(category)} />
               ))}
             </div>
-            <PostList category={category} isHiddenPage={false} />
+            <PostList 
+              page={page} 
+              setPage={setPage}
+              category={categoryValue} 
+              isPageHidden={false}/>
           </div>
 
           <div className={`relative transition-all duration-500 ease-out`}

@@ -7,13 +7,15 @@ import { useParams } from "next/navigation";
 import axiosInstance from "@/apis/axios-instance";
 import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useStore from "@/store/useStore";
 
 export default function Post() {
   const params = useParams() || {};
   const postId = Number(params.postId) || null;
   const router = useRouter();
+
+  const [commentPage, setCommentPage] = useState(1);
 
   const {
     setNoticeModalText,
@@ -22,9 +24,9 @@ export default function Post() {
 
   const { data, isError } = useQuery(
     {
-      queryKey: ["post", postId],
+      queryKey: ["post", postId, commentPage],
       queryFn: async () => {
-        const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}?page=${1}`)
+        const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}?page=${commentPage}`)
         return response.data;
       },
       placeholderData: keepPreviousData,
@@ -87,9 +89,16 @@ export default function Post() {
       />
       <div className={`flex flex-col gap-5`}>
         <CommentInput/>
-        <CommentList postUserId={postItem?.userId} comments={postItem?.comments}/>
+        <CommentList 
+          postUserId={postItem?.userId} 
+          comments={postItem?.comments} 
+          totalPage={postItem?.totalPage} 
+          isFirst={postItem?.isFirst} 
+          isLast={postItem?.isLast}
+          commentPage={commentPage}
+          setCommentPage={setCommentPage}/>
       </div>
-      <div className="flex flex-col mt-[60px] mb-[170px]">
+      <div className="flex flex-col mt-[60px] mb-[70px]">
         <div className={`flex justify-between`}>
           <p className="text-display2-b text-gray-600 mb-3">같은 주제 게시글</p>
           <p
@@ -102,7 +111,7 @@ export default function Post() {
             <ArrowRightIcon className={`content-center mb-0.5`} />
           </p>
         </div>
-        <PostList category={formattedCategory(postItem?.category)} />
+        <PostList category={formattedCategory(postItem?.category)} postLimit={10} isPageHidden={true}/>
       </div>
     </div>
   );
