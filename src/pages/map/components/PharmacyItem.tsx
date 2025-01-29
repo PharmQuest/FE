@@ -2,6 +2,7 @@ import React from "react";
 import IsOpenTag from "./IsOpenTag";
 import { MapFindIcon } from "@public/svgs";
 import { Pharmacy } from "./MapComponent";
+import Image from "next/image";
 
 interface PharmacyItemProps {
   pharmacy: Pharmacy;
@@ -42,15 +43,19 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
       }`}
       onClick={onClick}
     >
-      {pharmacy.photos?.[0] ? (
-        <img
-          src={pharmacy.photos[0].getUrl({ maxWidth: 86, maxHeight: 86 })}
-          alt={pharmacy.name}
-          className="w-[86px] h-[86px] object-cover rounded"
-        />
-      ) : (
-        <div className="w-[86px] h-[86px] bg-[#cccccc] rounded" />
-      )}
+      <div className="relative w-[86px] h-[86px]">
+        {pharmacy.photos?.[0] ? (
+          <Image
+            src={pharmacy.photos[0].getUrl({ maxWidth: 86, maxHeight: 86 })}
+            alt={pharmacy.name || "약국 이미지"}
+            fill
+            className="object-cover rounded"
+            unoptimized
+          />
+        ) : (
+          <div className="w-[86px] h-[86px] bg-[#cccccc] rounded" />
+        )}
+      </div>
 
       <div className="flex w-[145px] flex-col items-start">
         <div className="flex items-center mb-3 gap-[3px]">

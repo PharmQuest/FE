@@ -3,6 +3,7 @@ import { PharmacyDetails } from "./MapComponent";
 import IsOpenTag from "./IsOpenTag";
 import { GlobeIcon } from "@public/svgs";
 import RatingStars from "./RatingStars";
+import Image from "next/image";
 
 interface DetailPanelProps {
   pharmacy: PharmacyDetails | null;
@@ -17,14 +18,16 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ pharmacy, onClose }) => {
       <div className="relative w-full">
         <div className="relative">
           {pharmacy.photos?.[0] ? (
-            <div className="relative">
-              <img
+            <div className="relative h-[220px]">
+              <Image
                 src={pharmacy.photos[0].getUrl({
                   maxWidth: 384,
                   maxHeight: 220,
                 })}
-                alt={pharmacy.name}
-                className="min-w-full h-[220px] object-cover"
+                alt={pharmacy.name || "약국 이미지"}
+                fill
+                className="object-cover"
+                unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent to-40% rounded-t-lg" />
             </div>
@@ -85,11 +88,15 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ pharmacy, onClose }) => {
                   className="mb-4 pb-4 border-b border-gray-100 last:border-0"
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <img
-                      src={review.profile_photo_url}
-                      alt={review.author_name}
-                      className="w-6 h-6 rounded-full"
-                    />
+                    <div className="relative w-6 h-6">
+                      <Image
+                        src={review.profile_photo_url}
+                        alt={review.author_name}
+                        fill
+                        className="rounded-full object-cover"
+                        unoptimized
+                      />
+                    </div>
                     <span className="text-sm font-medium text-gray-500">
                       {review.author_name}
                     </span>
