@@ -40,11 +40,11 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
         }}
       >
         {/* 이미지 */}
-        <img
+        {/* <img
           src="https://via.placeholder.com/168" 
           alt={title}
           className="absolute inset-0 w-full h-full object-cover rounded-lg"
-        />
+        /> */}
 
         {/* 그라데이션 효과 */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/20 rounded-lg"></div>
