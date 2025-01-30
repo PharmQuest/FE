@@ -18,7 +18,7 @@ const ResponsiveTable = ({ leftTable, rightTable }: TableProps) => {
     >
       {/* 왼쪽 테이블 */}
       <div className="flex flex-col border border-gray-100">
-        {leftTable.map((item, idx) => (
+        {leftTable?.map((item, idx) => (
           <div
             key={idx}
             className="flex border-b border-gray-100:last-child:border-none"
@@ -33,7 +33,7 @@ const ResponsiveTable = ({ leftTable, rightTable }: TableProps) => {
 
       {/* 오른쪽 테이블 */}
       <div className="flex flex-col border border-gray-100">
-        {rightTable.map((item, idx) => (
+        {rightTable?.map((item, idx) => (
           <div
             key={idx}
             className="flex border-b border-gray-100:last-child:border-none"

@@ -11,7 +11,7 @@ import {
   usageInstructions,
   warnings,
   supplements,
-} from "../data/mockupData";
+} from "../../../mocks/mockupData";
 
 const SupplementInfo: React.FC = () => {
   const copyToClipboard = () => {

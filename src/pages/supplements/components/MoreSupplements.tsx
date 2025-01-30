@@ -16,7 +16,8 @@ function MoreSupplements({ supplements, imageWidth = 168 }: MoreSupplementsProps
     <div className="mt-16">
       <h3 className="text-2xl font-bold text-gray-600 mb-6">영양제 더보기</h3>
       <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
-        {supplements.map((supplement) => (
+        {supplements?.map((supplement) => (
+
           <SupplementCard
             key={supplement.id}
             country={supplement.country}
