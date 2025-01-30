@@ -1,4 +1,4 @@
-import SupplementCard from "./SupplementCard";
+import SupplementCard from "@/components/common/SupplementCard";
 
 interface MoreSupplementsProps {
   supplements: {

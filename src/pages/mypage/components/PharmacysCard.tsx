@@ -3,7 +3,7 @@ import { BookmarkIcon } from "@public/svgs";
 
 interface PharmacysCardProps {
   pharmacyName?: string;
-  status?: string;
+  status?: boolean;
   closingTime?: string;
   distance?: string;
   location?: string;
@@ -13,7 +13,7 @@ interface PharmacysCardProps {
 
 const PharmacysCard: React.FC<PharmacysCardProps> = ({
   pharmacyName = "다나아약국",
-  status = "영업중",
+  status = true,
   closingTime = "18:00",
   distance = "500m",
   location = "서울 중구 중앙동",
@@ -29,12 +29,12 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
   };
 
   return (
-    <div className="relative h-[126px] pl-5 py-5 rounded-lg border border-gray-200 flex items-center gap-3">
+    <div className="relative min-w-[250px] max-w-[500px] h-[126px] pl-5 py-5 rounded-lg border border-gray-200 flex items-center gap-3">
       {/* Bookmark Icon */}
-      <div className={`h-[100%] absolute top-4 right-2`}>
+      <div className="absolute top-4 right-2 h-[100%]">
         <BookmarkIcon
           className="cursor-pointer"
-          onClick={(e: React.MouseEvent) => handleBookmark(e)}
+          onClick={handleBookmark}
           stroke={isBookmark ? "#FFD755" : "#707070"}
           fill={isBookmark ? "#FFD755" : "none"}
         />
@@ -48,8 +48,12 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
         {/* Header */}
         <div className="flex items-center gap-[3px]">
           <div className="text-gray-600 text-base font-semibold">{pharmacyName}</div>
-          <div className="px-1 bg-primary-300 rounded flex items-center">
-            <div className="text-white text-xs font-semibold">{status}</div>
+          <div
+            className={`px-1 rounded flex items-center ${
+              status ? "bg-primary-300 text-white" : "bg-gray-300 text-gray-600"
+            }`}
+          >
+            <div className="text-xs font-semibold">{status ? "영업중" : "영업종료"}</div>
           </div>
         </div>
 
