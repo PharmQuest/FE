@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.8",
+    "@react-google-maps/api": "^2.20.5",
     "@svgr/webpack": "^8.1.0",
+    "@types/google.maps": "^3.58.1",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
