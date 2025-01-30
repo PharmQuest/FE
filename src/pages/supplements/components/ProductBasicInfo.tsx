@@ -15,9 +15,7 @@ interface ProductBasicInfoProps {
 
 const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   title,
-  // 사용하지 않는 변수가 있다면 해당 주석을 바로 위에 달면 빌드 에러 해결됩니다
-  // eslint-disable-next-line
-  imageUrl,
+  // imageUrl,
   tags = [],
   tableData = [],
 }) => {

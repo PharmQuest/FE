@@ -6,22 +6,19 @@ interface TableRow {
 }
 
 interface TableProps {
-  leftTable: TableRow[];
-  rightTable: TableRow[];
+  leftTable?: TableRow[];
+  rightTable?: TableRow[];
 }
 
-const ResponsiveTable = ({ leftTable, rightTable }: TableProps) => {
+const ResponsiveTable = ({ leftTable = [], rightTable = [] }: TableProps) => {
   return (
-    <div
-      className="w-full max-w-[596px] h-auto grid grid-cols-1 md:grid-cols-2 gap-4"
-      style={{ minWidth: "300px" }} // 최소 너비 설정
-    >
+    <div className="w-full max-w-[596px] h-auto grid grid-cols-1 md:grid-cols-2 gap-4 min-w-[300px]">
       {/* 왼쪽 테이블 */}
       <div className="flex flex-col border border-gray-100">
-        {leftTable?.map((item, idx) => (
+        {leftTable.map((item, idx) => (
           <div
             key={idx}
-            className="flex border-b border-gray-100:last-child:border-none"
+            className={`flex border-b border-gray-100 ${idx === leftTable.length - 1 ? "border-none" : ""}`}
           >
             <div className="w-1/2 bg-gray-50 border-r border-gray-100 px-4 py-3 text-gray-400 font-semibold">
               {item.label}
@@ -33,10 +30,10 @@ const ResponsiveTable = ({ leftTable, rightTable }: TableProps) => {
 
       {/* 오른쪽 테이블 */}
       <div className="flex flex-col border border-gray-100">
-        {rightTable?.map((item, idx) => (
+        {rightTable.map((item, idx) => (
           <div
             key={idx}
-            className="flex border-b border-gray-100:last-child:border-none"
+            className={`flex border-b border-gray-100 ${idx === rightTable.length - 1 ? "border-none" : ""}`}
           >
             <div className="w-1/2 bg-gray-50 border-r border-gray-100 px-4 py-3 text-gray-400 font-semibold">
               {item.label}

@@ -1,5 +1,5 @@
 import React from "react";
-import SupplementCard from "./components/SupplementCard";
+import SupplementCard from "@/components/common/SupplementCard";
 import AdBanner from "./components/AdBanner";
 import { useRouter } from "next/router";
 
