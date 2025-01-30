@@ -53,7 +53,7 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
               status ? "bg-primary-300 text-white" : "bg-gray-300 text-gray-600"
             }`}
           >
-            <div className="text-xs font-semibold">{status ? "영업중" : "영업종료"}</div>
+            <div className="text-xs font-semibold">{status ? "영업중" : ""}</div>
           </div>
         </div>
 
