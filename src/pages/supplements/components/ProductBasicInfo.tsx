@@ -15,7 +15,7 @@ interface ProductBasicInfoProps {
 
 const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   title,
-  imageUrl,
+  // imageUrl,
   tags = [],
   tableData = [],
 }) => {
@@ -43,11 +43,11 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
 
       {/* 이미지 */}
       <div className="relative w-full max-w-[200px] h-[200px]">
-        <img
+        {/* <img
           src={imageUrl}
           alt="제품 이미지"
           className="absolute top-[46px] w-full h-[108px] rounded border border-[#cccccc] object-cover"
-        />
+        /> */}
         <div className="absolute w-full h-full top-0 left-0 border border-[#cccccc] rounded"></div>
       </div>
 

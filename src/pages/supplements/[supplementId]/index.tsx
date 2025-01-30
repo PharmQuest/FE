@@ -11,7 +11,7 @@ import {
   usageInstructions,
   warnings,
   supplements,
-} from "../data/mockupData";
+} from "@/mocks/supplements";
 import { ExternalIcon } from "@public/svgs";
 
 const SupplementInfo: React.FC = () => {
