@@ -1,16 +1,16 @@
 interface CommentItemProps {
-  id: string;
+  id: number;
   writer: string;
   title: string;
   content: string;
   date: string;
   likes: number;
-  parentId?: string;
+  parentId?: number;
 }
 
 const CommentItem: CommentItemProps[] = [
   {
-    id: "1",
+    id: 1,
     writer: "dkssudskdi",
     title: "미국 여행 중 병원 가 본 사람 계신가요?",
     content:
@@ -19,25 +19,25 @@ const CommentItem: CommentItemProps[] = [
     likes: 2,
   },
   {
-    id: "2",
+    id: 2,
     writer: "sweety123",
     title: "미국 여행 중 병원 가 본 사람 계신가요?",
     content: "감사합니다람쥐렁이.",
     date: "2024.12.25.",
     likes: 0,
-    parentId: "1",
+    parentId: 1,
   },
   {
-    id: "3",
+    id: 3,
     writer: "Maengssso_",
     title: "미국 여행 중 병원 가 본 사람 계신가요?",
     content: "다녀오셨으면 후기 한번 부탁드립닏당당구리숭당당....",
     date: "2024.12.25.",
     likes: 1,
-    parentId: "2",
+    parentId: 2,
   },
   {
-    id: "4",
+    id: 4,
     writer: "dkssudskdi",
     title: "미국 여행 중 병원 가 본 사람 계신가요?",
     content:
