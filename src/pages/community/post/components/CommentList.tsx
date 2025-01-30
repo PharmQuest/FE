@@ -1,44 +1,69 @@
-import React from "react";
-import comments from "../../../../mocks/comments";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import CommentItem from "./CommentItem";
-import ReplyItem from "./ReplyItem";
+import PageNavigator from "../../components/PageNavigator";
 
-const CommentList = () => {
-  const findParentWriter = (parentId: string) => {
-    const parentComment = comments.find((comment) => comment.id === parentId);
-    return parentComment?.writer || "";
-  };
+interface Reply {
+  commentId: number;
+  content: string;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number;
+  parentName: string;
+  replies: Reply[];
+}
+
+interface Comment {
+  commentId: number;
+  content: string;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number | null;
+  parentName: string | null;
+  replies: Reply[];
+}
+
+interface CommentListProps {
+  postUserId: number;
+  comments: Comment[];
+  totalPage: number;
+  isFirst: boolean;
+  isLast: boolean;
+  commentPage: number;
+  setCommentPage: Dispatch<SetStateAction<number>>;
+}
+
+const CommentList: React.FC<CommentListProps> = ({ 
+  postUserId, 
+  comments,
+  totalPage,
+  isFirst,
+  isLast, 
+  commentPage,
+  setCommentPage,
+}) => {
+
+  const [replyParentId, setReplyParentId] = useState<number | null>(null);
 
   return (
-    <div className="flex flex-col">
-      {comments.map((comment) => {
-        if (comment.parentId) {
-          // 답글
-          return (
-            <ReplyItem
-              key={comment.id}
-              id={comment.id}
-              writer={comment.writer}
-              content={comment.content}
-              date={comment.date}
-              likes={comment.likes}
-              parentWriter={findParentWriter(comment.parentId)}
-            />
-          );
-        } else {
-          // 일반 댓글
-          return (
-            <CommentItem
-              key={comment.id}
-              id={comment.id}
-              writer={comment.writer}
-              content={comment.content}
-              date={comment.date}
-              likes={comment.likes}
-            />
-          );
-        }
-      })}
+    comments?.length > 0 &&
+    <div className="flex flex-col bg-gray-50 p-5 gap-5">
+      {comments?.map((comment) => (
+        <CommentItem
+          key={comment.commentId}
+          postUserId={postUserId}
+          commentId={comment.commentId}
+          content={comment.content}
+          userId={comment.userId}
+          userName={comment.userName}
+          createdAt={comment.createdAt}
+          replies={comment.replies}
+          replyParentId={replyParentId}
+          setReplyParentId={setReplyParentId} />
+      ))}
+
+      <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast}/>
     </div>
   );
 };

@@ -74,7 +74,7 @@ export default function Home() {
             </div>
         </div>
         {/* 흰 배경 */}
-        <div className='bg-white flex justify-center'>
+        <div className='bg-white flex justify-center mb-[48px]'>
             <div className={`
                 // 1001px 이상
                 xl:w-[900px]
@@ -93,9 +93,9 @@ export default function Home() {
                                     // 1000px 이하
                                     flex-col'>
                         {/* 커뮤니티 코드를 반복문으로 변경 */}
-                        <div className="lg:w-[483px] w-full lg:mt-4 lg:mb-4 mr-4 h-[145px] flex-col justify-start items-start flex">
+                        <div className="lg:w-[483px] w-full lg:mt-4 lg:mb-4 mr-4 h-[174px] flex-col justify-start items-start flex">
                             {community.map((item, index) => (
-                                <div key={index} className="self-stretch lg:py-2 justify-between items-start inline-flex">
+                                <div key={index} className="self-stretch lg:py-2 py-1 justify-between items-start inline-flex">
                                     <div className="h-[29px] flex-1 justify-start items-center gap-2 flex min-w-0">
                                         <div className="lg:w-16 w-[47px] lg:h-6 h-5 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
                                             <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">
@@ -113,15 +113,15 @@ export default function Home() {
                                             </div>
                                         )}
                                     </div>
-                                    <div className="text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">
+                                    <div className="flex items-center h-full text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">
                                         {item.calendar}
                                     </div>
                                 </div>
                             ))}
                         </div>                        
                         {/* 광고 */}
-                        <div className="w-full flex justify-center lg:justify-end lg:w-[287px]">
-                            <div className="relative
+                        <div className="mt-6 w-full flex justify-center lg:justify-end lg:w-[287px]">
+                            <div className="relative text-white bg-gradient-to-b from-black to-black
                                             // 1000px 이상 (lg)
                                             lg:w-[287px] lg:h-[215px]
                                             // 641px-999px (md)
@@ -129,8 +129,7 @@ export default function Home() {
                                             // 393px-640px (sm)
                                             sm:w-full sm:h-[238px]
                                             // 393px 미만
-                                            w-full max-w-[601px] h-[238px]
-                                            text-white mt-4 bg-gradient-to-b from-black to-black">
+                                            w-full max-w-[601px] h-[238px]">
                                 {/* 광고 넘기기 버튼 */}
                                 <div className='absolute right-[20px] bottom-[18px] flex justify-center items-center gap-[9px]'>
                                     <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">&lt;</button>

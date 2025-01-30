@@ -4,54 +4,114 @@ import {
   KebabIcon,
   LikeIcon,
 } from "@public/svgs";
-import React from "react";
+import React, { useState } from "react";
 import Tag from "../../components/Tag";
+import CommentInput from "./CommentInput";
+import { format } from "date-fns";
+
+interface Reply {
+  commentId: number;
+  content: string;
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number;
+  parentName: string;
+  replies: Reply[];
+}
 
 interface ReplyItemProps {
-  id: string;
-  writer: string;
+  postUserId: number;
+  commentId: number;
   content: string;
-  date: string;
-  likes: number;
-  parentWriter: string; // 부모 댓글 작성자
+  userId: number;
+  userName: string;
+  createdAt: string;
+  parentId: number;
+  parentName: string;
+  replies: Reply[];
+  replyParentId: number | null;
+  setReplyParentId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const ReplyItem: React.FC<ReplyItemProps> = ({
-  writer,
+  postUserId,
+  commentId,
   content,
-  date,
-  likes,
-  parentWriter,
+  userId,
+  userName,
+  createdAt,
+  // eslint-disable-next-line
+  parentId,
+  parentName,
+  replies,
+  replyParentId,
+  setReplyParentId,
 }) => {
+
+
+
+  const [isLike, setIsLike] = useState(false);
+
+  const handleLike = () => {
+    setIsLike(!isLike);
+  }
+
+  const date = new Date(createdAt);
+  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
+
   return (
     <div>
-      <div className="flex flex-col gap-2 pl-10 pr-3 py-5 border-b border-solid border-gray-100">
+      <div className="flex flex-col gap-2 pl-10 pr-3 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-1">
             <CornerDownRightIcon />
-            <p>{writer}</p>
-            <Tag variant="writer" />
+            <p>{userName}</p>
+            {postUserId === userId && <Tag variant="writer" />}
           </div>
           <KebabIcon />
         </div>
         <div className="flex flex-row gap-2">
-          <p className="text-subhead1-sb text-secondary-500">@{parentWriter}</p>
+          <p className="text-subhead1-sb text-secondary-500">@{parentName}</p>
           <p className="text-body1-r text-gray-500">{content}</p>
         </div>
 
         <div className="flex flex-row justify-between text-body2-r text-gray-400">
-          <p>{date}</p>
+          <p>{formattedDate}</p>
           <div className="flex flex-row gap-[10px]">
             <div className="flex flex-row">
-              <LikeIcon className="cursor-pointer mr-[2px]" />
-              {likes}
+              <LikeIcon
+                fill={isLike ? "#FF8686" : "none"}
+                className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
+                onClick={() => handleLike()} />
+              {0}
             </div>
-            <div className="flex flex-row cursor-pointer">
+            <div
+              className="flex flex-row cursor-pointer gap-0.5"
+              onClick={() => setReplyParentId(commentId)}>
               <CommentIcon /> 답글 달기
             </div>
           </div>
         </div>
+        {replyParentId === commentId &&
+          <CommentInput replyParentId={commentId} userName={userName} />
+        }
       </div>
+      {replies?.map((reply) => (
+        <ReplyItem
+          postUserId={postUserId}
+          key={reply.commentId}
+          commentId={reply.commentId}
+          content={reply.content}
+          userId={reply.userId}
+          userName={reply.userName}
+          createdAt={reply.createdAt}
+          parentId={reply.parentId}
+          parentName={reply.parentName}
+          replies={reply.replies}
+          replyParentId={replyParentId}
+          setReplyParentId={setReplyParentId} />
+      ))}
     </div>
   );
 };

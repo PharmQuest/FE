@@ -3,7 +3,9 @@
 import { CameraIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Dropdown from "./component/Dropdown";
+import Dropdown from "../components/Dropdown";
+import usePostMutation from "../../../hooks/community/usePostMutation";
+import useStore from "@/store/useStore";
 
 type DropdownInfo = {
   key: string;
@@ -12,38 +14,38 @@ type DropdownInfo = {
 
 export default function CreatePost() {
 
+  const {
+    setIsNoticeModalOpen,
+    setNoticeModalText,
+  } = useStore((state) => state)
+
   const categoryInfo: DropdownInfo[] = [
-    {key: "FORUM", value: "자유"},
-    {key: "PHARMACY", value: "약국"},
-    {key: "HOSPITAL", value: "병원"},
-    {key: "MEDICATION", value: "약"},
-    {key: "SYMPTOM", value: "증상"},
-    {key: "SUPPLEMENT", value: "영양제"},
+    { key: "FORUM", value: "자유" },
+    { key: "PHARMACY", value: "약국" },
+    { key: "HOSPITAL", value: "병원" },
+    { key: "MEDICATION", value: "약" },
+    { key: "SYMPTOM", value: "증상" },
+    { key: "SUPPLEMENT", value: "영양제" },
   ]
   const countryInfo: DropdownInfo[] = [
-    {key: "NONE", value: "선택 안 함"},
-    {key: "KOREA", value: "한국"},
-    {key: "JAPAN", value: "일본"},
-    {key: "CHINA", value: "중국"},
-    {key: "USA", value: "미국"},
-    {key: "CANADA", value: "캐나다"},
-    {key: "AUSTRALIA", value: "호주"},
-    {key: "THAILAND", value: "태국"},
-    {key: "VIETNAM", value: "베트남"},
-    {key: "PHILIPPINES", value: "필리핀"},
-    {key: "SINGAPORE", value: "싱가포르"},
-    {key: "EUROPE", value: "유럽"},
+    { key: "NONE", value: "선택 안 함" },
+    { key: "KOREA", value: "한국" },
+    { key: "JAPAN", value: "일본" },
+    { key: "CHINA", value: "중국" },
+    { key: "USA", value: "미국" },
+    { key: "CANADA", value: "캐나다" },
+    { key: "AUSTRALIA", value: "호주" },
+    { key: "THAILAND", value: "태국" },
+    { key: "VIETNAM", value: "베트남" },
+    { key: "PHILIPPINES", value: "필리핀" },
+    { key: "SINGAPORE", value: "싱가포르" },
+    { key: "EUROPE", value: "유럽" },
   ]
-
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-
-  // build error 방지
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [country, setCountry] = useState("NONE");
-  
 
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -71,11 +73,29 @@ export default function CreatePost() {
     }
   }
 
-  const closeDropDown = () => {
 
+  // 추후에 url 및 데이터 구조 수정 필요
+  const mutate = usePostMutation(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`,
+    {
+      title,
+      content,
+      country,
+      category,
+    },
+  )
+
+  const handleSubmit = async () => {
+    try {
+      await mutate()
+      setIsNoticeModalOpen(true);
+      setNoticeModalText("게시글 작성을 완료했습니다.")
+    } catch (error) {
+      console.log(error)
+      setIsNoticeModalOpen(true);
+      setNoticeModalText("게시글 작성에 실패했습니다.")
+    }
   }
-
-
 
   useEffect(() => {
     if (title.trim() && content.trim() && category.trim()) {
@@ -88,14 +108,15 @@ export default function CreatePost() {
 
   return (
     // 게시글 작성 페이지 Container
-    <div className={`pl-[260px] pr-[260px]`} onClick={closeDropDown}>
+    <div className={`max-w-[900px] mx-auto`}>
       <div className={`flex mt-[48px] mb-[12px] justify-between`}>
         <h1 className={`text-display2-b text-gray-600`}>
           게시글 작성
         </h1>
         <button
-          className={`px-4 py-1 rounded-[4px] bg-primary-300 text-white disabled:bg-gray-100 disabled:text-gray-400`}
-          disabled={isSubmitDisabled}>
+          className={`px-4 py-1 rounded-[4px] bg-primary-300 text-subhead1-sb text-white disabled:bg-gray-100 disabled:text-gray-400`}
+          disabled={isSubmitDisabled}
+          onClick={handleSubmit}>
           등록
         </button>
       </div>
@@ -104,9 +125,9 @@ export default function CreatePost() {
 
         {/* dropdown wrapper */}
         <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
-          
-        <Dropdown info={categoryInfo} initialText={"주제 선택"} setValue={setCategory}/>
-        <Dropdown info={countryInfo} initialText={"위치 추가"} setValue={setCountry}/>
+
+          <Dropdown info={categoryInfo} initialText={"주제 선택"} value={category} setValue={setCategory} />
+          <Dropdown info={countryInfo} initialText={"위치 추가 (선택)"} value={country} setValue={setCountry} />
 
         </div>
 
@@ -155,9 +176,9 @@ export default function CreatePost() {
               id="file"
               type="file"
               className={`hidden`}
-              onChange={handleImageUpload} 
+              onChange={handleImageUpload}
               // 파일 등록 사진으로 제한
-              accept="image/*"/>
+              accept="image/*" />
 
             <p className={`text-gray-300`}>{content.length}/3000</p>
           </div>

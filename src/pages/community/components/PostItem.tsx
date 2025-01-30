@@ -2,50 +2,58 @@ import React from "react";
 import SubjectTag from "./SubjectTag";
 import Tag from "./Tag";
 import { useRouter } from "next/router";
+import { format } from "date-fns";
 
 interface PostItemProps {
-  id: string; // id
-  isBest: boolean; // 베스트 게시글 여부
-  subject: string; // 주제
-  title: string; // 제목
-  author: string; // 글쓴이
-  date: string; // 날짜
-  likes: number; // 좋아요 개수
-  comments: number; // 댓글 개수
-  scraps: number; // 스크랩 개수
+  postId: number;
+  userName: string;
+  title: string;
+  category: string;
+  scrapeCount: number;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  isBestPost: boolean;
 }
 
 const PostItem: React.FC<PostItemProps> = ({
-  id,
-  isBest,
-  subject,
+  postId,
+  userName,
   title,
-  author,
-  date,
-  likes,
-  comments,
-  scraps,
+  category,
+  scrapeCount,
+  likeCount,
+  commentCount,
+  createdAt,
+  isBestPost,
 }) => {
   const router = useRouter();
 
+  const date = new Date(createdAt);
+  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
+
   return (
-    <div className="flex flex-row w-full justify-between border-b border-solid border-gray-100 py-3">
-      <div className="flex flex-row gap-2">
-        <SubjectTag text={subject} />
-        <p
-          className="text-body1-r text-gray-500 cursor-pointer"
-          onClick={() => router.push(`/community/post/${id}`)}
-        >
+    <div className="py-3 grid grid-cols-[1fr_7fr_6fr] gap-2 border-b border-solid border-gray-100">
+
+      <SubjectTag text={category} className={`h-6`}/>
+      <div
+        className="truncate flex text-body1-r text-gray-500 cursor-pointer gap-2"
+        onClick={() => router.push(`/community/post/${postId}`)}
+      >
+        <p className={`max-w-[428px] truncate`}>
           {title}
         </p>
-        {isBest && <Tag variant="best" />}
+        {isBestPost && <Tag variant="best" />}
       </div>
-      <div className="flex flex-row gap-7 text-body2-r text-gray-300">
-        <p>{author}</p>
-        <p>{date}</p>
-        <p>{likes}</p>
-        <p>{comments}</p>
-        <p>{scraps}</p>
+
+      <div className="grid grid-flow-col gap-5 text-center items-center justify-items-center text-body2-r text-gray-300 w-full">
+        <p className={`w-[73px] truncate`}>{userName}</p>
+        <p className={`w-[73px] truncate`}>{formattedDate}</p>
+        <div className={`flex gap-5`}>
+          <p className={`w-[36px] truncate`}>{likeCount}</p>
+          <p className={`w-[36px] truncate`}>{commentCount}</p>
+          <p className={`w-[42px] truncate`}>{scrapeCount}</p>
+        </div>
       </div>
     </div>
   );
