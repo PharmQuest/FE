@@ -42,7 +42,7 @@ const SupplementInfo: React.FC = () => {
           <ProductBasicInfo
             title={productBasicInfo.title}
             tags={productBasicInfo.tags || []}
-            imageUrl={productBasicInfo.imageUrl}
+            // imageUrl={productBasicInfo.imageUrl}
             tableData={productBasicInfo.tableData}
           />
         </div>
