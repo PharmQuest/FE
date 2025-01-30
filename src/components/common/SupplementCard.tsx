@@ -80,7 +80,7 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
 
         {/* 태그 영역 */}
         <div className="flex flex-wrap gap-1.5">
-          {tags?.map((tag, idx) => (
+          {tags.map((tag, idx) => (
             <div
               key={idx}
               className="px-2 py-0.5 bg-[#e7f3ee] rounded text-xs font-semibold text-[#474747] flex items-center"
