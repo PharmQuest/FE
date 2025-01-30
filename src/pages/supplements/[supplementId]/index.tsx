@@ -12,6 +12,7 @@ import {
   warnings,
   supplements,
 } from "../data/mockupData";
+import { ExternalIcon } from "@public/svgs";
 
 const SupplementInfo: React.FC = () => {
   const copyToClipboard = () => {
@@ -33,8 +34,7 @@ const SupplementInfo: React.FC = () => {
             onClick={copyToClipboard}
             className="absolute top-0 right-0 z-10 flex items-center gap-1 text-gray-500 text-sm hover:text-gray-700"
           >
-            {/* 아이콘이 안 보이는 경우 img 태그로 대체 */}
-            <img src="/svgs/external-link.svg" alt="URL 복사" className="w-5 h-5" />
+            <ExternalIcon />        
             <span>URL 복사</span>
           </button>
 
