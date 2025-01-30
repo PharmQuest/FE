@@ -1,18 +1,40 @@
-// 커뮤니티_게시글 작성
+// 커뮤니티_게시글 수정
 
 import { CameraIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Dropdown from "../components/Dropdown";
-import usePostMutation from "../../../hooks/community/usePostMutation";
+import Dropdown from "../../components/Dropdown";
+import usePostMutation from "@/hooks/community/usePostMutation";
 import useStore from "@/store/useStore";
+import { useRouter } from "next/router";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import axiosInstance from "@/apis/axios-instance";
+import { AxiosError } from "axios";
+import useFormatCategory from "@/hooks/community/useFormatCategory";
 
 type DropdownInfo = {
   key: string;
   value: string;
 };
 
-export default function CreatePost() {
+export default function ModifyPost() {
+  const router = useRouter();
+  const params = useParams() || {};
+  const postId = Number(params.postId) || null;
+
+  const { data, error } = useQuery(
+    {
+      queryKey: ["post", postId],
+      queryFn: async () => {
+        const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}?page=1`)
+        return response.data.result;
+      },
+      placeholderData: keepPreviousData,
+      enabled: !!postId,
+      retry: 0,
+    },
+  );
 
   const {
     setIsNoticeModalOpen,
@@ -41,10 +63,13 @@ export default function CreatePost() {
     { key: "SINGAPORE", value: "싱가포르" },
     { key: "EUROPE", value: "유럽" },
   ]
+  const formatCategory = useFormatCategory()
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+  const [categoryText, setCategoryText] = useState("");
+  // 게시글 상세 조회에 국가 필요!!
   const [country, setCountry] = useState("NONE");
 
   const [uploadImage, setUploadImage] = useState("");
@@ -76,29 +101,39 @@ export default function CreatePost() {
 
   // 추후에 url 및 데이터 구조 수정 필요
   const mutate = usePostMutation(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`,
     {
       title,
       content,
       country,
       category,
     },
+    "patch",
   )
 
   const handleSubmit = async () => {
     try {
       await mutate()
+      setNoticeModalText("게시글 수정을 완료했습니다.")
       setIsNoticeModalOpen(true);
-      setNoticeModalText("게시글 작성을 완료했습니다.")
     } catch (error) {
       console.log(error)
+      setNoticeModalText("게시글 수정에 실패했습니다.")
       setIsNoticeModalOpen(true);
-      setNoticeModalText("게시글 작성에 실패했습니다.")
     }
   }
 
   useEffect(() => {
-    if (title.trim() && content.trim() && category.trim()) {
+      const axiosError = error as AxiosError<{ code?: string }>
+      if(axiosError?.response?.data.code === "POST4005" ) {
+        setNoticeModalText("존재하지 않는 게시글입니다.");
+        setIsNoticeModalOpen(true);
+        router.push("/community")
+      }
+    }, [error])
+
+  useEffect(() => {
+    if (title?.trim() && content?.trim() && category?.trim()) {
       setIsSubmitDisabled(false)
     }
     else {
@@ -106,19 +141,36 @@ export default function CreatePost() {
     }
   }, [title, content, category])
 
+  useEffect(() => {
+    if (data) {
+      setTitle(data?.title || "");
+      setContent(data?.content || "");
+      setCategory(formatCategory(data?.category) || "");
+      setCategoryText(data?.category);
+    }
+  }, [data]);
+
   return (
     // 게시글 작성 페이지 Container
     <div className={`max-w-[900px] mx-auto`}>
-      <div className={`flex mt-[48px] mb-[12px] justify-between`}>
+      <div className={`flex mt-[48px] mb-[12px] justify-between items-center`}>
         <h1 className={`text-display2-b text-gray-600`}>
-          게시글 작성
+          게시글 수정
         </h1>
-        <button
-          className={`px-4 py-1 rounded-[4px] bg-primary-300 text-subhead1-sb text-white disabled:bg-gray-100 disabled:text-gray-400`}
-          disabled={isSubmitDisabled}
-          onClick={handleSubmit}>
-          등록
-        </button>
+        <div className={`flex gap-3 h-8`}>
+          <button
+            className={`px-4 py-1 rounded-[4px] text-subhead1-sb text-gray-400 border border-solid border-gray-100`}
+            disabled={isSubmitDisabled}
+            onClick={() => router.push("/community")}>
+            취소
+          </button>
+          <button
+            className={`px-4 py-1 rounded-[4px] text-subhead1-sb bg-primary-300 text-white disabled:bg-gray-100 disabled:text-gray-400`}
+            disabled={isSubmitDisabled}
+            onClick={handleSubmit}>
+            저장
+          </button>
+        </div>
       </div>
       {/* 게시글 작성 box */}
       <div className={`p-6 flex gap-5 flex-col rounded-[8px] border border-gray-100 min-h-[726px]`}>
@@ -126,7 +178,7 @@ export default function CreatePost() {
         {/* dropdown wrapper */}
         <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
 
-          <Dropdown info={categoryInfo} initialText={"주제 선택"} value={category} setValue={setCategory} />
+          <Dropdown info={categoryInfo} initialText={categoryText} value={category} setValue={setCategory} />
           <Dropdown info={countryInfo} initialText={"위치 추가 (선택)"} value={country} setValue={setCountry} />
 
         </div>
@@ -180,7 +232,7 @@ export default function CreatePost() {
               // 파일 등록 사진으로 제한
               accept="image/*" />
 
-            <p className={`text-gray-300`}>{content.length}/3000</p>
+            <p className={`text-gray-300`}>{content?.length}/3000</p>
           </div>
         </div>
       </div>

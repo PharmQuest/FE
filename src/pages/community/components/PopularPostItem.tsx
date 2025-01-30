@@ -5,55 +5,57 @@ import { CommentIcon, LikeIcon, ScrapIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 
 interface PopularPostItemProps {
-  id: string; // id
-  subject: string; // 주제
+  id: number; // id
+  category: string; // 주제
   title: string; // 제목
   content: string; // 내용
-  date: string; // 날짜
-  likes: number; // 좋아요 개수
-  comments: number; // 댓글 개수
-  scraps: number; // 스크랩 개수
+  createdAt: string; // 날짜
+  likeCount: number; // 좋아요 개수
+  commentCount: number; // 댓글 개수
+  scrapeCount: number; // 스크랩 개수
+  bgColor?: string; // 배경색
 }
 
 const PopularPostItem: React.FC<PopularPostItemProps> = ({
   id,
-  subject,
+  category,
   title,
   content,
-  date,
-  likes,
-  comments,
-  scraps,
+  createdAt,
+  likeCount,
+  commentCount,
+  scrapeCount,
+  bgColor,
 }) => {
   const router = useRouter();
 
   return (
     <div
-      className="flex flex-col w-auto h-[117px] gap-2 px-5 py-4 bg-primary-50 rounded-lg cursor-pointer"
+      className={`flex flex-col w-auto h-[117px] gap-2 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === 'white' ? `mx-5 py-4` : `px-5 py-4 rounded-lg`}`}
       onClick={() => {
         router.push(`/community/post/${id}`);
       }}
     >
       <div className="flex flex-row gap-2">
-        <SubjectTag text={subject} variant="dark" />
+        <SubjectTag text={category} variant="dark" />
         <p className="text-subhead1-sb">{title}</p>
         <Tag variant="best" />
       </div>
-      <p className="text-body1-r text-gray-500">{content}</p>
+      <p className="text-body1-r text-gray-500 truncate">{content}</p>
       <div className="flex flex-row justify-between text-body2-r text-gray-400">
-        <p>{date}</p>
+        <p>{createdAt}</p>
         <div className="flex flex-row gap-[10px]">
           <div className="flex flex-row gap-[2px]">
             <LikeIcon className="cursor-pointer" />
-            {likes}
+            {likeCount}
           </div>
           <div className="flex flex-row gap-[2px]">
             <CommentIcon className="cursor-pointer" />
-            {comments}
+            {commentCount}
           </div>
           <div className="flex flex-row gap-[2px]">
             <ScrapIcon className="cursor-pointer" />
-            {scraps}
+            {scrapeCount}
           </div>
         </div>
       </div>

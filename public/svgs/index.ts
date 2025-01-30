@@ -33,3 +33,5 @@ export { default as FindGTIcon } from "./find-gt.svg";
 export { default as FindSearchIcon } from "./find-search.svg";
 export { default as GreenMapPinIcon } from "./green-map-pin.svg";
 export { default as SmallGreenMapPinIcon } from "./small-green-map-pin.svg";
+export { default as CircleIcon } from "./circle.svg";
+export { default as CheckCircleIcon } from "./check-circle.svg";
