@@ -2,8 +2,12 @@
 
 import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
 import Image from "next/image";
+import { useState } from "react";
 
 function MedicineInfo() {
+
+  const [src, setSrc] = useState("/images/tylenol.png");
+
   return (
     <>
       {/* container */}
@@ -21,7 +25,6 @@ function MedicineInfo() {
           <BookmarkIcon stroke={"#707070"} className={`w-6`} />
           <ExternalIcon className={`w-6 text-gray-400`} />
         </div>
-
       </div>
       <div
         className={`
@@ -33,7 +36,7 @@ function MedicineInfo() {
           <div 
             className={`
               md:flex 
-              hidden mt-9 justify-between `}>
+              hidden mt-9 justify-between`}>
             <h1
               className={`text-display2-b text-gray-600`}>
               제품 기본 정보
@@ -57,10 +60,11 @@ function MedicineInfo() {
                 border border-solid border-gray-200 rounded-lg overflow-hidden grow aspect-square`}>
               <Image
                 className={`w-full`}
-                src="/images/tylenol.png"
+                src={src}
                 alt="이미지"
                 width={100}
-                height={100} />
+                height={100} 
+                onError={() => setSrc("/images/no_image.webp")}/>
             </div>
             <div className={`flex flex-col gap-1 grow`}>
               <div
