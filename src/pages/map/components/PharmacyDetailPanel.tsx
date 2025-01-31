@@ -4,6 +4,7 @@ import IsOpenTag from "./IsOpenTag";
 import { GlobeIcon } from "@public/svgs";
 import RatingStars from "./RatingStars";
 import Image from "next/image";
+import { PharamacyDetailImage } from "@public/images";
 
 interface DetailPanelProps {
   pharmacy: PharmacyDetails | null;
@@ -13,28 +14,25 @@ interface DetailPanelProps {
 const DetailPanel: React.FC<DetailPanelProps> = ({ pharmacy, onClose }) => {
   if (!pharmacy) return null;
 
+  const imageSrc = pharmacy.photos?.[0]
+    ? pharmacy.photos[0].getUrl({ maxWidth: 384, maxHeight: 220 })
+    : PharamacyDetailImage;
+
   return (
     <div className="fixed map:relative map:w-[384px] top-[60px] map:top-0 bottom-0 right-0 left-0 map:inset-auto z-20 map:z-0 bg-black/50 map:bg-transparent flex justify-end">
       <div className="w-full map:w-[384px] h-full flex shrink-0 overflow-y-scroll overflow-x-hidden scrollbar-hide bg-white">
         <div className="relative w-full">
           <div className="relative">
-            {pharmacy.photos?.[0] ? (
-              <div className="relative h-[220px]">
-                <Image
-                  src={pharmacy.photos[0].getUrl({
-                    maxWidth: 384,
-                    maxHeight: 220,
-                  })}
-                  alt={pharmacy.name || "약국 이미지"}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent to-40% rounded-t-lg" />
-              </div>
-            ) : (
-              <div className="w-full h-[220px] bg-gray-200 rounded-t-lg" />
-            )}
+            <div className="relative h-[220px]">
+              <Image
+                src={imageSrc}
+                alt={pharmacy.name || "약국 이미지"}
+                fill
+                className="object-cover rounded-t-lg"
+                unoptimized
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent to-40% rounded-t-lg" />
+            </div>
             <button
               onClick={onClose}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white/80 rounded-full text-gray-600 hover:bg-white"
