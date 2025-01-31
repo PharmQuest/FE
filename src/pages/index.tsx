@@ -109,7 +109,7 @@ export default function Home() {
                         lg:hidden
                         // 태블릿 (642px-999px)
                         md:w-[601px]">
-          <div className="text-center text-gray-300 text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">
+          <div className="text-center text-gray-300 text-[10px] font-normal font-['Pretendard Variable'] leading-[15px]">
             본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로
             하며, <br />
             해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.
