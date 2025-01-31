@@ -25,7 +25,7 @@ const MyPage: React.FC<MyPageProps> = ({
     { id: 3, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
     { id: 4, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
   ],
-  supplements = [
+   supplements = [
     { id: 1, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
     { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
   ],
@@ -77,7 +77,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 text-body1-r text-left md:text-center">
             저장한 상비약이 없어요. <br />
-            <Link href="/medicines" className="text-primary-500 underline">
+            <Link href="/medicines" className="text-gray-400 underline">
               상비약 리스트
             </Link>
             에서 항목을 추가해보세요!
@@ -102,7 +102,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 text-body1-r text-left md:text-center">
             저장한 약국이 없어요. <br />
-            <Link href="/pharmacys" className="text-primary-500 underline">
+            <Link href="/pharmacys" className="text-gray-400 underline">
               약국 찾기
             </Link>
             에서 항목을 추가해보세요!
@@ -127,7 +127,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 text-body1-r text-left md:text-center">
             저장한 영양제가 없어요. <br />
-            <Link href="/supplements" className="text-primary-500 underline">
+            <Link href="/supplements" className="text-gray-400 underline">
               해외 인기 영양제
             </Link>
             에서 항목을 추가해보세요!

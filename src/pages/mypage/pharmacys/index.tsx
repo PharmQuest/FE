@@ -79,17 +79,17 @@ const MyPharmacys = () => {
         </>
       ) : (
         <div className="flex flex-col justify-center items-center flex-grow">
-          <span className="text-gray-300 text-sm md:text-base font-normal font-pretendard leading-[21px]">
+          <span className="text-gray-300 text-headline-m md:text-m-body2-r">
             저장한 약국이 없어요.
           </span>
           <div className="inline-flex gap-1">
             <Link
               href="/pharmacys"
-              className="text-gray-300 text-sm md:text-base font-normal font-pretendard underline leading-[21px] whitespace-nowrap"
+              className="text-gray-300 text-headline-m md:text-m-body2-r underline whitespace-nowrap"
             >
               약국 찾기
             </Link>
-            <span className="text-gray-300 text-sm md:text-base font-normal font-pretendard leading-[21px]">
+            <span className="text-gray-300 text-headline-m md:text-m-body2-r">
               에서 항목을 추가해보세요!
             </span>
           </div>
