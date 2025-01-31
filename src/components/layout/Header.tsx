@@ -51,12 +51,14 @@ const Header = () => {
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
       <div
-        className={`hidden lg:flex grow justify-center items-center h-[110px] w-full bg-background`}>
+        className={`w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
           <div className={`
-            flex items-center w-[900px] gap-12
-            // 1001px 이상
-            // 1000px일 때
-            lg:px-[50px]
+            // 기본 스타일
+            flex items-center gap-12
+            // 1000px 초과 (xl)
+            xl:w-[900px] xl:mx-auto
+            // 딱1000px (lg)
+            lg:w-[900px] lg:mx-[50px]
             `}>
             <LogoIcon className="min-w-fit cursor-pointer" onClick={() => router.push("/")}/>
             <div className="whitespace-nowrap flex grow h-[46px] justify-between items-center">
@@ -115,7 +117,7 @@ const Header = () => {
           // 태블릿 (641px ~ 999px)
           md:w-[601px]
           // 모바일 (641px 미만)
-          w-full px-[20px]
+          w-full
         `}>
           <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar}/>
           <LogoIcon onClick={() => router.push("/")}/>
