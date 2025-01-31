@@ -52,11 +52,12 @@ function MedicineInfo() {
           </div>
           <div
             className={`
-              lg:gap-5
+              lg:gap-5 lg:p-6
               md:flex-row md:relative 
               flex flex-col border border-gray-100 bg-white mt-5 rounded-xl p-4 gap-4`}>
             <div 
               className={`
+                lg:max-w-[200px] 
                 md:self-center
                 border border-solid border-gray-200 rounded-lg overflow-hidden grow aspect-square`}>
               <Image
@@ -67,14 +68,20 @@ function MedicineInfo() {
                 height={100} 
                 onError={() => setSrc("/images/no_image.webp")}/>
             </div>
-            <div className={`flex flex-col gap-1 grow`}>
+            <div 
+              className={`
+                lg:gap-2
+                flex flex-col gap-1 grow`}>
               <div
                 className={`
                   lg:text-body2-r
                   text-white bg-primary-200 px-2 pt-0.5 pb-[1px] w-fit rounded text-m-subhead2-sb`}>
                 미국
               </div>
-              <div className={`flex flex-col gap-5`}>
+              <div 
+                className={`
+                  lg:mb-2
+                  grow justify-between flex flex-col gap-5`}>
                 <div
                   className={`
                     lg:text-headline-b
