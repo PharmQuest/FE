@@ -28,8 +28,8 @@ function MedicineInfo() {
       </div>
       <div
         className={`
-        lg:w-[900px] lg:mx-auto
-        md:w-[600px] md:mx-auto md:gap-[60px]
+        lg:w-[900px] lg:gap-[60px]
+        md:w-[600px] md:mx-auto 
         sm:w-full 
         w-full px-5 flex flex-col gap-6`}>
         <div>
@@ -52,8 +52,9 @@ function MedicineInfo() {
           </div>
           <div
             className={`
-            md:flex-row md:relative md:gap-5
-            flex flex-col border border-gray-100 bg-white mt-5 rounded-xl p-4 gap-4`}>
+              lg:gap-5
+              md:flex-row md:relative 
+              flex flex-col border border-gray-100 bg-white mt-5 rounded-xl p-4 gap-4`}>
             <div 
               className={`
                 md:self-center
@@ -69,30 +70,30 @@ function MedicineInfo() {
             <div className={`flex flex-col gap-1 grow`}>
               <div
                 className={`
-                  md:text-body2-r
+                  lg:text-body2-r
                   text-white bg-primary-200 px-2 pt-0.5 pb-[1px] w-fit rounded text-m-subhead2-sb`}>
                 미국
               </div>
               <div className={`flex flex-col gap-5`}>
                 <div
                   className={`
-                    md:text-headline-b
+                    lg:text-headline-b
                     text-gray-600 text-m-headline2-b`}>
                   상품명(브랜드이름) ex. 타이레놀
                 </div>
 
                 <div 
                   className={`
-                    md:gap-2
-                    flex flex-col gap-0.5 text-gray-400 text-subhead1-sb`}>
+                    lg:gap-2 lg:text-subhead1-sb
+                    flex flex-col gap-0.5 text-gray-400 text-body2-r`}>
                   <div className={`flex gap-2`}>
                     <div
                       className={`
-                        md:text-subhead1-sb md:min-w-[56px]
+                        lg:text-subhead1-sb lg:min-w-[56px]
                         flex justify-between text-m-subhead1-sb min-w-[50px]`}>
                       <div>일</div><div>반</div><div>명</div>
                     </div>
-                    <div className={`text-center`}>|</div>
+                    <div className={`text-center text-m-subhead1-sb`}>|</div>
                     <div>
                       아세트아미노펜
                     </div>
@@ -102,13 +103,11 @@ function MedicineInfo() {
                   <div className={`flex gap-2`}>
                     <div
                       className={`
-                        md:text-subhead1-sb md:min-w-[56px]
+                        lg:text-subhead1-sb lg:min-w-[56px]
                         flex justify-between text-m-subhead1-sb min-w-[50px]`}>
                       <div>주</div><div>요</div><div>성</div><div>분</div>
                     </div>
-                    <div className={`text-center`}>
-                      |
-                    </div>
+                    <div className={`text-center text-m-subhead1-sb`}>|</div>
                     <div>
                       acitveingredient ex. 제피아세트아미노펜 177.78mg
                     </div>
@@ -117,13 +116,11 @@ function MedicineInfo() {
                   <div className={`flex gap-2`}>
                     <div
                       className={`
-                        md:text-subhead1-sb md:min-w-[56px]
+                        lg:text-subhead1-sb lg:min-w-[56px]
                         flex justify-between text-m-subhead1-sb min-w-[50px]`}>
                       <div>분</div><div>류</div>
                     </div>
-                    <div className={`text-center`}>
-                      |
-                    </div>
+                    <div className={`text-center text-m-subhead1-sb`}>|</div>
                     <div>
                       진통/해열
                     </div>
@@ -134,19 +131,20 @@ function MedicineInfo() {
             <BookmarkIcon
               stroke={"#707070"}
               className={`
-                md:absolute
-                w-6 hidden right-6 top-6`} />
+                lg:right-6 lg:top-6 lg:w-7
+                md:block 
+                w-6 absolute hidden right-4 top-4`} />
           </div>
         </div>
 
         <div className={`flex flex-col gap-2`}>
           <div 
             className={`
-              md:text-gray-600 md:text-display2-b
+              lg:text-gray-600 lg:text-display2-b
               text-black text-m-headline2-b`}>사용 목적</div>
           <div 
             className={`
-              md:text-body1-r
+              lg:text-body1-r
               text-m-body2-r px-3 py-5 bg-gray-50 border border-solid border-gray-100 rounded-lg flex flex-col gap-0.5`}>
             <div className={`flex gap-1`}>
               <span>•</span>
@@ -162,11 +160,11 @@ function MedicineInfo() {
         <div className={`flex flex-col gap-2`}>
           <div 
             className={`
-              md:text-gray-600 md:text-display2-b
+              lg:text-gray-600 lg:text-display2-b
               text-black text-m-headline2-b`}>복용법</div>
           <div 
             className={`
-              md:text-body1-r
+              lg:text-body1-r
               text-m-body2-r px-3 py-5 bg-gray-50 border border-solid border-gray-100 rounded-lg flex flex-col gap-0.5`}>
             <div className={`flex gap-1`}>
               <span>•</span>
@@ -190,11 +188,11 @@ function MedicineInfo() {
         <div className={`flex flex-col gap-2`}>
           <div 
             className={`
-              md:text-gray-600 md:text-display2-b
+              lg:text-gray-600 lg:text-display2-b
               text-black text-m-headline2-b`}>경고 및 주의사항</div>
           <div 
             className={`
-              md:text-body1-r
+              lg:text-body1-r
               text-m-body2-r px-3 py-5 bg-gray-50 border border-solid border-gray-100 rounded-lg flex flex-col gap-0.5`}>
             <div className={`flex gap-1`}>
               <span>•</span>
