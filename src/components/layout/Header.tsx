@@ -16,8 +16,6 @@ const Header = () => {
   const router = useRouter();
   const pathName = router.pathname;
 
-  if (router.pathname === "/login") return null;
-
   // 로그인
   const handleLoginClick = () => {
     setIsLoggedIn(true); // 로그아웃 상태로 변경
@@ -46,7 +44,6 @@ const Header = () => {
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -56,6 +53,8 @@ const Header = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  if (router.pathname === "/login") return null;
 
   return (
     <AdditionalHeader pathName={pathName}>
