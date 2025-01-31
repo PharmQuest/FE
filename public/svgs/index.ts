@@ -1,11 +1,8 @@
 export { default as BookmarkIcon } from "./bookmark.svg";
 export { default as CommentIcon } from "./comment.svg";
 export { default as GlobeIcon } from "./globe.svg";
-export { default as GoogleIcon } from "./google.svg";
-export { default as KakaoIcon } from "./kakao.svg";
 export { default as LikeIcon } from "./like.svg";
 export { default as MapPinIcon } from "./map-pin.svg";
-export { default as NaverIcon } from "./naver.svg";
 export { default as ScrapIcon } from "./scrap.svg";
 export { default as SearchIcon } from "./search.svg";
 export { default as ArrowRightIcon } from "./arrow-right.svg";
