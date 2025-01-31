@@ -67,7 +67,7 @@ const Header = () => {
               <button className=" px-4 py-2 bg-[#c6c6c6]/0 justify-center items-center gap-1 flex text-[#333333] text-xl font-bold font-['Pretendard Variable'] leading-[30px]"
                       onClick={() => router.push("/community")}>커뮤니티
                       {/* 로그인하면 보임 */}
-                      {!isLoggedIn && (
+                      {isLoggedIn && (
                         <div className="w-[18px] h-[18px] relative">
                           <div className="w-[18px] h-[18px] left-0 top-0 absolute bg-[#ff7700] rounded-full"></div>
                           <div className="left-[6px] top-0 absolute text-white text-xs font-semibold font-['Pretendard Variable'] leading-[18px]">
