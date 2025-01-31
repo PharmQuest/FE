@@ -38,13 +38,17 @@ function MedicineInfo() {
               md:flex 
               hidden mt-9 justify-between`}>
             <h1
-              className={`text-display2-b text-gray-600`}>
+              className={`
+                lg:text-display2-b 
+                text-m-headline1-b text-gray-600`}>
               제품 기본 정보
             </h1>
             <div className={`flex items-end text-gray-400`}>
               <div className={`flex items-center gap-1`}>
                 <ExternalIcon className={`w-6`}/>
-                <div className={`text-subhead2-sb`}>
+                <div 
+                  className={`
+                    text-subhead2-sb`}>
                   URL 복사
                 </div>
               </div>
@@ -183,7 +187,7 @@ function MedicineInfo() {
             </div>
             <div className={`flex gap-1`}>
               <span>•</span>
-              <div>1일 최대 4그램(8정)을 초괗여 복용하지 않는다.</div>
+              <div>1일 최대 4그램(8정)을 초과하하여 복용하지 않는다.</div>
             </div>
             <div className={`flex gap-1`}>
               <span>•</span>
