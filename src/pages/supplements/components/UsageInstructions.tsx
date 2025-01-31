@@ -9,7 +9,7 @@ const UsageInstructions: React.FC<UsageInstructionsProps> = ({ instructions = []
     <div className="p-5 bg-gray-50 rounded-lg border border-gray-100">
       <ul className="list-disc list-inside text-gray-600 text-base">
         {instructions.map((instruction, idx) => (
-          <li key={idx} className="mb-1">{instruction}</li> // 리스트로 변환
+          <li key={idx} className="mb-1">{instruction}</li>
         ))}
       </ul>
     </div>
