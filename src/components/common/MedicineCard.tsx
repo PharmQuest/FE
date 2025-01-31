@@ -9,6 +9,8 @@ const MedicineCard = () => {
 
   const [isBookmark, setIsBookmark] = useState(false);
 
+  const [src, setSrc] = useState("/url");
+
   const handleBoomark = (e: React.MouseEvent) => {
     e.stopPropagation();    // 부모 컴포넌트 클릭 방지
     setIsBookmark(!isBookmark);
@@ -24,14 +26,15 @@ const MedicineCard = () => {
       {/* medicine-image */}
       <div className={`
         md:w-[138px] md:h-[138px] 
-        bg-[#D9D9D9] rounded w-[100px] h-[100px]`}>
+        rounded w-[100px] h-[100px] flex items-center`}>
         <Image 
-          src="/url"
-          alt="상비약"
+          src={src}
+          alt="이미지"
           width="100"
           height="100"
-          className={`w-full`}>
-        </Image>
+          className={`w-full rounded`}
+          onError={() => setSrc("/images/no_image.webp")}
+          priority/>
       </div>
       {/* info-wrapper */}
       <div 
