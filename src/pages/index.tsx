@@ -212,14 +212,6 @@ export default function Home() {
                 {/* 1000px 이상일 때는 AD(287*215) */}
                 <AD className="hidden lg:flex lg:w-[287px] lg:h-[215px]" />
                 {/* 1000px 미만일 때는 ADIphone */}
-                {/* <ADIphone className="lg:hidden
-                                    overflow-hidden
-                                    // 641px-999px (md)
-                                    md:max-w-[601px] md:w-full md:h-[240px]
-                                    // 393px-640px (sm)
-                                    sm:w-full sm:h-[240px]
-                                    // 393px 미만
-                                    w-full h-[240px]"/> */}
                 <div className="lg:hidden relative overflow-hidden
                                 md:max-w-[601px] md:w-full md:h-[240px]
                                 sm:w-full sm:h-[240px]
@@ -233,14 +225,6 @@ export default function Home() {
                                                     // SVG 최소 너비 설정
                                                     min-w-[353px]" />
                 </div>
-                {/* <div className="bg-gray-200 // 1000px 이상 (lg)
-                              lg:w-[287px] lg:h-[215px]
-                              // 641px-999px (md)
-                              md:max-w-[601px] md:w-full md:h-[240px]
-                              // 393px-640px (sm)
-                              sm:w-full sm:h-[238px]
-                              // 393px 미만
-                              w-full max-w-[601px] h-[238px]"/> */}
               </div>
             </div>
           </div>
