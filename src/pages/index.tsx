@@ -115,25 +115,31 @@ export default function Home() {
             해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.
           </div>
           <div className="flex gap-4 mt-5 w-full whitespace-nowrap">
-            <button className="flex-1 h-[114px] px-4 py-5 bg-primary-500 rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']">
-              <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">
+            <Link
+              href="medicines"
+              className="flex-1 h-[114px] px-4 py-5 bg-primary-500 rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']"
+            >
+              <p className="flex justify-center items-center gap-4 font-bold text-base leading-normal">
                 상비약 리스트 <WhiteGTIcon />
-              </div>
-              <div className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">
+              </p>
+              <p className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">
                 증상 및 약 이름을 검색하고 필요한
                 <br />
                 상비약 정보를 얻을 수 있어요.
-              </div>
-            </button>
-            <button className="flex-1 mb-6 h-[114px] px-4 py-5 bg-secondary-500 rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']">
-              <div className="flex justify-center items-center gap-4 font-bold text-base leading-normal">
+              </p>
+            </Link>
+            <Link
+              href="map"
+              className="flex-1 mb-6 h-[114px] px-4 py-5 bg-secondary-500 rounded-[5.06px] flex-col justify-start items-center gap-[2.5px] inline-flex text-white font-['Pretendard Variable']"
+            >
+              <p className="flex justify-center items-center gap-4 font-bold text-base leading-normal">
                 약국 찾기 <WhiteGTIcon />
-              </div>
-              <div className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">
+              </p>
+              <p className="mt-4 self-stretch text-center font-normal leading-[15px] text-[10px]">
                 근처에 있는 약국을 검색하고
                 <br />길 찾기 서비스를 받을 수 있어요.
-              </div>
-            </button>
+              </p>
+            </Link>
           </div>
           <Search />
           <div className="flex gap-3 mt-3 overflow-x-auto scrollbar-hide">
