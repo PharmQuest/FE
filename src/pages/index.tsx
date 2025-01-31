@@ -1,6 +1,7 @@
 import Search from "@/components/common/Search";
 import FilterButton from "@/components/common/FilterButton";
-import { GTIcon, WhiteGTIcon, AD, ADIphone } from "@public/svgs";
+import { GTIcon, WhiteGTIcon } from "@public/svgs";
+import { ADWeb, ADMobile } from "@public/webp";
 import { MedicineImage } from "@public/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -210,7 +211,8 @@ export default function Home() {
               {/* 광고 */}
               <div className="mt-6 w-full lg:mt-2 lg:w-[287px]">
                 {/* 1000px 이상일 때는 AD(287*215) */}
-                <AD className="hidden lg:flex lg:w-[287px] lg:h-[215px]" />
+                {/* <AD className="hidden lg:flex lg:w-[287px] lg:h-[215px]" /> */}
+                <Image src={ADWeb} alt="Advertisement" className="hidden lg:flex lg:w-[287px] lg:h-[215px]" />
                 {/* 1000px 미만일 때는 ADIphone */}
                 <div className="lg:hidden relative overflow-hidden
                                 md:max-w-[601px] md:w-full md:h-[240px]
@@ -221,9 +223,12 @@ export default function Home() {
                                   <div>건강관리는 지금부터</div>
                                   <div>BOOST YOUR HEALTH</div>
                                 </div>
-                                <ADIphone className="absolute right-0 h-full
+                                {/* <ADMobile className="absolute right-0 h-full
                                                     // SVG 최소 너비 설정
-                                                    min-w-[353px]" />
+                                                    min-w-[353px]" /> */}
+                                                    <Image src={ADMobile} 
+                                                          alt="Mobile Advertisement"
+                                                          className="absolute right-0 h-full min-w-[353px]" />
                 </div>
               </div>
             </div>
