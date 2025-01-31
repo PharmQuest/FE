@@ -1,6 +1,6 @@
 import Search from "@/components/common/Search";
 import FilterButton from "@/components/common/FilterButton";
-import { GTIcon, WhiteGTIcon } from "@public/svgs";
+import { GTIcon, WhiteGTIcon, AD, ADIphone } from "@public/svgs";
 import { MedicineImage } from "@public/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -178,7 +178,7 @@ export default function Home() {
                             // 1000px 이하
                             flex-col">
               {/* 커뮤니티 코드를 반복문으로 변경 */}
-              <div className="lg:flex-1 max-w-[593px] lg:mt-4 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
+              <div className="lg:flex-1 max-w-[593px] lg:mt-1 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
                 {community.map((item, index) => (
                   <div
                     key={index}
@@ -209,18 +209,38 @@ export default function Home() {
               </div>
               {/* 광고 */}
               <div className="mt-6 w-full lg:mt-2 lg:w-[287px]">
-                <div
-                  className="relative text-white bg-gradient-to-b from-black to-black
-                                            // 1000px 이상 (lg)
-                                            lg:w-[287px] lg:h-[215px]
-                                            // 641px-999px (md)
-                                            md:max-w-[601px] md:w-full md:h-[240px]
-                                            // 393px-640px (sm)
-                                            sm:w-full sm:h-[238px]
-                                            // 393px 미만
-                                            w-full max-w-[601px] h-[238px]"
-                >
+                {/* 1000px 이상일 때는 AD(287*215) */}
+                <AD className="hidden lg:flex lg:w-[287px] lg:h-[215px]" />
+                {/* 1000px 미만일 때는 ADIphone */}
+                {/* <ADIphone className="lg:hidden
+                                    overflow-hidden
+                                    // 641px-999px (md)
+                                    md:max-w-[601px] md:w-full md:h-[240px]
+                                    // 393px-640px (sm)
+                                    sm:w-full sm:h-[240px]
+                                    // 393px 미만
+                                    w-full h-[240px]"/> */}
+                <div className="lg:hidden relative overflow-hidden
+                                md:max-w-[601px] md:w-full md:h-[240px]
+                                sm:w-full sm:h-[240px]
+                                w-full h-[240px]">
+                                {/* 텍스트가 광고 위에 오도록 */}
+                                <div className="text-white absolute left-[30px] bottom-[30px] z-10 inline-flex flex-col items-start gap-[8px] font-['Pretendard Variable'] font-bold text-[25px] leading-[30px]">
+                                  <div>건강관리는 지금부터</div>
+                                  <div>BOOST YOUR HEALTH</div>
+                                </div>
+                                <ADIphone className="absolute right-0 h-full
+                                                    // SVG 최소 너비 설정
+                                                    min-w-[353px]" />
                 </div>
+                {/* <div className="bg-gray-200 // 1000px 이상 (lg)
+                              lg:w-[287px] lg:h-[215px]
+                              // 641px-999px (md)
+                              md:max-w-[601px] md:w-full md:h-[240px]
+                              // 393px-640px (sm)
+                              sm:w-full sm:h-[238px]
+                              // 393px 미만
+                              w-full max-w-[601px] h-[238px]"/> */}
               </div>
             </div>
           </div>
