@@ -24,7 +24,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
     ) ?? [];
 
   return (
-    <div className="w-[380px] h-screen flex flex-col shrink-0">
+    <div className="w-[380px] max-sm:w-screen h-screen flex flex-col shrink-0">
       <div className="lg:h-[120px] max-lg:h-[45px] bg-white border-b border-gray-100 flex py-5 px-7 flex-col justify-start items-start gap-4 self-stretch">
         <div className="max-lg:hidden w-[324px] h-[40px] flex justify-start py-2 pl-2 pr-4 items-center gap-2 self-stretch mb-4 rounded-lg border-2 border-solid border-secondary-500">
           <SearchIcon className="w-6 h-6" />
