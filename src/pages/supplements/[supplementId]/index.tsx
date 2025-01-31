@@ -32,7 +32,7 @@ const SupplementInfo: React.FC = () => {
               <Link href="/mypage">
                 <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
               </Link>
-              <h2 className="text-2xl font-bold text-gray-600">제품 기본 정보</h2>
+              <h2 className="text-display2-b text-gray-600">제품 기본 정보</h2>
             </div>
 
             {/* URL 복사 버튼 */}
@@ -56,19 +56,19 @@ const SupplementInfo: React.FC = () => {
 
         {/* 사용 목적 */}
         <div>
-          <h2 className="text-2xl font-bold text-gray-600 mb-4">사용 목적</h2>
+          <h2 className="text-display2-b text-gray-600 mb-4">사용 목적</h2>
           <UsagePurpose content={usagePurpose} />
         </div>
 
         {/* 복용법 */}
         <div>
-          <h2 className="text-2xl font-bold text-gray-600 mb-4">복용법</h2>
+          <h2 className="text-display2-b text-gray-600 mb-4">복용법</h2>
           <UsageInstructions instructions={usageInstructions} />
         </div>
 
         {/* 경고 및 주의사항 */}
         <div>
-          <h2 className="text-2xl font-bold text-gray-600 mb-4">경고 및 주의사항</h2>
+          <h2 className="text-display2-b text-gray-600 mb-4">경고 및 주의사항</h2>
           <Warnings warnings={warnings} />
         </div>
 
