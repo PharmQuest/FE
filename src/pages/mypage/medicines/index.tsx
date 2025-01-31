@@ -17,23 +17,24 @@ const MyMedicinesPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-8 px-4">
-      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex items-center md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05)] mb-4">
-        <Link href="/mypage">
-          <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
-        </Link>
-        <h1 className="text-gray-600 text-display2-b text-lg ml-2">
-          상비약 저장 목록 <span className="text-gray-600">{medicines.length}</span>개
-        </h1>
-      </div>
-      <div className="w-full max-w-[920px] flex flex-col md:flex-row md:items-center md:gap-4 px-4 md:px-0 mb-4">
-        <div className="flex gap-2 overflow-x-auto">
+      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex flex-col lg:flex-row md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05) items-start lg:items-center gap-4 lg:gap-6">
+        <div className="flex items-center">
+          <Link href="/mypage">
+            <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
+          </Link>
+          <h1 className="text-gray-600 text-display2-b text-lg ml-2 whitespace-nowrap">
+            상비약 저장 목록 <span className="text-gray-600">{medicines.length}</span>개
+          </h1>
+        </div>
+
+        <div className="flex gap-2 overflow-x-auto w-full lg:w-auto flex-wrap lg:flex-nowrap lg:ml-4">
           <FilterButton text="전체" isSelected />
           <FilterButton text="한국" />
           <FilterButton text="미국" />
         </div>
       </div>
 
-      {/* 데이터가 있을 경우 */}
+      {/* ✅ 데이터가 있을 경우 */}
       {medicines.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
@@ -42,7 +43,7 @@ const MyMedicinesPage = () => {
             ))}
           </div>
 
-          {/* 페이지네이션 */}
+          {/* ✅ 페이지네이션 */}
           <div className="flex justify-center items-center mt-6 space-x-2">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -78,19 +79,18 @@ const MyMedicinesPage = () => {
           </div>
         </>
       ) : (
-        // 🔹 **데이터가 없을 경우 화면을 꽉 채우고 중앙 정렬 + 한 줄 유지**
         <div className="flex flex-col justify-center items-center flex-grow">
-          <span className="text-[#999999] text-sm md:text-base font-normal font-pretendard leading-[21px]">
+          <span className="text-gray-300 text-sm md:text-base font-normal font-pretendard leading-[21px]">
             저장한 상비약이 없어요.
           </span>
           <div className="inline-flex gap-1">
             <Link
               href="/medicines"
-              className="text-[#999999] text-sm md:text-base font-normal font-pretendard underline leading-[21px] whitespace-nowrap"
+              className="text-gray-300 text-sm md:text-base font-normal font-pretendard underline leading-[21px] whitespace-nowrap"
             >
               상비약 리스트
             </Link>
-            <span className="text-[#999999] text-sm md:text-base font-normal font-pretendard leading-[21px]">
+            <span className="text-gray-300 text-sm md:text-base font-normal font-pretendard leading-[21px]">
               에서 항목을 추가해보세요!
             </span>
           </div>

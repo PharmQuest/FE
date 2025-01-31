@@ -51,7 +51,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
       </div>
       <div className="w-full md:w-[406px] h-auto md:h-48 flex flex-col justify-between items-start">
         <div className="self-stretch flex flex-col-reverse md:flex-col gap-3">
-          <h3 className="text-gray-600 text-xl font-bold leading-[30px]">
+          <h3 className="text-gray-600 text-headline-b">
             {title}
           </h3>
 

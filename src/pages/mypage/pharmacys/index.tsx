@@ -18,16 +18,17 @@ const MyPharmacys = () => {
 
   return (
     <div className="max-w-[1280px] lg:w-[80%] md:w-[100%] mx-auto my-10 px-4 min-h-screen flex flex-col">
-      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex items-center md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05)] mb-4">
-        <Link href="/mypage">
-          <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
-        </Link>
-        <h1 className="text-gray-600 text-display2-b text-lg ml-2">
-          약국 저장 목록 <span className="text-gray-600">{pharmacys.length}</span>개
-        </h1>
-      </div>
-      <div className="w-full max-w-[920px] flex flex-col md:flex-row md:items-center md:gap-4 px-4 md:px-0 mb-4">
-        <div className="flex gap-2 overflow-x-auto">
+      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
+        <div className="flex items-center">
+          <Link href="/mypage">
+            <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
+          </Link>
+          <h1 className="text-gray-600 text-display2-b text-lg ml-2 whitespace-nowrap">
+            약국 저장 목록 <span className="text-gray-600">{pharmacys.length}</span>개
+          </h1>
+        </div>
+
+        <div className="flex gap-2 overflow-x-auto w-full lg:w-auto flex-wrap lg:flex-nowrap lg:ml-4">
           <FilterButton text="전체" isSelected />
           <FilterButton text="한국" />
           <FilterButton text="미국" />
