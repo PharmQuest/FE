@@ -25,15 +25,15 @@ const MyPage: React.FC<MyPageProps> = ({
     { id: 3, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
     { id: 4, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
   ],
-  supplements = [
+   supplements = [
     { id: 1, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
     { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
   ],
 }) => {
   return (
     <div className="w-full max-w-[920px] mx-auto my-10 px-4 md:px-8">
-      {/* ✅ 사용자 프로필 */}
-      <div className="w-full px-6 py-3 rounded-lg lg:border border-gray-200 md:border md:pl-4 flex justify-between items-center mb-10 border-b">
+      {/* 사용자 프로필 */}
+      <div className="w-full px-6 py-3 lg:border border-gray-200 md:border md:pl-4 flex justify-between items-center mb-10 border-b">
         <div>
           <div className="flex items-end gap-1">
             <div className="text-gray-600 text-display2-b font-bold">{userName}</div>
@@ -46,10 +46,10 @@ const MyPage: React.FC<MyPageProps> = ({
         </div>
       </div>
 
-      {/* ✅ 나의 활동 */}
+      {/* 나의 활동 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/mypage/activity" className="text-gray-600 text-display2-b flex items-center gap-1">
+          <Link href="/community/activities" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>나의 활동</h2>
             <ArrowRightIcon className="w-6 text-gray-500" />
           </Link>
@@ -60,7 +60,7 @@ const MyPage: React.FC<MyPageProps> = ({
         </p>
       </div>
 
-      {/* ✅ 상비약 저장 목록 */}
+      {/* 상비약 저장 목록 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/medicines" className="text-gray-600 text-display2-b flex items-center gap-1">
@@ -77,7 +77,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 text-body1-r text-left md:text-center">
             저장한 상비약이 없어요. <br />
-            <Link href="/medicines" className="text-primary-500 underline">
+            <Link href="/medicines" className="text-gray-400 underline">
               상비약 리스트
             </Link>
             에서 항목을 추가해보세요!
@@ -85,7 +85,7 @@ const MyPage: React.FC<MyPageProps> = ({
         )}
       </div>
 
-      {/* ✅ 약국 저장 목록 */}
+      {/* 약국 저장 목록 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b flex items-center gap-1">
@@ -102,7 +102,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 text-body1-r text-left md:text-center">
             저장한 약국이 없어요. <br />
-            <Link href="/pharmacys" className="text-primary-500 underline">
+            <Link href="/pharmacys" className="text-gray-400 underline">
               약국 찾기
             </Link>
             에서 항목을 추가해보세요!
@@ -110,10 +110,10 @@ const MyPage: React.FC<MyPageProps> = ({
         )}
       </div>
 
-      {/* ✅ 영양제 저장 목록 */}
+      {/* 영양제 저장 목록 */}
       <div className="mb-12">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/mypage/supplements" className="text-gray-600 text-display2-b flex items-center gap-1">
+          <Link href="/mypage/supplement" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>영양제 저장 목록</h2>
             <ArrowRightIcon className="w-6 text-gray-500" />
           </Link>
@@ -127,7 +127,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 text-body1-r text-left md:text-center">
             저장한 영양제가 없어요. <br />
-            <Link href="/supplements" className="text-primary-500 underline">
+            <Link href="/supplements" className="text-gray-400 underline">
               해외 인기 영양제
             </Link>
             에서 항목을 추가해보세요!
