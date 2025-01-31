@@ -36,3 +36,4 @@ export { default as SmallGreenMapPinIcon } from "./small-green-map-pin.svg";
 export { default as CircleIcon } from "./circle.svg";
 export { default as CheckCircleIcon } from "./check-circle.svg";
 export { default as LeftArrow } from "./leftArrow.svg";
+export { default as AD } from "./ad-287_215.svg";

@@ -220,18 +220,6 @@ export default function Home() {
                                             // 393px 미만
                                             w-full max-w-[601px] h-[238px]"
                 >
-                  {/* 광고 넘기기 버튼 */}
-                  <div className="absolute right-[20px] bottom-[18px] flex justify-center items-center gap-[9px]">
-                    <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">
-                      &lt;
-                    </button>
-                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                    <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">
-                      &gt;
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
