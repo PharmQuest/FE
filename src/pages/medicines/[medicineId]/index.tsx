@@ -1,6 +1,6 @@
 // 상비약 상세 페이지
 
-import { BookmarkIcon, LeftArrowIcon, ShareIcon } from "@public/svgs";
+import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
 import Image from "next/image";
 
 function MedicineInfo() {
@@ -19,7 +19,7 @@ function MedicineInfo() {
         </div>
         <div className={`flex gap-4 items-center`}>
           <BookmarkIcon stroke={"#707070"} className={`w-6`} />
-          <ShareIcon className={`w-6 text-gray-400`} />
+          <ExternalIcon className={`w-6 text-gray-400`} />
         </div>
 
       </div>
@@ -40,7 +40,7 @@ function MedicineInfo() {
             </h1>
             <div className={`flex items-end text-gray-400`}>
               <div className={`flex items-center gap-1`}>
-                <ShareIcon className={`w-6`}/>
+                <ExternalIcon className={`w-6`}/>
                 <div className={`text-subhead2-sb`}>
                   URL 복사
                 </div>
@@ -129,7 +129,9 @@ function MedicineInfo() {
             </div>
             <BookmarkIcon
               stroke={"#707070"}
-              className={`w-6 absolute right-6 top-6`} />
+              className={`
+                md:absolute
+                w-6 hidden right-6 top-6`} />
           </div>
         </div>
 
