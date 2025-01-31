@@ -112,12 +112,12 @@ const Header = () => {
         lg:hidden
       `}>
         <div className={`
-          // 공통 스타일
-          flex justify-between items-center mx-auto
-          // 태블릿 (641px ~ 999px)
-          md:w-[601px]
-          // 모바일 (641px 미만)
-          w-full
+          // 기본 스타일
+          flex justify-between items-center
+          // 641px ~ 999px (태블릿)
+          md:w-[601px] md:mx-auto
+          // 641px 미만 (모바일)
+          w-full mx-[20px]
         `}>
           <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar}/>
           <LogoIcon onClick={() => router.push("/")}/>
