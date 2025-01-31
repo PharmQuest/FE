@@ -32,7 +32,7 @@ const MyPage: React.FC<MyPageProps> = ({
 }) => {
   return (
     <div className="w-full max-w-[920px] mx-auto my-10 px-4 md:px-8">
-      {/* ✅ 사용자 프로필 */}
+      {/* 사용자 프로필 */}
       <div className="w-full px-6 py-3 lg:border border-gray-200 md:border md:pl-4 flex justify-between items-center mb-10 border-b">
         <div>
           <div className="flex items-end gap-1">
@@ -46,7 +46,7 @@ const MyPage: React.FC<MyPageProps> = ({
         </div>
       </div>
 
-      {/* ✅ 나의 활동 */}
+      {/* 나의 활동 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
           <Link href="/community/activities" className="text-gray-600 text-display2-b flex items-center gap-1">
@@ -60,7 +60,7 @@ const MyPage: React.FC<MyPageProps> = ({
         </p>
       </div>
 
-      {/* ✅ 상비약 저장 목록 */}
+      {/* 상비약 저장 목록 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/medicines" className="text-gray-600 text-display2-b flex items-center gap-1">
@@ -85,7 +85,7 @@ const MyPage: React.FC<MyPageProps> = ({
         )}
       </div>
 
-      {/* ✅ 약국 저장 목록 */}
+      {/* 약국 저장 목록 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b flex items-center gap-1">
@@ -110,10 +110,10 @@ const MyPage: React.FC<MyPageProps> = ({
         )}
       </div>
 
-      {/* ✅ 영양제 저장 목록 */}
+      {/* 영양제 저장 목록 */}
       <div className="mb-12">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/mypage/supplements" className="text-gray-600 text-display2-b flex items-center gap-1">
+          <Link href="/mypage/supplement" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>영양제 저장 목록</h2>
             <ArrowRightIcon className="w-6 text-gray-500" />
           </Link>

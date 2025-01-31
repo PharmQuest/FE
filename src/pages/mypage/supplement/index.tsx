@@ -30,25 +30,26 @@ const SupplementPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-8 px-4">
-      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex items-center md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05)] mb-4">
-        <Link href="/mypage">
-          <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
-        </Link>
-        <h1 className="text-gray-600 text-display1-b text-xl ml-2">
-          영양제 저장 목록 <span className="text-gray-600">{supplements.length}</span>개
-        </h1>
-      </div>
-      {/* 🔹 필터 버튼과 타이틀을 한 줄 정렬 (웹에서) */}
-      <div className="w-full max-w-[920px] flex flex-col lg:flex-row md:items-center md:gap-4 px-4 md:px-0 mb-4">
-        {/* 🔹 필터 버튼 */}
-        <div className="flex gap-2 overflow-x-auto">
-          <FilterButton text="전체" isSelected />
-          <FilterButton text="면역력" />
-          <FilterButton text="피로회복" />
-          <FilterButton text="소화건강" />
-          <FilterButton text="피부건강" />
+      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex flex-col lg:flex-row items-start lg:items-center mb-4 gap-4 lg:gap-6">
+        <div className="flex items-center ">
+          <Link href="/mypage">
+            <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
+          </Link>
+          <h1 className="text-gray-600 text-display1-b text-xl ml-2 whitespace-nowrap">
+            영양제 저장 목록 <span className="text-gray-600">{supplements.length}</span>개
+          </h1>
+        </div>
+        <div className="w-full max-w-[920px] px-4 md:px-0">
+          <div className="flex gap-2 overflow-x-auto lg:overflow-hidden w-full lg:w-auto flex-nowrap lg:flex-wrap scrollbar-hide">
+            <FilterButton text="전체" isSelected />
+            <FilterButton text="면역력" />
+            <FilterButton text="피로회복" />
+            <FilterButton text="소화건강" />
+            <FilterButton text="피부건강" />
+          </div>
         </div>
       </div>
+
 
       <div className="w-full max-w-[920px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 flex-grow">
         {paginatedSupplements.map((supplement) => (
