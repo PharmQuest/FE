@@ -33,7 +33,7 @@ const MyPage: React.FC<MyPageProps> = ({
   return (
     <div className="w-full max-w-[920px] mx-auto my-10 px-4 md:px-8">
       {/* ✅ 사용자 프로필 */}
-      <div className="w-full px-6 py-3 rounded-lg lg:border border-gray-200 md:border md:pl-4 flex justify-between items-center mb-10 border-b">
+      <div className="w-full px-6 py-3 lg:border border-gray-200 md:border md:pl-4 flex justify-between items-center mb-10 border-b">
         <div>
           <div className="flex items-end gap-1">
             <div className="text-gray-600 text-display2-b font-bold">{userName}</div>
@@ -49,7 +49,7 @@ const MyPage: React.FC<MyPageProps> = ({
       {/* ✅ 나의 활동 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/mypage/activity" className="text-gray-600 text-display2-b flex items-center gap-1">
+          <Link href="/community/activities" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>나의 활동</h2>
             <ArrowRightIcon className="w-6 text-gray-500" />
           </Link>
