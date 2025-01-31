@@ -13,13 +13,17 @@ export default function Medicine() {
         md:w-[600px] md:mx-auto
         sm:w-full 
         min-h-[calc(100vh-412px)] w-full px-5`}>
-        <div className={`mt-9 mb-9 text-display2-b flex items-center gap-3`}>
-          <h1>전체</h1>
+        <div 
+          className={`
+            md:text-display2-b md:my-9
+            text-m-subhead1-sb flex items-center gap-3 w-100% my-3`}>
+          <h1 className={`min-w-fit`}>전체</h1>
 
-
-          {/* 컴포넌트로 대체할 부분 */}
-          <div className={`flex h-7 content-center gap-2`}>
-            <FilterButton text='전체'/>
+          <div 
+            className={`
+              md:flex
+              hidden h-fit content-center gap-2 overflow-y-scroll scrollbar-hide`}>
+            <FilterButton text='전체' isSelected={true}/>
             <FilterButton text='진통/해열'/>
             <FilterButton text='소화/위장'/>
             <FilterButton text='감기/기침'/>
