@@ -4,6 +4,19 @@ import FilterButton from "@/components/common/FilterButton";
 import MedicineCard from "@/components/common/MedicineCard";
 
 export default function Medicine() {
+
+  const FILTER_CATEGORY = [
+    {text: "전체", isSelected: true},
+    {text: "진통/해열", isSelected: false},
+    {text: "소화/위장", isSelected: false},
+    {text: "감기/기침", isSelected: false},
+    {text: "알레르기", isSelected: false},
+    {text: "상처/소독", isSelected: false},
+    {text: "멀미", isSelected: false},
+    {text: "안약", isSelected: false},
+    {text: "기타", isSelected: false},
+  ]
+
   return (
     
     <>
@@ -23,15 +36,9 @@ export default function Medicine() {
             className={`
               md:flex
               hidden h-fit content-center gap-2 overflow-y-scroll scrollbar-hide`}>
-            <FilterButton text='전체' isSelected={true}/>
-            <FilterButton text='진통/해열'/>
-            <FilterButton text='소화/위장'/>
-            <FilterButton text='감기/기침'/>
-            <FilterButton text='알레르기'/>
-            <FilterButton text='상처/소독'/>
-            <FilterButton text='멀미'/>
-            <FilterButton text='안약'/>
-            <FilterButton text='기타'/>
+            {FILTER_CATEGORY?.map((item, index) => (
+              <FilterButton key={index} text={item.text} isSelected={item.isSelected} />
+            ))}
           </div>
         </div>
         <div
