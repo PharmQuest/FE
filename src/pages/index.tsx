@@ -44,11 +44,12 @@ export default function Home() {
     <>
       <div className="bg-background pb-6 flex justify-center">
         {/* 1000px 이상일 때 */}
-        <div
-          className="hidden lg:flex lg:flex-col 
-                            xl:w-[900px] xl:px-0
-                            lg:w-[900px] lg:px-[50px]"
-        >
+        <div className="// 기본 스타일
+                        hidden lg:flex lg:flex-col
+                        // 1000px 초과 (xl)
+                        xl:w-[900px] xl:mx-auto
+                        // 1000px (lg)
+                        lg:w-[900px] lg:mx-[50px]">
           <div className="flex gap-5 justify-center items-center text-white mb-[-40px] pl-7">
             <Link
               href="medicines"
@@ -102,13 +103,12 @@ export default function Home() {
         </div>
 
         {/* 1000px 미만일 때 */}
-        <div
-          className="lg:hidden
-                            // 태블릿 (642px-999px)
-                            md:w-[601px]
-                            // 모바일 (641px 미만)
-                            w-full px-5"
-        >
+        <div className="// 모바일 (641px 미만)
+                        w-[calc(100%-40px)]
+                        mx-auto
+                        lg:hidden
+                        // 태블릿 (642px-999px)
+                        md:w-[601px]">
           <div className="text-center text-gray-300 text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">
             본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로
             하며, <br />
@@ -156,18 +156,15 @@ export default function Home() {
       </div>
       {/* 흰 배경 */}
       <div className="bg-white flex justify-center mb-[48px]">
-        <div
-          className={`
-                // 1001px 이상
-                xl:w-[900px]
-                // 1000px
-                lg:w-[900px] lg:px-[50px]
-                // 642~1000px 미만
-                md:w-[601px]
-                // 641px 미만
-                w-full px-5
-            `}
-        >
+        <div className={`// 641px 미만
+                        w-[calc(100%-40px)]
+                        mx-auto
+                        // 1001px 이상
+                        xl:w-[900px] xl:mx-auto
+                        // 1000px
+                        lg:w-[900px] lg:mx-[50px]
+                        // 642~1000px 미만
+                        md:w-[601px] md:mx-auto`}>
           <div className="lg:h-[366px] h-fit flex grow flex-col">
             <Link
               href="community"
@@ -175,15 +172,13 @@ export default function Home() {
             >
               커뮤니티 <GTIcon />
             </Link>
-            <div
-              className="flex                   
-                                    // 1000px 이상
-                                    lg:flex-row lg:justify-between
-                                    // 1000px 이하
-                                    flex-col"
-            >
+            <div className="flex                   
+                            // 1000px 이상
+                            lg:flex-row lg:gap-5
+                            // 1000px 이하
+                            flex-col">
               {/* 커뮤니티 코드를 반복문으로 변경 */}
-              <div className="lg:w-[483px] w-full lg:mt-4 lg:mb-4 mr-4 h-[174px] flex-col justify-start items-start flex">
+              <div className="lg:flex-1 max-w-[593px] lg:mt-4 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
                 {community.map((item, index) => (
                   <div
                     key={index}
@@ -213,7 +208,7 @@ export default function Home() {
                 ))}
               </div>
               {/* 광고 */}
-              <div className="mt-6 w-full flex justify-center lg:justify-end lg:w-[287px]">
+              <div className="mt-6 w-full lg:mt-2 lg:w-[287px]">
                 <div
                   className="relative text-white bg-gradient-to-b from-black to-black
                                             // 1000px 이상 (lg)
