@@ -83,7 +83,7 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
           {tags.map((tag, idx) => (
             <div
               key={idx}
-              className="px-2 py-0.5 bg-[#e7f3ee] rounded text-xs font-semibold text-[#474747] flex items-center"
+              className="px-2 py-0.5 bg-primary-50 rounded text-subhead2-sb text-gray-500 flex items-center"
             >
               {tag}
             </div>
