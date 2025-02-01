@@ -1,7 +1,6 @@
 import React from "react";
 import SubjectTag from "./SubjectTag";
-import Tag from "./Tag";
-import { CommentIcon, LikeIcon, ScrapIcon } from "@public/svgs";
+import { BookmarkIcon, CommentIcon, LikeIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 
 interface PopularPostItemProps {
@@ -58,16 +57,16 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
           mt-auto flex flex-row justify-between text-m-caption1-r text-gray-400">
         <p>{createdAt}</p>
         <div className="flex flex-row gap-[10px]">
-          <div className="flex flex-row gap-[2px]">
-            <LikeIcon className="cursor-pointer" />
+          <div className="flex flex-row gap-[2px] items-center">
+            <LikeIcon className="lg:w-5 w-4 cursor-pointer" />
             {likeCount}
           </div>
-          <div className="flex flex-row gap-[2px]">
-            <CommentIcon className="cursor-pointer" />
+          <div className="flex flex-row gap-[2px] items-center">
+            <CommentIcon className="lg:w-5 w-4 cursor-pointer" />
             {commentCount}
           </div>
-          <div className="flex flex-row gap-[2px]">
-            <ScrapIcon className="cursor-pointer" />
+          <div className="flex flex-row gap-[2px] items-center">
+            <BookmarkIcon className="lg:w-5 w-4 cursor-pointer" stroke={"#707070"}/>
             {scrapeCount}
           </div>
         </div>

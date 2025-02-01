@@ -72,14 +72,14 @@ const CommentItem: React.FC<CommentItemProps> = ({
             <div className="flex flex-row">
               <LikeIcon
                 fill={isLike ? "#FF8686" : "none"}
-                className={`cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
+                className={`w-5 cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
                 onClick={() => handleLike()} />
               {0}
             </div>
             <div
               className="flex flex-row cursor-pointer gap-0.5"
               onClick={() => setReplyParentId(commentId)}>
-              <CommentIcon /> 답글 달기
+              <CommentIcon className={`text-gray-400 w-5`}/> 답글 달기
             </div>
           </div>
         </div>
