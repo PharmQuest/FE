@@ -278,11 +278,14 @@ const MapComponent: React.FC<{
   }, []);
 
   return (
-    <div className="relative w-full h-[900px]">
+    <div className="absolute inset-0">
       <div id="map" className="w-full h-full" />
       {isMapMoved && (
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-          <div onClick={handleSearchCurrentMap}>
+        <div className="fixed inset-x-0 z-30" style={{ bottom: "24px" }}>
+          <div
+            className="w-full flex justify-center"
+            onClick={handleSearchCurrentMap}
+          >
             <SearchOnCurrentMapButton />
           </div>
         </div>

@@ -5,6 +5,8 @@ import MapComponent, {
 } from "./components/MapComponent";
 import SearchPanel from "./components/SearchPanel";
 import DetailPanel from "./components/PharmacyDetailPanel";
+import MapSearchHeader from "./components/MapSearchHeader";
+import { FindGTIcon, FindLTIcon } from "@public/svgs";
 
 export default function Map() {
   const [isSearchOpen, setIsSearchOpen] = useState(true);
@@ -15,6 +17,7 @@ export default function Map() {
     lat: 37.5665,
     lng: 126.978,
   });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handlePharmaciesFound = (found: Pharmacy[]) => {
     setPharmacies(found);
@@ -29,8 +32,14 @@ export default function Map() {
   };
 
   return (
-    <div className="h-[calc(100vh-110px)] overflow-hidden">
-      <hr className="border-b border-solid border-gray-100" />
+    <div className="h-[calc(100vh-110px)] max-lg:h-[calc(100vh-60px)] w-full overflow-hidden flex flex-col">
+      <MapSearchHeader
+        isSearchOpen={isSearchOpen}
+        setIsSearchOpen={setIsSearchOpen}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
+
       <div className="w-full h-full flex flex-row">
         {isSearchOpen && (
           <SearchPanel
@@ -43,9 +52,12 @@ export default function Map() {
 
         <button
           onClick={() => setIsSearchOpen((prev) => !prev)}
-          className="z-10 bg-white w-6 h-[46px] mt-[450px] text-gray-300 border-l-0 border-b-2 border-t-2 border-r-2 border-solid border-gray-100 rounded-tr-[4px] rounded-br-[4px]"
+          className="flex justify-center items-center max-lg:hidden absolute left-[380px] z-10 w-6 h-[46px] mt-[450px] text-gray-300 bg-white rounded-tr-[4px] rounded-br-[4px]"
+          style={{
+            transform: isSearchOpen ? "translateX(0)" : "translateX(-380px)",
+          }}
         >
-          {isSearchOpen ? "<" : ">"}
+          {isSearchOpen ? <FindLTIcon /> : <FindGTIcon />}
         </button>
 
         {selectedPharmacy && (
@@ -55,7 +67,7 @@ export default function Map() {
           />
         )}
 
-        <div className="w-full -ml-4">
+        <div className="flex-1 relative w-full h-full">
           <MapComponent
             onPharmaciesFound={handlePharmaciesFound}
             onPharmacySelect={handlePharmacySelect}
