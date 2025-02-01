@@ -1,31 +1,69 @@
-// 로그인 페이지
-import {KakaoIcon, NaverIcon, GoogleIcon} from "@public/svgs"
+import {
+  GoogleLoginButton,
+  KakaoLoginButton,
+  NaverLoginButton,
+  LoginBgImage,
+} from "@public/images";
+import { LogoSymbolIcon, LogoTextIcon } from "@public/svgs";
+
+import Image from "next/image";
 
 export default function Login() {
   return (
     <>
-    <div className={`pl-[260px] pr-[260px] flex flex-col`}>
+      <div className={`bg-background relative h-screen`}>
+        <Image
+          src={LoginBgImage}
+          alt=""
+          fill
+          quality={90}
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
 
-      <div className={`flex flex-col items-center mt-[199px] mb-[73px]`}>
-        <h1 className={`text-gray-600 text-[40px] font-bold whitespace-nowrap`}>로그인</h1>
-        <h2 className={`text-gray-600 text-[25px] font-bold`}>LOGIN</h2>
-      </div>
+        <div
+          className={`relative z-10 h-full px-[260px] flex items-center justify-center`}
+        >
+          <div
+            className={`w-[484px] h-[665px] shrink-0 bg-white flex flex-col items-center rounded-xl shadow-lg py-12 `}
+          >
+            <div className="flex flex-row justify-center items-center gap-[13px] mt-5">
+              <LogoSymbolIcon />
+              <LogoTextIcon className="w-[133px]" />
+            </div>
+            <p className="text-headline-b text-gray-500 text-center mt-10">
+              해외에서 당황하지 말고 <br />
+              현지 상비약과 약국 정보는 <br />
+              <span className="flex items-center justify-center gap-1">
+                <LogoTextIcon className="w-[57px]" />
+                <span>에서!</span>
+              </span>
+            </p>
 
-      <div className={`flex flex-col items-center gap-[30px]`}>
-        <button className={`pl-[287px] w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] bg-[#FEE500]`}>
-          <KakaoIcon/>
-          카카오 로그인
-        </button>
-        <button className={`pl-[287px] w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] bg-[#03CF5D]`}>
-          <NaverIcon/>
-          네이버 로그인
-        </button>
-        <button className={`pl-[287px] w-[760px] h-[54px] text-[23px] rounded-[10px] flex items-center gap-[22px] border-[#CBCBCB] border border-solid`}>
-          <GoogleIcon/>
-          구글 로그인
-        </button>
+            <p className="text-subhead1-sb text-gray-300 text-center mb-6 mt-[104px]">
+              소셜 로그인으로 간편하게 시작해보세요.
+            </p>
+            <div className={`w-[420px] flex flex-col items-center gap-4`}>
+              <Image
+                src={NaverLoginButton}
+                alt="Login with Naver"
+                className="cursor-pointer"
+              />
+              <Image
+                src={KakaoLoginButton}
+                alt="Login with Kakao"
+                className="cursor-pointer"
+              />
+              <Image
+                src={GoogleLoginButton}
+                alt="Login with Google"
+                className="cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
     </>
   );
 }
