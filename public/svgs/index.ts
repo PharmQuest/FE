@@ -44,3 +44,5 @@ export { default as CallIcon } from "./call.svg";
 export { default as CloseIcon } from "./close.svg";
 export { default as NoticeIcon } from "./notice.svg";
 export { default as PostIcon } from "./post.svg";
+export { default as PlusIcon } from "./plus.svg";
+export { default as CreatePostIcon } from "./create-post.svg";
