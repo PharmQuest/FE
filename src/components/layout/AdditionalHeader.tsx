@@ -11,18 +11,13 @@ const MedicineHeader = ({
   const segments = pathName.split("/");
   let currentTitle: string = "";
 
-  const hideHeaderPaths = ["/community/activities", "/community/post/create"];
-  const showAdditionalHeader = !hideHeaderPaths.includes(pathName);
-
   switch (segments[1]) {
     case "medicines":
       currentTitle = `상비약 리스트`;
       break;
 
     case "community":
-      if (!hideHeaderPaths.includes(pathName)) {
-        currentTitle = `커뮤니티`;
-      }
+      currentTitle = `커뮤니티`;
       break;
 
     case "supplements":
@@ -39,39 +34,31 @@ const MedicineHeader = ({
 
   return (
     <>
-      {currentTitle !== "" && showAdditionalHeader ? (
-        <div
-          className={`${
-            pathName === "/map" ? "white" : `bg-background`
-          } flex flex-col`}
-        >
+      {currentTitle !== "" ? (
+        <div className={`bg-background flex flex-col`}>
           {children}
-          <div
-            className={`pl-[260px] pr-[260px] flex gap-5 whitespace-nowrap flex-col`}
-          >
-            <div
-              className={`flex items-center gap-5 ${
-                segments[1] !== "medicines" && `mb-9`
-              }`}
-            >
-              <h1 className={`text-display1-b text-gray-600 flex`}>
+          <div 
+            className={`
+              lg:w-[900px]
+              md:w-[600px] md:m-auto 
+              flex gap-5 whitespace-nowrap flex-col w-full`}>
+            <div 
+              className={`
+                lg:flex
+                hidden items-center gap-5`}>
+              <h1 className={`text-display1-b text-gray-600 `}>
                 {currentTitle}
               </h1>
-              {segments[1] === `mypage` || segments[1] === `medicines` ? (
-                <p className={`text-body2-r text-gray-300`}>
-                  본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을
-                  목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지
-                  않습니다.
-                </p>
-              ) : (
-                <Search />
-              )}
+              <p className={`text-body2-r text-gray-300`}>
+                본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을
+                목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지
+                않습니다.
+              </p>
             </div>
-            {segments[1] === "medicines" && (
-              <div className={`mb-9`}>
-                <Search />
-              </div>
-            )}
+            <div className={`lg:mx-0 mb-9 mx-5`}>
+              <Search />
+            </div>
+
           </div>
         </div>
       ) : (
