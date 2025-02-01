@@ -3,6 +3,7 @@ import IsOpenTag from "./IsOpenTag";
 import { MapFindIcon } from "@public/svgs";
 import { Pharmacy } from "./MapComponent";
 import Image from "next/image";
+import { PharamacyImage } from "@public/images";
 
 interface PharmacyItemProps {
   pharmacy: Pharmacy;
@@ -36,6 +37,10 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
     window.open(url, "_blank");
   };
 
+  const imageSrc = pharmacy.photos?.[0]
+    ? pharmacy.photos[0].getUrl({ maxWidth: 86, maxHeight: 86 })
+    : PharamacyImage;
+
   return (
     <div
       className={`h-[126px] bg-white border-b border-gray-100 px-7 py-5 flex justify-start items-center gap-3 self-stretch cursor-pointer ${
@@ -44,38 +49,29 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
       onClick={onClick}
     >
       <div className="relative w-[86px] h-[86px]">
-        {pharmacy.photos?.[0] ? (
-          <Image
-            src={pharmacy.photos[0].getUrl({ maxWidth: 86, maxHeight: 86 })}
-            alt={pharmacy.name || "약국 이미지"}
-            fill
-            priority
-            className="object-cover rounded"
-            unoptimized
-          />
-        ) : (
-          <div className="w-[86px] h-[86px] bg-[#cccccc] rounded" />
-        )}
+        <Image
+          src={imageSrc}
+          alt={pharmacy.name || "약국 이미지"}
+          fill
+          priority
+          className="object-cover rounded"
+          unoptimized
+        />
       </div>
 
       <div className="flex w-[145px] flex-col items-start">
-        <div className="flex items-center mb-3 gap-[3px]">
-          <div className="text-subhead1-sb text-gray-600 text-[16px] font-['Pretendard Variable'] leading-normal">
+        <div className="w-[176px] flex items-center mb-3 gap-1">
+          <div className="max-w-[122px] text-subhead1-sb text-gray-600 truncate overflow-hidden whitespace-nowrap ">
             {pharmacy.name}
           </div>
-
           <IsOpenTag isOpen={pharmacy.opening_hours?.isOpen() ?? false} />
         </div>
 
         <div className="self-stretch h-11 flex-col justify-start items-start gap-0.5 flex">
-          <div className="text-gray-400 text-sm font-normal font-['Pretendard Variable'] leading-[21px]">
-            {pharmacy.opening_hours?.isOpen() ? "영업중" : "영업 종료"}
+          <div className="text-gray-500 text-subhead2-sb">
+            {pharmacy.distance}
           </div>
           <div className="items-center gap-1.5 inline-flex">
-            <div className="text-gray-500 text-sm font-semibold">
-              {pharmacy.distance}
-            </div>
-            <div className="w-0.5 h-0.5 bg-[#cccccc] rounded-full"></div>
             <div className="text-gray-400 text-sm">{pharmacy.vicinity}</div>
           </div>
         </div>

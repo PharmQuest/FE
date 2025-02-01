@@ -5,6 +5,7 @@ import { FooterLogoIcon } from "@public/svgs";
 const Footer = () => {
   const router = useRouter();
   if (router.pathname === "/map") return null;
+  if (router.pathname === "/login") return null;
 
   return (
     <div className="w-full bg-secondary-500 text-white">
