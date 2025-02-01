@@ -67,7 +67,7 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ pharmacy, onClose }) => {
   };
 
   return (
-    <div className="fixed map:relative map:w-[384px] top-[60px] map:top-0 bottom-0 right-0 left-0 map:inset-auto z-20 map:z-0 bg-black/50 map:bg-transparent flex justify-end">
+    <div className="shadow-2xl fixed map:relative map:w-[384px] top-[60px] map:top-0 bottom-0 right-0 left-0 map:inset-auto z-20 map:z-0 bg-black/50 map:bg-transparent flex justify-end">
       <div className="w-full map:w-[384px] h-full flex flex-col shrink-0 bg-white">
         <div className="flex-none">
           <PharmacyHeader pharmacy={pharmacy} onClose={onClose} />

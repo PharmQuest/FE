@@ -6,7 +6,7 @@ import MapComponent, {
 import SearchPanel from "./components/SearchPanel";
 import DetailPanel from "./components/detailPanel/PharmacyDetailPanel";
 import MapSearchHeader from "./components/MapSearchHeader";
-import { FindGTIcon, FindLTIcon } from "@public/svgs";
+//import { FindGTIcon, FindLTIcon } from "@public/svgs";
 
 export default function Map() {
   const [isSearchOpen, setIsSearchOpen] = useState(true);
@@ -50,15 +50,15 @@ export default function Map() {
           />
         )}
 
-        <button
+        {/* <button
           onClick={() => setIsSearchOpen((prev) => !prev)}
-          className="flex justify-center items-center max-lg:hidden absolute left-[380px] z-10 w-6 h-[46px] mt-[450px] text-gray-300 bg-white rounded-tr-[4px] rounded-br-[4px]"
+          className="flex justify-center items-center max-lg:hidden absolute left-[380px] z-10 w-6 h-[46px] mt-[10px] text-gray-300 bg-white rounded-tr-[4px] rounded-br-[4px]"
           style={{
             transform: isSearchOpen ? "translateX(0)" : "translateX(-380px)",
           }}
         >
           {isSearchOpen ? <FindLTIcon /> : <FindGTIcon />}
-        </button>
+        </button> */}
 
         {selectedPharmacy && (
           <DetailPanel
