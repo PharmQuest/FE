@@ -16,7 +16,7 @@ const PharmacyList: React.FC<PharmacyListProps> = ({
   currentPosition,
 }) => {
   return (
-    <div className="flex flex-col overflow-y-scroll flex-1">
+    <div className="flex flex-col overflow-y-scroll flex-1 scrollbar-hide">
       {pharmacies?.map((pharmacy) => (
         <PharmacyItem
           key={pharmacy.place_id}
