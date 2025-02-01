@@ -31,10 +31,10 @@ const PharmacyHeader: React.FC<PharmacyHeaderProps> = ({
             src={imageSrc}
             alt={pharmacy.name || "약국 이미지"}
             fill
-            className="object-cover rounded-t-lg"
+            className="object-cover"
             unoptimized
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent to-40% rounded-t-lg" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent to-40% " />
         </div>
         <CloseIcon
           onClick={onClose}
