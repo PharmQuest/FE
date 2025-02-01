@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { PharmacyDetails } from "../MapComponent";
-import { ActionButtons } from "./ActionButtons";
-import { PharmacyHeader } from "./PharmacyHeader";
-import { TabNavigation } from "./TabNavigation";
-import { DetailPanelContent } from "./PanelContent";
+import ActionButtons from "./ActionButtons";
+import PharmacyHeader from "./PharmacyHeader";
+import TabNavigation from "./TabNavigation";
+import DetailPanelContent from "./PanelContent";
 
 interface DetailPanelProps {
   pharmacy: PharmacyDetails | null;

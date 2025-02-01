@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Info: React.FC = () => {
+const Info: React.FC = () => {
   return (
     <div>
       <div className="flex items-center gap-2 mb-3">
@@ -10,3 +10,5 @@ export const Info: React.FC = () => {
     </div>
   );
 };
+
+export default Info;

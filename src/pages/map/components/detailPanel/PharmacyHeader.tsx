@@ -11,7 +11,7 @@ interface PharmacyHeaderProps {
   onClose: () => void;
 }
 
-export const PharmacyHeader: React.FC<PharmacyHeaderProps> = ({
+const PharmacyHeader: React.FC<PharmacyHeaderProps> = ({
   pharmacy,
   onClose,
 }) => {
@@ -48,3 +48,5 @@ export const PharmacyHeader: React.FC<PharmacyHeaderProps> = ({
     </>
   );
 };
+
+export default PharmacyHeader;

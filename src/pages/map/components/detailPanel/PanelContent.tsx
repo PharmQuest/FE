@@ -1,8 +1,8 @@
 import React from "react";
 import { PharmacyDetails } from "../MapComponent";
-import { Overview } from "./Overview";
-import { Reviews } from "./Reviews";
-import { Info } from "./Info";
+import Overview from "./Overview";
+import Reviews from "./Reviews";
+import Info from "./Info";
 
 interface DetailPanelContentProps {
   pharmacy: PharmacyDetails;
@@ -12,7 +12,7 @@ interface DetailPanelContentProps {
   infoRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export const DetailPanelContent: React.FC<DetailPanelContentProps> = ({
+const DetailPanelContent: React.FC<DetailPanelContentProps> = ({
   pharmacy,
   contentRef,
   overviewRef,
@@ -40,3 +40,5 @@ export const DetailPanelContent: React.FC<DetailPanelContentProps> = ({
     </div>
   );
 };
+
+export default DetailPanelContent;
