@@ -46,7 +46,10 @@ const UserNavbar = () => {
   };
 
   return (
-    <div className="w-[170px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0">
+    <div 
+      className="
+        lg:block
+        hidden w-[170px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0">
       <div className="p-4 pt-[13px]">
         <div className={`flex gap-1`}>
           <p className="text-headline-b text-gray-600">maengso</p>
