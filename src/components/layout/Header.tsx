@@ -60,14 +60,16 @@ const Header = () => {
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
       <div
-        className={`hidden lg:flex grow justify-center items-center h-[110px] w-full bg-background`}
+        className={`w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}
       >
         <div
           className={`
-            flex items-center w-[900px] gap-12
-            // 1001px 이상
-            // 1000px일 때
-            lg:px-[50px]
+            // 기본 스타일
+            flex items-center gap-12
+            // 1000px 초과 (xl)
+            xl:w-[900px] xl:mx-auto
+            // 딱1000px (lg)
+            lg:w-[900px] lg:mx-[50px]
             `}
         >
           <LogoIcon
@@ -93,7 +95,7 @@ const Header = () => {
             >
               커뮤니티
               {/* 로그인하면 보임 */}
-              {!isLoggedIn && (
+              {isLoggedIn && (
                 <div className="w-[18px] h-[18px] relative">
                   <div className="w-[18px] h-[18px] left-0 top-0 absolute bg-[#ff7700] rounded-full"></div>
                   <div className="left-[6px] top-0 absolute text-white text-xs font-semibold font-['Pretendard Variable'] leading-[18px]">
@@ -143,12 +145,12 @@ const Header = () => {
       >
         <div
           className={`
-          // 공통 스타일
-          flex justify-between items-center mx-auto
-          // 태블릿 (641px ~ 999px)
-          md:w-[601px]
-          // 모바일 (641px 미만)
-          w-full px-[20px]
+          // 기본 스타일
+          flex justify-between items-center
+          // 641px ~ 999px (태블릿)
+          md:w-[601px] md:mx-auto
+          // 641px 미만 (모바일)
+          w-full mx-[20px]
         `}
         >
           <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar} />

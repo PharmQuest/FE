@@ -38,3 +38,8 @@ export { default as MapViewIcon } from "./map-view.svg";
 export { default as ListViewIcon } from "./list-view.svg";
 export { default as LogoSymbolIcon } from "./logo-symbol.svg";
 export { default as LogoTextIcon } from "./logo-text.svg";
+export { default as ArriveIcon } from "./arrive.svg";
+export { default as DepartIcon } from "./depart.svg";
+export { default as TimeIcon } from "./time.svg";
+export { default as CallIcon } from "./call.svg";
+export { default as CloseIcon } from "./close.svg";
