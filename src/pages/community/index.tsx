@@ -107,7 +107,7 @@ export default function Community() {
           <div
             className={`
               lg:flex 
-              gap-3 hidden`}>
+              gap-2 hidden`}>
             {categories.map((category) => (
               <FilterButton
                 key={category.text}
