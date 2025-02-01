@@ -12,11 +12,11 @@ const Overview: React.FC<OverviewProps> = ({ pharmacy }) => {
       <div className="flex flex-row items-center gap-2">
         <MapPinIcon className="w-4 h-4" />
         <p className="text-body2-r text-gray-500">
-          {pharmacy.formatted_address}
+          {pharmacy?.formatted_address ?? "주소 미제공"}
         </p>
       </div>
 
-      {pharmacy.opening_hours && (
+      {pharmacy?.opening_hours && (
         <div className="flex flex-row items-center gap-2">
           <TimeIcon className="self-start mt-[2px]" />
           <ul className="text-body2-r text-gray-500 space-y-1">
@@ -30,7 +30,7 @@ const Overview: React.FC<OverviewProps> = ({ pharmacy }) => {
       <div className="flex flex-row items-center gap-2">
         <CallIcon />
         <p className="text-body2-r text-gray-500">
-          {pharmacy.formatted_phone_number || "정보 없음"}
+          {pharmacy?.formatted_phone_number ?? "번호 미제공"}
         </p>
       </div>
     </div>
