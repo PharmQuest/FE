@@ -57,7 +57,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
             {userName}
             {postUserId === userId && <Tag variant="writer" /> }
           </div>
-          <KebabIcon />
+          <KebabIcon className={`h-[22px]`}/>
         </div>
         <p className="text-body1-r text-gray-500">{content}</p>
         <div className="flex flex-row justify-between text-body2-r text-gray-400">
