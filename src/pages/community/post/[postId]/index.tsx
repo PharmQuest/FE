@@ -81,7 +81,7 @@ export default function Post() {
             commentPage={commentPage}
             setCommentPage={setCommentPage} />
         </div>
-        <div className="mx-5 flex flex-col mt-[60px] mb-[70px]">
+        <div className="md:mx-0 mx-5 flex flex-col mt-[60px] mb-[70px]">
           <div className={`flex justify-between`}>
             <p
               className="
