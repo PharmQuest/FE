@@ -62,18 +62,26 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
 
   return (
     <div>
-      <div className="flex flex-col gap-2 pl-10 pr-3 pb-5 border-b border-solid border-gray-100">
+      <div className="md:pl-10 flex flex-col gap-2 pl-4 pr-3 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
-          <div className="flex flex-row gap-1">
+          <div className="
+              lg:text-subhead1-sb
+              text-m-subhead1-sb flex flex-row gap-1">
             <CornerDownRightIcon />
             <p>{userName}</p>
-            {postUserId === userId && <Tag variant="writer" />}
+            {postUserId !== userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`}/>}
           </div>
           <KebabIcon className={`h-[22px]`}/>
         </div>
         <div className="flex flex-row gap-2">
-          <p className="text-subhead1-sb text-secondary-500">@{parentName}</p>
-          <p className="text-body1-r text-gray-500">{content}</p>
+          <p 
+            className="
+              lg:text-subhead1-sb
+              text-m-subhead1-sb text-secondary-500">@{parentName}</p>
+          <p 
+            className="
+              lg:text-body1-r
+              text-m-body2-r  text-gray-500">{content}</p>
         </div>
 
         <div className="flex flex-row justify-between text-body2-r text-gray-400">

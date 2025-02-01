@@ -1,6 +1,7 @@
 import {
   CommentIcon,
   KebabIcon,
+  LeftArrowIcon,
   LikeIcon,
   ScrapIcon,
 } from "@public/svgs";
@@ -91,51 +92,111 @@ const ViewPost: React.FC<ViewPostProps> = ({
   }, []);
 
   return (
-    <div className="mt-11 mb-8">
-      <div className="flex flex-row justify-between pb-4 border-b border-solid border-gray-100 gap-3">
-        <div className="flex flex-row gap-3">
-          <SubjectTag text={category} variant="light-big" className={`h-[33px]`} />
-          <div className="flex text-headline-b text-gray-500 gap-3 mt-[1.5px]">
-            <div className={`max-w-[475px] break-words`}>
-              {title}
-            </div>
-            {isBestPost &&
-              <div className={`h-full`}>
-                <Tag variant="bestBig" className={`w-[56px] h-6 px-2 text-subhead1-sb items-center mt-0.5`} />
-              </div>
-            }
-          </div>
+    <>
+      <div className={`md:hidden bg-white flex sticky top-0 bg-0 text-m-headline1-b text-gray-600 items-center px-5 py-4 justify-between shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
+        <div className={`flex items-center gap-3`}>
+          <LeftArrowIcon className={`h-6`} />
+          <p>게시글</p>
         </div>
-
-        <div className="relative flex flex-row gap-5 text-body1-r text-gray-300 mt-[4.5px]">
-          <p>{userName}</p>
-          |
-          <p>{formattedDate}</p>
-          <KebabIcon onClick={(e: MouseEvent) => { handleMenu(e) }} />
+        <div className={`md:hidden relative block`}>
+          <KebabIcon className={`h-6`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
           <PostMenu postId={postId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnPost={isOwnPost} />
         </div>
       </div>
 
-      <div className="mt-8 mb-12 text-body1-r text-gray-500">{content}</div>
+      <div
+        className="
+          md:mt-11 md:mb-4 md:px-0 md:mx-0
+          mx-5 mt-4 mb-4 pb-4 border-b border-solid border-gray-100">
+        <div
+          className="
+            lg:flex-row lg:gap-3 
+            flex flex-col justify-between pb-4 border-b border-solid border-gray-100 gap-2">
+          <div className={`flex justify-between gap-3 grow`}>
+            <div className="flex flex-row gap-3 items-start">
+              <SubjectTag
+                text={category}
+                variant="light-big"
+                className={`
+                  lg:h-[33px]
+                  md:h-[26px] md:text-subhead2-sb
+                  w-[50px] h-[22px] text-m-subhead2-sb`} />
+              <div
+                className="
+                lg:text-headline-b
+                md:flex
+                hidden text-m-headline2-b text-gray-500 gap-3 mt-[1.5px]">
+                <div
+                  className={`
+                  lg:max-w-[475px] 
+                  max-w-[300px] break-words`}>
+                  {title}
+                </div>
+                {isBestPost &&
+                  <div className={`h-full`}>
+                    <Tag variant="bestBig" className={`w-[56px] h-6 px-2 text-subhead1-sb items-center mt-0.5`} />
+                  </div>
+                }
+              </div>
+            </div>
 
-      <div className="flex flex-row justify-end text-gray-400">
-        <div className="flex flex-row text-subhead1-sb items-center gap-0.5">
-          <LikeIcon
-            fill={isPostLike ? "#FF8686" : "none"}
-            className={`cursor-pointer mr-[2px] ${isPostLike && `text-[#FF8686]`}`}
-            onClick={() => handleLike()}
-          />
-          {postLikeCount}
-          <CommentIcon className="ml-3" />
-          {commentCount}
-          <ScrapIcon
-            fill={isPostScrap ? "#FFD755" : "none"}
-            className={`cursor-pointer ml-3 ${isPostScrap && `text-mark-scrap`}`}
-            onClick={() => handleScrap()} />
-          {postScrapCount}
+            <div
+              className="
+              lg:gap-5 lg:text-body1-r lg:mt-[4.5px]
+              flex flex-row text-m-caption1-r text-gray-300 gap-2 ">
+              <p>{userName}</p>
+              |
+              <p>{formattedDate}</p>
+              <div className={`md:block relative hidden`}>
+                <KebabIcon
+                  className={`
+                  lg:h-[22px]
+                  h-[18px]`}
+                  onClick={(e: MouseEvent) => { handleMenu(e) }} />
+                <PostMenu postId={postId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnPost={isOwnPost} />
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="
+                md:hidden
+                flex text-headline-b text-gray-500 gap-3 mt-[1.5px]">
+            <div
+              className={`
+                text-m-headline2-b max-w-full break-words`}>
+              {title}
+            </div>
+            {isBestPost &&
+              <div className={`h-full`}>
+                <Tag variant="best" className={`w-[56px] h-6 px-2 text-subhead1-sb items-center mt-0.5`} />
+              </div>
+            }
+          </div>
+
+        </div>
+
+        <div className="mt-8 mb-12 text-body1-r text-gray-500">{content}</div>
+
+        <div className="flex flex-row justify-end text-gray-400">
+          <div className="lg:text-subhead1-sb flex flex-row items-center gap-0.5 text-m-subhead1-sb">
+            <LikeIcon
+              fill={isPostLike ? "#FF8686" : "none"}
+              className={`cursor-pointer mr-[2px] ${isPostLike && `text-[#FF8686]`}`}
+              onClick={() => handleLike()}
+            />
+            {postLikeCount}
+            <CommentIcon className="ml-3" />
+            {commentCount}
+            <ScrapIcon
+              fill={isPostScrap ? "#FFD755" : "none"}
+              className={`cursor-pointer ml-3 ${isPostScrap && `text-mark-scrap`}`}
+              onClick={() => handleScrap()} />
+            {postScrapCount}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
