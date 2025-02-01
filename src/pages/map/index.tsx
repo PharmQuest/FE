@@ -4,7 +4,7 @@ import MapComponent, {
   PharmacyDetails,
 } from "./components/MapComponent";
 import SearchPanel from "./components/SearchPanel";
-import DetailPanel from "./components/PharmacyDetailPanel";
+import DetailPanel from "./components/detailPanel/PharmacyDetailPanel";
 import MapSearchHeader from "./components/MapSearchHeader";
 import { FindGTIcon, FindLTIcon } from "@public/svgs";
 
