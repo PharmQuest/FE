@@ -7,7 +7,7 @@ interface ReviewsProps {
   pharmacy: PharmacyDetails;
 }
 
-export const Reviews: React.FC<ReviewsProps> = ({ pharmacy }) => {
+const Reviews: React.FC<ReviewsProps> = ({ pharmacy }) => {
   return (
     <div className="flex flex-col gap-1">
       <p className="text-subhead1-sb text-gray-600 mt-4 mb-4">리뷰 한마디</p>
@@ -43,3 +43,5 @@ export const Reviews: React.FC<ReviewsProps> = ({ pharmacy }) => {
     </div>
   );
 };
+
+export default Reviews;

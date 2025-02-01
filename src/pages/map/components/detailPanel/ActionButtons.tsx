@@ -5,9 +5,7 @@ interface ActionButtonsProps {
   onDirectionsClick: (type: "depart" | "arrive") => void;
 }
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({
-  onDirectionsClick,
-}) => {
+const ActionButtons: React.FC<ActionButtonsProps> = ({ onDirectionsClick }) => {
   const [isBookmark, setIsBookmark] = useState(false);
 
   return (
@@ -38,3 +36,5 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
     </div>
   );
 };
+
+export default ActionButtons;

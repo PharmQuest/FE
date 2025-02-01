@@ -6,7 +6,7 @@ interface OverviewProps {
   pharmacy: PharmacyDetails;
 }
 
-export const Overview: React.FC<OverviewProps> = ({ pharmacy }) => {
+const Overview: React.FC<OverviewProps> = ({ pharmacy }) => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row items-center gap-2">
@@ -36,3 +36,5 @@ export const Overview: React.FC<OverviewProps> = ({ pharmacy }) => {
     </div>
   );
 };
+
+export default Overview;

@@ -5,7 +5,7 @@ interface TabNavigationProps {
   onTabChange: (tab: "overview" | "reviews" | "info") => void;
 }
 
-export const TabNavigation: React.FC<TabNavigationProps> = ({
+const TabNavigation: React.FC<TabNavigationProps> = ({
   activeTab,
   onTabChange,
 }) => {
@@ -44,3 +44,5 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
     </div>
   );
 };
+
+export default TabNavigation;
