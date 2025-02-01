@@ -33,7 +33,7 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
       {/* Bookmark Icon */}
       <div className="absolute top-4 right-2 h-[100%]">
         <BookmarkIcon
-          className="cursor-pointer"
+          className="cursor-pointer w-5"
           onClick={handleBookmark}
           stroke={isBookmark ? "#FFD755" : "#707070"}
           fill={isBookmark ? "#FFD755" : "none"}
