@@ -3,9 +3,10 @@ import FilterButton from "@/components/common/FilterButton";
 import MedicineCard from "@/components/common/MedicineCard";
 import Link from "next/link";
 import { LeftArrow } from "@public/svgs";
+import { mockMedicines } from "@/mocks/supplements";
 
 const MyMedicinesPage = () => {
-  const medicines: [] = []; // 데이터 없음
+  const medicines = mockMedicines;
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -16,8 +17,11 @@ const MyMedicinesPage = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-8 px-4">
-      <div className="xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full px-5 flex flex-col lg:flex-row md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05) items-start lg:items-center gap-4 lg:gap-6">
+    <div className="lg:w-[900px] lg:mx-auto
+        md:w-[600px] md:mx-auto
+        sm:w-full 
+        min-h-[calc(100vh-412px)] w-full sm:px-5 lg:px-0 flex flex-col items-center py-8">
+      <div className="w-full flex flex-col lg:flex-row md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05) items-start lg:items-center gap-4 lg:gap-6">
         <div className="flex items-center">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
@@ -37,14 +41,14 @@ const MyMedicinesPage = () => {
       {/* ✅ 데이터가 있을 경우 */}
       {medicines.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
+          <div className="w-full py-8 grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
             {paginatedMedicines.map((_, index) => (
               <MedicineCard key={index} />
             ))}
           </div>
 
           {/* ✅ 페이지네이션 */}
-          <div className="flex justify-center items-center mt-6 space-x-8">
+          <div className="py-10 flex justify-center items-center mt-6 space-x-8">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               className="px-3 py-1 border rounded-md text-gray-600 disabled:opacity-50 text-sm md:text-base"
