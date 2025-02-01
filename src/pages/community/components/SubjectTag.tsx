@@ -13,9 +13,9 @@ const SubjectTag: React.FC<SubjectTagProps> = ({ text, variant = "light", classN
       : "bg-primary-400";
 
   const textSizeClass =
-    variant === "light-big" ? "text-headline-b" : "text-body2-r";
+    variant === "light-big" ? "lg:text-headline-b text-headline-b" : "lg:text-body2-r text-body2-r";
 
-  const widthClass = variant === "light-big" ? "w-[82px]" : "w-16";
+  const widthClass = variant === "light-big" ? "lg:w-[82px] w-[82px]" : "lg:w-16 w-16";
 
   return (
     <div
