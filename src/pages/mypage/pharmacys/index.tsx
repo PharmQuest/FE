@@ -3,7 +3,7 @@ import FilterButton from "@/components/common/FilterButton";
 import PharmacysCard from "../components/PharmacysCard";
 import Link from "next/link";
 import { mockPharmacies } from "@/mocks/pharmacys"; // ✅ 데이터 import
-import { LeftArrow } from "@public/svgs";
+import { ArrowRightIcon, LeftArrow } from "@public/svgs";
 
 const MyPharmacys = () => {
   const pharmacys = mockPharmacies;
@@ -17,8 +17,8 @@ const MyPharmacys = () => {
   );
 
   return (
-    <div className="max-w-[1280px] lg:w-[80%] md:w-[100%] mx-auto my-10 px-4 min-h-screen flex flex-col">
-      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
+    <div className="xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full px-5 mx-auto my-10 px-4 min-h-screen flex flex-col">
+      <div className="w-full px-4 md:px-0 py-4 flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
         <div className="flex items-center">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
@@ -38,42 +38,33 @@ const MyPharmacys = () => {
       {/* 🔹 데이터가 있을 경우 */}
       {pharmacys.length > 0 ? (
         <>
-          <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-5 flex-grow">
+          <div className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-5 flex-grow">
             {paginatedPharmacys.map((pharmacy) => ( 
               <PharmacysCard key={pharmacy.id} {...pharmacy} />
             ))}
           </div>
 
           {/* 🔹 페이지네이션 (하단 고정) */}
-          <div className="w-full max-w-[920px] flex justify-center items-center mt-auto py-6 space-x-2">
-            <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="px-3 py-1 border rounded-md text-gray-600 disabled:opacity-50 text-sm md:text-base"
-              disabled={currentPage === 1}
-            >
-              &lt;
-            </button>
-
+          <div className="flex items-center justify-center align-center mt-6 space-x-8">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentPage(index + 1)}
-                className={`px-3 py-1 border rounded-md text-sm md:text-base ${
-                  currentPage === index + 1 ? "bg-primary-500 text-white" : "text-gray-600"
+                className={`text-subhead1-sb ${
+                  currentPage === index + 1 ? "text-secondary-500" : "text-gray-300"
                 }`}
               >
                 {index + 1}
               </button>
             ))}
 
+            {/* 🔹 오른쪽 이동 버튼 */}
             <button
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              className="px-3 py-1 border rounded-md text-gray-600 disabled:opacity-50 text-sm md:text-base"
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className="flex flex-col align-center"
               disabled={currentPage === totalPages}
             >
-              &gt;
+              <ArrowRightIcon className="w-5 h-3 text-gray-300" />
             </button>
           </div>
         </>
