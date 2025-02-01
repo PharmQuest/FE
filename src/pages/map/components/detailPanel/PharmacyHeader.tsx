@@ -15,6 +15,10 @@ const PharmacyHeader: React.FC<PharmacyHeaderProps> = ({
   pharmacy,
   onClose,
 }) => {
+  if (!pharmacy) {
+    return null;
+  }
+
   const imageSrc = pharmacy.photos?.[0]
     ? pharmacy.photos[0].getUrl({ maxWidth: 384, maxHeight: 220 })
     : PharamacyDetailImage;
