@@ -1,19 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { AccountCircleIcon, BookmarkIcon, CommentIcon, NoticeIcon, PostIcon, ScrapIcon } from "@public/svgs";
-
-type UserNavbarItem = (typeof USER_NAVBAR_ITEMS)[number];
+import { AccountCircleIcon, BookmarkIcon, CommentIcon, NoticeIcon, PostIcon } from "@public/svgs";
 
 const UserNavbar = () => {
   const router = useRouter();
-
-  const handleNavigation = (item: UserNavbarItem) => {
-    const queryParam =
-      "activePath" in item && item.activePath
-        ? `?tab=${encodeURIComponent(item.activePath)}`
-        : "";
-    router.push(`${item.path}${queryParam}`);
-  };
 
   const handleLogout = () => {
     console.log("로그아웃");
