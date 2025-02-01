@@ -56,7 +56,7 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
           onClick={handleBookmarkClick} 
         >
           <BookmarkIcon
-            className="w-full h-full"
+            className="w-[30px] h-[30px]"
             stroke={bookmarked ? "#FFD755" : "white"}
             fill={bookmarked ? "#FFD755" : "none"}
           />
