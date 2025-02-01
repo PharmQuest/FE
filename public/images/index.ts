@@ -5,3 +5,5 @@ export { default as NaverLoginButton } from "./naver-login.webp";
 export { default as KakaoLoginButton } from "./kakao-login.webp";
 export { default as GoogleLoginButton } from "./google-login.webp";
 export { default as LoginBgImage } from "./login-bg.webp";
+export { default as ADMobile } from "./ad-mobile.webp";
+export { default as ADWeb } from "./ad-web.webp";

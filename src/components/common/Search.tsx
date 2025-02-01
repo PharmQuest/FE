@@ -26,9 +26,9 @@ const Search: React.FC<SearchProps> = ({
       )}
 
       {/* 검색창 */}
-      <div className={`flex items-center bg-white rounded-full flex-grow shadow-md ${isHomePage ? `lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-6 py-3 gap-5` : `h-10 px-4 py-2 gap-4`} `}>
+      <div className={`flex items-center bg-white rounded-full flex-grow shadow-md ${isHomePage ? `lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-3 py-2 gap-2` : `h-10 px-4 py-2 gap-4`} `}>
         {/* 위치선택 */}
-        <button className={`flex items-center gap-2 bg-none rounded-full text-gray-500`}>
+        <button className={`flex items-center gap-[2px] bg-none rounded-full text-gray-500`}>
           {/* <GreenMapPinIcon className={`${isHomePage ? `lg:w-7` : `w-5`}`} /> */}
           {/* 반응형 아이콘 */}
           <GreenMapPinIcon className={`hidden lg:block ${isHomePage ? 'w-7' : 'w-5'}`} /> {/* lg에서만 보이는 GreenMapPinIcon */}
@@ -38,7 +38,7 @@ const Search: React.FC<SearchProps> = ({
         </button>
         <SearchBarIcon className={`${isHomePage ? `lg:h-[22px] h-3` : `h-4`}`}/>
         <div className={`flex gap-2 grow`}>
-          <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5` : `w-6`}`} />
+          <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5 ml-[2px]` : `w-6`}`} />
           <input
             type="text"
             className={`grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
