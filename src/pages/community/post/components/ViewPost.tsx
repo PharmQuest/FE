@@ -1,9 +1,9 @@
 import {
+  BookmarkIcon,
   CommentIcon,
   KebabIcon,
   LeftArrowIcon,
   LikeIcon,
-  ScrapIcon,
 } from "@public/svgs";
 import Tag from "../../components/Tag";
 import SubjectTag from "../../components/SubjectTag";
@@ -182,15 +182,16 @@ const ViewPost: React.FC<ViewPostProps> = ({
           <div className="lg:text-subhead1-sb flex flex-row items-center gap-0.5 text-m-subhead1-sb">
             <LikeIcon
               fill={isPostLike ? "#FF8686" : "none"}
-              className={`cursor-pointer mr-[2px] ${isPostLike && `text-[#FF8686]`}`}
+              className={`w-6 cursor-pointer mr-[2px] ${isPostLike && `text-[#FF8686]`}`}
               onClick={() => handleLike()}
             />
             {postLikeCount}
-            <CommentIcon className="ml-3" />
+            <CommentIcon className="ml-3 w-6" />
             {commentCount}
-            <ScrapIcon
+            <BookmarkIcon
               fill={isPostScrap ? "#FFD755" : "none"}
-              className={`cursor-pointer ml-3 ${isPostScrap && `text-mark-scrap`}`}
+              stroke={isPostScrap ? "#FFD755" : "#707070"}
+              className={`w-6 cursor-pointer ml-3`}
               onClick={() => handleScrap()} />
             {postScrapCount}
           </div>
