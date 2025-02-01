@@ -35,7 +35,10 @@ const ActivitiesNav = () => {
   }, [tab]);
 
   return (
-    <div className="flex flex-row w-full border-solid border-b border-gray-100">
+    <div
+      className="flex flex-row w-full border-solid border-b border-gray-100 
+          max-md:grid max-md:grid-cols-4 max-md:text-center"
+    >
       {navbarItems.map((item) => (
         <div
           key={item}
