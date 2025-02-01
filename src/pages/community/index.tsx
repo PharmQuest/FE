@@ -4,9 +4,10 @@ import PopularPostList from "./components/PopularPostList";
 import UserNavbar from "./components/UserNavbar";
 import PostList from "./components/PostList";
 import { useState } from "react";
-import { ArrowRightIcon } from "@public/svgs";
+import { AccountCircleIcon, ArrowRightIcon, BookmarkIcon, CommentIcon, CreatePostIcon, NoticeIcon, PlusIcon, PostIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 import popularPosts from "@/mocks/popularPosts";
+import { MouseEvent } from "react";
 
 interface Category {
   value: string;
@@ -40,6 +41,15 @@ export default function Community() {
       )
     )
   }
+
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
+
+  const handleMobileModal = (e:MouseEvent) => {
+    e.stopPropagation();
+    setIsMobileModalOpen(!isMobileModalOpen);
+ 
+  }
+
 
   return (
     <div>
@@ -118,6 +128,54 @@ export default function Community() {
         <div>
           <PostList page={1} category={category} isPageHidden={true} postLimit={10} />
         </div>
+      </div>
+      
+      <div 
+        className={`fixed top-0 w-screen h-screen bg-[#0000004D] backdrop-blur-[10px] transition-all duration-300 ease-out ${isMobileModalOpen ? `opacity-100` : `opacity-0 pointer-events-none`}`}
+        onClick={() => setIsMobileModalOpen(false)}>
+        <div className={`fixed bottom-[175px] right-5 text-white text-m-display1-b flex flex-col gap-6`}>
+          <div 
+            className={`flex justify-end gap-3 items-center`}
+            onClick={() => router.push('/community/activities?tab=notifications')}>
+            알림
+            <NoticeIcon className={`w-6`}/>
+          </div>
+          <div 
+            className={`flex justify-end gap-3 items-center`}
+            onClick={() => router.push('/community/activities?tab=scraps')}>
+            게시글 스크랩
+            <BookmarkIcon stroke={"white"} className={`w-6`}/>
+          </div>
+          <div 
+            className={`flex justify-end gap-3 items-center`}
+            onClick={() => router.push('/community/activities?tab=comments')}>
+            작성한 댓글
+            <CommentIcon className={`w-6`}/>
+          </div>
+          <div 
+            className={`flex justify-end gap-3 items-center`}
+            onClick={() => router.push('/community/activities?tab=posts')}>
+            작성한 게시글
+            <PostIcon className={`w-6`}/>
+          </div>
+          <div 
+            className={`flex justify-end gap-3 items-center`}
+            onClick={() => router.push('/mypage')}>
+            마이페이지
+            <AccountCircleIcon className={`w-6`}/>
+          </div>
+          <div 
+            className={`flex justify-end gap-3 items-center`}
+            onClick={() => router.push('/community/create')}>
+            게시글 작성
+            <CreatePostIcon className={`w-6`}/>
+          </div>
+        </div>
+      </div>
+      <div 
+        className={`lg:hidden z-[999] fixed right-5 bottom-[103px] w-[52px] h-[52px] shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full transition-all duration-300 ease-out ${isMobileModalOpen ? `bg-white` : `bg-primary-500`}`}
+        onClick={(e) => handleMobileModal(e)}>
+        <PlusIcon className={`transition-all duration-300 ease-out ${isMobileModalOpen ? `text-primary-500` : `text-white`}`}/>
       </div>
     </div>
   );
