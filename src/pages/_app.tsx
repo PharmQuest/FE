@@ -33,8 +33,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="og:description" content={pageData.description} />
         <title>{pageData.title}</title>
       </Head>
-      <Header />
-      <Component {...pageProps} className={`dsadsa`} />
+      <div className={`overflow-hidden`}>
+        <Header />
+      </div>
+      <Component {...pageProps} />
       <NoticeModal/>
       <ReportModal/>
       <Footer />
