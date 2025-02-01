@@ -1,32 +1,6 @@
 import React from "react";
-import NavbarItem from "./NavbarItem";
 import { useRouter } from "next/router";
-const USER_NAVBAR_ITEMS = [
-  {
-    text: "마이페이지",
-    path: "/mypage",
-  },
-  {
-    text: "작성한 게시글",
-    path: "/community/activities",
-    activePath: "posts",
-  },
-  {
-    text: "작성한 댓글",
-    path: "/community/activities",
-    activePath: "comments",
-  },
-  {
-    text: "게시글 스크랩",
-    path: "/community/activities",
-    activePath: "scraps",
-  },
-  {
-    text: "알림",
-    path: "/community/activities",
-    activePath: "notifications",
-  },
-] as const;
+import { AccountCircleIcon, BookmarkIcon, CommentIcon, NoticeIcon, PostIcon, ScrapIcon } from "@public/svgs";
 
 type UserNavbarItem = (typeof USER_NAVBAR_ITEMS)[number];
 
@@ -46,7 +20,7 @@ const UserNavbar = () => {
   };
 
   return (
-    <div 
+    <div
       className="
         lg:block
         hidden w-[170px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0">
@@ -71,13 +45,42 @@ const UserNavbar = () => {
           </button>
         </div>
       </div>
-      {USER_NAVBAR_ITEMS.map((item, index) => (
-        <NavbarItem
-          key={index}
-          text={item.text}
-          onClick={() => handleNavigation(item)}
-        />
-      ))}
+
+      <div
+        className="flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+        onClick={() => router.push("/mypage")}>
+        <AccountCircleIcon className={`text-gray-400 w-[18px]`}/>
+        마이페이지
+      </div>
+
+      <div
+        className="flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+        onClick={() => router.push("/community/activities?tab=posts")}>
+        <PostIcon className={`text-gray-400 w-[18px]`}/>
+        작성한 게시글
+      </div>
+
+      <div
+        className="flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+        onClick={() => router.push("/community/activities?tab=comments")}>
+        <CommentIcon className={`text-gray-400 w-[18px]`}/>
+        작성한 댓글
+      </div>
+
+      <div
+        className="flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+        onClick={() => router.push("/community/activities?tab=scraps")}>
+        <BookmarkIcon stroke="#707070" className={`text-gray-400 w-[18px]`}/>
+        게시글 스크랩
+      </div>
+
+      <div
+        className="flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+        onClick={() => router.push("/community/activities?tab=notifications")}>
+        <NoticeIcon className={`text-gray-400 w-[18px]`}/>
+        알림
+      </div>
+
     </div>
   );
 };

@@ -43,3 +43,5 @@ export { default as DepartIcon } from "./depart.svg";
 export { default as TimeIcon } from "./time.svg";
 export { default as CallIcon } from "./call.svg";
 export { default as CloseIcon } from "./close.svg";
+export { default as NoticeIcon } from "./notice.svg";
+export { default as PostIcon } from "./post.svg";
