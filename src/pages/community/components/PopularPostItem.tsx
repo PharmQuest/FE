@@ -47,11 +47,6 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
           className="
             lg:text-subhead1-sb
             text-m-subhead1-sb truncate">{title}</p>
-        <Tag 
-          variant="best"
-          className={`
-            lg:text-subhead3-sb lg:border-[2px]
-            !text-m-caption2-r !border`} />
       </div>
       <p 
         className="
