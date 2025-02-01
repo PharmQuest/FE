@@ -5,7 +5,7 @@ import PostList from "../../components/PostList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import axiosInstance from "@/apis/axios-instance";
-import { ArrowRightIcon, KebabIcon, LeftArrow, LeftArrowIcon } from "@public/svgs";
+import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useStore from "@/store/useStore";
