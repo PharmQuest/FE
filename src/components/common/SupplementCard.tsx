@@ -1,50 +1,60 @@
 import { BookmarkIcon } from "@public/svgs";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface SupplementCardProps {
   country: string;
   title: string;
   tags: string[];
   isBookmarked?: boolean;
-  width?: number; 
+  width?: number;
+  src?: string;
 }
 
-const SupplementCard: React.FC<SupplementCardProps> = ({
+export default function SupplementCard({
   country,
   title,
   tags,
   isBookmarked = false,
-  width = 168,
-}) => {
+  width = 160,
+  src = "",
+}: SupplementCardProps) {
   const [bookmarked, setBookmarked] = useState(isBookmarked);
+  const [imgSrc, setImgSrc] = useState("");
+
+  useEffect(() => {
+    setImgSrc(src || "/images/no_image.webp");
+  }, [src]);
 
   const handleBookmarkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    setBookmarked(!bookmarked);   
+    setBookmarked(!bookmarked);
   };
 
   return (
     <div
       className="flex flex-col justify-start items-start"
       style={{
-        width: `${width}px`,
+        width: `160px`,
         height: `226px`,
       }}
     >
-    
       <div
         className="relative bg-gray-100 rounded-lg"
         style={{
           width: "100%",
-          height: `${width}px`,
+          height: `160px`,
         }}
       >
         {/* 이미지 */}
-        {/* <img
-          src="https://via.placeholder.com/168" 
-          alt={title}
+        <Image
+          src={imgSrc}
+          alt={title || "이미지"}
           className="absolute inset-0 w-full h-full object-cover rounded-lg"
-        /> */}
+          onError={() => setImgSrc("/images/no_image.webp")} // 이미지 로드 실패 시 대체 이미지 설정
+          width={width}
+          height={width}
+        />
 
         {/* 그라데이션 효과 */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/20 rounded-lg"></div>
@@ -53,7 +63,7 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
         <button
           className="absolute bottom-2 right-2 flex justify-center items-center"
           aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}
-          onClick={handleBookmarkClick} 
+          onClick={handleBookmarkClick}
         >
           <BookmarkIcon
             className="w-[30px] h-[30px]"
@@ -79,7 +89,7 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
         </div>
 
         {/* 태그 영역 */}
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-nowrap gap-1.5 overflow-hidden truncate">
           {tags.map((tag, idx) => (
             <div
               key={idx}
@@ -92,6 +102,4 @@ const SupplementCard: React.FC<SupplementCardProps> = ({
       </div>
     </div>
   );
-};
-
-export default SupplementCard;
+}

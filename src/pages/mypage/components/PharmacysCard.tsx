@@ -29,7 +29,7 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
   };
 
   return (
-    <div className="relative min-w-[250px] max-w-[500px] h-[126px] pl-5 py-5 rounded-lg border border-gray-200 flex items-center gap-3">
+    <div className="relative max-w-[410px] sm:w-full h-[126px] pl-5 py-5 rounded-lg border border-gray-200 flex items-center gap-3">
       {/* Bookmark Icon */}
       <div className="absolute top-4 right-2 h-[100%]">
         <BookmarkIcon

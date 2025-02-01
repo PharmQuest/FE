@@ -17,7 +17,7 @@ const MyMedicinesPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-8 px-4">
-      <div className="w-full max-w-[920px] px-4 md:px-0 py-4 flex flex-col lg:flex-row md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05) items-start lg:items-center gap-4 lg:gap-6">
+      <div className="xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full px-5 flex flex-col lg:flex-row md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05) items-start lg:items-center gap-4 lg:gap-6">
         <div className="flex items-center">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
@@ -44,7 +44,7 @@ const MyMedicinesPage = () => {
           </div>
 
           {/* ✅ 페이지네이션 */}
-          <div className="flex justify-center items-center mt-6 space-x-2">
+          <div className="flex justify-center items-center mt-6 space-x-8">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               className="px-3 py-1 border rounded-md text-gray-600 disabled:opacity-50 text-sm md:text-base"

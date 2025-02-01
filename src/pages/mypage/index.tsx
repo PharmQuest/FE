@@ -31,7 +31,7 @@ const MyPage: React.FC<MyPageProps> = ({
   ],
 }) => {
   return (
-    <div className="w-full max-w-[920px] mx-auto my-10 px-4 md:px-8">
+    <div className="xl:w-[900px] lg:w-[900px] md:w-[601px] w-full px-5 mx-auto my-10 px-4 md:px-8">
       {/* 사용자 프로필 */}
       <div className="w-full px-6 py-3 lg:border border-gray-200 md:border md:pl-4 flex justify-between items-center mb-10 border-b">
         <div>
@@ -89,12 +89,12 @@ const MyPage: React.FC<MyPageProps> = ({
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b flex items-center gap-1">
-            <h2>약국 저장 목록</h2>
-            <ArrowRightIcon className="w-6 text-gray-500 h-4" />
+            <h2 className="test-display2-b">약국 저장 목록</h2>
+            <ArrowRightIcon className="w-6 text-gray-500" />
           </Link>
         </div>
         {pharmacys.length > 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {pharmacys.map((pharmacy) => (
               <PharmacysCard key={pharmacy.id} {...pharmacy} />
             ))}

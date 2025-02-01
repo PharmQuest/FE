@@ -22,7 +22,7 @@ function MoreSupplements({ supplements=[], imageWidth = 168 }: MoreSupplementsPr
             country={supplement.country}
             title={supplement.title}
             tags={supplement.tags}
-            width={imageWidth ?? 168} 
+            width={imageWidth ?? 160} 
           />
         ))}
       </div>
