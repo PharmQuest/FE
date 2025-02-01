@@ -12,7 +12,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   isHomeButton = false,
 }) => {
 
-  const baseClasses = `whitespace-nowrap rounded-[1000px] lg:w-fit w-[78px] lg:h-fit h-[30px] cursor-pointer ${isHomeButton ? `lg:px-5 px-4 lg:py-1.5 lg:text-body1-r text-xs` : `px-3 py-0.5 text-subhead1-sb border-[1px] border-solid`}`;
+  const baseClasses = `whitespace-nowrap rounded-[1000px] w-fit w-[78px] lg:h-fit h-[30px] cursor-pointer ${isHomeButton ? `lg:px-5 px-4 lg:py-1.5 lg:text-body1-r text-xs` : `px-3 py-0.5 text-subhead1-sb border-[1px] border-solid`}`;
   const selectedClasses = isHomeButton 
   ? "bg-white text-[#707070] border-point font-semibold" // 메인화면은 흰색 배경으로
   : "bg-point text-white border-point"

@@ -1,4 +1,5 @@
 import { BookmarkIcon } from "@public/svgs";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -8,6 +9,8 @@ const MedicineCard = () => {
 
   const [isBookmark, setIsBookmark] = useState(false);
 
+  const [src, setSrc] = useState("/url");
+
   const handleBoomark = (e: React.MouseEvent) => {
     e.stopPropagation();    // 부모 컴포넌트 클릭 방지
     setIsBookmark(!isBookmark);
@@ -15,35 +18,67 @@ const MedicineCard = () => {
   }
 
   return (
-    // medicine-card 피그마에는 border-color: gray-100으로 설정되어 있지만 보이지 않아서 임시로 설정
-    <div className={`flex p-5 pr-4 border-gray-200 border rounded-lg h-[178px] items-center hover:cursor-pointer`} onClick={() => router.push('medicines/1')}>
+    <div 
+      className={`
+        md:p-5 md:pr-4 md:rounded-lg md:h-[178px]
+        h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate`} 
+      onClick={() => router.push('medicines/1')}>
       {/* medicine-image */}
-      <div className={`w-[138px] h-[138px] bg-[#D9D9D9] rounded`}>
-        {/* <img src='url' className={`w-[138px] h-[138px]`}>
-        </img> */}
+      <div className={`
+        md:w-[138px] md:h-[138px] 
+        rounded w-[100px] h-[100px] flex items-center`}>
+        <Image 
+          src={src}
+          alt="이미지"
+          width="100"
+          height="100"
+          className={`w-full rounded`}
+          onError={() => setSrc("/images/no_image.webp")}
+          priority/>
       </div>
       {/* info-wrapper */}
-      <div className={`flex flex-col w-[203px] h-[124px] ml-4 gap-3`}>
+      <div 
+        className={`
+          md:gap-3 md:ml-4 
+          flex flex-col gap-2 ml-3 grow`}>
         {/* tag */}
-        <div className={`text-body2-r text-white bg-primary-200 w-16 h-6 rounded p-0.5 pb-[1px] text-center`}>
-          진통/해열
+        <div 
+          className={`
+            md:text-body2-r text-white bg-primary-200 w-fit rounded px-2 pt-0.5 pb-[1px] text-center
+            text-m-caption2-r
+            `}>
+          미국
         </div>
-        <div className={`flex gap-6`}>
-          <div className={`flex flex-col text-subhead1-sb gap-1 w-14`}>
+        <div 
+          className={`
+            md:gap-6
+            flex gap-2`}>
+          <div 
+            className={`
+              md:gap-1 md:w-14 md:text-subhead1-sb
+              flex flex-col text-m-subhead1-sb gap-0.5
+              `}>
             <p>제품명</p>
-            <p>주요성분</p>
-            <p>용도</p>
+            <p>일반명</p>
+            <p>분류</p>
           </div>
-          <div className={`flex flex-col text-body1-r gap-1`}>
-            <p>TYLENOL</p>
-            <p>아세트아미노펜</p>
-            <p>해열, 진통, 소염제</p>
+          <div 
+            className={`
+              md:gap-1 md:text-body1-r
+              flex flex-col text-m-body2-r gap-0.5`}>
+            <p className={`max-w-[100px] truncate`}>TYLENOL</p>
+            <p className={`max-w-[100px] truncate`}>아세트아미노펜</p>
+            <p className={`max-w-[100px] truncate`}>진통/해열</p>
           </div>
         </div>
       </div>
-      <div className={`h-[100%] relative min-w-[30px] ml-auto`}>
+      <div 
+        className={`
+          h-[100%] relative min-w-[30px]`}>
         <BookmarkIcon 
-          className={`absolute top-0 right-0`} 
+          className={`
+            md:w-[30px]
+            absolute top-0 right-0 w-6`} 
           onClick={(e: React.MouseEvent) => handleBoomark(e)} 
           stroke={isBookmark ? '#FFD755' : '#707070'}
           fill={isBookmark ? '#FFD755' : 'none'} />
