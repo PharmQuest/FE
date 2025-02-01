@@ -2,7 +2,7 @@ import { useState } from "react";
 import SupplementCard from "@/components/common/SupplementCard";
 import { useRouter } from "next/router";
 import FilterButton from "@/components/common/FilterButton";
-import { ArrowRightIcon } from "@public/svgs"; // ArrowRight 추가
+import { ArrowRightIcon, LeftArrow } from "@public/svgs";
 
 const supplements = Array.from({ length: 50 }, (_, i) => ({
   id: (i + 1).toString(),
@@ -28,18 +28,30 @@ const SupplementPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-8 px-4">
-      <div className="xl:px-0 xl:w-[900px] xl:px-auto lg:w-[900px] lg:px-[50px] md:w-[601px] w-full flex gap-2 mb-4 overflow-x-auto px-4 hidden lg:flex">
-        <h2 className="text-display2-b text-gray-600">전체</h2>
-        <FilterButton text="전체" />
-        <FilterButton text="면역력강화" />
-        <FilterButton text="피로회복" />
-        <FilterButton text="소화건강" />
-        <FilterButton text="피부건강" />
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] min-h-[calc(100vh-412px)] flex flex-col items-center py-8">
+      
+      <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] flex flex-col lg:flex-row items-start lg:items-center mb-4 gap-4 lg:gap-6">
+        <div className="flex items-center" onClick={() => router.back()}>
+          <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
+          <h1 className="text-gray-600 text-display1-b text-xl ml-2 whitespace-nowrap">
+            전체
+          </h1>
+        </div>
+        <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] ">
+          <div className="flex gap-2 overflow-x-auto lg:overflow-hidden w-full lg:w-auto flex-nowrap lg:flex-wrap scrollbar-hide">
+            <FilterButton text="전체" isSelected />
+            <FilterButton text="면역력" />
+            <FilterButton text="피로회복" />
+            <FilterButton text="소화건강" />
+            <FilterButton text="피부건강" />
+          </div>
+        </div>
       </div>
 
-      {/* 🔹 영양제 리스트 */}
-      <div className="xl:px-0 xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+
+      
+
+      <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-5 gap-x-5 gap-y-5">
         {paginatedSupplements.map((supplement) => (
           <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
             <SupplementCard {...supplement} />
@@ -47,7 +59,6 @@ const SupplementPage: React.FC = () => {
         ))}
       </div>
 
-      {/* 🔹 페이지네이션 */}
       <div className="flex items-center justify-center align-center mt-6 space-x-8">
         {Array.from({ length: totalPages }, (_, index) => (
           <button

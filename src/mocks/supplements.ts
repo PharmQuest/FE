@@ -13,7 +13,7 @@ export interface TableData {
   
   export const productBasicInfo = {
     title: "[미국] 나우푸드 로우 마카 750mg 배지 캡슐",
-    imageUrl: "https://via.placeholder.com/200x200",
+    imageUrl: "",
     tableData: [
       { label: "브랜드", value: "Now Foods" },
       { label: "제조사", value: "Now Foods" },
@@ -62,4 +62,78 @@ export interface TableData {
       isBookmarked: false,
     },
   ];
+
+  export const mockMedicines = [
+    {
+      id: "1",
+      country: "미국",
+      title: "네이처메이드 멀티비타민",
+      tags: ["면역력강화", "피부건강"],
+      isBookmarked: true,
+    },
+    {
+      id: "2",
+      country: "한국",
+      title: "정관장 홍삼정",
+      tags: ["소화건강", "피로회복"],
+      isBookmarked: false,
+    },
+    {
+      id: "3",
+      country: "독일",
+      title: "센트룸 실버",
+      tags: ["눈건강", "멀티비타민"],
+      isBookmarked: true,
+    },
+    {
+      id: "4",
+      country: "미국",
+      title: "옵티멈 뉴트리션 단백질",
+      tags: ["운동 보충제", "근육 강화"],
+      isBookmarked: false,
+    },
+    {
+      id: "5",
+      country: "캐나다",
+      title: "네추럴 팩터스 비타민C",
+      tags: ["면역력강화", "감기 예방"],
+      isBookmarked: true,
+    },
+    {
+      id: "6",
+      country: "프랑스",
+      title: "오쏘몰 이뮨",
+      tags: ["피로회복", "체력 강화"],
+      isBookmarked: false,
+    },
+    {
+      id: "7",
+      country: "일본",
+      title: "DHC 비타민D",
+      tags: ["뼈 건강", "칼슘 흡수"],
+      isBookmarked: true,
+    },
+    {
+      id: "8",
+      country: "한국",
+      title: "뉴트리원 루테인",
+      tags: ["눈건강", "블루라이트 차단"],
+      isBookmarked: false,
+    },
+    {
+      id: "9",
+      country: "호주",
+      title: "블랙모어스 오메가3",
+      tags: ["혈액순환", "두뇌 건강"],
+      isBookmarked: true,
+    },
+    {
+      id: "10",
+      country: "미국",
+      title: "칼슘 마그네슘 비타민D",
+      tags: ["뼈 건강", "골다공증 예방"],
+      isBookmarked: false,
+    },
+  ];
+  
   
