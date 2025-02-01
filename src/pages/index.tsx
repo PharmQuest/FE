@@ -46,7 +46,7 @@ export default function Home() {
       <div className="bg-background pb-6 flex justify-center">
         {/* 1000px 이상일 때 */}
         <div className="// 기본 스타일
-                        hidden lg:flex lg:flex-col
+                        hidden lg:flex lg:flex-col pt-[110px]
                         // 1000px 초과 (xl)
                         xl:w-[900px] xl:mx-auto
                         // 1000px (lg)
