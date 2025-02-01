@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FilterButton from "@/components/common/FilterButton";
 import PharmacysCard from "../components/PharmacysCard";
 import Link from "next/link";
-import { mockPharmacies } from "@/mocks/pharmacys"; // ✅ 데이터 import
+import { mockPharmacies } from "@/mocks/pharmacys"; 
 import { ArrowRightIcon, LeftArrow } from "@public/svgs";
 
 const MyPharmacys = () => {
@@ -17,9 +17,9 @@ const MyPharmacys = () => {
   );
 
   return (
-    <div className="xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full px-5 mx-auto my-10 px-4 min-h-screen flex flex-col">
-      <div className="w-full px-4 md:px-0 py-4 flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
-        <div className="flex items-center">
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:px-[20px] sm:w-full sm:mx-[20px] w-full mx-[20px] sm:px-5 lg:px-0 mx-auto my-10 min-h-[calc(100vh-300px)] flex flex-col">
+      <div className="w-full md:px-0 flex flex-col lg:flex-row items-start lg:items-center gap-3">
+        <div className="flex">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
@@ -38,13 +38,12 @@ const MyPharmacys = () => {
       {/* 🔹 데이터가 있을 경우 */}
       {pharmacys.length > 0 ? (
         <>
-          <div className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-5 flex-grow">
+          <div className="py-8 grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-x-5 sm:gap-x-5 lg:gap-x-5 gap-y-5 flex-grow">
             {paginatedPharmacys.map((pharmacy) => ( 
               <PharmacysCard key={pharmacy.id} {...pharmacy} />
             ))}
           </div>
 
-          {/* 🔹 페이지네이션 (하단 고정) */}
           <div className="flex items-center justify-center align-center mt-6 space-x-8">
             {Array.from({ length: totalPages }, (_, index) => (
               <button

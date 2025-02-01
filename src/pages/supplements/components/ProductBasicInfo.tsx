@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import BookmarkIcon from "@public/svgs/bookmark.svg";
 
 interface TableData {
@@ -8,18 +9,19 @@ interface TableData {
 
 interface ProductBasicInfoProps {
   title: string;
-  // imageUrl: string;  // ✅ 항상 존재한다고 가정 → 주석 처리
+  imageUrl?: string; 
   tags: string[];
   tableData: TableData[];
 }
 
 const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   title,
-  // imageUrl, // ✅ 주석 처리
+  imageUrl = "/images/no_image.webp", 
   tags = [],
   tableData = [],
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [imgSrc, setImgSrc] = useState(imageUrl); 
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
@@ -27,6 +29,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
 
   return (
     <div className="relative h-auto md:h-[248px] md:p-6 sm:p-10 rounded-lg border border-[#eaeaea] flex flex-col md:flex-row justify-start items-start gap-4 md:gap-6">
+      {/* 북마크 버튼 */}
       <button
         className="absolute md:top-2 md:right-2 sm:top-2 sm:right-1 w-8 h-8 flex justify-center items-center"
         onClick={toggleBookmark}
@@ -41,21 +44,20 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
         />
       </button>
 
-      <div className="relative w-full md:max-w-[200px] h-[200px] sm:max-w-[320px] sm:relative md:static">
-        {/* <img
-          src={imageUrl}
+      <div className="relative w-full md:max-w-[200px] h-[200px] sm:max-w-[320px] sm:relative md:static border border-gray-200 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
+        <Image
+          src={imgSrc}
           alt="제품 이미지"
-          className="w-full h-full rounded border border-gray-200 object-cover"
-        /> */}
-        <div className="w-full h-full border border-gray-200 rounded bg-gray-100"></div>
+          width={200}
+          height={200}
+          className="object-cover w-full h-full"
+          onError={() => setImgSrc("/images/no_image.webp")}
+        />
       </div>
+
       <div className="w-full md:w-[406px] h-auto md:h-48 flex flex-col justify-between items-start">
         <div className="self-stretch flex flex-col-reverse md:flex-col gap-3">
-          <h3 className="text-gray-600 text-headline-b">
-            {title}
-          </h3>
-
-          {/* ✅ 태그 (sm에서는 제목 위, md 이상에서는 제목 아래) */}
+          <h3 className="text-gray-600 text-headline-b">{title}</h3>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, idx) => (
               <div

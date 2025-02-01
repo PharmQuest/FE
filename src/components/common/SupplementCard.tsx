@@ -35,7 +35,7 @@ export default function SupplementCard({
     <div
       className="flex flex-col justify-start items-start"
       style={{
-        width: `160px`,
+        width: `${width}px`,
         height: `226px`,
       }}
     >
@@ -43,7 +43,7 @@ export default function SupplementCard({
         className="relative bg-gray-100 rounded-lg"
         style={{
           width: "100%",
-          height: `160px`,
+          height: `${width}px`,
         }}
       >
         {/* 이미지 */}

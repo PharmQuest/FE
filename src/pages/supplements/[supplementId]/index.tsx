@@ -73,7 +73,7 @@ const SupplementInfo: React.FC = () => {
         </div>
 
         {/* 영양제 더보기 */}
-        <div>
+        <div className="hidden lg:block">
           <MoreSupplements supplements={supplements} imageWidth={287} />
         </div>
       </div>

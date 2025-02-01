@@ -32,8 +32,8 @@ const SupplementPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-8 px-4">
-      <div className="xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full px-5 flex flex-col lg:flex-row items-start lg:items-center mb-4 gap-4 lg:gap-6">
+    <div className="flex flex-col items-center py-8 px-4">
+      <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] flex flex-col lg:flex-row items-start lg:items-center mb-4 gap-4 lg:gap-6">
         <div className="flex items-center ">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
@@ -42,7 +42,7 @@ const SupplementPage: React.FC = () => {
             영양제 저장 목록 <span className="text-gray-600">{supplements.length}</span>개
           </h1>
         </div>
-        <div className="xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full px-5">
+        <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] ">
           <div className="flex gap-2 overflow-x-auto lg:overflow-hidden w-full lg:w-auto flex-nowrap lg:flex-wrap scrollbar-hide">
             <FilterButton text="전체" isSelected />
             <FilterButton text="면역력" />
@@ -54,7 +54,7 @@ const SupplementPage: React.FC = () => {
       </div>
 
 
-      <div className="xl:w-[900px] lg:w-[900px] lg:px-[50px] md:w-[601px] w-full px-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 flex-grow">
+      <div className="py-8 xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5">
         {paginatedSupplements.map((supplement) => (
           <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
             <SupplementCard {...supplement} />
@@ -62,7 +62,7 @@ const SupplementPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="flex items-center justify-center mt-6 space-x-3">
+      <div className="flex items-center justify-center mt-6 space-x-3 py-10">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
