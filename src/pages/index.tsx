@@ -1,7 +1,7 @@
 import Search from "@/components/common/Search";
 import FilterButton from "@/components/common/FilterButton";
 import { GTIcon, WhiteGTIcon } from "@public/svgs";
-import { MedicineImage } from "@public/images";
+import { MedicineImage, ADWeb, ADMobile } from "@public/images";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -45,9 +45,12 @@ export default function Home() {
       <div className="bg-background pb-6 flex justify-center">
         {/* 1000px 이상일 때 */}
         <div
-          className="hidden lg:flex lg:flex-col 
-                            xl:w-[900px] xl:px-0
-                            lg:w-[900px] lg:px-[50px]"
+          className="// 기본 스타일
+                        hidden lg:flex lg:flex-col
+                        // 1000px 초과 (xl)
+                        xl:w-[900px] xl:mx-auto
+                        // 1000px (lg)
+                        lg:w-[900px] lg:mx-[50px]"
         >
           <div className="flex gap-5 justify-center items-center text-white mb-[-40px] pl-7">
             <Link
@@ -103,13 +106,14 @@ export default function Home() {
 
         {/* 1000px 미만일 때 */}
         <div
-          className="lg:hidden
-                            // 태블릿 (642px-999px)
-                            md:w-[601px]
-                            // 모바일 (641px 미만)
-                            w-full px-5"
+          className="// 모바일 (641px 미만)
+                        w-[calc(100%-40px)]
+                        mx-auto
+                        lg:hidden
+                        // 태블릿 (642px-999px)
+                        md:w-[601px]"
         >
-          <div className="text-center text-gray-300 text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">
+          <div className="text-center text-gray-300 text-[10px] font-normal font-['Pretendard Variable'] leading-[15px]">
             본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로
             하며, <br />
             해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.
@@ -157,16 +161,15 @@ export default function Home() {
       {/* 흰 배경 */}
       <div className="bg-white flex justify-center mb-[48px]">
         <div
-          className={`
-                // 1001px 이상
-                xl:w-[900px]
-                // 1000px
-                lg:w-[900px] lg:px-[50px]
-                // 642~1000px 미만
-                md:w-[601px]
-                // 641px 미만
-                w-full px-5
-            `}
+          className={`// 641px 미만
+                        w-[calc(100%-40px)]
+                        mx-auto
+                        // 1001px 이상
+                        xl:w-[900px] xl:mx-auto
+                        // 1000px
+                        lg:w-[900px] lg:mx-[50px]
+                        // 642~1000px 미만
+                        md:w-[601px] md:mx-auto`}
         >
           <div className="lg:h-[366px] h-fit flex grow flex-col">
             <Link
@@ -177,13 +180,13 @@ export default function Home() {
             </Link>
             <div
               className="flex                   
-                                    // 1000px 이상
-                                    lg:flex-row lg:justify-between
-                                    // 1000px 이하
-                                    flex-col"
+                            // 1000px 이상
+                            lg:flex-row lg:gap-5
+                            // 1000px 이하
+                            flex-col"
             >
               {/* 커뮤니티 코드를 반복문으로 변경 */}
-              <div className="lg:w-[483px] w-full lg:mt-4 lg:mb-4 mr-4 h-[174px] flex-col justify-start items-start flex">
+              <div className="lg:flex-1 max-w-[593px] lg:mt-1 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
                 {community.map((item, index) => (
                   <div
                     key={index}
@@ -213,30 +216,30 @@ export default function Home() {
                 ))}
               </div>
               {/* 광고 */}
-              <div className="mt-6 w-full flex justify-center lg:justify-end lg:w-[287px]">
+              <div className="mt-6 w-full lg:mt-2 lg:w-[287px]">
+                {/* 1000px 이상일 때는 AD(287*215) */}
+                <Image
+                  src={ADWeb}
+                  alt="Advertisement"
+                  className="hidden lg:flex lg:w-[287px] lg:h-[215px]"
+                />
+                {/* 1000px 미만일 때는 ADIphone */}
                 <div
-                  className="relative text-white bg-gradient-to-b from-black to-black
-                                            // 1000px 이상 (lg)
-                                            lg:w-[287px] lg:h-[215px]
-                                            // 641px-999px (md)
-                                            md:max-w-[601px] md:w-full md:h-[240px]
-                                            // 393px-640px (sm)
-                                            sm:w-full sm:h-[238px]
-                                            // 393px 미만
-                                            w-full max-w-[601px] h-[238px]"
+                  className="lg:hidden relative overflow-hidden
+                                md:max-w-[601px] md:w-full md:h-[240px]
+                                sm:w-full sm:h-[240px]
+                                w-full h-[240px]"
                 >
-                  {/* 광고 넘기기 버튼 */}
-                  <div className="absolute right-[20px] bottom-[18px] flex justify-center items-center gap-[9px]">
-                    <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">
-                      &lt;
-                    </button>
-                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                    <div className="w-[5.53px] h-1.5 bg-[#f2f2f2] rounded-full"></div>
-                    <button className="w-[12.90px] h-3.5 bg-[#f2f2f2] rounded-full text-gray-300 flex justify-center items-center">
-                      &gt;
-                    </button>
+                  {/* 텍스트가 광고 위에 오도록 */}
+                  <div className="text-white absolute left-[30px] bottom-[30px] z-10 inline-flex flex-col items-start gap-[8px] font-['Pretendard Variable'] font-bold text-[25px] leading-[30px]">
+                    <div>건강관리는 지금부터</div>
+                    <div>BOOST YOUR HEALTH</div>
                   </div>
+                  <Image
+                    src={ADMobile}
+                    alt="Mobile Advertisement"
+                    className="absolute right-0 h-full min-w-[353px]"
+                  />
                 </div>
               </div>
             </div>
