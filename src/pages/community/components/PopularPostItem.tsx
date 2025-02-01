@@ -31,18 +31,36 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
 
   return (
     <div
-      className={`flex flex-col w-auto h-[117px] gap-2 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === 'white' ? `mx-5 py-4` : `px-5 py-4 rounded-lg`}`}
+      className={`lg:gap-2 flex flex-col w-auto h-[117px] gap-1 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === "primary-50" && `px-5`} py-4 rounded-lg`}
       onClick={() => {
         router.push(`/community/post/${id}`);
       }}
     >
       <div className="flex flex-row gap-2">
-        <SubjectTag text={category} variant="dark" />
-        <p className="text-subhead1-sb">{title}</p>
-        <Tag variant="best" />
+        <SubjectTag 
+          text={category} 
+          variant="dark"
+          className={`
+            lg:w-[64px] lg:text-body2-r
+            min-w-[50px] w-[50px] h-[22px] px-1.5 py-0.5 text-m-subhead2-sb`}/>
+        <p 
+          className="
+            lg:text-subhead1-sb
+            text-m-subhead1-sb truncate">{title}</p>
+        <Tag 
+          variant="best"
+          className={`
+            lg:text-subhead3-sb lg:border-[2px]
+            !text-m-caption2-r !border`} />
       </div>
-      <p className="text-body1-r text-gray-500 truncate">{content}</p>
-      <div className="flex flex-row justify-between text-body2-r text-gray-400">
+      <p 
+        className="
+          lg:text-body1-r 
+          text-m-body2-r text-gray-500 truncate">{content}</p>
+      <div 
+        className="
+          lg:text-body2-r
+          mt-auto flex flex-row justify-between text-m-caption1-r text-gray-400">
         <p>{createdAt}</p>
         <div className="flex flex-row gap-[10px]">
           <div className="flex flex-row gap-[2px]">
