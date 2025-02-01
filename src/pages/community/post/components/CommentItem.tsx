@@ -53,13 +53,19 @@ const CommentItem: React.FC<CommentItemProps> = ({
     <div className={`flex flex-col gap-5`}>
       <div className="flex flex-col gap-2 px-3 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
-          <div className={`flex gap-1 text-subhead1-sb text-gray-600`}>
+          <div 
+            className={`
+              lg:text-subhead1-sb
+              text-m-subhead1-sb flex gap-1 text-gray-600`}>
             {userName}
             {postUserId === userId && <Tag variant="writer" /> }
           </div>
-          <KebabIcon className={`h-[22px]`}/>
+          <KebabIcon className={`lg:h-[22px] h-[20px]`}/>
         </div>
-        <p className="text-body1-r text-gray-500">{content}</p>
+        <p 
+          className="
+              lg:text-body1-r
+             text-m-body2-r text-gray-500">{content}</p>
         <div className="flex flex-row justify-between text-body2-r text-gray-400">
           <p>{formattedDate}</p>
           <div className="flex flex-row gap-[10px]">
