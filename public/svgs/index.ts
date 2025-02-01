@@ -3,7 +3,6 @@ export { default as CommentIcon } from "./comment.svg";
 export { default as GlobeIcon } from "./globe.svg";
 export { default as LikeIcon } from "./like.svg";
 export { default as MapPinIcon } from "./map-pin.svg";
-export { default as ScrapIcon } from "./scrap.svg";
 export { default as SearchIcon } from "./search.svg";
 export { default as ArrowRightIcon } from "./arrow-right.svg";
 export { default as ExternalIcon } from "./external-link.svg";
