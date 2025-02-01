@@ -9,18 +9,15 @@ const Footer = () => {
 
   return (
     <div className="w-full bg-secondary-500 text-white">
-      <div
-        className="box-border
-				mx-auto
-                // PC 1001-1440px
-				xl:w-[900px]
-                // PC 1000px일 때
-				lg:w-[900px] lg:px-[50px]
-                // 태블릿 (641px - 1000px)
-                md:w-[601px]
-                // 모바일 (641px 미만)
-                w-full px-5"
-      >
+      <div className="box-border
+                      // 641px 미만 (모바일)
+                      w-[calc(100%-40px)] mx-5
+                      // 641px - 999px (태블릿)
+                      md:w-[601px] md:mx-auto
+                      // 1000px
+                      lg:w-[900px] lg:mx-[50px]
+                      // 1001px 이상
+                      xl:w-[900px] xl:mx-auto">
         <div className=" flex flex-col mt-[48px] gap-6 pt-3 pb-6">
           <div className="flex flex-row gap-3 lg:text-subhead1-sb text-sm">
             <p className="cursor-pointer">Service 안내</p>|
