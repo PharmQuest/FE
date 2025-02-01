@@ -60,8 +60,8 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
       </div>
 
       <div className="flex w-[145px] flex-col items-start">
-        <div className="w-[176px] flex items-center mb-3 gap-[1px]">
-          <div className="w-[122px] text-subhead1-sb text-gray-600 truncate overflow-hidden whitespace-nowrap ">
+        <div className="w-[176px] flex items-center mb-3 gap-1">
+          <div className="max-w-[122px] text-subhead1-sb text-gray-600 truncate overflow-hidden whitespace-nowrap ">
             {pharmacy.name}
           </div>
           <IsOpenTag isOpen={pharmacy.opening_hours?.isOpen() ?? false} />
