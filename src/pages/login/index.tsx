@@ -56,7 +56,7 @@ export default function Login() {
             <p className="md:text-subhead1-sb text-m-subhead1-sb  text-gray-300 text-center mb-6 mt-[104px]">
               소셜 로그인으로 간편하게 시작해보세요.
             </p>
-            <div className="w-full px-8 flex flex-col items-center gap-4">
+            <div className="w-full px-8 flex flex-col items-center md:gap-4 gap-3 ">
               {/* 일반 로그인 버튼 */}
               <Image
                 src={NaverLoginButton}
