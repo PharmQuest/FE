@@ -61,7 +61,7 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
 
       <div className="flex w-[145px] flex-col items-start">
         <div className="w-[176px] flex items-center mb-3 gap-1">
-          <div className="max-w-[122px] text-subhead1-sb text-gray-600 truncate overflow-hidden whitespace-nowrap ">
+          <div className="max-w-[122px] text-subhead1-sb text-gray-600 truncate">
             {pharmacy.name}
           </div>
           <IsOpenTag isOpen={pharmacy.opening_hours?.isOpen() ?? false} />
@@ -71,8 +71,8 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
           <div className="text-gray-500 text-subhead2-sb">
             {pharmacy.distance}
           </div>
-          <div className="items-center gap-1.5 inline-flex">
-            <div className="text-gray-400 text-sm">{pharmacy.vicinity}</div>
+          <div className="w-[176px] text-gray-400 text-sm truncate">
+            {pharmacy.vicinity}
           </div>
         </div>
       </div>
