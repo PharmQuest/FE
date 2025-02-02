@@ -51,7 +51,7 @@ const MyPage: React.FC<MyPageProps> = ({
         <div className="flex justify-between items-center mb-4">
           <Link href="/community/activities" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>나의 활동</h2>
-            <ArrowRightIcon className="w-6 text-gray-500" />
+            <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
         <p className="text-gray-400 text-body1-r text-left md:text-center">
@@ -65,7 +65,7 @@ const MyPage: React.FC<MyPageProps> = ({
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/medicines" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>상비약 저장 목록</h2>
-            <ArrowRightIcon className="w-6 text-gray-500" />
+            <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
         {medicines.length > 0 ? (
@@ -90,7 +90,7 @@ const MyPage: React.FC<MyPageProps> = ({
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>약국 저장 목록</h2>
-            <ArrowRightIcon className="w-6 text-gray-500" />
+            <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
         {pharmacys.length > 0 ? (
@@ -115,7 +115,7 @@ const MyPage: React.FC<MyPageProps> = ({
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/supplement" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2>영양제 저장 목록</h2>
-            <ArrowRightIcon className="w-6 text-gray-500" />
+            <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
         {supplements.length > 0 ? (
