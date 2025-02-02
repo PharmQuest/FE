@@ -38,13 +38,15 @@ const PharmacyHeader: React.FC<PharmacyHeaderProps> = ({
         </div>
         <CloseIcon
           onClick={onClose}
-          className="absolute top-4 right-4 cursor-pointer"
+          className="w-[34px] h-[34px] absolute top-4 right-4 cursor-pointer  p-1 rounded-full hover:bg-black/20 transition-colors"
         />
       </div>
 
       <div className="flex flex-col gap-2 border-b pb-4 border-gray-100 py-4 pl-5">
         <div className="flex flex-row gap-2 items-center">
-          <p className="text-headline-m text-gray-600">{pharmacy.name}</p>
+          <p className="text-headline-m text-gray-600 max-w-[280px]">
+            {pharmacy.name}
+          </p>
           <IsOpenTag isOpen={pharmacy.opening_hours?.isOpen() ?? false} />
         </div>
         {pharmacy.rating && <RatingStars rating={pharmacy.rating} />}
