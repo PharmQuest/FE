@@ -11,6 +11,8 @@ const AdditionalHeader = ({
   const segments = pathName.split("/");
   let currentTitle: string = "";
 
+
+
   const isHome = pathName === "/" ? true : false;
 
   switch (segments[1]) {
@@ -58,11 +60,12 @@ const AdditionalHeader = ({
               </p>
             </div>
 
-            {!isHome && !segments[2] &&
-              <div className={`lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
+            {!isHome &&
+              <div className={`${segments[2] && `hidden lg:block`} lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
                 <Search />
               </div>
             }
+            
 
 
           </div>
