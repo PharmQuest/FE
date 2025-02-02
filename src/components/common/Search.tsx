@@ -61,7 +61,7 @@ const Search = () => {
           <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5 ml-[2px]` : `w-6`}`} />
           <input
             type="text"
-            className={`grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
+            className={`w-full grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
             placeholder="복통약"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
