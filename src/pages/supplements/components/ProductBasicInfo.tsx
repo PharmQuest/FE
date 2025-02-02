@@ -31,7 +31,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
     <div className="relative h-auto md:h-[248px] md:p-6 sm:p-10 rounded-lg border border-[#eaeaea] flex flex-col md:flex-row justify-start items-start gap-4 md:gap-6">
       {/* 북마크 버튼 */}
       <button
-        className="absolute md:top-2 md:right-2 sm:top-2 sm:right-1 w-8 h-8 flex justify-center items-center"
+        className="absolute lg:top-6 lg:right-6 md:top-6 md:right-6 sm:top-2 sm:right-1 w-7 h-7 flex justify-center items-center"
         onClick={toggleBookmark}
         aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}
       >
@@ -57,12 +57,12 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
 
       <div className="w-full md:w-[406px] h-auto md:h-48 flex flex-col justify-between items-start">
         <div className="self-stretch flex flex-col-reverse md:flex-col gap-3">
-          <h3 className="text-gray-600 text-headline-b">{title}</h3>
+          <h3 className="lg:w-full md:w-[300px] text-gray-600 text-headline-b">{title}</h3>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, idx) => (
               <div
                 key={idx}
-                className="px-2 py-0.5 bg-primary-50 rounded text-sm font-semibold text-[#474747]"
+                className="px-2 py-0.5 bg-primary-50 text-subhead2-sb text-gray-500"
               >
                 {tag}
               </div>
@@ -73,9 +73,9 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
         <div className="h-auto md:h-[88px] w-full">
           {tableData.map((item, idx) => (
             <div key={idx} className="grid grid-cols-[auto_10px_1fr] gap-2 items-center w-full">
-              <span className="text-gray-400 text-base font-semibold">{item.label}</span>
-              <span className="text-gray-400 text-base font-semibold">|</span>
-              <span className="text-gray-400 text-base font-semibold">{item.value}</span>
+              <span className="text-gray-400 text-subhead1-sb">{item.label}</span>
+              <span className="text-gray-400 text-subhead1-sb">|</span>
+              <span className="text-gray-400 text-subhead1-sb">{item.value}</span>
             </div>
           ))}
         </div>
