@@ -11,18 +11,18 @@ interface MoreSupplementsProps {
   imageWidth?: number; 
 }
 
-function MoreSupplements({ supplements=[], imageWidth = 168 }: MoreSupplementsProps) {
+function MoreSupplements({ supplements=[], imageWidth }: MoreSupplementsProps) {
   return (
     <div className="mt-16">
       <h3 className="text-display2-b text-gray-600 mb-6">영양제 더보기</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
         {supplements.map((supplement) => (
           <SupplementCard
             key={supplement.id}
             country={supplement.country}
             title={supplement.title}
             tags={supplement.tags}
-            width={imageWidth ?? 168} 
+            width={imageWidth ?? 260} 
           />
         ))}
       </div>

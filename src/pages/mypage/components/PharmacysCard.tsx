@@ -1,26 +1,24 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { BookmarkIcon } from "@public/svgs";
 
 interface PharmacysCardProps {
   pharmacyName?: string;
-  status?: boolean;
-  closingTime?: string;
-  distance?: string;
   location?: string;
+  imageUrl?: string; // 이미지 URL 추가
   isBookmarked?: boolean;
   onBookmarkToggle?: () => void; // 북마크 상태 변경 함수
 }
 
 const PharmacysCard: React.FC<PharmacysCardProps> = ({
   pharmacyName = "다나아약국",
-  status = true,
-  closingTime = "18:00",
-  distance = "500m",
   location = "서울 중구 중앙동",
+  imageUrl,
   isBookmarked = false,
   onBookmarkToggle,
 }) => {
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
+  const [src, setSrc] = useState(imageUrl || "/images/no_image.webp"); // 기본 이미지 설정
 
   const handleBookmark = (e: React.MouseEvent) => {
     e.stopPropagation(); // 클릭 이벤트 전파 방지
@@ -29,43 +27,43 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
   };
 
   return (
-    <div className="relative min-w-[250px] max-w-[500px] h-[126px] pl-5 py-5 rounded-lg border border-gray-200 flex items-center gap-3">
-      {/* Bookmark Icon */}
-      <div className="absolute top-4 right-2 h-[100%]">
+    <div
+      className={`relative border border-gray-100 rounded-lg flex items-center gap-3 p-5
+      xl:max-w-[440px] lg:w-[440px] md:w-full sm:w-full sm h-[160px] px-5`}
+    >
+      {/* 북마크 아이콘 */}
+      <button
+        className="absolute top-4 right-4 flex items-center justify-center"
+        onClick={handleBookmark}
+      >
         <BookmarkIcon
-          className="cursor-pointer w-5"
-          onClick={handleBookmark}
+          className=" w-[30px] h-[30px] cursor-pointer"
           stroke={isBookmark ? "#FFD755" : "#707070"}
           fill={isBookmark ? "#FFD755" : "none"}
         />
+      </button>
+
+      {/* 약국 썸네일 */}
+      <div
+        className={`
+          md:w-[138px] md:h-[138px] 
+          rounded w-[100px] h-[100px] flex items-center
+        `}
+      >
+        <Image
+          className="w-full h-full object-cover"
+          src={src}
+          alt="약국 이미지"
+          width={100}
+          height={100}
+          onError={() => setSrc("/images/no_image.webp")}
+        />
       </div>
 
-      {/* Thumbnail */}
-      <div className="w-[86px] h-[86px] bg-gray-200 rounded"></div>
-
-      {/* Content */}
-      <div className="flex-1 flex-col justify-start items-start gap-3">
-        {/* Header */}
-        <div className="flex items-center gap-[3px]">
-          <div className="text-gray-600 text-base font-semibold">{pharmacyName}</div>
-          <div
-            className={`px-1 rounded flex items-center ${
-              status ? "bg-primary-300 text-white" : "bg-gray-300 text-gray-600"
-            }`}
-          >
-            <div className="text-xs font-semibold">{status ? "영업중" : ""}</div>
-          </div>
-        </div>
-
-        {/* Details */}
-        <div className="w-full flex-col gap-0.5">
-          <div className="text-gray-400 text-sm font-normal">{closingTime}에 영업 종료</div>
-          <div className="flex items-center gap-1.5">
-            <div className="text-gray-500 text-sm font-semibold">{distance}</div>
-            <div className="w-0.5 h-0.5 bg-gray-200 rounded-full"></div>
-            <div className="text-gray-400 text-sm font-normal">{location}</div>
-          </div>
-        </div>
+      {/* 약국 정보 */}
+      <div className="flex-1 flex flex-col justify-start self-start gap-3">
+        <div className="text-gray-600 text-subhead1-sb">{pharmacyName}</div>
+        <div className="text-gray-400 text-body1-r">{location}</div>
       </div>
     </div>
   );

@@ -6,8 +6,8 @@ interface UsagePurposeProps {
 
 const UsagePurpose: React.FC<UsagePurposeProps> = ({ content=[] }) => {
   return (
-    <div className="p-5 bg-gray-50 rounded-lg border border-gray-100">
-      <ul className="list-disc list-inside text-gray-600 text-base">
+    <div className="p-6 bg-gray-50 rounded-lg border border-gray-100">
+      <ul className="list-disc list-outside text-gray-600 text-base">
         {content.map((item, idx) => (
           <li key={idx} className="mb-1">
             {item}
