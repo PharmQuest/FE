@@ -25,6 +25,7 @@ export default {
         "subhead2-sb": ["14px", { lineHeight: "21px", fontWeight: "600" }],
         "subhead3-sb": ["12px", { lineHeight: "18px", fontWeight: "600" }],
         "body1-r": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+        "body1-sb": ["16px", { lineHeight: "24px", fontWeight: "600" }],
         "body2-r": ["14px", { lineHeight: "21px", fontWeight: "400" }],
         "caption1-r": ["12px", { lineHeight: "18px", fontWeight: "400" }],
         "caption2-l": ["10px", { lineHeight: "15px", fontWeight: "300" }],

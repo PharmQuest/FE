@@ -32,7 +32,7 @@ const NoticeModal = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="px-4 py-2 bg-gray-400 text-white rounded">
+            <div className="lg:text-subhead1-sb px-4 py-2 bg-gray-400 text-white rounded text-m-subhead1-sb">
               {modalText}
             </div>
           </motion.div>

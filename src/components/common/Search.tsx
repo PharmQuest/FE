@@ -1,46 +1,67 @@
-import React, { useState } from "react";
-import { SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon, SmallGreenMapPinIcon } from "@public/svgs"
+import React, { useEffect, useState } from "react";
+import { SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon } from "@public/svgs"
 import { useRouter } from "next/router";
+import SearchModal from "./SearchModal";
+import { MouseEvent } from "react";
 
-interface SearchProps {
-  textLabel?: string; // TextLabel은 선택적
-  countryLabel?: string; // 나라 이름 (ex: 전체, 한국, 미국)
-}
 
-const Search: React.FC<SearchProps> = ({
-  textLabel,
-  countryLabel = "전체", // 기본값
-}) => {
+const Search = () => {
 
   const router = useRouter();
   const pathName = router.pathname;
   const isHomePage = pathName === '/' ? true : false;
 
   const [searchText, setSearchText] = useState("");
+  const [countryValue, setCountryValue] = useState("");
+  const [countryText, setCountryText] = useState("전체");
+
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  const handleSearchModal = (e:MouseEvent) => {
+    e.stopPropagation();
+    setIsSearchModalOpen(!isSearchModalOpen);
+  }
+
+  useEffect(() => {
+    setCountryValue("");
+    setCountryText("전체");
+    setIsSearchModalOpen(false);
+  }, [router])
+
+
 
   return (
-    <div className="w-[100%] flex items-center gap-4">
-      {/* TextLabel */}
-      {textLabel && (
-        <span className="text-display1-b text-gray-800">{textLabel}</span>
-      )}
-
+    <div className="w-full flex items-center gap-4">
       {/* 검색창 */}
-      <div className={`lg:px-6 flex items-center bg-white rounded-full flex-grow shadow-md ${isHomePage ? `lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-4 py-2 gap-2` : `h-10 px-4 py-2 gap-4`} `}>
+      <div className={`
+          ${isHomePage ? `lg:px-6 lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-4 py-2 gap-2` : `lg:px-[16px] h-10 px-4 py-2 gap-4`} 
+          relative flex items-center bg-white rounded-full flex-grow shadow-md w-full`}>
         {/* 위치선택 */}
-        <button className={`flex items-center lg:gap-2 gap-[2px] bg-none rounded-full text-gray-500`}>
+        <button 
+          className={`flex items-center lg:gap-2 gap-1 bg-none rounded-full text-gray-500`}
+          onClick={(e) => handleSearchModal(e)}>
           {/* 반응형 아이콘 */}
-          <GreenMapPinIcon className={`hidden lg:block ${isHomePage ? 'w-7' : 'w-5'}`} /> {/* lg에서만 보이는 GreenMapPinIcon */}
-          <SmallGreenMapPinIcon className={`lg:hidden ${isHomePage ? 'w-4' : 'w-5'}`} /> {/* lg 이하에서만 보이는 SmallGreenMapPinIcon */}
-          
-          <p className={`${isHomePage ? `w-[35px] lg:text-headline-m text-sm text-[#006367]` : `w-7 text-body1-r`}`}>{countryLabel}</p>
+          <GreenMapPinIcon className={`
+            ${isHomePage && 'lg:w-7'} 
+            ${countryValue === "" ? `text-gray-500 lg:text-headline-m` : `text-secondary-500 lg:text-headline-b`}
+            w-5`} />
+
+
+          <p className={`
+            ${isHomePage ?
+              `w-fit text-sm 
+              ${countryValue === "" ? `text-gray-500 lg:text-headline-m` : `text-secondary-500 lg:text-headline-b`}`
+              :
+              `w-fit text-body1-r
+              ${countryValue === "" ? `text-gray-500 lg:text-body1-r` : `text-secondary-500 lg:text-body1-sb`}`}
+          `}>{countryText}</p>
         </button>
-        <SearchBarIcon className={`${isHomePage ? `lg:ml-3 lg:mr-2 lg:h-[22px] h-3` : `h-4`}`}/>
+        <SearchBarIcon className={`${isHomePage ? `lg:ml-3 lg:mr-2 lg:h-[22px] h-3` : `h-4`}`} />
         <div className={`flex gap-2 grow`}>
           <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5 ml-[2px]` : `w-6`}`} />
           <input
             type="text"
-            className={`grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
+            className={`w-full grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
             placeholder="복통약"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
@@ -51,6 +72,8 @@ const Search: React.FC<SearchProps> = ({
             className={`cursor-pointer ${isHomePage ? `lg:w-5 w-[6.67px]` : `w-4 mr-1`}`}
             onClick={() => setSearchText('')} />
         }
+
+        <SearchModal countryValue={countryValue} setCountryValue={setCountryValue} setCountryText={setCountryText} isSearchModalOpen={isSearchModalOpen} setIsSearchModalOpen={setIsSearchModalOpen}/>
       </div>
     </div>
   );

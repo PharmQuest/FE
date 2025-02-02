@@ -120,7 +120,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
                 className={`
                   lg:h-[33px]
                   md:h-[26px] md:text-subhead2-sb
-                  w-[50px] h-[22px] text-m-subhead2-sb`} />
+                  w-fit px-2 h-[22px] text-m-subhead2-sb`} />
               <div
                 className="
                 lg:text-headline-b

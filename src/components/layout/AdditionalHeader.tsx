@@ -1,7 +1,43 @@
 import { ReactNode } from "react";
 import Search from "../common/Search";
+import FilterButtonList from "../common/FilterButtonList";
 
-const MedicineHeader = ({
+const FILTER_LIST = [
+  {
+    text: "진통/해열",
+    isHomeButton: true,
+  },
+  {
+    text: "소화/위장",
+    isHomeButton: true,
+  },
+  {
+    text: "감기/기침",
+    isHomeButton: true,
+  },
+  {
+    text: "알레르기",
+    isHomeButton: true,
+  },
+  {
+    text: "상처/소독",
+    isHomeButton: true,
+  },
+  {
+    text: "멀미",
+    isHomeButton: true,
+  },
+  {
+    text: "안약",
+    isHomeButton: true,
+  },
+  {
+    text: "기타",
+    isHomeButton: true,
+  },
+]
+
+const AdditionalHeader = ({
   children,
   pathName,
 }: {
@@ -11,8 +47,9 @@ const MedicineHeader = ({
   const segments = pathName.split("/");
   let currentTitle: string = "";
 
-  const hideHeaderPaths = ["/community/activities", "/community/post/create"];
-  const showAdditionalHeader = !hideHeaderPaths.includes(pathName);
+
+
+  const isHome = pathName === "/" ? true : false;
 
   switch (segments[1]) {
     case "medicines":
@@ -20,9 +57,7 @@ const MedicineHeader = ({
       break;
 
     case "community":
-      if (!hideHeaderPaths.includes(pathName)) {
-        currentTitle = `커뮤니티`;
-      }
+      currentTitle = `커뮤니티`;
       break;
 
     case "supplements":
@@ -39,39 +74,40 @@ const MedicineHeader = ({
 
   return (
     <>
-      {currentTitle !== "" && showAdditionalHeader ? (
-        <div
-          className={`${
-            pathName === "/map" ? "white" : `bg-background`
-          } flex flex-col`}
-        >
+      {currentTitle !== "" ? (
+        <div className={`bg-background flex flex-col`}>
           {children}
           <div
-            className={`pl-[260px] pr-[260px] flex gap-5 whitespace-nowrap flex-col`}
-          >
+            className={`
+              lg:w-[900px] lg:gap-5
+              md:w-[600px] md:m-auto 
+              flex whitespace-nowrap flex-col w-full`}>
             <div
-              className={`flex items-center gap-5 ${
-                segments[1] !== "medicines" && `mb-9`
-              }`}
-            >
-              <h1 className={`text-display1-b text-gray-600 flex`}>
+              className={`
+                lg:flex
+                hidden items-center gap-5`}>
+              <h1 className={`text-display1-b text-gray-600 `}>
                 {currentTitle}
               </h1>
-              {segments[1] === `mypage` || segments[1] === `medicines` ? (
-                <p className={`text-body2-r text-gray-300`}>
-                  본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을
-                  목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지
-                  않습니다.
-                </p>
-              ) : (
-                <Search />
-              )}
+              <p className={`text-body2-r text-gray-300`}>
+                본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을
+                목표로 하며, 제공되는 정보는 의료 전문가의 조언을 대체 하지
+                않습니다.
+              </p>
             </div>
-            {segments[1] === "medicines" && (
-              <div className={`mb-9`}>
-                <Search />
-              </div>
-            )}
+
+            {!isHome &&
+              <>
+                <div className={`${segments[2] && `hidden lg:block`} lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
+                  <Search />
+                </div>
+
+                {/* 출력 하는 곳 안하는 곳 추가 수정 필요 */}
+                <div className={`lg:hidden`}>
+                  <FilterButtonList filterLists={FILTER_LIST} className={`md:px-0 px-5 mb-4`}/>
+                </div>
+              </>
+            }
           </div>
         </div>
       ) : (
@@ -81,4 +117,4 @@ const MedicineHeader = ({
   );
 };
 
-export default MedicineHeader;
+export default AdditionalHeader;
