@@ -1,4 +1,4 @@
-import axiosInstance from "@/apis/axios-instance";
+import { axiosInstance } from "@/apis/axios-instance";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 

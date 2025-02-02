@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TextButton from "../../components/TextButton";
-import axiosInstance from "@/apis/axios-instance";
+import { axiosInstance } from "@/apis/axios-instance";
 import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 
