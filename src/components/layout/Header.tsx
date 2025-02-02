@@ -59,11 +59,8 @@ const Header = () => {
   return (
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
-      <div
-        className={`w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}
-      >
-        <div
-          className={`
+      <div className={`fixed z-[1000] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
+          <div className={`
             // 기본 스타일
             flex items-center gap-12
             // 1000px 초과 (xl)
@@ -155,7 +152,7 @@ const Header = () => {
         >
           <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar} />
           <LogoIcon onClick={() => router.push("/")} />
-          <AccountCircleIcon onClick={() => router.push("/mypage")} />
+          <AccountCircleIcon className={`text-gray-600 w-7`} onClick={() => router.push("/mypage")} />
         </div>
       </div>
       {/* 사이드바 */}

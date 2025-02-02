@@ -12,9 +12,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ onDirectionsClick }) => {
     <div className="grid grid-cols-3 pt-4 pb-3 items-center justify-center text-subhead3-sb text-gray-400">
       <div className="flex flex-col gap-1 text-center items-center cursor-pointer">
         <BookmarkIcon
-          className="w-6 h-6"
+          className={`w-6 h-6 ${isBookmark ? `text-mark-scrap` : `text-gray-500`}`}
           onClick={() => setIsBookmark(!isBookmark)}
-          stroke={isBookmark ? "#FFD755" : "#707070"}
           fill={isBookmark ? "#FFD755" : "none"}
         />
         <p>저장</p>

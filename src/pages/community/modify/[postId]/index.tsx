@@ -1,6 +1,6 @@
 // 커뮤니티_게시글 수정
 
-import { CameraIcon, XIcon } from "@public/svgs";
+import { CameraIcon, LeftArrowIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Dropdown from "../../components/Dropdown";
@@ -124,13 +124,13 @@ export default function ModifyPost() {
   }
 
   useEffect(() => {
-      const axiosError = error as AxiosError<{ code?: string }>
-      if(axiosError?.response?.data.code === "POST4005" ) {
-        setNoticeModalText("존재하지 않는 게시글입니다.");
-        setIsNoticeModalOpen(true);
-        router.push("/community")
-      }
-    }, [error])
+    const axiosError = error as AxiosError<{ code?: string }>
+    if (axiosError?.response?.data.code === "POST4005") {
+      setNoticeModalText("존재하지 않는 게시글입니다.");
+      setIsNoticeModalOpen(true);
+      router.push("/community")
+    }
+  }, [error])
 
   useEffect(() => {
     if (title?.trim() && content?.trim() && category?.trim()) {
@@ -152,90 +152,135 @@ export default function ModifyPost() {
 
   return (
     // 게시글 작성 페이지 Container
-    <div className={`max-w-[900px] mx-auto`}>
-      <div className={`flex mt-[48px] mb-[12px] justify-between items-center`}>
-        <h1 className={`text-display2-b text-gray-600`}>
+    <>
+      <div
+        className={`
+          md:hidden
+          z-[999] flex sticky top-0 bg-white px-5 py-4 justify-between shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
+        <div className={`flex gap-3 text-m-headline1-b text-gray-600 items-center`}>
+          <LeftArrowIcon className={`h-[22px]`} />
           게시글 수정
-        </h1>
-        <div className={`flex gap-3 h-8`}>
-          <button
-            className={`px-4 py-1 rounded-[4px] text-subhead1-sb text-gray-400 border border-solid border-gray-100`}
-            disabled={isSubmitDisabled}
-            onClick={() => router.push("/community")}>
-            취소
-          </button>
-          <button
-            className={`px-4 py-1 rounded-[4px] text-subhead1-sb bg-primary-300 text-white disabled:bg-gray-100 disabled:text-gray-400`}
-            disabled={isSubmitDisabled}
-            onClick={handleSubmit}>
-            저장
-          </button>
         </div>
+        <button
+          className={`px-4 py-1 rounded-[4px] bg-primary-300 text-m-subhead1-sb text-white disabled:bg-gray-100 disabled:text-gray-400`}
+          disabled={isSubmitDisabled}
+          onClick={handleSubmit}>
+          저장
+        </button>
       </div>
-      {/* 게시글 작성 box */}
-      <div className={`p-6 flex gap-5 flex-col rounded-[8px] border border-gray-100 min-h-[726px]`}>
 
-        {/* dropdown wrapper */}
-        <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
-
-          <Dropdown info={categoryInfo} initialText={categoryText} value={category} setValue={setCategory} />
-          <Dropdown info={countryInfo} initialText={"위치 추가 (선택)"} value={country} setValue={setCountry} />
-
-        </div>
-
-        <input
-          className={`px-6 py-5 outline-0 bg-gray-50 text-subhead1-sb text-gray-600  rounded-[4px] placeholder-gray-400 placeholder:text-body1-r`}
-          placeholder="제목을 입력하세요."
-          value={title}
-          maxLength={100}
-          onChange={(e) => setTitle(e.target.value)}>
-        </input>
-
-        <div className={`flex flex-col rounded-[4px] px-6 py-5 border border-gray-100 grow`}>
-          <textarea
-            ref={textareaRef}
-            className={`h-auto resize-none grow outline-0 text-body1 text-gray-600 overflow-hidden placeholder-gray-300`}
-            placeholder="내용을 입력하세요."
-            value={content}
-            maxLength={3000}
-            onChange={handleTextareaHeight}>
-
-          </textarea>
-          {uploadImage &&
-            <div className={`relative mt-5 group`}>
-              <Image
-                src={uploadImage}
-                alt="이미지"
-                width={100}
-                height={100}
-                className={`w-full`} />
-
-              {/* Image에 hover 시 X 버튼 등장 */}
-              <XIcon
-                onClick={() => setUploadImage("")}
-                className={`absolute top-3 right-3 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`} />
-            </div>
-          }
-          <div className={`flex justify-between mt-5`}>
-            <label
-              htmlFor="file"
-              className={`flex gap-2 text-center`}>
-              <CameraIcon />
-              <p className={`self-center text-subhead2-sb text-gray-400 cursor-pointer`}>사진 삽입하기</p>
-
-            </label>
-            <input
-              id="file"
-              type="file"
-              className={`hidden`}
-              onChange={handleImageUpload}
-              // 파일 등록 사진으로 제한
-              accept="image/*" />
-
-            <p className={`text-gray-300`}>{content?.length}/3000</p>
+      <div className={`
+            lg:max-w-[900px] 
+            md:max-w-[600px] md:mx-auto`}>
+        <div
+          className={`
+            md:flex
+            hidden mt-[48px] mb-[12px] justify-between`}>
+          <h1 className={`text-display2-b text-gray-600`}>
+            게시글 수정
+          </h1>
+          <div className={`flex gap-3 h-8`}>
+            <button
+              className={`px-4 py-1 rounded-[4px] text-subhead1-sb text-gray-400 border border-solid border-gray-100`}
+              disabled={isSubmitDisabled}
+              onClick={() => router.push("/community")}>
+              취소
+            </button>
+            <button
+              className={`
+                md:block
+                hidden px-4 py-1 rounded-[4px] bg-primary-300 text-subhead1-sb text-white disabled:bg-gray-100 disabled:text-gray-400`}
+              disabled={isSubmitDisabled}
+              onClick={handleSubmit}>
+              저장
+            </button>
           </div>
         </div>
-      </div>
-    </div >
+        {/* 게시글 작성 box */}
+        <div className={`
+            md:border md:gap-5
+            gap-2 p-6 flex flex-col rounded-[8px] border-0 border-gray-100 min-h-[726px]`}>
+
+          {/* dropdown wrapper */}
+          <div className={`grid grid-cols-2 gap-6 w-[100%]`}>
+
+            <Dropdown info={categoryInfo} initialText={categoryText} value={category} setValue={setCategory} />
+            <Dropdown info={countryInfo} initialText={"위치 추가 (선택)"} value={country} setValue={setCountry} />
+
+          </div>
+
+          <input
+            className={`
+              md:text-subhead1-sb md:placeholder:text-body1-r md:px-6 md:py-5
+              text-m-subhead1-sb placeholder:text-m-body2-r px-4 py-3 outline-0 bg-gray-50 text-gray-600  rounded-[4px] placeholder-gray-400`}
+            placeholder="제목을 입력하세요."
+            value={title}
+            maxLength={100}
+            onChange={(e) => setTitle(e.target.value)}>
+          </input>
+
+          <div
+            className={`
+              md:px-6 md:py-5
+              px-4 py-5 flex flex-col rounded-[4px] border border-gray-100 grow`}>
+            <textarea
+              ref={textareaRef}
+              className={`
+                md:text-subhead1-sb md:placeholder:text-body1-r
+                text-m-body2-r h-auto resize-none grow outline-0 text-body1 text-gray-600 overflow-hidden placeholder-gray-300`}
+              placeholder="내용을 입력하세요."
+              value={content}
+              maxLength={3000}
+              onChange={handleTextareaHeight}>
+
+            </textarea>
+            {uploadImage &&
+              <div className={`relative mt-5 group`}>
+                <Image
+                  src={uploadImage}
+                  alt="이미지"
+                  width={100}
+                  height={100}
+                  className={`w-full`} />
+
+                {/* Image에 hover 시 X 버튼 등장 */}
+                <XIcon
+                  onClick={() => setUploadImage("")}
+                  className={`absolute top-3 right-3 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`} />
+              </div>
+            }
+            <div className={`flex justify-between mt-5`}>
+              <label
+                htmlFor="file"
+                className={`
+                  md:gap-2
+                  gap-1.5 flex text-center`}>
+                <CameraIcon 
+                  className={`
+                    md:w-6
+                    w-[20px]`}/>
+                <p 
+                className={`
+                  md:text-subhead2-sb
+                  text-m-subhead1-sb self-center text-gray-400 cursor-pointer`}>사진 삽입하기</p>
+
+              </label>
+              <input
+                id="file"
+                type="file"
+                className={`hidden`}
+                onChange={handleImageUpload}
+                // 파일 등록 사진으로 제한
+                accept="image/*" />
+
+              <p 
+                className={`
+                  md:text-body1-r
+                  text-m-body2-r text-gray-300`}>{content.length}/3000</p>
+            </div>
+          </div>
+        </div>
+      </div >
+    </>
   );
 }

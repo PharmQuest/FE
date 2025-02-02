@@ -1,59 +1,26 @@
 import React from "react";
-import NavbarItem from "./NavbarItem";
 import { useRouter } from "next/router";
-const USER_NAVBAR_ITEMS = [
-  {
-    text: "마이페이지",
-    path: "/mypage",
-  },
-  {
-    text: "작성한 게시글",
-    path: "/community/activities",
-    activePath: "posts",
-  },
-  {
-    text: "작성한 댓글",
-    path: "/community/activities",
-    activePath: "comments",
-  },
-  {
-    text: "게시글 스크랩",
-    path: "/community/activities",
-    activePath: "scraps",
-  },
-  {
-    text: "알림",
-    path: "/community/activities",
-    activePath: "notifications",
-  },
-] as const;
-
-type UserNavbarItem = (typeof USER_NAVBAR_ITEMS)[number];
+import { AccountCircleIcon, BookmarkIcon, CommentIcon, NoticeIcon, PostIcon } from "@public/svgs";
 
 const UserNavbar = () => {
   const router = useRouter();
-
-  const handleNavigation = (item: UserNavbarItem) => {
-    const queryParam =
-      "activePath" in item && item.activePath
-        ? `?tab=${encodeURIComponent(item.activePath)}`
-        : "";
-    router.push(`${item.path}${queryParam}`);
-  };
 
   const handleLogout = () => {
     console.log("로그아웃");
   };
 
   return (
-    <div className="w-[170px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0">
+    <div
+      className="
+        lg:flex flex-col grow
+        hidden w-[170px] h-[375px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0">
       <div className="p-4 pt-[13px]">
         <div className={`flex gap-1`}>
           <p className="text-headline-b text-gray-600">maengso</p>
           <p className={`text-body1-r content-center`}>님</p>
         </div>
         <p className="text-caption1-r text-gray-300">naver 로그인</p>
-        <div className=" flex flex-col gap-4">
+        <div className=" flex flex-col gap-2.5">
           <button
             className="w-full h-[37px] py-2 text-center text-subhead2-sb bg-primary-500 text-white rounded-[4px] mt-4"
             onClick={() => router.push("/community/create")}
@@ -68,13 +35,44 @@ const UserNavbar = () => {
           </button>
         </div>
       </div>
-      {USER_NAVBAR_ITEMS.map((item, index) => (
-        <NavbarItem
-          key={index}
-          text={item.text}
-          onClick={() => handleNavigation(item)}
-        />
-      ))}
+
+      <div className={`flex flex-col grow`}>
+        <div
+          className="grow flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+          onClick={() => router.push("/mypage")}>
+          <AccountCircleIcon className={`text-gray-400 w-[18px]`} />
+          마이페이지
+        </div>
+
+        <div
+          className="grow flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+          onClick={() => router.push("/community/activities?tab=posts")}>
+          <PostIcon className={`text-gray-400 w-[18px]`} />
+          작성한 게시글
+        </div>
+
+        <div
+          className="grow flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+          onClick={() => router.push("/community/activities?tab=comments")}>
+          <CommentIcon className={`text-gray-400 w-[18px]`} />
+          작성한 댓글
+        </div>
+
+        <div
+          className="grow flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+          onClick={() => router.push("/community/activities?tab=scraps")}>
+          <BookmarkIcon stroke="#707070" className={`text-gray-400 w-[18px]`} />
+          게시글 스크랩
+        </div>
+
+        <div
+          className="grow flex flex-row w-full px-4 py-2 gap-2 text-subhead2-sb text-gray-400 border-solid border-t-[1px] cursor-pointer items-center"
+          onClick={() => router.push("/community/activities?tab=notifications")}>
+          <NoticeIcon className={`text-gray-400 w-[18px]`} />
+          알림
+        </div>
+      </div>
+
     </div>
   );
 };
