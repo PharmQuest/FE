@@ -10,7 +10,7 @@ const Overview: React.FC<OverviewProps> = ({ pharmacy }) => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row items-center gap-2">
-        <MapPinIcon className="w-4 h-4" />
+        <MapPinIcon className="w-4 h-4 self-start mt-[2px] stroke-gray-300 shrink-0" />
         <p className="text-body2-r text-gray-500">
           {pharmacy?.formatted_address ?? "주소 미제공"}
         </p>
