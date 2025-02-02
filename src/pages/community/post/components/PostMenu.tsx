@@ -17,7 +17,6 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
   // 추후에 url 및 데이터 구조 수정 필요
   const mutate = usePostMutation(
     `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`,
-    {},
     "delete",
   )
 
@@ -39,7 +38,7 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
 
   const handleDelete = async () => {
     try {
-      await mutate();
+      await mutate({});
       setNoticeModalText("게시글을 삭제하였습니다.");
       setIsNoticeModalOpen(true);
       router.push("/community");
