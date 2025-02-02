@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import useUserCount from "@/hooks/community/useUserCount";
 import { MouseEvent } from "react";
 import PostMenu from "./PostMenu";
+import Image from "next/image";
 
 interface ViewPostProps {
   category: string;
@@ -27,6 +28,7 @@ interface ViewPostProps {
   isLiked: boolean;
   isScraped: boolean;
   isOwnPost: boolean;
+  imageUrl: string;
 }
 
 const ViewPost: React.FC<ViewPostProps> = ({
@@ -42,6 +44,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
   isLiked,
   isScraped,
   isOwnPost,
+  imageUrl,
 }) => {
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
@@ -98,7 +101,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
           <LeftArrowIcon className={`h-6`} />
           <p>게시글</p>
         </div>
-        <div className={`md:hidden relative block`}>
+        <div className={`md:hidden relative block cursor-pointer`}>
           <KebabIcon className={`h-6`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
           <PostMenu postId={postId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnPost={isOwnPost} />
         </div>
@@ -147,7 +150,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
               <p>{userName}</p>
               |
               <p>{formattedDate}</p>
-              <div className={`md:block relative hidden`}>
+              <div className={`md:block relative hidden cursor-pointer`}>
                 <KebabIcon
                   className={`
                   lg:h-[22px]
@@ -176,7 +179,20 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
         </div>
 
-        <div className="mt-8 mb-12 text-body1-r text-gray-500">{content}</div>
+        <div 
+          className={`
+            lg:gap-8 lg:mt-8 lg:mb-12
+            flex flex-col  mt-4 mb-4 gap-4`}>
+          <div className=" text-body1-r text-gray-500">{content}</div>
+          {imageUrl && 
+            <Image
+              src={imageUrl}
+              width={100}
+              height={100}
+              alt={"이미지"}
+              className={`w-full`}/>
+          }
+        </div>
 
         <div className="flex flex-row justify-end text-gray-400">
           <div className="lg:text-subhead1-sb flex flex-row items-center gap-0.5 text-m-subhead1-sb">
