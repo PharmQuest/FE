@@ -72,6 +72,7 @@ export default function ModifyPost() {
   const [country, setCountry] = useState("NONE");
 
   const [file, setFile] = useState<File | null>(null);
+  const [deleteImage, setDeleteImage] = useState<boolean>(false);
 
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -92,22 +93,11 @@ export default function ModifyPost() {
     }
   }
 
-  const urlToFile = async (imageUrl: string) => {
-    try {
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-
-      const file = new File([blob], "image", {
-        type: blob.type,
-      });
-
-      console.log(file)
-
-      return file
-    } catch (error) {
-      console.log(error)
-    }
-  };
+  const handleXButton = () => {
+    setFile(null)
+    setUploadImage("");
+    setDeleteImage(true);
+  }
 
   const handleTextareaHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -118,25 +108,27 @@ export default function ModifyPost() {
   }
 
   const mutate = usePostMutation(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`, "put"
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`, "patch", postId
   );
 
   const handleSubmit = async () => {
+    console.log(uploadImage)
     try {
       const data = new FormData();
 
-      const json=JSON.stringify({
+      const json = JSON.stringify({
         title,
         content,
         country,
         category,
+        deleteImgae: uploadImage === "" ? true : deleteImage,
       });
       const jsonBlob = new Blob([json], { type: "application/json" });
       data.append("request", jsonBlob);
-      if(file) {
+      if (file) {
         data.append("file", file);
       }
-      
+
       await mutate(data)
 
       setNoticeModalText("게시글 수정을 완료했습니다.")
@@ -168,20 +160,13 @@ export default function ModifyPost() {
 
 
   useEffect(() => {
-    const fetchPost = async () => {
-      if (data) {
-        setTitle(data?.title || "");
-        setContent(data?.content || "");
-        setCategory(formatCategory(data?.category) || "");
-        setCategoryText(data?.category);
-        const file = await urlToFile(data?.imageUrl);
-        if (file) setFile(file);
-        setUploadImage(data?.imageUrl)
-      }
+    if (data) {
+      setTitle(data?.title || "");
+      setContent(data?.content || "");
+      setCategory(formatCategory(data?.category) || "");
+      setCategoryText(data?.category);
+      setUploadImage(data?.imageUrl)
     }
-  
-    fetchPost();
-
   }, [data]);
 
   return (
@@ -277,7 +262,7 @@ export default function ModifyPost() {
 
                 {/* Image에 hover 시 X 버튼 등장 */}
                 <XIcon
-                  onClick={() => setUploadImage("")}
+                  onClick={handleXButton}
                   className={`absolute top-3 right-3 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`} />
               </div>
             }
@@ -287,12 +272,12 @@ export default function ModifyPost() {
                 className={`
                   md:gap-2
                   gap-1.5 flex text-center`}>
-                <CameraIcon 
+                <CameraIcon
                   className={`
                     md:w-6
-                    w-[20px]`}/>
-                <p 
-                className={`
+                    w-[20px]`} />
+                <p
+                  className={`
                   md:text-subhead2-sb
                   text-m-subhead1-sb self-center text-gray-400 cursor-pointer`}>사진 삽입하기</p>
 
@@ -305,7 +290,7 @@ export default function ModifyPost() {
                 // 파일 등록 사진으로 제한
                 accept="image/*" />
 
-              <p 
+              <p
                 className={`
                   md:text-body1-r
                   text-m-body2-r text-gray-300`}>{content.length}/3000</p>
