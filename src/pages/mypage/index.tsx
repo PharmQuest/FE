@@ -90,7 +90,7 @@ const MyPage: React.FC<MyPageProps> = ({
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b flex items-center gap-1">
             <h2 className="test-display2-b">약국 저장 목록</h2>
-            <ArrowRightIcon className="w-6 text-gray-500" />
+            <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
         {pharmacys.length > 0 ? (
