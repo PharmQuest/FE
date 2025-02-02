@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Search from "../common/Search";
 
-const MedicineHeader = ({
+const AdditionalHeader = ({
   children,
   pathName,
 }: {
@@ -68,4 +68,4 @@ const MedicineHeader = ({
   );
 };
 
-export default MedicineHeader;
+export default AdditionalHeader;
