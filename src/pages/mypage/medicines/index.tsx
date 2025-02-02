@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FilterButton from "@/components/common/FilterButton";
 import MedicineCard from "@/components/common/MedicineCard";
 import Link from "next/link";
-import { LeftArrow } from "@public/svgs";
+import { LeftArrow, ArrowRightIcon } from "@public/svgs";
 import { mockMedicines } from "@/mocks/supplements";
 
 const MyMedicinesPage = () => {
@@ -48,23 +48,13 @@ const MyMedicinesPage = () => {
           </div>
 
           {/* ✅ 페이지네이션 */}
-          <div className="py-10 flex justify-center items-center mt-6 space-x-8">
-            <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="px-3 py-1 border rounded-md text-gray-600 disabled:opacity-50 text-sm md:text-base"
-              disabled={currentPage === 1}
-            >
-              &lt;
-            </button>
-
+          <div className="flex items-center justify-center align-center mt-6 space-x-8">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentPage(index + 1)}
-                className={`px-3 py-1 border rounded-md text-sm md:text-base ${
-                  currentPage === index + 1
-                    ? "bg-primary-500 text-white"
-                    : "text-gray-600"
+                className={`text-subhead1-sb ${
+                  currentPage === index + 1 ? "text-secondary-500" : "text-gray-300"
                 }`}
               >
                 {index + 1}
@@ -72,13 +62,11 @@ const MyMedicinesPage = () => {
             ))}
 
             <button
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              className="px-3 py-1 border rounded-md text-gray-600 disabled:opacity-50 text-sm md:text-base"
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className="flex flex-col align-center"
               disabled={currentPage === totalPages}
             >
-              &gt;
+              <ArrowRightIcon className="w-5 h-3 text-gray-300" />
             </button>
           </div>
         </>
