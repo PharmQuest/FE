@@ -30,12 +30,12 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
 
   return (
     <div
-      className={`lg:gap-2 flex flex-col w-auto h-[117px] gap-1 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === "primary-50" && `px-5`} py-4 rounded-lg`}
+      className={`lg:gap-2 flex flex-col w-auto gap-1 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === "primary-50" && `px-5`} py-4 rounded-lg`}
       onClick={() => {
         router.push(`/community/post/${id}`);
       }}
     >
-      <div className="flex flex-row gap-2">
+      <div className="md:flex-row flex flex-col gap-2">
         <SubjectTag 
           text={category} 
           variant="dark"
