@@ -79,7 +79,7 @@ const ReportModal = () => {
       <AnimatePresence>
         {isReportModalOpen && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0000004D]"
+            className="fixed inset-0 z-[900] flex items-center justify-center bg-[#0000004D]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
