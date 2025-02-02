@@ -28,7 +28,7 @@ const SupplementPage: React.FC = () => {
   };
 
   return (
-    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] min-h-[calc(100vh-412px)] flex flex-col items-center py-8">
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col items-center py-8">
       <div className="w-full max-w-[920px] flex items-center gap-x-4 mb-4 overflow-x-auto items-center sm:hidden lg:flex">
         <h2 className="text-display2-b text-gray-600 whitespace-nowrap">전체</h2>
         <div className="flex gap-x-2">
@@ -39,9 +39,6 @@ const SupplementPage: React.FC = () => {
           <FilterButton text="피부건강" />
         </div>
       </div>
-
-
-      
 
       <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-5 gap-x-5 gap-y-5">
         {paginatedSupplements.map((supplement) => (
@@ -64,7 +61,6 @@ const SupplementPage: React.FC = () => {
           </button>
         ))}
 
-        {/* 🔹 오른쪽 이동 버튼 */}
         <button
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           className="flex flex-col align-center"

@@ -24,10 +24,10 @@ const SupplementInfo: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full bg-white px-4 py-10">
-      <div className="max-w-screen-lg mx-auto flex flex-col gap-10">
+    <div className="relative xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
+      <div className="flex flex-col gap-10">
         <div className="relative">
-          <div className="w-full max-w-[1000px] px-4 md:px-0 py-4 flex justify-between items-center md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05)] mb-4">
+          <div className="w-full flex justify-between items-center md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05)] mb-4">
             <div className="flex items-center gap-2">
               <Link href="/mypage">
                 <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
