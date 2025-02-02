@@ -1,20 +1,20 @@
 import React from "react";
 
-interface GrayButtonProps {
+interface TextButtonProps {
   text: string;
   onClick?: () => void;
-  color?: "gray" | "green";
+  color?: "gray" | "green" | "white";
 }
 
-const GrayButton: React.FC<GrayButtonProps> = ({
+const TextButton: React.FC<TextButtonProps> = ({
   text,
   onClick,
   color = "gray",
 }) => {
-
   const styles = {
     gray: "text-gray-400 bg-gray-100",
-    green: "text-white bg-primary-300"
+    green: "text-white bg-primary-300",
+    white: "text-gray-400 bg-white border border-gray-100",
   };
 
   return (
@@ -27,4 +27,4 @@ const GrayButton: React.FC<GrayButtonProps> = ({
   );
 };
 
-export default GrayButton;
+export default TextButton;
