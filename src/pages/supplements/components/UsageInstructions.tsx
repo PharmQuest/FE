@@ -6,8 +6,8 @@ interface UsageInstructionsProps {
 
 const UsageInstructions: React.FC<UsageInstructionsProps> = ({ instructions = [] }) => {
   return (
-    <div className="p-5 bg-gray-50 rounded-lg border border-gray-100">
-      <ul className="list-disc list-inside text-gray-600 text-base">
+    <div className="p-6 bg-gray-50 rounded-lg border border-gray-100">
+      <ul className="list-disc list-outside text-gray-600 text-base">
         {instructions.map((instruction, idx) => (
           <li key={idx} className="mb-1">{instruction}</li>
         ))}

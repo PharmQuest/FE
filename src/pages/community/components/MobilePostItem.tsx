@@ -38,7 +38,7 @@ const MobilePostItem: React.FC<PostItemProps> = ({
 
   return (
     <div
-      className={`flex flex-col w-auto gap-3 cursor-pointer border-b border-solid border-gray-100 py-4 rounded-lg`}
+      className={`max-w-full flex flex-col w-auto gap-3 cursor-pointer border-b border-solid border-gray-100 py-4 rounded-lg`}
       onClick={() => {
         router.push(`/community/post/${postId}`);
       }}
@@ -47,19 +47,30 @@ const MobilePostItem: React.FC<PostItemProps> = ({
         <SubjectTag
           text={category}
           variant="light"
-          className={`w-[50px] h-[22px] text-m-subhead2-sb px-1.5 py-0.5`} />
+          className={`
+            lg:w-[64px] lg:text-body2-r
+            min-w-[50px] w-[50px] h-[22px] px-1.5 py-0.5 text-m-subhead2-sb`} />
         <div className={`flex flex-col gap-1`}>
-          <div className={`block`}>
-          <p className="text-m-subhead1-sb h-[21px] truncate max-w-[calc(100vw-40px)]">{title}</p>
+          <div className={`flex gap-2 items-center`}>
+            <p
+              className="
+              lg:text-subhead1-sb
+              text-m-subhead1-sb truncate">{title}</p>
+            {!isBestPost &&
+              <Tag variant="best" className={`!text-m-caption2-r !border`}/>
+            }
           </div>
-          {isBestPost &&
-            <Tag variant="best" />
-          }
-          <p className="text-m-body2-r text-gray-500 truncate">{content}</p>
+
+          <p
+            className="
+              lg:text-body1-r 
+              text-m-body2-r text-gray-500 truncate">{content}</p>
         </div>
       </div>
 
-      <div className="flex flex-row justify-between text-m-caption1-r text-gray-400">
+      <div className="
+          lg:text-body2-r
+          mt-auto flex flex-row justify-between text-m-caption1-r text-gray-400">
         <div className={`flex gap-2`}>
           <p>{userName}</p>
           <p>|</p>
@@ -75,7 +86,7 @@ const MobilePostItem: React.FC<PostItemProps> = ({
             {commentCount}
           </div>
           <div className="flex flex-row gap-[2px] items-center">
-            <BookmarkIcon className="w-4 cursor-pointer" stroke={"#707070"}/>
+            <BookmarkIcon className="w-4 cursor-pointer" stroke={"#707070"} />
             {scrapeCount}
           </div>
         </div>
