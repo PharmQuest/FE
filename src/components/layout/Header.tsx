@@ -170,7 +170,7 @@ const Header = () => {
         className={`
         // 공통 스타일
         h-[60px] w-full flex items-center
-        ${pathName === "/map" ? "bg-white" : "bg-background"}
+        bg-background
         lg:hidden
       `}
       >
@@ -195,8 +195,12 @@ const Header = () => {
           <div className={`flex gap-4 justify-end w-[104px]`}>
             {!isHome && title === "" && 
             <SearchBoldIcon className={`w-5`}/>}
-            <HomeIcon className={`text-gray-600 w-6`}/>
-            <AccountCircleIcon className={`text-gray-600 w-6`} onClick={() => router.push("/mypage")} />
+            <HomeIcon 
+              className={`text-gray-600 w-6`}
+              onClick={() => router.push("/")}/>
+            <AccountCircleIcon 
+              className={`text-gray-600 w-6`} 
+              onClick={() => router.push("/mypage")} />
           </div>
         </div>
       </div>
