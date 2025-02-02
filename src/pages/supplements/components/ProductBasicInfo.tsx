@@ -9,60 +9,58 @@ interface TableData {
 
 interface ProductBasicInfoProps {
   title: string;
-  imageUrl?: string; 
+  imageUrl?: string;
   tags: string[];
   tableData: TableData[];
 }
 
 const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   title,
-  imageUrl = "/images/no_image.webp", 
+  imageUrl = "/images/no_image.webp",
   tags = [],
   tableData = [],
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [imgSrc, setImgSrc] = useState(imageUrl); 
+  const [imgSrc, setImgSrc] = useState(imageUrl);
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
 
   return (
-    <div className="relative h-auto md:h-[248px] md:p-4 sm:p-5 rounded-lg border border-[#eaeaea] flex flex-col md:flex-row justify-start items-start gap-4 md:gap-6">
-      {/* 북마크 버튼 */}
-      <button
-        className="absolute lg:top-6 lg:right-5 md:top-6 md:right-5 sm:top-2 sm:right-1 w-7 h-7 flex justify-center items-center"
-        onClick={toggleBookmark}
-        aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}
-      >
-        <BookmarkIcon
-          className="w-7 h-7 hidden lg:block"
-          style={{
-            stroke: isBookmarked ? "#FFD755" : "gray",
-            fill: isBookmarked ? "#FFD755" : "none",
-          }}
-        />
-      </button>
+    <div
+      className={`
+        lg:gap-5 lg:p-5
+        md:flex-row md:relative 
+        flex flex-col border border-gray-100 bg-white mt-5 rounded-xl p-4 gap-4
+      `}
+    >
 
-      <div className="w-full max-h-[200px] lg:w-[200px] border border-gray-200 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
+      <div
+        className={`
+          lg:max-w-[200px]
+          md:self-center
+          border border-solid border-gray-200 rounded-lg overflow-hidden grow aspect-ratio-1/1
+        `}
+      >
         <Image
+          className="w-full h-full object-cover"
           src={imgSrc}
           alt="제품 이미지"
-          width={200}
-          height={200}
-          className="object-cover w-full h-full"
+          width={100}
+          height={100}
           onError={() => setImgSrc("/images/no_image.webp")}
         />
       </div>
 
-      <div className="w-full md:w-[406px] h-auto md:h-48 flex flex-col justify-between items-start">
+      <div className="w-full md:w-[406px] lg:h-[200px] h-auto md:h-48 flex flex-col justify-between items-start">
         <div className="self-stretch flex flex-col-reverse md:flex-col gap-3">
-          <h3 className="lg:w-full md:w-[300px] text-gray-600 text-headline-b">{title}</h3>
+          <h3 className="text-gray-600 text-headline-b">{title}</h3>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, idx) => (
               <div
                 key={idx}
-                className="px-2 py-0.5 bg-primary-50 text-subhead2-sb text-gray-500"
+                className="px-2 py-0.5 bg-primary-50 rounded-lg text-subhead2-sb text-gray-500"
               >
                 {tag}
               </div>
@@ -80,6 +78,18 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
           ))}
         </div>
       </div>
+
+      {/* ✅ 북마크 버튼 */}
+      <BookmarkIcon
+        stroke={isBookmarked ? "#FFD755" : "#707070"}
+        fill={isBookmarked ? "#FFD755" : "none"}
+        className={`
+          lg:right-6 lg:top-6 lg:w-7
+          md:block 
+          w-6 absolute hidden right-4 top-4
+        `}
+        onClick={toggleBookmark}
+      />
     </div>
   );
 };
