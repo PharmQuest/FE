@@ -44,9 +44,8 @@ export default function Home() {
     <>
       <div className="bg-background pb-6 flex justify-center">
         {/* 1000px 이상일 때 */}
-        <div
-          className="// 기본 스타일
-                        hidden lg:flex lg:flex-col
+        <div className="// 기본 스타일
+                        hidden lg:flex lg:flex-col pt-[110px]
                         // 1000px 초과 (xl)
                         xl:w-[900px] xl:mx-auto
                         // 1000px (lg)
@@ -217,13 +216,13 @@ export default function Home() {
               </div>
               {/* 광고 */}
               <div className="mt-6 w-full lg:mt-2 lg:w-[287px]">
-                {/* 1000px 이상일 때는 AD(287*215) */}
+                {/* 1000px 이상일 때는 ADWeb */}
                 <Image
                   src={ADWeb}
                   alt="Advertisement"
                   className="hidden lg:flex lg:w-[287px] lg:h-[215px]"
                 />
-                {/* 1000px 미만일 때는 ADIphone */}
+                {/* 1000px 미만일 때는 ADMobile */}
                 <div
                   className="lg:hidden relative overflow-hidden
                                 md:max-w-[601px] md:w-full md:h-[240px]
@@ -238,6 +237,9 @@ export default function Home() {
                   <Image
                     src={ADMobile}
                     alt="Mobile Advertisement"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="right"
                     className="absolute right-0 h-full min-w-[353px]"
                   />
                 </div>

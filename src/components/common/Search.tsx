@@ -26,17 +26,16 @@ const Search: React.FC<SearchProps> = ({
       )}
 
       {/* 검색창 */}
-      <div className={`flex items-center bg-white rounded-full flex-grow shadow-md ${isHomePage ? `lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-3 py-2 gap-2` : `h-10 px-4 py-2 gap-4`} `}>
+      <div className={`lg:px-6 flex items-center bg-white rounded-full flex-grow shadow-md ${isHomePage ? `lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-4 py-2 gap-2` : `h-10 px-4 py-2 gap-4`} `}>
         {/* 위치선택 */}
-        <button className={`flex items-center gap-[2px] bg-none rounded-full text-gray-500`}>
-          {/* <GreenMapPinIcon className={`${isHomePage ? `lg:w-7` : `w-5`}`} /> */}
+        <button className={`flex items-center lg:gap-2 gap-[2px] bg-none rounded-full text-gray-500`}>
           {/* 반응형 아이콘 */}
           <GreenMapPinIcon className={`hidden lg:block ${isHomePage ? 'w-7' : 'w-5'}`} /> {/* lg에서만 보이는 GreenMapPinIcon */}
           <SmallGreenMapPinIcon className={`lg:hidden ${isHomePage ? 'w-4' : 'w-5'}`} /> {/* lg 이하에서만 보이는 SmallGreenMapPinIcon */}
           
           <p className={`${isHomePage ? `w-[35px] lg:text-headline-m text-sm text-[#006367]` : `w-7 text-body1-r`}`}>{countryLabel}</p>
         </button>
-        <SearchBarIcon className={`${isHomePage ? `lg:h-[22px] h-3` : `h-4`}`}/>
+        <SearchBarIcon className={`${isHomePage ? `lg:ml-3 lg:mr-2 lg:h-[22px] h-3` : `h-4`}`}/>
         <div className={`flex gap-2 grow`}>
           <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5 ml-[2px]` : `w-6`}`} />
           <input
