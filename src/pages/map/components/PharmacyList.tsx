@@ -15,6 +15,15 @@ const PharmacyList: React.FC<PharmacyListProps> = ({
   onPharmacyClick,
   currentPosition,
 }) => {
+  if (pharmacies.length === 0) {
+    return (
+      <div className="flex flex-col flex-1 items-center justify-center text-gray-300">
+        <p className="text-headline-m">검색결과가 없습니다.</p>
+        <p className="text-body1-r mt-2">키워드 및 지역을 확인해주세요.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col overflow-y-scroll flex-1 scrollbar-hide">
       {pharmacies?.map((pharmacy) => (
