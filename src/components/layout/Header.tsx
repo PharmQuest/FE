@@ -93,7 +93,7 @@ const Header = () => {
   return (
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
-      <div className={`z-[1000] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
+      <div className={`z-[500] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
           <div className={`
             // 기본 스타일
             flex items-center gap-12
