@@ -152,7 +152,7 @@ const Header = () => {
         >
           <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar} />
           <LogoIcon onClick={() => router.push("/")} />
-          <AccountCircleIcon onClick={() => router.push("/mypage")} />
+          <AccountCircleIcon className={`text-gray-600 w-7`} onClick={() => router.push("/mypage")} />
         </div>
       </div>
       {/* 사이드바 */}
