@@ -1,7 +1,9 @@
 import React from "react";
 
+type TabType = "overview" | "reviews" | "info";
+
 interface TabNavigationProps {
-  activeTab: string;
+  activeTab: TabType;
   onTabChange: (tab: "overview" | "reviews" | "info") => void;
 }
 
