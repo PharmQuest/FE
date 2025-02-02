@@ -13,15 +13,16 @@ const useUserCount = ( url: string, queryKey: [string, number], isOnInitial: boo
   const handleOn = async () => {
     try{
       if(!isOn){
-        await axiosInstance.post(url);
         setOnCount(onCount + 1);
+        setIsOn(!isOn)
+        await axiosInstance.post(url);
         QueryClient.invalidateQueries({ queryKey: [queryKey] })
       } else {
-        await axiosInstance.delete(url);
         setOnCount(onCount - 1);
+        setIsOn(!isOn)
+        await axiosInstance.delete(url);
         QueryClient.invalidateQueries({ queryKey: [queryKey] })
       }
-      setIsOn(!isOn);
     } catch (e) {
       console.log(e)
     }
