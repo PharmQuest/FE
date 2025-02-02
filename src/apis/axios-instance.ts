@@ -1,15 +1,17 @@
 import axios from "axios";
 
-const token = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
-
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
-  headers: {
-    // 임의로 토큰값 넣어서 개발...
-    Authorization: `Bearer ${token}`,
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+});
 
-    // Authorization: `Bearer ${localStorage.getItem('accessToken')}` 로그인 개발 되면 이렇게 수정
-  },
+axiosInstance.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
 });
 
 export default axiosInstance;
