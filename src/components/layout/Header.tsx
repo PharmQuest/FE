@@ -7,6 +7,8 @@ import {
   MenuLogoIcon,
   AccountCircleIcon,
   GTIcon,
+  HomeIcon,
+  SearchBoldIcon,
 } from "@public/svgs";
 
 const Header = () => {
@@ -16,7 +18,37 @@ const Header = () => {
   const router = useRouter();
   const pathName = router.pathname;
 
+  const isHome = pathName === "/" ? true : false;
 
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    switch (pathName) {
+      case "/community":
+        setTitle("커뮤니티")
+        break;
+      
+      case "/map":
+        setTitle("약국 찾기")
+        break;
+
+      case "/medicines":
+        setTitle("상비약 리스트")
+        break;
+
+      case "/community/activities":
+        setTitle("나의 활동")
+        break;
+      
+      case "/supplements":
+        setTitle("해외 인기 영양제")
+        break;
+
+      default:
+        setTitle("")
+        break;
+    }
+  }, [router])
 
   // 로그인
   const handleLoginClick = () => {
@@ -152,9 +184,20 @@ const Header = () => {
           w-full mx-[20px]
         `}
         >
-          <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar} />
-          <LogoIcon onClick={() => router.push("/")} />
-          <AccountCircleIcon className={`text-gray-600 w-7`} onClick={() => router.push("/mypage")} />
+          <MenuLogoIcon className="cursor-pointer w-[104px]" onClick={toggleSidebar} />
+          
+          {isHome ? (
+            <LogoIcon onClick={() => router.push("/")} />
+          ) : (
+            <div className={`text-m-display1-b text-gray-600 text-center`}>{title}</div>
+          )}
+
+          <div className={`flex gap-4 justify-end w-[104px]`}>
+            {!isHome && title === "" && 
+            <SearchBoldIcon className={`w-5`}/>}
+            <HomeIcon className={`text-gray-600 w-6`}/>
+            <AccountCircleIcon className={`text-gray-600 w-6`} onClick={() => router.push("/mypage")} />
+          </div>
         </div>
       </div>
       {/* 사이드바 */}
