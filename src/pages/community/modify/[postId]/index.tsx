@@ -9,7 +9,7 @@ import useStore from "@/store/useStore";
 import { useRouter } from "next/router";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import axiosInstance from "@/apis/axios-instance";
+import { axiosInstance } from "@/apis/axios-instance";
 import { AxiosError } from "axios";
 import useFormatCategory from "@/hooks/community/useFormatCategory";
 
@@ -69,8 +69,9 @@ export default function ModifyPost() {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const [categoryText, setCategoryText] = useState("");
-  // 게시글 상세 조회에 국가 필요!!
   const [country, setCountry] = useState("NONE");
+
+  const [file, setFile] = useState<File | null>(null);
 
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -81,6 +82,7 @@ export default function ModifyPost() {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
+      setFile(e.target.files?.[0] || null)
       reader.onload = () => {
         if (reader.result && typeof reader.result === "string") {
           setUploadImage(reader.result);
@@ -90,6 +92,23 @@ export default function ModifyPost() {
     }
   }
 
+  const urlToFile = async (imageUrl: string) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+
+      const file = new File([blob], "image", {
+        type: blob.type,
+      });
+
+      console.log(file)
+
+      return file
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   const handleTextareaHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
     if (textareaRef.current) {
@@ -98,22 +117,28 @@ export default function ModifyPost() {
     }
   }
 
-
-  // 추후에 url 및 데이터 구조 수정 필요
   const mutate = usePostMutation(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`,
-    {
-      title,
-      content,
-      country,
-      category,
-    },
-    "patch",
-  )
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`, "put"
+  );
 
   const handleSubmit = async () => {
     try {
-      await mutate()
+      const data = new FormData();
+
+      const json=JSON.stringify({
+        title,
+        content,
+        country,
+        category,
+      });
+      const jsonBlob = new Blob([json], { type: "application/json" });
+      data.append("request", jsonBlob);
+      if(file) {
+        data.append("file", file);
+      }
+      
+      await mutate(data)
+
       setNoticeModalText("게시글 수정을 완료했습니다.")
       setIsNoticeModalOpen(true);
     } catch (error) {
@@ -141,17 +166,25 @@ export default function ModifyPost() {
     }
   }, [title, content, category])
 
+
   useEffect(() => {
-    if (data) {
-      setTitle(data?.title || "");
-      setContent(data?.content || "");
-      setCategory(formatCategory(data?.category) || "");
-      setCategoryText(data?.category);
+    const fetchPost = async () => {
+      if (data) {
+        setTitle(data?.title || "");
+        setContent(data?.content || "");
+        setCategory(formatCategory(data?.category) || "");
+        setCategoryText(data?.category);
+        const file = await urlToFile(data?.imageUrl);
+        if (file) setFile(file);
+        setUploadImage(data?.imageUrl)
+      }
     }
+  
+    fetchPost();
+
   }, [data]);
 
   return (
-    // 게시글 작성 페이지 Container
     <>
       <div
         className={`
@@ -182,7 +215,6 @@ export default function ModifyPost() {
           <div className={`flex gap-3 h-8`}>
             <button
               className={`px-4 py-1 rounded-[4px] text-subhead1-sb text-gray-400 border border-solid border-gray-100`}
-              disabled={isSubmitDisabled}
               onClick={() => router.push("/community")}>
               취소
             </button>
