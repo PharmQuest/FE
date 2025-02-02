@@ -8,12 +8,66 @@ import {
   MobileGoogleLoginButton,
 } from "@public/images";
 import { LogoSymbolIcon, LogoTextIcon, XIcon } from "@public/svgs";
-
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Login() {
   const router = useRouter();
+  const { access_token, refresh_token } = router.query;
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    // ✅ 1. URL에서 access_token & refresh_token 숨기기
+    if (access_token && refresh_token) {
+      const cleanURL = router.pathname; // 쿼리 없이 현재 페이지 경로만 남김
+      router.replace(cleanURL, undefined, { shallow: true }).then(() => {
+        // ✅ 2. URL 정리 후 토큰 저장
+        try {
+          localStorage.clear();
+          localStorage.setItem("accessToken", access_token as string);
+          document.cookie = `accessToken=${access_token}; path=/; Secure; HttpOnly`;
+          document.cookie = `refreshToken=${refresh_token}; path=/; Secure; HttpOnly`;
+
+          console.log("✅ 토큰이 저장되었습니다.");
+          setLoading(false); // ✅ 로딩 완료 후 상태 업데이트
+
+          // ✅ 3. "/"로 이동
+          router.push("/");
+        } catch (error) {
+          console.error("🚨 토큰 저장 중 오류 발생:", error);
+          setLoading(false);
+        }
+      });
+    } else {
+      setLoading(false); // ✅ 쿼리가 없으면 바로 로딩 종료
+    }
+  }, [router.isReady, access_token, refresh_token]);
+
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  const handleLogin = async (provider: "kakao" | "naver" | "google") => {
+    if (loading) return;
+    setLoading(true);
+
+    if (!API_BASE_URL) {
+      console.error("로그인 URL이 설정되지 않았습니다.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      localStorage.clear();
+      const loginURL = `${API_BASE_URL}/oauth2/authorization/${provider}`;
+      window.location.href = loginURL;
+    } catch (error) {
+      console.error("로그인 요청 실패:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -41,7 +95,7 @@ export default function Login() {
         <div className="relative z-10 h-full flex items-center justify-center">
           <div className="w-[484px] h-[665px] md:shrink-0 bg-white flex flex-col items-center rounded-xl md:shadow-lg py-12">
             <div className="flex flex-row justify-center items-center gap-[13px] mt-5">
-              <LogoSymbolIcon className="sm:w-[57px] sm:h-[59px] w-11 h-[45px] " />
+              <LogoSymbolIcon className="sm:w-[57px] sm:h-[59px] w-11 h-[45px]" />
               <LogoTextIcon className="sm:w-[133px] w-[103px]" />
             </div>
             <p className="md:text-headline-b text-m-headline1-b text-gray-500 text-center mt-10">
@@ -53,7 +107,7 @@ export default function Login() {
               </span>
             </p>
 
-            <p className="md:text-subhead1-sb text-m-subhead1-sb  text-gray-300 text-center mb-6 mt-[104px]">
+            <p className="md:text-subhead1-sb text-m-subhead1-sb text-gray-300 text-center mb-6 mt-[104px]">
               소셜 로그인으로 간편하게 시작해보세요.
             </p>
             <div className="w-full px-8 flex flex-col items-center md:gap-4 gap-3 ">
@@ -62,17 +116,20 @@ export default function Login() {
                 src={NaverLoginButton}
                 alt="Login with Naver"
                 className="hidden md:block cursor-pointer"
+                onClick={() => handleLogin("naver")}
                 priority
               />
               <Image
                 src={KakaoLoginButton}
                 alt="Login with Kakao"
                 className="hidden md:block cursor-pointer"
+                onClick={() => handleLogin("kakao")}
               />
               <Image
                 src={GoogleLoginButton}
                 alt="Login with Google"
                 className="hidden md:block cursor-pointer"
+                onClick={() => handleLogin("google")}
               />
 
               {/* 반응형 로그인 버튼 */}
@@ -80,16 +137,19 @@ export default function Login() {
                 src={MobileNaverLoginButton}
                 alt="Login with Naver"
                 className="md:hidden cursor-pointer"
+                onClick={() => handleLogin("naver")}
               />
               <Image
                 src={MobiieKakaoLoginButton}
                 alt="Login with Kakao"
                 className="md:hidden cursor-pointer"
+                onClick={() => handleLogin("kakao")}
               />
               <Image
                 src={MobileGoogleLoginButton}
                 alt="Login with Google"
                 className="md:hidden cursor-pointer"
+                onClick={() => handleLogin("google")}
               />
             </div>
           </div>
