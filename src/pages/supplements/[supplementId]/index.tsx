@@ -12,8 +12,8 @@ import {
   warnings,
   supplements,
 } from "@/mocks/supplements";
-import { ExternalIcon, LeftArrow } from "@public/svgs";
-import Link from "next/link";
+import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
+import router from "next/router";
 
 const SupplementInfo: React.FC = () => {
   const copyToClipboard = () => {
@@ -24,27 +24,28 @@ const SupplementInfo: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full bg-white px-4 py-10">
-      <div className="max-w-screen-lg mx-auto flex flex-col gap-10">
-        <div className="relative">
-          <div className="w-full max-w-[1000px] px-4 md:px-0 py-4 flex justify-between items-center md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05)] mb-4">
-            <div className="flex items-center gap-2">
-              <Link href="/mypage">
-                <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
-              </Link>
-              <h2 className="text-display2-b text-gray-600">제품 기본 정보</h2>
-            </div>
-
-            {/* URL 복사 버튼 */}
-            <button
-              onClick={copyToClipboard}
-              className="flex items-center gap-1 text-gray-500 text-sm hover:text-gray-700"
-            >
-              <ExternalIcon />
-              <span>URL 복사</span>
-            </button>
+    <>
+    <div
+        className={`
+          xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto
+          md:shadow-none
+          text-m-headline1-b flex items-center justify-between text-gray-600 py-5 top-0 bg-white shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
+        <div className={`flex gap-3 sm:px-4`} onClick={() => router.back()}>
+          <LeftArrowIcon className={`w-[24px] lg:hidden sm:pl-[-20px]`} />
+          <p className="lg:text-display2-b">
+            제품 기본 정보
+          </p>
+        </div>
+        <div className={`flex gap-4 items-center`}>
+          <BookmarkIcon stroke={"#707070"} className={`w-6 md:hidden`} />
+          <div onClick={copyToClipboard}>
+            <ExternalIcon className={`w-6 text-gray-400 mr-4 md:p-0`}/>            
           </div>
-
+        </div>
+      </div>
+    <div className="relative xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
+      <div className="flex flex-col gap-10">
+        <div className="relative">
           {/* 제품 정보 컴포넌트 */}
           <ProductBasicInfo
             title={productBasicInfo.title}
@@ -73,11 +74,12 @@ const SupplementInfo: React.FC = () => {
         </div>
 
         {/* 영양제 더보기 */}
-        <div>
+        <div className="hidden lg:block">
           <MoreSupplements supplements={supplements} imageWidth={287} />
         </div>
       </div>
     </div>
+    </>
   );
 };
 
