@@ -200,7 +200,7 @@ export default function Home() {
           <div className="lg:h-[366px] h-fit flex grow flex-col">
             <Link
               href="community"
-              className="mt-10 h-[42px] justify-start items-center gap-3 inline-flex text-gray-600 text-display1-b  "
+              className="lg:text-display1-b text-m-display1-b mt-10 h-[42px] justify-start items-center gap-3 inline-flex text-gray-600  "
             >
               커뮤니티 <GTIcon />
             </Link>
@@ -212,7 +212,7 @@ export default function Home() {
                             flex-col"
             >
               {/* 커뮤니티 코드를 반복문으로 변경 */}
-              <div className="lg:flex-1 max-w-[593px] lg:mt-1 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
+              <div className="lg:flex-1 max-w-[593px] lg:mt-3 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
                 {community.map((item, index) => (
                   <div
                     key={index}
