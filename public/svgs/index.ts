@@ -5,6 +5,7 @@ export { default as GlobeIcon } from "./globe.svg";
 export { default as LikeIcon } from "./like.svg";
 export { default as MapPinIcon } from "./map-pin.svg";
 export { default as SearchIcon } from "./search.svg";
+export { default as SearchBoldIcon } from "./search_bold.svg";
 export { default as ArrowRightIcon } from "./arrow-right.svg";
 export { default as ExternalIcon } from "./external-link.svg";
 export { default as ReportIcon } from "./report.svg";
