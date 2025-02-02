@@ -190,7 +190,8 @@ const ViewPost: React.FC<ViewPostProps> = ({
               width={100}
               height={100}
               alt={"이미지"}
-              className={`w-full`}/>
+              className={`w-full`}
+              priority />
           }
         </div>
 
