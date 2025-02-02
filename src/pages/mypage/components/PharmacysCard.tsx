@@ -33,7 +33,7 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
     >
       {/* 북마크 아이콘 */}
       <button
-        className="absolute top-4 right-2 flex items-center justify-center w-7 h-7"
+        className="absolute top-4 right-5 flex items-center justify-center w-7.5 h-7.5"
         onClick={handleBookmark}
       >
         <BookmarkIcon
@@ -47,7 +47,7 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
       <div
         className={`
           xl:max-w-[130px] lg:max-w-[130px] md:max-w-[100px] max-w-[100px]  
-          border border-solid border-gray-200 rounded-lg overflow-hidden aspect-square
+          rounded-lg overflow-hidden aspect-square
         `}
       >
         <Image
@@ -61,9 +61,9 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
       </div>
 
       {/* 약국 정보 */}
-      <div className="flex-1 flex flex-col justify-start gap-3">
-        <div className="text-gray-600 text-base font-semibold">{pharmacyName}</div>
-        <div className="text-gray-400 text-sm font-normal">{location}</div>
+      <div className="flex-1 flex flex-col justify-start self-start gap-3">
+        <div className="text-gray-600 text-subhead1-sb">{pharmacyName}</div>
+        <div className="text-gray-400 text-body1-r">{location}</div>
       </div>
     </div>
   );
