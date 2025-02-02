@@ -56,7 +56,7 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
   return (
     isMenuOpen && (
       isOwnPost ? (
-        <div className={`absolute right-0 top-[30px] w-[100px] px-2 shadow-custom-light bg-white text-gray-600 text-subhead1-sb`}>
+        <div className={`absolute right-0 top-[30px] w-[100px] px-2 shadow-custom-light bg-white text-gray-600 text-subhead1-sb rounded`}>
           <div
             className={`px-1 py-3 border-b border-solid border-gray-100`}
             onClick={() => copyLink()}>URL 복사
@@ -71,7 +71,7 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
           </div>
         </div>
       ) : (
-        <div className={`absolute right-0 top-[30px] w-[96px] px-2 shadow-custom-light bg-white text-gray-600 text-subhead1-sb`}>
+        <div className={`absolute right-0 top-[30px] w-[96px] px-2 shadow-custom-light bg-white text-gray-600 text-subhead1-sb rounded`}>
           <div
             className={`px-1 py-3 border-b border-solid border-gray-100`}
             onClick={() => copyLink()}>URL 복사</div>
