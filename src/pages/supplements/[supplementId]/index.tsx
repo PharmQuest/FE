@@ -29,7 +29,7 @@ const SupplementInfo: React.FC = () => {
         className={`
           xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto
           md:shadow-none
-          text-m-headline1-b flex items-center justify-between text-gray-600 py-5 sticky top-0 bg-white shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
+          text-m-headline1-b flex items-center justify-between text-gray-600 py-5 top-0 bg-white shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
         <div className={`flex gap-3 sm:px-4`} onClick={() => router.back()}>
           <LeftArrowIcon className={`w-[24px] lg:hidden sm:pl-[-20px]`} />
           <p className="lg:text-display2-b">
@@ -37,7 +37,7 @@ const SupplementInfo: React.FC = () => {
           </p>
         </div>
         <div className={`flex gap-4 items-center`}>
-          <BookmarkIcon stroke={"#707070"} className={`w-6 lg:hidden`} />
+          <BookmarkIcon stroke={"#707070"} className={`w-6 md:hidden`} />
           <div onClick={copyToClipboard}>
             <ExternalIcon className={`w-6 text-gray-400 mr-4 md:p-0`}/>            
           </div>

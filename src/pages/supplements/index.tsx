@@ -29,7 +29,7 @@ const SupplementPage: React.FC = () => {
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col items-center py-8">
-      <div className="w-full max-w-[920px] flex items-center gap-x-4 mb-4 overflow-x-auto items-center sm:hidden lg:flex">
+      <div className="w-full max-w-[920px] flex items-center gap-x-4 mb-4 overflow-x-auto items-center hidden lg:block lg:flex">
         <h2 className="text-display2-b text-gray-600 whitespace-nowrap">전체</h2>
         <div className="flex gap-x-2">
           <FilterButton text="전체" />
