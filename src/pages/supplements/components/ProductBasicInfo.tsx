@@ -28,7 +28,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   };
 
   return (
-    <div className="relative h-auto md:h-[248px] md:p-6 sm:p-10 rounded-lg border border-[#eaeaea] flex flex-col md:flex-row justify-start items-start gap-4 md:gap-6">
+    <div className="relative h-auto md:h-[248px] md:p-4 sm:p-5 rounded-lg border border-[#eaeaea] flex flex-col md:flex-row justify-start items-start gap-4 md:gap-6">
       {/* 북마크 버튼 */}
       <button
         className="absolute lg:top-6 lg:right-5 md:top-6 md:right-5 sm:top-2 sm:right-1 w-7 h-7 flex justify-center items-center"
@@ -36,7 +36,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
         aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}
       >
         <BookmarkIcon
-          className="w-7 h-7"
+          className="w-7 h-7 hidden lg:block"
           style={{
             stroke: isBookmarked ? "#FFD755" : "gray",
             fill: isBookmarked ? "#FFD755" : "none",
@@ -44,7 +44,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
         />
       </button>
 
-      <div className="relative w-full md:max-w-[200px] h-[200px] sm:max-w-[320px] sm:relative md:static border border-gray-200 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
+      <div className="w-full max-h-[200px] lg:w-[200px] border border-gray-200 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
         <Image
           src={imgSrc}
           alt="제품 이미지"

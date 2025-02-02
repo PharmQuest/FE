@@ -33,7 +33,7 @@ const MyPage: React.FC<MyPageProps> = ({
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
       {/* 사용자 프로필 */}
-      <div className="w-full px-6 py-3 lg:border border-gray-200 md:border md:pl-4 flex justify-between items-center mb-10 border-b">
+      <div className="w-full px-6 py-3 border border-gray-200 md:pl-4 flex justify-between items-center mb-10 border-b">
         <div>
           <div className="flex items-end gap-1">
             <div className="text-gray-600 text-display2-b font-bold">{userName}</div>
@@ -69,7 +69,7 @@ const MyPage: React.FC<MyPageProps> = ({
           </Link>
         </div>
         {medicines.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {medicines.map((medicine) => (
               <MedicineCard key={medicine.id} {...medicine} />
             ))}
