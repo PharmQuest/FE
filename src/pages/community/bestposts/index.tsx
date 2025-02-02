@@ -30,7 +30,7 @@ export default function Community() {
             lg:flex lg:flex-row lg:gap-x-4
             mt-3 grow">
         <div className={`flex flex-col grow`}>
-          <div className={`flex justify-between mb-3`}>
+          <div className={`md:mb-3 flex justify-between`}>
             <p
               className="
                   lg:text-display2-b
