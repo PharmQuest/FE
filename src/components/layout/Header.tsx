@@ -7,6 +7,8 @@ import {
   MenuLogoIcon,
   AccountCircleIcon,
   GTIcon,
+  HomeIcon,
+  SearchBoldIcon,
 } from "@public/svgs";
 
 const Header = () => {
@@ -15,6 +17,38 @@ const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathName = router.pathname;
+
+  const isHome = pathName === "/" ? true : false;
+
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    switch (pathName) {
+      case "/community":
+        setTitle("커뮤니티")
+        break;
+      
+      case "/map":
+        setTitle("약국 찾기")
+        break;
+
+      case "/medicines":
+        setTitle("상비약 리스트")
+        break;
+
+      case "/community/activities":
+        setTitle("나의 활동")
+        break;
+      
+      case "/supplements":
+        setTitle("해외 인기 영양제")
+        break;
+
+      default:
+        setTitle("")
+        break;
+    }
+  }, [router])
 
   // 로그인
   const handleLoginClick = () => {
@@ -59,7 +93,7 @@ const Header = () => {
   return (
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
-      <div className={`fixed z-[1000] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
+      <div className={`z-[1000] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
           <div className={`
             // 기본 스타일
             flex items-center gap-12
@@ -136,7 +170,7 @@ const Header = () => {
         className={`
         // 공통 스타일
         h-[60px] w-full flex items-center
-        ${pathName === "/map" ? "bg-white" : "bg-background"}
+        bg-background
         lg:hidden
       `}
       >
@@ -150,9 +184,24 @@ const Header = () => {
           w-full mx-[20px]
         `}
         >
-          <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar} />
-          <LogoIcon onClick={() => router.push("/")} />
-          <AccountCircleIcon className={`text-gray-600 w-7`} onClick={() => router.push("/mypage")} />
+          <MenuLogoIcon className="cursor-pointer w-[104px]" onClick={toggleSidebar} />
+          
+          {isHome ? (
+            <LogoIcon onClick={() => router.push("/")} />
+          ) : (
+            <div className={`text-m-display1-b text-gray-600 text-center`}>{title}</div>
+          )}
+
+          <div className={`flex gap-4 justify-end w-[104px]`}>
+            {!isHome && title === "" && 
+            <SearchBoldIcon className={`w-5`}/>}
+            <HomeIcon 
+              className={`text-gray-600 w-6`}
+              onClick={() => router.push("/")}/>
+            <AccountCircleIcon 
+              className={`text-gray-600 w-6`} 
+              onClick={() => router.push("/mypage")} />
+          </div>
         </div>
       </div>
       {/* 사이드바 */}
@@ -161,12 +210,12 @@ const Header = () => {
           {/* 사이드바 말고 나머지 배경에 #000000 opacity 30% 적용 */}
           <div
             onClick={() => setIsSidebarOpen(false)} // 오버레이 클릭 시 사이드바 닫기
-            className="fixed top-0 left-0 w-full h-full bg-black/30 z-40"
+            className="fixed top-0 left-0 w-full h-full bg-black/30 z-[60]"
           ></div>
           {/* 사이드바 부분 */}
           <div
             ref={sidebarRef}
-            className="fixed top-0 left-0 h-screen w-[240px] bg-white shadow-lg z-50"
+            className="fixed top-0 left-0 h-screen w-[240px] bg-white shadow-lg z-[999]"
           >
             <div className="h-[662px]">
               {/* 사이드바 안에 내용 */}

@@ -1,9 +1,11 @@
 export { default as BookmarkIcon } from "./bookmark.svg";
+export { default as BookmarkBoldIcon } from "./bookmark_bold.svg";
 export { default as CommentIcon } from "./comment.svg";
 export { default as GlobeIcon } from "./globe.svg";
 export { default as LikeIcon } from "./like.svg";
 export { default as MapPinIcon } from "./map-pin.svg";
 export { default as SearchIcon } from "./search.svg";
+export { default as SearchBoldIcon } from "./search_bold.svg";
 export { default as ArrowRightIcon } from "./arrow-right.svg";
 export { default as ExternalIcon } from "./external-link.svg";
 export { default as ReportIcon } from "./report.svg";
@@ -46,3 +48,4 @@ export { default as NoticeIcon } from "./notice.svg";
 export { default as PostIcon } from "./post.svg";
 export { default as PlusIcon } from "./plus.svg";
 export { default as CreatePostIcon } from "./create-post.svg";
+export { default as HomeIcon } from "./home.svg";

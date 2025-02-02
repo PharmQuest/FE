@@ -4,6 +4,42 @@ import { GTIcon, WhiteGTIcon } from "@public/svgs";
 import { MedicineImage, ADWeb, ADMobile } from "@public/images";
 import Image from "next/image";
 import Link from "next/link";
+import FilterButtonList from "@/components/common/FilterButtonList";
+
+const FILTER_LIST = [
+  {
+    text: "진통/해열",
+    isHomeButton: true,
+  },
+  {
+    text: "소화/위장",
+    isHomeButton: true,
+  },
+  {
+    text: "감기/기침",
+    isHomeButton: true,
+  },
+  {
+    text: "알레르기",
+    isHomeButton: true,
+  },
+  {
+    text: "상처/소독",
+    isHomeButton: true,
+  },
+  {
+    text: "멀미",
+    isHomeButton: true,
+  },
+  {
+    text: "안약",
+    isHomeButton: true,
+  },
+  {
+    text: "기타",
+    isHomeButton: true,
+  },
+]
 
 const community = [
   {
@@ -145,16 +181,7 @@ export default function Home() {
             </Link>
           </div>
           <Search />
-          <div className="flex gap-3 mt-3 overflow-x-auto scrollbar-hide">
-            <FilterButton text="진통/해열" isHomeButton={true} />
-            <FilterButton text="소화/위장" isHomeButton={true} />
-            <FilterButton text="감기/기침" isHomeButton={true} />
-            <FilterButton text="알레르기" isHomeButton={true} />
-            <FilterButton text="상처/소독" isHomeButton={true} />
-            <FilterButton text="멀미" isHomeButton={true} />
-            <FilterButton text="안약" isHomeButton={true} />
-            <FilterButton text="기타" isHomeButton={true} />
-          </div>
+          <FilterButtonList filterLists={FILTER_LIST} className={`mt-3`}/>
         </div>
       </div>
       {/* 흰 배경 */}
