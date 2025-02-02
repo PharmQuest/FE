@@ -34,12 +34,12 @@ interface CommentListProps {
   setCommentPage: Dispatch<SetStateAction<number>>;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ 
-  postUserId, 
+const CommentList: React.FC<CommentListProps> = ({
+  postUserId,
   comments,
   totalPage,
   isFirst,
-  isLast, 
+  isLast,
   commentPage,
   setCommentPage,
 }) => {
@@ -48,22 +48,24 @@ const CommentList: React.FC<CommentListProps> = ({
 
   return (
     comments?.length > 0 &&
-    <div className="flex flex-col bg-gray-50 p-5 gap-5">
-      {comments?.map((comment) => (
-        <CommentItem
-          key={comment.commentId}
-          postUserId={postUserId}
-          commentId={comment.commentId}
-          content={comment.content}
-          userId={comment.userId}
-          userName={comment.userName}
-          createdAt={comment.createdAt}
-          replies={comment.replies}
-          replyParentId={replyParentId}
-          setReplyParentId={setReplyParentId} />
-      ))}
+    <div className={`md:p-0 p-5`}>
+      <div className="md:p-5 py-3 flex flex-col bg-gray-50 gap-5">
+        {comments?.map((comment) => (
+          <CommentItem
+            key={comment.commentId}
+            postUserId={postUserId}
+            commentId={comment.commentId}
+            content={comment.content}
+            userId={comment.userId}
+            userName={comment.userName}
+            createdAt={comment.createdAt}
+            replies={comment.replies}
+            replyParentId={replyParentId}
+            setReplyParentId={setReplyParentId} />
+        ))}
 
-      <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast}/>
+        <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast} />
+      </div>
     </div>
   );
 };
