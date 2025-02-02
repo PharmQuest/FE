@@ -173,7 +173,7 @@ export default function Community() {
         </div>
       </div>
       <div 
-        className={`lg:hidden z-[999] fixed right-5 bottom-[103px] w-[52px] h-[52px] shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full transition-all duration-300 ease-out ${isMobileModalOpen ? `bg-white` : `bg-primary-500`}`}
+        className={`lg:hidden z-[999] fixed right-5 bottom-5 w-[52px] h-[52px] shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full transition-all duration-300 ease-out ${isMobileModalOpen ? `bg-white` : `bg-primary-500`}`}
         onClick={(e) => handleMobileModal(e)}>
         <PlusIcon className={`transition-all duration-300 ease-out ${isMobileModalOpen ? `text-primary-500` : `text-white`}`}/>
       </div>
