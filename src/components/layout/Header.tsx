@@ -27,7 +27,7 @@ const Header = () => {
       case "/community":
         setTitle("커뮤니티")
         break;
-      
+
       case "/map":
         setTitle("약국 찾기")
         break;
@@ -39,7 +39,7 @@ const Header = () => {
       case "/community/activities":
         setTitle("나의 활동")
         break;
-      
+
       case "/supplements":
         setTitle("해외 인기 영양제")
         break;
@@ -94,7 +94,7 @@ const Header = () => {
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
       <div className={`z-[500] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
-          <div className={`
+        <div className={`
             // 기본 스타일
             flex items-center gap-12
             // 1000px 초과 (xl)
@@ -185,7 +185,7 @@ const Header = () => {
         `}
         >
           <MenuLogoIcon className="cursor-pointer w-[104px]" onClick={toggleSidebar} />
-          
+
           {isHome ? (
             <LogoIcon onClick={() => router.push("/")} />
           ) : (
@@ -193,13 +193,15 @@ const Header = () => {
           )}
 
           <div className={`flex gap-4 justify-end w-[104px]`}>
-            {!isHome && title === "" && 
-            <SearchBoldIcon className={`w-5`}/>}
-            <HomeIcon 
+            {!isHome && title === "" &&
+              <SearchBoldIcon className={`w-5`} />}
+            {!isHome &&
+              <HomeIcon
+                className={`text-gray-600 w-6`}
+                onClick={() => router.push("/")} />
+            }
+            <AccountCircleIcon
               className={`text-gray-600 w-6`}
-              onClick={() => router.push("/")}/>
-            <AccountCircleIcon 
-              className={`text-gray-600 w-6`} 
               onClick={() => router.push("/mypage")} />
           </div>
         </div>
