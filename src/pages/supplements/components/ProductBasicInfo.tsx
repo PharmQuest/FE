@@ -31,7 +31,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
     <div className="relative h-auto md:h-[248px] md:p-6 sm:p-10 rounded-lg border border-[#eaeaea] flex flex-col md:flex-row justify-start items-start gap-4 md:gap-6">
       {/* 북마크 버튼 */}
       <button
-        className="absolute lg:top-6 lg:right-6 md:top-6 md:right-6 sm:top-2 sm:right-1 w-7 h-7 flex justify-center items-center"
+        className="absolute lg:top-6 lg:right-5 md:top-6 md:right-5 sm:top-2 sm:right-1 w-7 h-7 flex justify-center items-center"
         onClick={toggleBookmark}
         aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}
       >
