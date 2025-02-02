@@ -1,6 +1,6 @@
 // 상비약 상세 페이지
 
-import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
+import { BookmarkBoldIcon, BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ function MedicineInfo() {
           </p>
         </div>
         <div className={`flex gap-4 items-center`}>
-          <BookmarkIcon stroke={"#707070"} className={`w-6`} />
+          <BookmarkBoldIcon stroke={"#707070"} className={`w-6`} />
           <ExternalIcon className={`w-6 text-gray-400`} />
         </div>
       </div>
