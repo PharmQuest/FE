@@ -31,10 +31,11 @@ const Search = () => {
 
 
   return (
-    <div className="w-[100%] flex items-center gap-4">
+    <div className="w-full flex items-center gap-4">
       {/* 검색창 */}
       <div className={`
-          ${isHomePage ? `lg:px-6` : `lg:px-[16px]`} relative flex items-center bg-white rounded-full flex-grow shadow-md ${isHomePage ? `lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-4 py-2 gap-2` : `h-10 px-4 py-2 gap-4`} `}>
+          ${isHomePage ? `lg:px-6 lg:w-[900px] md:w-[601px] w-full lg:h-[54px] h-[37px] px-4 py-2 gap-2` : `lg:px-[16px] h-10 px-4 py-2 gap-4`} 
+          relative flex items-center bg-white rounded-full flex-grow shadow-md w-full`}>
         {/* 위치선택 */}
         <button 
           className={`flex items-center lg:gap-2 gap-1 bg-none rounded-full text-gray-500`}
