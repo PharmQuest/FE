@@ -22,11 +22,6 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ pharmacy, onClose }) => {
   if (!pharmacy) return null;
 
   const handleDirectionsClick = (type: "depart" | "arrive") => {
-    if (!pharmacy.place_id) {
-      console.error("Invalid pharmacy place_id");
-      return;
-    }
-
     const encodedPharmacyName = encodeURIComponent(pharmacy.name || "");
     let url: string;
 
