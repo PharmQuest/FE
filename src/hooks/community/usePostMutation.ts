@@ -5,6 +5,7 @@ import { axiosPostInstance } from "@/apis/axios-instance";
 const useCustomMutation = <TData>(
   url: string,
   type?: string,
+  postId?: number | null,
 ) => {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -34,6 +35,9 @@ const useCustomMutation = <TData>(
     onSuccess: () => {
       queryClient.removeQueries({
         predicate: (query) => query.queryKey[0] === "posts",
+      });
+      queryClient.removeQueries({
+        predicate: (query) => query.queryKey[0] === "post" && query.queryKey[1] === postId,
       });
       router.push("/community");
     },
