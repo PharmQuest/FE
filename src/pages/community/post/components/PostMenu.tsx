@@ -14,7 +14,6 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
 
   const router = useRouter();
 
-  // 추후에 url 및 데이터 구조 수정 필요
   const mutate = usePostMutation(
     `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`,
     "delete",
