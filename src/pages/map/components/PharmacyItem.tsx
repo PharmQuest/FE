@@ -21,16 +21,6 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
   const handleDirectionsClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (!pharmacy.place_id) {
-      console.error("Invalid pharmacy place_id");
-      return;
-    }
-
-    if (!currentPosition?.lat || !currentPosition?.lng) {
-      console.error("Invalid current position data");
-      return;
-    }
-
     const encodedPharmacyName = encodeURIComponent(pharmacy.name || "");
     const origin = `${currentPosition.lat},${currentPosition.lng}`;
     const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${encodedPharmacyName}&destination_place_id=${pharmacy.place_id}&hl=ko`;
@@ -41,11 +31,11 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
     ? pharmacy.photos[0].getUrl({ maxWidth: 86, maxHeight: 86 })
     : PharamacyImage;
 
+  const backgroundClass = isSelected ? "bg-gray-50" : "bg-white";
+
   return (
     <div
-      className={`h-[126px] bg-white border-b border-gray-100 px-7 py-5 flex justify-start items-center gap-3 self-stretch cursor-pointer ${
-        isSelected ? "bg-gray-50" : ""
-      }`}
+      className={`h-[126px] ${backgroundClass} border-b border-gray-100 px-7 py-5 flex justify-start items-center gap-3 self-stretch cursor-pointer hover:bg-gray-50`}
       onClick={onClick}
     >
       <div className="relative w-[86px] h-[86px]">
@@ -61,19 +51,17 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
 
       <div className="flex w-[145px] flex-col items-start">
         <div className="w-[176px] flex items-center mb-3 gap-1">
-          <div className="max-w-[122px] text-subhead1-sb text-gray-600 truncate overflow-hidden whitespace-nowrap ">
+          <p className="max-w-[122px] lg:text-subhead1-sb text-m-subhead1-sb text-gray-600 truncate">
             {pharmacy.name}
-          </div>
+          </p>
           <IsOpenTag isOpen={pharmacy.opening_hours?.isOpen() ?? false} />
         </div>
 
         <div className="self-stretch h-11 flex-col justify-start items-start gap-0.5 flex">
-          <div className="text-gray-500 text-subhead2-sb">
-            {pharmacy.distance}
-          </div>
-          <div className="items-center gap-1.5 inline-flex">
-            <div className="text-gray-400 text-sm">{pharmacy.vicinity}</div>
-          </div>
+          <p className="text-gray-500 text-subhead2-sb">{pharmacy.distance}</p>
+          <p className="w-[176px] text-gray-400 text-body2-r truncate">
+            {pharmacy.vicinity}
+          </p>
         </div>
       </div>
 

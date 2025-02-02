@@ -1,9 +1,22 @@
 import React from "react";
 
+type TabType = "overview" | "reviews" | "info";
+
 interface TabNavigationProps {
-  activeTab: string;
+  activeTab: TabType;
   onTabChange: (tab: "overview" | "reviews" | "info") => void;
 }
+
+interface TabConfig {
+  key: TabType;
+  label: string;
+}
+
+const tabs: TabConfig[] = [
+  { key: "overview", label: "개요" },
+  { key: "reviews", label: "리뷰" },
+  { key: "info", label: "정보" },
+];
 
 const TabNavigation: React.FC<TabNavigationProps> = ({
   activeTab,
@@ -11,36 +24,22 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
 }) => {
   return (
     <div className="grid grid-cols-3 h-12 items-center text-center border-b border-gray-100">
-      <button
-        className={
-          activeTab === "overview"
-            ? "text-gray-500 text-subhead1-sb"
-            : "text-gray-300 text-body1-r"
-        }
-        onClick={() => onTabChange("overview")}
-      >
-        개요
-      </button>
-      <button
-        className={
-          activeTab === "reviews"
-            ? "text-gray-500 text-subhead1-sb"
-            : "text-gray-300 text-body1-r"
-        }
-        onClick={() => onTabChange("reviews")}
-      >
-        리뷰
-      </button>
-      <button
-        className={
-          activeTab === "info"
-            ? "text-gray-500 text-subhead1-sb"
-            : "text-gray-300 text-body1-r"
-        }
-        onClick={() => onTabChange("info")}
-      >
-        정보
-      </button>
+      {tabs.map(({ key, label }) => (
+        <button
+          key={key}
+          className={`
+            ${
+              activeTab === key
+                ? "text-gray-500 text-subhead1-sb"
+                : "text-gray-300 text-body1-r"
+            }
+            hover:bg-gray-50 h-full
+          `}
+          onClick={() => onTabChange(key)}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 };
