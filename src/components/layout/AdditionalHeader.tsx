@@ -11,6 +11,8 @@ const AdditionalHeader = ({
   const segments = pathName.split("/");
   let currentTitle: string = "";
 
+  const isHome = pathName === "/" ? true : false;
+
   switch (segments[1]) {
     case "medicines":
       currentTitle = `상비약 리스트`;
@@ -37,12 +39,12 @@ const AdditionalHeader = ({
       {currentTitle !== "" ? (
         <div className={`bg-background flex flex-col`}>
           {children}
-          <div 
+          <div
             className={`
               lg:w-[900px]
               md:w-[600px] md:m-auto 
               flex gap-5 whitespace-nowrap flex-col w-full`}>
-            <div 
+            <div
               className={`
                 lg:flex
                 hidden items-center gap-5`}>
@@ -55,9 +57,13 @@ const AdditionalHeader = ({
                 않습니다.
               </p>
             </div>
-            <div className={`lg:mx-0 mb-9 mx-5`}>
-              <Search />
-            </div>
+
+            {!isHome && !segments[2] &&
+              <div className={`lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
+                <Search />
+              </div>
+            }
+
 
           </div>
         </div>
