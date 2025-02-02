@@ -1,5 +1,41 @@
 import { ReactNode } from "react";
 import Search from "../common/Search";
+import FilterButtonList from "../common/FilterButtonList";
+
+const FILTER_LIST = [
+  {
+    text: "진통/해열",
+    isHomeButton: true,
+  },
+  {
+    text: "소화/위장",
+    isHomeButton: true,
+  },
+  {
+    text: "감기/기침",
+    isHomeButton: true,
+  },
+  {
+    text: "알레르기",
+    isHomeButton: true,
+  },
+  {
+    text: "상처/소독",
+    isHomeButton: true,
+  },
+  {
+    text: "멀미",
+    isHomeButton: true,
+  },
+  {
+    text: "안약",
+    isHomeButton: true,
+  },
+  {
+    text: "기타",
+    isHomeButton: true,
+  },
+]
 
 const AdditionalHeader = ({
   children,
@@ -43,9 +79,9 @@ const AdditionalHeader = ({
           {children}
           <div
             className={`
-              lg:w-[900px]
+              lg:w-[900px] lg:gap-5
               md:w-[600px] md:m-auto 
-              flex gap-5 whitespace-nowrap flex-col w-full`}>
+              flex whitespace-nowrap flex-col w-full`}>
             <div
               className={`
                 lg:flex
@@ -61,13 +97,17 @@ const AdditionalHeader = ({
             </div>
 
             {!isHome &&
-              <div className={`${segments[2] && `hidden lg:block`} lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
-                <Search />
-              </div>
+              <>
+                <div className={`${segments[2] && `hidden lg:block`} lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
+                  <Search />
+                </div>
+
+                {/* 출력 하는 곳 안하는 곳 추가 수정 필요 */}
+                <div className={`lg:hidden`}>
+                  <FilterButtonList filterLists={FILTER_LIST} className={`md:px-0 px-5 mb-4`}/>
+                </div>
+              </>
             }
-            
-
-
           </div>
         </div>
       ) : (

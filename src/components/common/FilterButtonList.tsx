@@ -7,12 +7,10 @@ interface filterInfo {
   isHomeButton?: boolean;
 }
 
-const FilterButtonList = ({ filterLists }: { filterLists: filterInfo[] }) => {
-
-
+const FilterButtonList = ({ filterLists, className }: { filterLists: filterInfo[], className?: string }) => {
 
   return (
-    <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
+    <div className={`flex gap-2 overflow-x-auto scrollbar-hide ${className}`}>
       {filterLists.map((item, index) => (
         <FilterButton key={index} text={item.text} isHomeButton={item.isHomeButton} />
       ))}
