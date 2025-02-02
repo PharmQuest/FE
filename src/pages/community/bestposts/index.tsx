@@ -27,7 +27,7 @@ export default function Community() {
           w-full px-5">
       <div
           className="
-            lg:w-fit lg:flex lg:flex-row lg:gap-x-4
+            lg:flex lg:flex-row lg:gap-x-4
             mt-3 grow">
         <div className={`flex flex-col grow`}>
           <div className={`flex justify-between mb-3`}>
@@ -39,10 +39,15 @@ export default function Community() {
           <PopularPostList posts={Posts} />
         </div>
 
-        <div className={`relative transition-all duration-500 ease-out`}
-          style={{ top: `${position}px` }}>
-          <UserNavbar />
-        </div>
+        <div>
+            <div
+              className={`
+              lg:block
+              hidden relative transition-all duration-500 ease-out`}
+              style={{ top: `${position}px` }}>
+              <UserNavbar />
+            </div>
+          </div>
       </div>
     </div>
   )

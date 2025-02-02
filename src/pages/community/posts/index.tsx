@@ -54,22 +54,20 @@ export default function Posts() {
     }
   }, []);
 
-
-
   return (
     <div
       className="
         lg:max-w-[900px] lg:mx-auto lg:px-0
         md:max-w-[600px] md:mx-auto md:px-0 md:mt-9
-        w-full px-5">
+        w-screen px-5">
       <div className="max-w-[900px] mx-auto mt-9 min-h-[460px]">
         <div className="flex flex-row gap-x-4 mt-3 ">
-          <div className={`flex flex-col grow`}>
+          <div className={`flex flex-col grow max-w-full`}>
             <div className="flex flex-row items-center gap-3 mb-4">
               <p className="
                 lg:text-display2-b 
                 text-m-headline1-b text-gray-600">게시글</p>
-              <div 
+              <div
                 className={`
                   lg:flex
                   hidden flex-row items-center gap-3`}>
@@ -89,12 +87,14 @@ export default function Posts() {
               isPageHidden={false} />
           </div>
 
-          <div 
-            className={`
+          <div>
+            <div
+              className={`
               lg:block
               hidden relative transition-all duration-500 ease-out`}
-            style={{ top: `${position}px` }}>
-            <UserNavbar />
+              style={{ top: `${position}px` }}>
+              <UserNavbar />
+            </div>
           </div>
         </div>
       </div>
