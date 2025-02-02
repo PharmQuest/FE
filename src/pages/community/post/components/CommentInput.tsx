@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import GrayButton from "../../components/GrayButton";
+import TextButton from "../../components/TextButton";
 import axiosInstance from "@/apis/axios-instance";
 import { useParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 
-const CommentInput = ({ replyParentId, userName }: { replyParentId?: number, userName?: string }) => {
-
+const CommentInput = ({
+  replyParentId,
+  userName,
+}: {
+  replyParentId?: number;
+  userName?: string;
+}) => {
   const params = useParams() || {};
   const postId = params.postId || null;
 
@@ -13,23 +18,25 @@ const CommentInput = ({ replyParentId, userName }: { replyParentId?: number, use
 
   const handleClick = async () => {
     try {
-      await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/comments`,
+      await axiosInstance.post(
+        `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/comments`,
         { content },
         {
           params: {
             parentsId: replyParentId,
           },
-        })
+        }
+      );
       setContent("");
-      queryClient.invalidateQueries({ queryKey: ["post", Number(postId)] })
+      queryClient.invalidateQueries({ queryKey: ["post", Number(postId)] });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const [content, setContent] = useState<string>(userName ? `@${userName} ` : "");
-
-
+  const [content, setContent] = useState<string>(
+    userName ? `@${userName} ` : ""
+  );
 
   return (
     <div className={`md:px-0 px-5`}>
@@ -54,7 +61,7 @@ const CommentInput = ({ replyParentId, userName }: { replyParentId?: number, use
             className="
               lg:text-body1-r
               self-center text-m-body2-r text-gray-300">{content.length}/600</span>
-          <GrayButton
+          <TextButton
             text="등록"
             onClick={handleClick}
             color={content.length > 0 ? "green" : "gray"} />
