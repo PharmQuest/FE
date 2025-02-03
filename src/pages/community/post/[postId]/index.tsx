@@ -64,12 +64,13 @@ export default function Post() {
           createdAt={postItem?.createdAt}
           content={postItem?.content}
           likeCount={postItem?.likeCount || 0}
-          commentCount={postItem?.comments?.length}
+          commentCount={postItem?.commentCount}
           scrapeCount={postItem?.scrapeCount || 0}
           isLiked={postItem?.isLiked}
           isScraped={postItem?.isScraped}
           isOwnPost={postItem?.isOwnPost}
           imageUrl={postItem?.imageUrl}
+          commentPage={postItem?.commentPage}
         />
         <div className={`flex flex-col gap-5`}>
           <CommentInput />
