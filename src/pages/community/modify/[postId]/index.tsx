@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Dropdown from "../../components/Dropdown";
 import usePostMutation from "@/hooks/community/usePostMutation";
-import useStore from "@/store/useStore";
+import useModalStore from "@/store/useModalStore";
 import { useRouter } from "next/router";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
@@ -39,7 +39,7 @@ export default function ModifyPost() {
   const {
     setIsNoticeModalOpen,
     setNoticeModalText,
-  } = useStore((state) => state)
+  } = useModalStore((state) => state)
 
   const categoryInfo: DropdownInfo[] = [
     { key: "FORUM", value: "자유" },

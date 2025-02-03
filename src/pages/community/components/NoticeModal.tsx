@@ -1,7 +1,7 @@
 import Portal from "@/components/common/Portal";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
-import useStore from "@/store/useStore";
+import useModalStore from "@/store/useModalStore";
 
 const NoticeModal = () => {
 
@@ -9,7 +9,7 @@ const NoticeModal = () => {
     isNoticeModalOpen, 
     setIsNoticeModalOpen,
     NoticeModalText: modalText,
-  } = useStore((state) => state);
+  } = useModalStore((state) => state);
 
   useEffect(() => {
     if (isNoticeModalOpen) {
