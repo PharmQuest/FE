@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AccountCircleIcon, BookmarkIcon, CommentIcon, NoticeIcon, PostIcon } from "@public/svgs";
 import useAuthStore from "@/store/useAuthStore";
@@ -7,17 +7,15 @@ const UserNavbar = () => {
   const router = useRouter();
 
   const { isLoggedIn, logOut, checkAuth } = useAuthStore();
-
-  const handleLogout = () => {
-    logOut();
-    console.log("로그아웃");
-  };
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
     checkAuth();
+    setIsMounted(true)
   }, [])
 
   return (
+    isMounted &&
     <div
       className={`
         lg:flex flex-col grow
@@ -40,7 +38,7 @@ const UserNavbar = () => {
               </button>
               <button
                 className="w-full h-[37px] py-2 text-center text-subhead2-sb text-gray-400 rounded-[4px] border-solid border-[1px] border-gray-200"
-                onClick={handleLogout}
+                onClick={() => logOut()}
               >
                 로그아웃
               </button>
