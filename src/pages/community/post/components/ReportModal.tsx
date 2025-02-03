@@ -1,6 +1,6 @@
 import Portal from "@/components/common/Portal";
 import { AnimatePresence, motion } from "framer-motion";
-import useStore from "@/store/useStore";
+import useModalStore from "@/store/useModalStore";
 import { useEffect, useRef, useState } from "react";
 import { CheckCircleIcon, CircleIcon, XIcon } from "@public/svgs";
 import axiosInstance from "@/apis/axios-instance";
@@ -24,7 +24,7 @@ const ReportModal = () => {
     setNoticeModalText,
     isReportModalOpen,
     setIsReportModalOpen,
-  } = useStore((state) => state);
+  } = useModalStore((state) => state);
 
   const [reportKey, setReportKey] = useState<number | null>(null);
   const [reportType, setReportType] = useState<string | null>(null);
