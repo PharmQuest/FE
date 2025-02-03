@@ -150,7 +150,7 @@ const Header = () => {
               해외 인기 영양제
             </button>
             {/* 로그인 상태에 따라 버튼 렌더링 */}
-            {isLoggedIn ? (
+            {isMounted && (isLoggedIn ? (
               // isLoggedIn이 true
               <div className="flex gap-3 items-center">
                 <UserIcon onClick={() => router.push("/mypage")} />
@@ -169,7 +169,7 @@ const Header = () => {
               >
                 로그인
               </button>
-            )}
+            ))}
           </div>
         </div>
       </div>
