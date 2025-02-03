@@ -1,5 +1,5 @@
 import usePostMutation from "@/hooks/community/usePostMutation";
-import useStore from "@/store/useStore";
+import useModalStore from "@/store/useModalStore";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 
@@ -24,7 +24,7 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
     setNoticeModalText,
     setIsNoticeModalOpen,
     setIsReportModalOpen,
-  } = useStore();
+  } = useModalStore();
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
