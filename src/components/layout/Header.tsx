@@ -29,7 +29,7 @@ const Header = () => {
   useEffect(() => {
     checkAuth();
     setIsMounted(true);
-  }, [pathName])
+  }, [pathName, isLoggedIn])
 
   useEffect(() => {
     switch (pathName) {
