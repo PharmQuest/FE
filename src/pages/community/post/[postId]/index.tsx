@@ -48,7 +48,7 @@ export default function Post() {
     if(!isLoggedIn){
       router.replace("/login");
     }
-  }, [])
+  }, [isLoggedIn])
 
   useEffect(() => {
     const axiosError = error as AxiosError<{ code?: string }>
