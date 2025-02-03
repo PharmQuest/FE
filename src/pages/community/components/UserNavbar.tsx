@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { AccountCircleIcon, BookmarkIcon, CommentIcon, NoticeIcon, PostIcon } from "@public/svgs";
 import useAuthStore from "@/store/useAuthStore";
@@ -6,12 +6,16 @@ import useAuthStore from "@/store/useAuthStore";
 const UserNavbar = () => {
   const router = useRouter();
 
-  const { isLoggedIn, logOut } = useAuthStore();
+  const { isLoggedIn, logOut, checkAuth } = useAuthStore();
 
   const handleLogout = () => {
     logOut();
     console.log("로그아웃");
   };
+
+  useEffect(() => {
+    checkAuth();
+  }, [])
 
   return (
     <div
