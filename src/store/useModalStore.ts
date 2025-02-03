@@ -10,7 +10,7 @@ type Store = {
   setIsReportModalOpen: (value: boolean) => void;
 }
 
-const useStore = create<Store>((set) => ({
+const useModalStore = create<Store>((set) => ({
   isNoticeModalOpen: false,
   setIsNoticeModalOpen: (value: boolean) => set({isNoticeModalOpen: value}),
   NoticeModalText: "",
@@ -20,4 +20,4 @@ const useStore = create<Store>((set) => ({
   setIsReportModalOpen: (value: boolean) => set({isReportModalOpen: value}),
 }))
 
-export default useStore;
+export default useModalStore;
