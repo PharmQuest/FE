@@ -1,3 +1,4 @@
+import useAuthStore from "@/store/useAuthStore";
 import { GTIcon, LogoIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 
@@ -14,6 +15,20 @@ const Sidebar: React.FC<SidebarProp> = ({
   sidebarRef,
   handleLoginClick,
 }) => {
+
+  const { isLoggedIn, logOut } = useAuthStore();
+
+  const handleLog = () => {
+    if (isLoggedIn) {
+      logOut();
+      router.push("/");
+    }
+    else {
+      handleLoginClick();
+    }
+    
+  }
+
 
   const router = useRouter();
 
@@ -45,14 +60,14 @@ const Sidebar: React.FC<SidebarProp> = ({
                   setIsSidebarOpen(false);
                 }}
               />
+              
               <button
-                onClick={() => {
-                  handleLoginClick();
-                  setIsSidebarOpen(false);
-                }}
-                className="mt-[25px] w-[168px] h-10 px-[38px] py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+                onClick={handleLog}
+                className={`
+                  ${isLoggedIn ? `bg-primary-300` : `bg-point`}
+                  mt-[25px] w-[168px] h-10 px-[38px] py-2 rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal`}
               >
-                로그인
+                {isLoggedIn ? <>로그아웃</> : <>로그인</>}
               </button>
             </div>
             {/* 메뉴 시작 */}
