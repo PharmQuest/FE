@@ -1,4 +1,4 @@
-import useStore from "@/store/useStore";
+import useModalStore from "@/store/useModalStore";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 
@@ -17,7 +17,7 @@ const CommentMenu: React.FC<CommentMenuProp> = ({ commentId, isMenuOpen, setIsMe
     setNoticeModalText,
     setIsNoticeModalOpen,
     setIsReportModalOpen,
-  } = useStore();
+  } = useModalStore();
 
   const handleModify = () => {
     

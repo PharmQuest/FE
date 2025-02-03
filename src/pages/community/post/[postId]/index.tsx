@@ -70,6 +70,7 @@ export default function Post() {
           isScraped={postItem?.isScraped}
           isOwnPost={postItem?.isOwnPost}
           imageUrl={postItem?.imageUrl}
+          commentPage={postItem?.commentPage}
         />
         <div className={`flex flex-col gap-5`}>
           <CommentInput />

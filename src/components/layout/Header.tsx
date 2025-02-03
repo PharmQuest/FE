@@ -10,9 +10,9 @@ import {
   HomeIcon,
   SearchBoldIcon,
 } from "@public/svgs";
+import useAuthStore from "@/store/useAuthStore";
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref 타입 지정
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
@@ -21,6 +21,15 @@ const Header = () => {
   const isHome = pathName === "/" ? true : false;
 
   const [title, setTitle] = useState("");
+
+  const { isLoggedIn, logOut, checkAuth } = useAuthStore();
+  const [isMounted, setIsMounted] = useState(false)
+
+
+  useEffect(() => {
+    checkAuth();
+    setIsMounted(true);
+  }, [pathName])
 
   useEffect(() => {
     switch (pathName) {
@@ -52,13 +61,12 @@ const Header = () => {
 
   // 로그인
   const handleLoginClick = () => {
-    setIsLoggedIn(true); // 로그아웃 상태로 변경
     router.push("/login");
   };
 
   // 로그아웃
   const handleLogoutClick = () => {
-    setIsLoggedIn(false); // 로그인 상태로 변경
+    logOut();
     router.push("/");
   };
 
@@ -126,7 +134,7 @@ const Header = () => {
             >
               커뮤니티
               {/* 로그인하면 보임 */}
-              {isLoggedIn && (
+              {isMounted && isLoggedIn && (
                 <div className="w-[18px] h-[18px] relative">
                   <div className="w-[18px] h-[18px] left-0 top-0 absolute bg-[#ff7700] rounded-full"></div>
                   <div className="left-[6px] top-0 absolute text-white text-xs font-semibold font-['Pretendard Variable'] leading-[18px]">
