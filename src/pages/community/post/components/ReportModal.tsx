@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import useModalStore from "@/store/useModalStore";
 import { useEffect, useRef, useState } from "react";
 import { CheckCircleIcon, CircleIcon, XIcon } from "@public/svgs";
-import axiosInstance from "@/apis/axios-instance";
+import { axiosInstance } from "@/apis/axios-instance";
 import { useRouter } from "next/router";
 
 const ReportModal = () => {

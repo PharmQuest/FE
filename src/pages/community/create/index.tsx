@@ -47,6 +47,8 @@ export default function CreatePost() {
   const [category, setCategory] = useState("");
   const [country, setCountry] = useState("NONE");
 
+  const [file, setFile] = useState<File | null>(null);
+
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
@@ -54,6 +56,7 @@ export default function CreatePost() {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
+    setFile(e.target.files?.[0] || null)
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -73,21 +76,28 @@ export default function CreatePost() {
     }
   }
 
-
-  // 추후에 url 및 데이터 구조 수정 필요
   const mutate = usePostMutation(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`,
-    {
-      title,
-      content,
-      country,
-      category,
-    },
-  )
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`
+  );
 
   const handleSubmit = async () => {
     try {
-      await mutate()
+      const data = new FormData();
+
+      const json=JSON.stringify({
+        title,
+        content,
+        country,
+        category,
+      });
+      const jsonBlob = new Blob([json], { type: "application/json" });
+      data.append("request", jsonBlob);
+      if(file) {
+        data.append("file", file);
+      }
+      
+      await mutate(data)
+
       setIsNoticeModalOpen(true);
       setNoticeModalText("게시글 작성을 완료했습니다.")
     } catch (error) {

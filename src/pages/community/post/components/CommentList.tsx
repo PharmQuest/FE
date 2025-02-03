@@ -11,6 +11,8 @@ interface Reply {
   parentId: number;
   parentName: string;
   replies: Reply[];
+  isLiked: boolean;
+  likeCount: number;
 }
 
 interface Comment {
@@ -22,6 +24,8 @@ interface Comment {
   parentId: number | null;
   parentName: string | null;
   replies: Reply[];
+  isLiked: boolean;
+  likeCount: number;
 }
 
 interface CommentListProps {
@@ -61,7 +65,10 @@ const CommentList: React.FC<CommentListProps> = ({
             createdAt={comment.createdAt}
             replies={comment.replies}
             replyParentId={replyParentId}
-            setReplyParentId={setReplyParentId} />
+            setReplyParentId={setReplyParentId} 
+            commentPage={commentPage}
+            isLiked={comment.isLiked}
+            likeCount={comment.likeCount}/>
         ))}
 
         <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast} />

@@ -4,7 +4,7 @@ import CommentList from "../components/CommentList";
 import PostList from "../../components/PostList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import axiosInstance from "@/apis/axios-instance";
+import { axiosInstance } from "@/apis/axios-instance";
 import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -64,11 +64,12 @@ export default function Post() {
           createdAt={postItem?.createdAt}
           content={postItem?.content}
           likeCount={postItem?.likeCount || 0}
-          commentCount={postItem?.comments?.length}
+          commentCount={postItem?.commentCount}
           scrapeCount={postItem?.scrapeCount || 0}
           isLiked={postItem?.isLiked}
           isScraped={postItem?.isScraped}
           isOwnPost={postItem?.isOwnPost}
+          imageUrl={postItem?.imageUrl}
         />
         <div className={`flex flex-col gap-5`}>
           <CommentInput />
