@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import useModalStore from "@/store/useModalStore";
 import { AxiosError } from "axios";
 import useFormatCategory from "@/hooks/community/useFormatCategory";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Post() {
   const params = useParams() || {};
@@ -19,6 +20,8 @@ export default function Post() {
 
   const [commentPage, setCommentPage] = useState(1);
   const formatCategory = useFormatCategory()
+
+  const { isLoggedIn } = useAuthStore();
 
   const {
     setNoticeModalText,
@@ -41,6 +44,13 @@ export default function Post() {
   const postItem = data?.result
 
   useEffect(() => {
+    console.log(isLoggedIn)
+    if(!isLoggedIn){
+      router.replace("/login");
+    }
+  }, [])
+
+  useEffect(() => {
     const axiosError = error as AxiosError<{ code?: string }>
     if (axiosError?.response?.data.code === "POST4005") {
       setNoticeModalText("존재하지 않는 게시글입니다.");
@@ -50,6 +60,7 @@ export default function Post() {
   }, [error])
 
   return (
+    isLoggedIn &&
     <>
       <div
         className="
