@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
 import usePostMutation from "../../../hooks/community/usePostMutation";
-import useStore from "@/store/useStore";
+import useModalStore from "@/store/useModalStore";
 
 type DropdownInfo = {
   key: string;
@@ -17,7 +17,7 @@ export default function CreatePost() {
   const {
     setIsNoticeModalOpen,
     setNoticeModalText,
-  } = useStore((state) => state)
+  } = useModalStore((state) => state)
 
   const categoryInfo: DropdownInfo[] = [
     { key: "FORUM", value: "자유" },

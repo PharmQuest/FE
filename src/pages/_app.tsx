@@ -34,7 +34,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>{pageData.title}</title>
       </Head>
       <Header />
-      <Component {...pageProps} />
+      {/* 최소 높이 = 100vh - 헤더높이 - 푸터높이 */}
+      <div className={`min-h-[calc(100vh-248px-169px)]`}>
+      <Component {...pageProps}/>
+      </div>
       <NoticeModal/>
       <ReportModal/>
       <Footer />
