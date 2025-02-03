@@ -8,7 +8,7 @@ import { axiosInstance } from "@/apis/axios-instance";
 import { ArrowRightIcon } from "@public/svgs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useStore from "@/store/useStore";
+import useModalStore from "@/store/useModalStore";
 import { AxiosError } from "axios";
 import useFormatCategory from "@/hooks/community/useFormatCategory";
 
@@ -23,7 +23,7 @@ export default function Post() {
   const {
     setNoticeModalText,
     setIsNoticeModalOpen,
-  } = useStore();
+  } = useModalStore();
 
   const { data, error } = useQuery(
     {
