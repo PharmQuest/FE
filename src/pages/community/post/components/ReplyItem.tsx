@@ -4,21 +4,11 @@ import {
   KebabIcon,
   LikeIcon,
 } from "@public/svgs";
-import React, { useState } from "react";
 import Tag from "../../components/Tag";
 import CommentInput from "./CommentInput";
 import { format } from "date-fns";
-
-interface Reply {
-  commentId: number;
-  content: string;
-  userId: number;
-  userName: string;
-  createdAt: string;
-  parentId: number;
-  parentName: string;
-  replies: Reply[];
-}
+import { useParams } from "next/navigation";
+import useUserCount from "@/hooks/community/useUserCount";
 
 interface ReplyItemProps {
   postUserId: number;
@@ -29,9 +19,11 @@ interface ReplyItemProps {
   createdAt: string;
   parentId: number;
   parentName: string;
-  replies: Reply[];
   replyParentId: number | null;
   setReplyParentId: React.Dispatch<React.SetStateAction<number | null>>;
+  isLiked: boolean;
+  likeCount: number;
+  commentPage: number;
 }
 
 const ReplyItem: React.FC<ReplyItemProps> = ({
@@ -44,18 +36,26 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   // eslint-disable-next-line
   parentId,
   parentName,
-  replies,
   replyParentId,
   setReplyParentId,
+  isLiked,
+  likeCount,
+  commentPage,
 }) => {
 
+  const params = useParams();
+  const postId = Number(params.postId);
 
-
-  const [isLike, setIsLike] = useState(false);
-
-  const handleLike = () => {
-    setIsLike(!isLike);
-  }
+  const {
+    isOn: isReplyLike,
+    onCount: replyLikeCount,
+    handleOn: handleLike
+  } = useUserCount(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/comments/${commentId}/likes`,
+    ["post", postId, commentPage],
+    isLiked,
+    likeCount,
+  );
 
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
@@ -89,10 +89,10 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
           <div className="flex flex-row gap-[10px]">
             <div className="flex flex-row">
               <LikeIcon
-                fill={isLike ? "#FF8686" : "none"}
-                className={`w-5 cursor-pointer mr-[2px] ${isLike && `text-[#FF8686]`}`}
+                fill={isReplyLike ? "#FF8686" : "none"}
+                className={`w-5 cursor-pointer mr-[2px] ${isReplyLike && `text-[#FF8686]`}`}
                 onClick={() => handleLike()} />
-              {0}
+              {replyLikeCount}
             </div>
             <div
               className="flex flex-row cursor-pointer gap-0.5"
@@ -105,21 +105,6 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
           <CommentInput replyParentId={commentId} userName={userName} />
         }
       </div>
-      {replies?.map((reply) => (
-        <ReplyItem
-          postUserId={postUserId}
-          key={reply.commentId}
-          commentId={reply.commentId}
-          content={reply.content}
-          userId={reply.userId}
-          userName={reply.userName}
-          createdAt={reply.createdAt}
-          parentId={reply.parentId}
-          parentName={reply.parentName}
-          replies={reply.replies}
-          replyParentId={replyParentId}
-          setReplyParentId={setReplyParentId} />
-      ))}
     </div>
   );
 };

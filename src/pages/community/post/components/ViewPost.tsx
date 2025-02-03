@@ -29,6 +29,7 @@ interface ViewPostProps {
   isScraped: boolean;
   isOwnPost: boolean;
   imageUrl: string;
+  commentPage: number;
 }
 
 const ViewPost: React.FC<ViewPostProps> = ({
@@ -45,6 +46,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
   isScraped,
   isOwnPost,
   imageUrl,
+  commentPage,
 }) => {
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
@@ -60,7 +62,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
     handleOn: handleLike
   } = useUserCount(
     `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/likes`,
-    ["post", postId],
+    ["post", postId, commentPage],
     isLiked,
     likeCount,
   );
@@ -71,7 +73,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
     handleOn: handleScrap
   } = useUserCount(
     `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}/scraps`,
-    ["post", postId],
+    ["post", postId, commentPage],
     isScraped,
     scrapeCount,
   );
@@ -190,7 +192,8 @@ const ViewPost: React.FC<ViewPostProps> = ({
               width={100}
               height={100}
               alt={"이미지"}
-              className={`w-full`}/>
+              className={`w-full`}
+              priority />
           }
         </div>
 
