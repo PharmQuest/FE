@@ -66,7 +66,10 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ pharmacy, onClose }) => {
       <div className="w-full map:w-[384px] h-full flex flex-col shrink-0 bg-white">
         <div className="flex-none">
           <PharmacyHeader pharmacy={pharmacy} onClose={onClose} />
-          <ActionButtons onDirectionsClick={handleDirectionsClick} />
+          <ActionButtons
+            onDirectionsClick={handleDirectionsClick}
+            placeId={pharmacy.place_id}
+          />
           <div className="w-full h-2 bg-gray-100"></div>
           <TabNavigation activeTab={activeTab} onTabChange={scrollToSection} />
         </div>
