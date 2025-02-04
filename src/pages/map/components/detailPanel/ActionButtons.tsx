@@ -3,9 +3,13 @@ import { BookmarkIcon, DepartIcon, ArriveIcon } from "@public/svgs";
 
 interface ActionButtonsProps {
   onDirectionsClick: (type: "depart" | "arrive") => void;
+  placeId: string;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({ onDirectionsClick }) => {
+const ActionButtons: React.FC<ActionButtonsProps> = ({
+  onDirectionsClick,
+  placeId,
+}) => {
   const [isBookmark, setIsBookmark] = useState(false);
 
   return (
