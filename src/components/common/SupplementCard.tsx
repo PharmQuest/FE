@@ -40,7 +40,7 @@ export default function SupplementCard({
       }}
     >
       <div
-        className="relative bg-gray-100 rounded-lg"
+        className="relative bg-gray-100 rounded-lg -z-10"
         style={{
           width: "100%",
           height: `${width}px`,

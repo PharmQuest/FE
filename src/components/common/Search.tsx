@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon } from "@public/svgs"
+import { SearchBarIcon, SearchThinIcon, XThinIcon, MapPinThinIcon } from "@public/svgs"
 import { useRouter } from "next/router";
 import SearchModal from "./SearchModal";
 import { MouseEvent } from "react";
@@ -41,8 +41,8 @@ const Search = () => {
           className={`flex items-center lg:gap-2 gap-1 bg-none rounded-full text-gray-500 outline-none`}
           onClick={(e) => handleSearchModal(e)}>
           {/* 반응형 아이콘 */}
-          <GreenMapPinIcon className={`
-            ${isHomePage && 'lg:w-7'} 
+          <MapPinThinIcon className={`
+            ${isHomePage && 'lg:w-7 w-4'} 
             ${countryValue === "" ? `text-gray-500 lg:text-headline-m` : `text-secondary-500 lg:text-headline-b`}
             w-5`} />
 
@@ -58,7 +58,7 @@ const Search = () => {
         </button>
         <SearchBarIcon className={`${isHomePage ? `lg:ml-3 lg:mr-2 lg:h-[22px] h-3` : `h-4`}`} />
         <div className={`flex gap-2 grow`}>
-          <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5 ml-[2px]` : `w-6`}`} />
+          <SearchThinIcon className={`${isHomePage ? `lg:w-[30px] w-4 ml-[2px]` : `w-6`}`} />
           <input
             type="text"
             className={`w-full grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
@@ -68,8 +68,8 @@ const Search = () => {
           />
         </div>
         {searchText &&
-          <XIcon
-            className={`cursor-pointer ${isHomePage ? `lg:w-5 w-[6.67px]` : `w-4 mr-1`}`}
+          <XThinIcon
+            className={`cursor-pointer ${isHomePage ? `lg:w-[30px] w-4` : `w-4 mr-1`}`}
             onClick={() => setSearchText('')} />
         }
 
