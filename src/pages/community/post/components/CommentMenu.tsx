@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import useModalStore from "@/store/useModalStore";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";

@@ -21,7 +21,7 @@ const MedicineCard = () => {
     <div 
       className={`
         md:p-5 md:pr-4 md:rounded-lg md:h-[178px]
-        h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate`} 
+        h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate -z-10`} 
       onClick={() => router.push('medicines/1')}>
       {/* medicine-image */}
       <div className={`

@@ -6,11 +6,10 @@ import useAuthStore from "@/store/useAuthStore";
 const UserNavbar = () => {
   const router = useRouter();
 
-  const { isLoggedIn, logOut, checkAuth } = useAuthStore();
+  const { isLoggedIn, logOut } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    checkAuth();
     setIsMounted(true)
   }, [])
 
