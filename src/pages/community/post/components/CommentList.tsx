@@ -55,7 +55,7 @@ const CommentList: React.FC<CommentListProps> = ({
   return (
     comments?.length > 0 &&
     <div className={`md:p-0 p-5 pt-4`}>
-      <div className="md:p-5 md:py-3 pt-4 pb-3 flex flex-col bg-gray-50 gap-5 rounded">
+      <div className="md:p-5 md:py-3 md:pt-5 pt-4 pb-3 flex flex-col bg-gray-50 gap-5 rounded">
         {comments?.map((comment) => (
           <CommentItem
             key={comment.commentId}
