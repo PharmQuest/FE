@@ -2,15 +2,7 @@ import { BookmarkIcon } from "@public/svgs";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
-interface MedicineCardProps {
-  brandName: string;
-  genericName: string;
-  splSetId: string;
-  imgUrl: string;
-  category: string;
-  country: string;
-}
+import { MedicineCardProps } from "@/types/medicine";
 
 const MedicineCard: React.FC<MedicineCardProps> = ({
   brandName,
