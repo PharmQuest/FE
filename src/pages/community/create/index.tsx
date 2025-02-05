@@ -204,7 +204,7 @@ export default function CreatePost() {
                 {/* Image에 hover 시 X 버튼 등장 */}
                 <XIcon
                   onClick={() => setUploadImage("")}
-                  className={`absolute top-3 right-3 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`} />
+                  className={`w-5 absolute top-3 right-3 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`} />
               </div>
             }
             <div className={`flex justify-between mt-5`}>

@@ -53,6 +53,7 @@ const Search = () => {
               :
               `w-fit text-body1-r
               ${countryValue === "" ? `text-gray-500 lg:text-body1-r` : `text-secondary-500 lg:text-body1-sb`}`}
+              min-w-[25px]
           `}>{countryText}</p>
         </button>
         <SearchBarIcon className={`${isHomePage ? `lg:ml-3 lg:mr-2 lg:h-[22px] h-3` : `h-4`}`} />
