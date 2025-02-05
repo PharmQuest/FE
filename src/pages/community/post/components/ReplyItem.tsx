@@ -128,7 +128,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
           </div>
         </div>
         {replyParentId === commentId &&
-          <CommentInput replyParentId={commentId} userName={userName} />
+          <CommentInput replyParentId={commentId} userName={userName} setReplyParentId={setReplyParentId}/>
         }
       </div>
     </div>
