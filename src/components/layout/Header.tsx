@@ -22,9 +22,15 @@ const Header = () => {
 
   const [title, setTitle] = useState("");
 
-  const { isLoggedIn, logOut, checkAuth } = useAuthStore();
+  const { isLoggedIn, logOut, checkAuth, userId, setUser } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false)
 
+  useEffect(() => {
+    if(!userId && isLoggedIn) {
+      setUser();
+      console.log(userId)
+    }
+  }, [isLoggedIn, userId])
 
   useEffect(() => {
     checkAuth();
