@@ -5,6 +5,7 @@ interface AuthState {
   isLoggedIn: boolean;
   userId: number | null;
   userName: string | null;
+  provider: string | null;
   logOut: () => void;
   checkAuth: () => void;
   setUser: () => void;
@@ -14,6 +15,7 @@ const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: true,
   userId: null,
   userName: null,
+  provider: null,
 
   logOut: () => {
     localStorage.removeItem("accessToken");
@@ -35,6 +37,7 @@ const useAuthStore = create<AuthState>((set) => ({
       set({
         userId: userData.userId,
         userName: userData.userName,
+        provider: userData.provider,
       });
     } catch (e) {
       console.log(e);
