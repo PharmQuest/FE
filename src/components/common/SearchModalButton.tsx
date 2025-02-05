@@ -26,7 +26,7 @@ const SearchModalButton:React.FC<SearchModalButtonProps> = ({text, value, countr
     <div 
       className={`
       ${isHome ? `lg:px-6 lg:py-1.5 lg:text-headline-b` : ``}
-      w-fit text-m-subhead1-sb border-solid  rounded-full px-3 py-1
+      w-fit text-m-subhead1-sb border-solid  rounded-full px-3 py-1 cursor-pointer
       ${value === countryValue ? `text-primary-500 border-[2px] border-primary-500` : `text-gray-300 border border-gray-300`}`}
       onClick={handleButton}>
       {text}
