@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 
 
-const useUserCount = ( url: string, queryKey: [string, number, number?], isOnInitial: boolean, initialCount: number) => {
+const useUserCount = ( url: string, queryKey: [string, number | null, number?], isOnInitial: boolean, initialCount: number) => {
   const [isOn, setIsOn] = useState(isOnInitial);
   const [onCount, setOnCount] = useState(initialCount);
 
