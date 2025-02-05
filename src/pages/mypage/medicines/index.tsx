@@ -17,20 +17,23 @@ const MyMedicinesPage = () => {
   );
 
   return (
-    <div className="lg:w-[900px] lg:mx-auto
-        md:w-[600px] md:mx-auto
-        sm:w-full 
-        min-h-[calc(100vh-412px)] w-full sm:px-5 lg:px-0 flex flex-col items-center py-8">
-      <div className="w-full flex flex-col lg:flex-row md:shadow-none shadow-[0px_2px_0px_0px_rgba(0,0,0,0.05) items-start lg:items-center gap-4 lg:gap-6">
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 flex flex-col">
+      
+      {/* ✅ 상비약 저장 목록 + 필터 영역 */}
+      <div className="w-full md:px-0 flex flex-col md:flex-row items-start lg:items-center gap-2">
+        {/* ✅ 제목 영역 */}
         <div className="flex items-center">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
-          <h1 className="text-gray-600 text-display2-b text-lg ml-2 whitespace-nowrap">
+          <h1 className="text-gray-600 md:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
             상비약 저장 목록 <span className="text-gray-600">{medicines.length}</span>개
           </h1>
         </div>
 
+        <div className="-mx-5 w-screen h-[1px] bg-gray-100 md:hidden" />
+
+        {/* ✅ 필터 버튼 영역 */}
         <div className="flex gap-2 overflow-x-auto w-full lg:w-auto flex-wrap md:flex-nowrap md:ml-4">
           <FilterButton text="전체" isSelected />
           <FilterButton text="한국" />
