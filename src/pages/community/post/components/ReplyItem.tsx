@@ -9,6 +9,8 @@ import CommentInput from "./CommentInput";
 import { format } from "date-fns";
 import { useParams } from "next/navigation";
 import useUserCount from "@/hooks/community/useUserCount";
+import CommentMenu from "./CommentMenu";
+import { useEffect, useState } from "react";
 
 interface ReplyItemProps {
   postUserId: number;
@@ -44,7 +46,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
 }) => {
 
   const params = useParams();
-  const postId = Number(params.postId);
+  const postId = Number(params?.postId) || null;
 
   const {
     isOn: isReplyLike,
@@ -56,6 +58,25 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
     isLiked,
     likeCount,
   );
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenu = (e: MouseEvent) => {
+    e.stopPropagation();
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setIsMenuOpen(false);
+    }
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    }
+  })
 
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
@@ -69,16 +90,19 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
               text-m-subhead1-sb flex flex-row gap-1">
             <CornerDownRightIcon />
             <p>{userName}</p>
-            {postUserId === userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`}/>}
+            {postUserId === userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`} />}
           </div>
-          <KebabIcon className={`h-[22px]`}/>
+          <div className={`relative cursor-pointer`}>
+            <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
+            <CommentMenu commentId={commentId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnComment={false} />
+          </div>
         </div>
         <div className="flex flex-row gap-2">
-          <p 
+          <p
             className="
               lg:text-subhead1-sb
               text-m-subhead1-sb text-secondary-500">@{parentName}</p>
-          <p 
+          <p
             className="
               lg:text-body1-r
               text-m-body2-r  text-gray-500">{content}</p>
@@ -97,7 +121,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
             <div
               className="flex flex-row cursor-pointer gap-0.5"
               onClick={() => setReplyParentId(commentId)}>
-              <CommentIcon className={`w-5 text-gray-400`}/> 답글 달기
+              <CommentIcon className={`w-5 text-gray-400`} /> 답글 달기
             </div>
           </div>
         </div>
