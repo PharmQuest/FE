@@ -7,9 +7,11 @@ import { useQueryClient } from "@tanstack/react-query";
 const CommentInput = ({
   replyParentId,
   userName,
+  setReplyParentId,
 }: {
   replyParentId?: number;
   userName?: string;
+  setReplyParentId?: React.Dispatch<React.SetStateAction<number | null>>;
 }) => {
   const params = useParams() || {};
   const postId = params.postId || null;
@@ -28,6 +30,9 @@ const CommentInput = ({
         }
       );
       setContent("");
+      if(setReplyParentId){
+        setReplyParentId(null)
+      }
       queryClient.invalidateQueries({ queryKey: ["post", Number(postId)] });
     } catch (error) {
       console.log(error);
