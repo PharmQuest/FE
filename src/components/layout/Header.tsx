@@ -183,7 +183,7 @@ const Header = () => {
       <div
         className={`
         // 공통 스타일
-        fixed z-[500]
+        fixed z-[50]
         h-[60px] w-full flex items-center
         bg-background
         lg:hidden
