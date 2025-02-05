@@ -38,7 +38,7 @@ const Search = () => {
           relative flex items-center bg-white rounded-full flex-grow shadow-md w-full`}>
         {/* 위치선택 */}
         <button 
-          className={`flex items-center lg:gap-2 gap-1 bg-none rounded-full text-gray-500`}
+          className={`flex items-center lg:gap-2 gap-1 bg-none rounded-full text-gray-500 outline-none`}
           onClick={(e) => handleSearchModal(e)}>
           {/* 반응형 아이콘 */}
           <GreenMapPinIcon className={`
