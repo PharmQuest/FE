@@ -17,7 +17,7 @@ export default function SupplementCard({
   tags,
   isBookmarked = false,
   width = 160,
-  src = "",
+  src = "/images/no_image.webp",
 }: SupplementCardProps) {
   const [bookmarked, setBookmarked] = useState(isBookmarked);
   const [imgSrc, setImgSrc] = useState("");
@@ -48,7 +48,7 @@ export default function SupplementCard({
       >
         {/* 이미지 */}
         <Image
-          src={imgSrc}
+          src={imgSrc || "/images/no_image.webp"}
           alt={title || "이미지"}
           className="absolute inset-0 w-full h-full object-cover rounded-lg"
           onError={() => setImgSrc("/images/no_image.webp")} // 이미지 로드 실패 시 대체 이미지 설정
