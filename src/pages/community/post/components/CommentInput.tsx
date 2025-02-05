@@ -60,7 +60,7 @@ const CommentInput = ({
             placeholder={`${userName ? `` : `댓글을 남겨보세요.` }`}
             className="
             lg:text-body1-r
-            w-full text-m-body2-r text-gray-600 placeholder-gray-300 focus:outline-none"
+            w-full text-m-body2-r text-gray-600 placeholder-gray-300 focus:outline-none resize-none"
             value={content}
             maxLength={600}
             onChange={(e) => setContent(e.target.value)}
