@@ -6,7 +6,7 @@ import useAuthStore from "@/store/useAuthStore";
 const UserNavbar = () => {
   const router = useRouter();
 
-  const { isLoggedIn, logOut, userName } = useAuthStore();
+  const { isLoggedIn, logOut, userName, provider } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const UserNavbar = () => {
               <p className="text-headline-b text-gray-600">{userName}</p>
               <p className={`text-body1-r content-center`}>님</p>
             </div>
-            <p className="text-caption1-r text-gray-300">naver 로그인</p>
+            <p className="text-caption1-r text-gray-300">{provider} 로그인</p>
             <div className=" flex flex-col gap-2.5">
               <button
                 className="w-full h-[37px] py-2 text-center text-subhead2-sb bg-primary-500 text-white rounded-[4px] mt-4"
