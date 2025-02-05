@@ -69,7 +69,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
               text-m-subhead1-sb flex flex-row gap-1">
             <CornerDownRightIcon />
             <p>{userName}</p>
-            {postUserId !== userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`}/>}
+            {postUserId === userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`}/>}
           </div>
           <KebabIcon className={`h-[22px]`}/>
         </div>
