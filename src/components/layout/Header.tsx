@@ -29,7 +29,7 @@ const Header = () => {
   useEffect(() => {
     checkAuth();
     setIsMounted(true);
-  }, [pathName])
+  }, [pathName, isLoggedIn])
 
   useEffect(() => {
     switch (pathName) {
@@ -101,7 +101,7 @@ const Header = () => {
   return (
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
-      <div className={`fixed z-[500] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
+      <div className={`sticky top-0 z-[500] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
         <div className={`
             // 기본 스타일
             flex items-center gap-12
@@ -150,7 +150,7 @@ const Header = () => {
               해외 인기 영양제
             </button>
             {/* 로그인 상태에 따라 버튼 렌더링 */}
-            {isLoggedIn ? (
+            {isMounted && (isLoggedIn ? (
               // isLoggedIn이 true
               <div className="flex gap-3 items-center">
                 <UserIcon onClick={() => router.push("/mypage")} />
@@ -169,7 +169,7 @@ const Header = () => {
               >
                 로그인
               </button>
-            )}
+            ))}
           </div>
         </div>
       </div>
