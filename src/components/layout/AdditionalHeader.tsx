@@ -75,7 +75,7 @@ const AdditionalHeader = ({
   return (
     <>
       {currentTitle !== "" ? (
-        <div className={`bg-background flex flex-col`}>
+        <div className={`bg-background flex flex-col sticky top-0 z-500`}>
           {children}
           <div
             className={`
