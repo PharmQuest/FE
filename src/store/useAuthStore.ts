@@ -11,7 +11,7 @@ interface AuthState {
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: false,
+  isLoggedIn: true,
   userId: null,
   userName: null,
 
