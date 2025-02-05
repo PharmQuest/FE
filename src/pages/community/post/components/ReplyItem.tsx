@@ -26,6 +26,7 @@ interface ReplyItemProps {
   isLiked: boolean;
   likeCount: number;
   commentPage: number;
+  isOwnComment: boolean;
 }
 
 const ReplyItem: React.FC<ReplyItemProps> = ({
@@ -43,6 +44,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   isLiked,
   likeCount,
   commentPage,
+  isOwnComment,
 }) => {
 
   const params = useParams();
@@ -94,7 +96,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
           </div>
           <div className={`relative cursor-pointer`}>
             <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
-            <CommentMenu commentId={commentId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnComment={false} />
+            <CommentMenu commentId={commentId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnComment={isOwnComment} />
           </div>
         </div>
         <div className="flex flex-row gap-2">

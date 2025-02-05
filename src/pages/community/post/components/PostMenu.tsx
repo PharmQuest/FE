@@ -23,6 +23,7 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
     setNoticeModalText,
     setIsNoticeModalOpen,
     setIsReportModalOpen,
+    setIsCommentReport,
   } = useModalStore();
 
   const copyLink = () => {
@@ -49,8 +50,9 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
 
   const handleReport = (e: MouseEvent) => {
     e.stopPropagation();
-    setIsReportModalOpen(true)
-    setIsMenuOpen(false)
+    setIsCommentReport(false);
+    setIsReportModalOpen(true);
+    setIsMenuOpen(false);
   }
 
   return (
