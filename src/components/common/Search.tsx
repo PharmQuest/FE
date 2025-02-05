@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SearchBarIcon, SearchIcon, XIcon, GreenMapPinIcon } from "@public/svgs"
+import { GreenMapPinIcon, SearchBarIcon, SearchIcon, XIcon } from "@public/svgs"
 import { useRouter } from "next/router";
 import SearchModal from "./SearchModal";
 import { MouseEvent } from "react";
