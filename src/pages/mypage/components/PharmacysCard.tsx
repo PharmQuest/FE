@@ -29,7 +29,7 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
   return (
     <div
       className={`relative border border-gray-100 rounded-lg flex items-center gap-3 p-5
-      xl:max-w-[440px] lg:w-[440px] md:w-full w-full sm h-[160px] px-5 overflow-hidden`}
+      xl:max-w-[440px] lg:w-[440px] md:w-full w-full sm:h-[160px] overflow-hidden`}
     >
       {/* 북마크 아이콘 */}
       <button
