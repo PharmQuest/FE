@@ -15,7 +15,7 @@ const PostMenu: React.FC<PostMenuProp> = ({ postId, isMenuOpen, setIsMenuOpen, i
   const router = useRouter();
 
   const mutate = usePostMutation(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/${postId}`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts?postIds=${postId}`,
     "delete",
   )
 
