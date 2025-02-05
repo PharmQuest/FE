@@ -100,6 +100,7 @@ const SupplementPage: React.FC = () => {
           <FilterButton text="피로회복" isSelected={selectedCategory === "피로"} onClickFn={() => handleFilterClick("피로")} />
           <FilterButton text="소화건강" isSelected={selectedCategory === "소화"} onClickFn={() => handleFilterClick("소화")} />
           <FilterButton text="피부건강" isSelected={selectedCategory === "피부"} onClickFn={() => handleFilterClick("피부")} />
+          <FilterButton text="뼈관절건강" isSelected={selectedCategory === "관절"} onClickFn={() => handleFilterClick("관절")} />
         </div>
       </div>
 
