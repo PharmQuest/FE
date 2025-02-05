@@ -6,7 +6,7 @@ import useAuthStore from "@/store/useAuthStore";
 const UserNavbar = () => {
   const router = useRouter();
 
-  const { isLoggedIn, logOut, checkAuth } = useAuthStore();
+  const { isLoggedIn, logOut, checkAuth, userName } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const UserNavbar = () => {
         <>
           <div className="p-4 pt-[13px]">
             <div className={`flex gap-1`}>
-              <p className="text-headline-b text-gray-600">maengso</p>
+              <p className="text-headline-b text-gray-600">{userName}</p>
               <p className={`text-body1-r content-center`}>님</p>
             </div>
             <p className="text-caption1-r text-gray-300">naver 로그인</p>
