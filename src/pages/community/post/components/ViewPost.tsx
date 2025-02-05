@@ -147,12 +147,12 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
             <div
               className="
-              lg:gap-5 lg:text-body1-r lg:mt-[4.5px]
+              lg:gap-4 lg:text-body1-r lg:mt-[4.5px]
               flex flex-row text-m-caption1-r text-gray-300 gap-2 ">
               <p>{userName}</p>
               |
               <p>{formattedDate}</p>
-              <div className={`md:block relative hidden cursor-pointer`}>
+              <div className={`lg:ml-1 md:block relative hidden cursor-pointer`}>
                 <KebabIcon
                   className={`
                   lg:h-[22px]
