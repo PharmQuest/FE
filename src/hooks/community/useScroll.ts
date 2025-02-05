@@ -5,7 +5,7 @@ const useScroll = (limit: number) => {
   const scrollRimit = limit;
 
   const handleScroll = () => {
-    const scrollTop = window.scrollY - 148 > 48 ? window.scrollY - 148 : 48;
+    const scrollTop = window.scrollY > 48 ? window.scrollY : 48;
     const limitedScrollTop = Math.min(scrollTop, scrollRimit);
 
     setPosition(limitedScrollTop);
