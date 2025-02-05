@@ -18,15 +18,16 @@ const MyPharmacys = () => {
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 flex flex-col">
-      <div className="w-full md:px-0 flex flex-col lg:flex-row items-start lg:items-center gap-2">
+      <div className="w-full md:px-0 flex flex-col md:flex-row items-start lg:items-center gap-2">
         <div className="flex">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
-          <h1 className="text-gray-600 text-display2-b text-lg ml-2 whitespace-nowrap">
+          <h1 className="text-gray-600 md:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
             약국 저장 목록 <span className="text-gray-600">{pharmacys.length}</span>개
           </h1>
         </div>
+        <div className="-mx-5 w-screen h-[1px] bg-gray-100 md:hidden" />
 
         <div className="flex gap-2 overflow-x-auto w-full lg:w-auto flex-wrap lg:flex-nowrap lg:ml-4">
           <FilterButton text="전체" isSelected />

@@ -36,10 +36,10 @@ const MyPage: React.FC<MyPageProps> = ({
       <div className="w-full px-6 py-3 border border-gray-200 md:pl-4 flex justify-between items-center mb-10 border-b">
         <div>
           <div className="flex items-end gap-1">
-            <div className="text-gray-600 text-display2-b font-bold">{userName}</div>
-            <div className="text-gray-600 text-display2-m">님</div>
+            <div className="text-gray-600 md:text-display2-b text-m-headline1-b">{userName}</div>
+            <div className="text-gray-600 md:text-display2-m text-m-headline1-b ">님</div>
           </div>
-          <div className="text-gray-400 text-body1-r">{userEmail}</div>
+          <div className="text-gray-400 md:text-body1-r text-m-body2-r">{userEmail}</div>
         </div>
         <div className="w-[100px] px-4 py-2 rounded border border-gray-200 flex justify-center items-center">
           <button className="text-gray-400 text-caption1-r">로그아웃</button>
@@ -49,12 +49,12 @@ const MyPage: React.FC<MyPageProps> = ({
       {/* 나의 활동 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/community/activities" className="text-gray-600 text-display2-b flex items-center gap-1">
+          <Link href="/community/activities" className="text-gray-600 md:text-display2-b text-headline-b flex items-center gap-1">
             <h2>나의 활동</h2>
             <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
-        <p className="text-gray-400 text-body1-r text-left md:text-center">
+        <p className="text-gray-400 md:text-body1-r text-m-body1-r text-left md:text-center">
           나의 커뮤니티 활동을 확인해보세요. <br />
           게시글/댓글/스크랩/알림 내용을 확인할 수 있어요.
         </p>
@@ -63,7 +63,7 @@ const MyPage: React.FC<MyPageProps> = ({
       {/* 상비약 저장 목록 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/mypage/medicines" className="text-gray-600 text-display2-b flex items-center gap-1">
+          <Link href="/mypage/medicines" className="text-gray-600 text-headline-b md:text-display2-b flex items-center gap-1">
             <h2>상비약 저장 목록</h2>
             <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
@@ -75,7 +75,7 @@ const MyPage: React.FC<MyPageProps> = ({
             ))}
           </div>
         ) : (
-          <p className="text-gray-400 text-body1-r text-left md:text-center">
+          <p className="text-gray-400 md:text-body1-r md:text-m-body1-r text-left md:text-center">
             저장한 상비약이 없어요. <br />
             <Link href="/medicines" className="text-gray-400 underline">
               상비약 리스트
@@ -89,7 +89,7 @@ const MyPage: React.FC<MyPageProps> = ({
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
           <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b flex items-center gap-1">
-            <h2 className="test-display2-b">약국 저장 목록</h2>
+            <h2 className="md:test-display2-b text-headline-b ">약국 저장 목록</h2>
             <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
@@ -100,7 +100,7 @@ const MyPage: React.FC<MyPageProps> = ({
             ))}
           </div>
         ) : (
-          <p className="text-gray-400 text-body1-r text-left md:text-center">
+          <p className="text-gray-400 md:text-body1-r text-m-body1-r text-left md:text-center">
             저장한 약국이 없어요. <br />
             <Link href="/pharmacys" className="text-gray-400 underline">
               약국 찾기
@@ -113,7 +113,7 @@ const MyPage: React.FC<MyPageProps> = ({
       {/* 영양제 저장 목록 */}
       <div className="mb-12">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/mypage/supplement" className="text-gray-600 text-display2-b flex items-center gap-1">
+          <Link href="/mypage/supplement" className="text-gray-600 text-headline-b md:text-display2-b flex items-center gap-1">
             <h2>영양제 저장 목록</h2>
             <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
@@ -125,7 +125,7 @@ const MyPage: React.FC<MyPageProps> = ({
             ))}
           </div>
         ) : (
-          <p className="text-gray-400 text-body1-r text-left md:text-center">
+          <p className="text-gray-400 text-m-body1-r md:text-body1-r text-left md:text-center">
             저장한 영양제가 없어요. <br />
             <Link href="/supplements" className="text-gray-400 underline">
               해외 인기 영양제
