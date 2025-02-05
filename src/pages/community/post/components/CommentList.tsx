@@ -26,6 +26,7 @@ interface Comment {
   replies: Reply[];
   isLiked: boolean;
   likeCount: number;
+  isOwnComment: boolean;
 }
 
 interface CommentListProps {
@@ -68,7 +69,8 @@ const CommentList: React.FC<CommentListProps> = ({
             setReplyParentId={setReplyParentId} 
             commentPage={commentPage}
             isLiked={comment.isLiked}
-            likeCount={comment.likeCount}/>
+            likeCount={comment.likeCount}
+            isOwnComment={comment.isOwnComment}/>
         ))}
 
         <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast} />
