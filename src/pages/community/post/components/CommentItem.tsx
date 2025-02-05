@@ -128,7 +128,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
           </div>
         </div>
         {replyParentId === commentId &&
-          <CommentInput replyParentId={replyParentId} userName={userName} />
+          <CommentInput replyParentId={replyParentId} userName={userName} setReplyParentId={setReplyParentId}/>
         }
       </div>
       {replies?.map((reply) => (
