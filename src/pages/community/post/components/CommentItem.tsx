@@ -52,7 +52,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
 }) => {
 
   const params = useParams();
-  const postId = Number(params.postId);
+  const postId = Number(params?.postId) || null;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -82,7 +82,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     }
-  })
+  }, [])
 
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
