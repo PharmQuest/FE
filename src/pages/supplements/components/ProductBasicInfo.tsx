@@ -44,6 +44,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
         `}
       >
         <Image
+          priority
           className="w-full h-full object-cover"
           src={imgSrc}
           alt="제품 이미지"
