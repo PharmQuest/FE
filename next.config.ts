@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
 			{
 				protocol: "https",
 				hostname: "dailymed.nlm.nih.gov",
-				pathname: "/dailymed/image.cfm",
+				pathname: "/**",
 			},
 			{
 				protocol: "https",
