@@ -28,6 +28,7 @@ const MyPage: React.FC<MyPageProps> = ({
    supplements = [
     { id: 1, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
     { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
+    { id: 3, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
   ],
 }) => {
   return (
@@ -88,8 +89,8 @@ const MyPage: React.FC<MyPageProps> = ({
       {/* 약국 저장 목록 */}
       <div className="mb-12 pb-6 md:pb-0">
         <div className="flex justify-between items-center mb-4">
-          <Link href="/mypage/pharmacys" className="text-gray-600 text-display2-b flex items-center gap-1">
-            <h2 className="md:test-display2-b text-headline-b ">약국 저장 목록</h2>
+          <Link href="/mypage/pharmacys" className="text-gray-600 text-headline-b md:text-display2-b flex items-center gap-1">
+            <h2>약국 저장 목록</h2>
             <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
@@ -119,7 +120,7 @@ const MyPage: React.FC<MyPageProps> = ({
           </Link>
         </div>
         {supplements.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {supplements.map((supplement) => (
               <SupplementCard key={supplement.id} {...supplement} />
             ))}
