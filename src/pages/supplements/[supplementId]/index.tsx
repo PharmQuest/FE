@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from 'react'
 import ProductBasicInfo from "../components/ProductBasicInfo";
 import UsagePurpose from "../components/UsagePurpose";
 import UsageInstructions from "../components/UsageInstructions";
@@ -6,6 +7,7 @@ import Warnings from "../components/Warning";
 import MoreSupplements from "../components/MoreSupplements";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from 'next/navigation'
 
 import {
   productBasicInfo,
@@ -29,13 +31,10 @@ interface ApiResponse {
     brand: string;
     maker: string;
     scrapCount: number;
-    category1: string;
-    category2: string;
-    category3: string;
-    category4: string;
-    dosage: string;
-    purpose: string;
-    warning: string;
+    productCategory: string[];
+    dosage: string[];
+    purpose: string[];
+    warning: string[];
     categories: string[];
     relatedSupplements: {
       id: number;
@@ -45,6 +44,7 @@ interface ApiResponse {
       image: string;
       brand: string;
       maker: string;
+      categories: string[];
       scrapCount: number;
       scrapped: boolean;
     }[];
@@ -54,7 +54,8 @@ interface ApiResponse {
 }
 
 const SupplementInfo: React.FC = () => {
-  const id = router.query.id;
+  const params = useParams()
+  const id = params.supplementId
   console.log('현재 선택된 영양제 ID:', id);
 
   const copyToClipboard = () => {
@@ -64,7 +65,7 @@ const SupplementInfo: React.FC = () => {
     });
   };
 
-  const { data } = useQuery<ApiResponse>({
+  const { data, isLoading } = useQuery<ApiResponse>({
     queryKey: ["supplements", id],
     queryFn: async () => {
       const url = `/supplements/med?supplement_id=${id}`;
@@ -73,8 +74,38 @@ const SupplementInfo: React.FC = () => {
       const response = await axiosInstance.get(url);
       console.log("detail API Response:", response.data); // 데이터
       return response.data;
-    }
+    },
+    enabled: !!id
   });
+
+  if (isLoading)
+    console.error("영양제 상세 로딩 중..");
+
+  const getCountryDisplay = (country?: string) => {
+    switch (country) {
+      case "미국":
+        return "미국 US";
+      case "한국":
+        return "한국 KR";
+      default:
+        return country || "-";
+    }
+  };
+
+  const tableData = [
+    {
+      label: "제조사",
+      value: data?.result.maker || "-"
+    },
+    {
+      label: "브랜드",
+      value: data?.result.brand || "-"
+    },
+    {
+      label: "원산지",
+      value: getCountryDisplay(data?.result.country)
+    }
+  ];
 
   return (
     <>
@@ -101,10 +132,10 @@ const SupplementInfo: React.FC = () => {
         <div className="relative">
           {/* 제품 정보 컴포넌트 */}
           <ProductBasicInfo
-            title={data.result.productName}
-            tags={productBasicInfo.tags || []}
-            // imageUrl={data?.result.image}
-            tableData={productBasicInfo.tableData}
+            title={data?.result.productName || ""}
+            tags={data?.result.categories || []}
+            imageUrl={data?.result.image}
+            tableData={tableData}
           />
         </div>
 
@@ -128,7 +159,16 @@ const SupplementInfo: React.FC = () => {
 
         {/* 영양제 더보기 */}
         <div className="hidden lg:block">
-          <MoreSupplements supplements={data?.result.relatedSupplements} imageWidth={287} />
+        <MoreSupplements supplements={data?.result.relatedSupplements.map(supp => ({
+          id: supp.id,
+          country: supp.country,
+          title: supp.productName,
+          tags: supp.categories,
+          isBookmarked: supp.scrapped,
+          src: supp.image
+          })) || []}
+          imageWidth={287}/>
+          {/* <MoreSupplements supplements={data!.result.relatedSupplements} imageWidth={287} /> */}
         </div>
       </div>
     </div>

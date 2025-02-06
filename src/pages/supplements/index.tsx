@@ -76,7 +76,7 @@ const SupplementPage: React.FC = () => {
   });
 
   if (isLoading || isSearchLoading)
-    console.error("로딩 중..");
+    console.error("영양제 로딩 중..");
   if (isError)
     console.error("카테고리Error=", error);
   if (isSearchError)
