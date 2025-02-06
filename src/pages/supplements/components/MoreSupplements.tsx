@@ -17,7 +17,7 @@ function MoreSupplements({ supplements=[], imageWidth }: MoreSupplementsProps) {
   const router = useRouter();
 
   const handleCardClick = (id: number) => {
-    router.push(`/supplement/${id}`); // 클릭 시 해당 영양제 상세 페이지로 이동
+    router.push(`/supplements/${id}`); // 클릭 시 해당 영양제 상세 페이지로 이동
   };
   
   return (
