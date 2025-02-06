@@ -41,21 +41,22 @@ const SupplementPage: React.FC = () => {
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplements", selectedCategory, currentPage],
     queryFn: async () => {
-      const category = selectedCategory === "전체" ? "" : selectedCategory;
+      const category = selectedCategory === "전체" ? "전체" : selectedCategory;
       
       const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
       
       console.log("currentPage=", currentPage);
-      console.log("Request URL:", url); // 실제 요청 URL 확인
       console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL); // 환경변수 확인
+      console.log("category=", category);
+      console.log("Request URL:", url); // 실제 요청 URL 확인
+
       const response = await axiosInstance.get(url);
-      console.log("API Response:", response.data); // 데이터
+      console.log("category API Response:", response.data); // 데이터
       return response.data;
     }
   });
 
   console.log("검색어:", searchQuery);
-  //console.log("전체=", encodeURIComponent("전체"));
 
   // 필터 버튼 클릭 핸들러
   const handleFilterClick = (category: string) => {
@@ -77,7 +78,7 @@ const SupplementPage: React.FC = () => {
   if (isLoading || isSearchLoading)
     console.error("로딩 중..");
   if (isError)
-    console.error("Error=", error);
+    console.error("카테고리Error=", error);
   if (isSearchError)
     console.error("isSearchError=", isSearchError);
 
@@ -102,6 +103,7 @@ const SupplementPage: React.FC = () => {
           <FilterButton text="소화건강" isSelected={selectedCategory === "소화"} onClickFn={() => handleFilterClick("소화")} />
           <FilterButton text="피부건강" isSelected={selectedCategory === "피부"} onClickFn={() => handleFilterClick("피부")} />
           <FilterButton text="뼈관절건강" isSelected={selectedCategory === "관절"} onClickFn={() => handleFilterClick("관절")} />
+          <FilterButton text="눈건강" isSelected={selectedCategory === "눈건강"} onClickFn={() => handleFilterClick("눈건강")} />
         </div>
       </div>
 
