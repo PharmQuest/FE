@@ -60,6 +60,8 @@ export default function SupplementCard({
 
       if (response.data.isSuccess) {
         setBookmarked(!bookmarked);
+        console.log("스크랩id=", id);
+        console.log("스크랩data=", response);
       } else {
         alert(response.data.message);
       }

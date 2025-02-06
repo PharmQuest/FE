@@ -7,6 +7,7 @@ interface MoreSupplementsProps {
     title: string;
     tags: string[];
     isBookmarked?: boolean;
+    src?: string;
   }[];
   imageWidth?: number; 
 }
@@ -23,6 +24,7 @@ function MoreSupplements({ supplements=[], imageWidth }: MoreSupplementsProps) {
             country={supplement.country}
             title={supplement.title}
             tags={supplement.tags}
+            src={supplement.src}
             width={imageWidth ?? 260} 
           />
         ))}
