@@ -78,7 +78,8 @@ const SupplementPage: React.FC = () => {
     console.error("로딩 중..");
   if (isError)
     console.error("Error=", error);
-  if (isSearchError) return console.error("isSearchError=", isSearchError);
+  if (isSearchError)
+    console.error("isSearchError=", isSearchError);
 
   const displayData = searchQuery ? searchData?.result : data?.result;
   const supplements = displayData?.supplements || [];
@@ -117,7 +118,8 @@ const SupplementPage: React.FC = () => {
           <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-5">
             {supplements.map((supplement) => (
               <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
-                <SupplementCard country={supplement.country}
+                <SupplementCard id={supplement.id}
+                                country={supplement.country}
                                 title={supplement.productName}
                                 tags={supplement.categories}
                                 isBookmarked={supplement.scrapped}
