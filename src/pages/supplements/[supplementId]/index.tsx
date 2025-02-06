@@ -65,7 +65,7 @@ const SupplementInfo: React.FC = () => {
     });
   };
 
-  const { data, isLoading } = useQuery<ApiResponse>({
+  const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplements", id],
     queryFn: async () => {
       const url = `/supplements/med?supplement_id=${id}`;
@@ -80,6 +80,8 @@ const SupplementInfo: React.FC = () => {
 
   if (isLoading)
     console.error("영양제 상세 로딩 중..");
+  if (isError)
+    console.error("상세Error=", error);
 
   const getCountryDisplay = (country?: string) => {
     switch (country) {
@@ -159,16 +161,16 @@ const SupplementInfo: React.FC = () => {
 
         {/* 영양제 더보기 */}
         <div className="hidden lg:block">
-        <MoreSupplements supplements={data?.result.relatedSupplements.map(supp => ({
-          id: supp.id,
-          country: supp.country,
-          title: supp.productName,
-          tags: supp.categories,
-          isBookmarked: supp.scrapped,
-          src: supp.image
-          })) || []}
-          imageWidth={287}/>
-          {/* <MoreSupplements supplements={data!.result.relatedSupplements} imageWidth={287} /> */}
+          <MoreSupplements supplements={data?.result.relatedSupplements.map(supp => ({
+            id: supp.id,
+            country: supp.country,
+            title: supp.productName,
+            tags: supp.categories,
+            isBookmarked: supp.scrapped,
+            src: supp.image
+            })) || []}
+            imageWidth={287}/>
+            {/* <MoreSupplements supplements={data!.result.relatedSupplements} imageWidth={287} /> */}
         </div>
       </div>
     </div>
