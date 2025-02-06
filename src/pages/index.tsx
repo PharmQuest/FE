@@ -123,7 +123,7 @@ export default function Home() {
             />
           </div>
           <Search />
-          <div className="flex lg:gap-3 gap-2 mt-4">
+          {/* <div className="flex lg:gap-3 gap-2 mt-4">
             <FilterButton text="진통/해열" isHomeButton={true} />
             <FilterButton text="소화/위장" isHomeButton={true} />
             <FilterButton text="감기/기침" isHomeButton={true} />
@@ -132,7 +132,8 @@ export default function Home() {
             <FilterButton text="멀미" isHomeButton={true} />
             <FilterButton text="안약" isHomeButton={true} />
             <FilterButton text="기타" isHomeButton={true} />
-          </div>
+          </div> */}
+          <FilterButtonList filterLists={FILTER_LIST} className="mt-4 lg:gap-3 gap-2"/>
           <p className="pt-12 text-center text-gray-300 text-body2-r">
             본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로
             하며, 해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.
