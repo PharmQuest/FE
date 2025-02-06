@@ -26,7 +26,7 @@ const MyMedicinesPage = () => {
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
-          <h1 className="text-gray-600 md:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
+          <h1 className="text-gray-600 lg:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
             상비약 저장 목록 <span className="text-gray-600">{medicines.length}</span>개
           </h1>
         </div>
