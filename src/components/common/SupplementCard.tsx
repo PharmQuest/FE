@@ -130,7 +130,7 @@ export default function SupplementCard({
         </div>
 
         {/* 태그 영역 */}
-        <div className="flex flex-nowrap gap-1.5 overflow-hidden truncate">
+        <div className="flex flex-nowrap gap-1.5 overflow-hidden overflow-x-auto scrollbar-hide whitespace-nowrap">
           {tags.map((tag, idx) => (
             <div
               key={idx}
