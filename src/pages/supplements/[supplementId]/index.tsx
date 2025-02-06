@@ -71,7 +71,7 @@ const SupplementInfo: React.FC = () => {
 
       console.log("Request URL:", url); // 실제 요청 URL 확인
       const response = await axiosInstance.get(url);
-      console.log("API Response:", response.data); // 데이터
+      console.log("detail API Response:", response.data); // 데이터
       return response.data;
     }
   });
