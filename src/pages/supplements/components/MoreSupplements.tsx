@@ -2,7 +2,7 @@ import SupplementCard from "@/components/common/SupplementCard";
 
 interface MoreSupplementsProps {
   supplements: {
-    id?: string;
+    id: number;
     country: string;
     title: string;
     tags: string[];
@@ -19,6 +19,7 @@ function MoreSupplements({ supplements=[], imageWidth }: MoreSupplementsProps) {
         {supplements.map((supplement) => (
           <SupplementCard
             key={supplement.id}
+            id={supplement.id}
             country={supplement.country}
             title={supplement.title}
             tags={supplement.tags}
