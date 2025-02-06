@@ -167,7 +167,8 @@ const SupplementInfo: React.FC = () => {
           </div>
           <div className={`flex gap-4 items-center`}>
             <button onClick={handleBookmarkClick} aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}>
-              <BookmarkIcon stroke={bookmarked ? "#FFD755" : "#707070"}
+              <BookmarkIcon 
+                            stroke={bookmarked ? "#FFD755" : "#707070"}
                             fill={bookmarked ? "#FFD755" : "none"}
                             className={`w-6 md:hidden`} />
             </button>
@@ -181,10 +182,12 @@ const SupplementInfo: React.FC = () => {
             <div className="relative">
               {/* 제품 정보 컴포넌트 */}
               <ProductBasicInfo
+                id={data?.result.id}
                 title={data?.result.productName || ""}
                 tags={data?.result.categories || []}
                 imageUrl={data?.result.image}
                 tableData={tableData}
+                isBookmarked={data?.result.scrapped}
               />
             </div>
 
