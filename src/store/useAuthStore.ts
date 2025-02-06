@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/apis/axios-instance";
+import { clearTokens } from "@/utils/cookie";
 import { create } from "zustand";
 
 interface AuthState {
@@ -19,6 +20,7 @@ const useAuthStore = create<AuthState>((set) => ({
 
   logOut: () => {
     localStorage.removeItem("accessToken");
+    clearTokens();
     set({ isLoggedIn: false });
   },
 
