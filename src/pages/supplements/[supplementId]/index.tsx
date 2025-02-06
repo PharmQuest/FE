@@ -8,6 +8,7 @@ import MoreSupplements from "../components/MoreSupplements";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'next/navigation'
+import axios from "axios";
 
 import {
   productBasicInfo,
@@ -53,6 +54,18 @@ interface ApiResponse {
   isSuccess: boolean;
 }
 
+interface ScrapResponse {
+  code: string;
+  message: string;
+  result?: {
+    supplementId: number;
+    scrapCount: number;
+    message: string;
+    scrapped: boolean;
+  };
+  isSuccess: boolean;
+}
+
 const SupplementInfo: React.FC = () => {
   const params = useParams()
   const id = params.supplementId
@@ -83,6 +96,8 @@ const SupplementInfo: React.FC = () => {
   if (isError)
     console.error("상세Error=", error);
 
+  const [bookmarked, setBookmarked] = useState<boolean>(data?.result.scrapped || false);
+
   const getCountryDisplay = (country?: string) => {
     switch (country) {
       case "미국":
@@ -109,6 +124,32 @@ const SupplementInfo: React.FC = () => {
     }
   ];
 
+  const handleBookmarkClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    try {
+      const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
+      
+      if (response.data.code === "AUTH4001") {
+        alert("로그인이 필요한 서비스입니다.");
+        return;
+      }
+
+      if (response.data.isSuccess) {
+        setBookmarked(!bookmarked);
+        console.log("스크랩id=", id);
+        console.log("스크랩data=", response);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          alert("로그인이 필요한 서비스입니다.");
+          return;
+        }
+        console.error("북마크 처리 중 오류 발생:", error);
+    }
+  };
+
   return (
     <>
     {data && (
@@ -125,7 +166,11 @@ const SupplementInfo: React.FC = () => {
             </p>
           </div>
           <div className={`flex gap-4 items-center`}>
-            <BookmarkIcon stroke={"#707070"} className={`w-6 md:hidden`} />
+            <button onClick={handleBookmarkClick} aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}>
+              <BookmarkIcon stroke={bookmarked ? "#FFD755" : "white"}
+                            fill={bookmarked ? "#FFD755" : "none"}
+                            className={`w-6 md:hidden`} />
+            </button>
             <div onClick={copyToClipboard}>
               <ExternalIcon className={`w-6 text-gray-400 mr-4 md:p-0`}/>            
             </div>
