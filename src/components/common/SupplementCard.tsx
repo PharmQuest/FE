@@ -1,8 +1,24 @@
 import { BookmarkIcon } from "@public/svgs";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { axiosInstance } from "@/apis/axios-instance";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+interface ScrapResponse {
+  code: string;
+  message: string;
+  result?: {
+    supplementId: number;
+    scrapCount: number;
+    message: string;
+    scrapped: boolean;
+  };
+  isSuccess: boolean;
+}
 
 interface SupplementCardProps {
+  id: number;
   country: string;
   title: string;
   tags: string[];
@@ -12,6 +28,7 @@ interface SupplementCardProps {
 }
 
 export default function SupplementCard({
+  id,
   country,
   title,
   tags,
@@ -26,9 +43,33 @@ export default function SupplementCard({
     setImgSrc(src || "/images/no_image.webp");
   }, [src]);
 
-  const handleBookmarkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  // const handleBookmarkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   event.stopPropagation();
+  //   setBookmarked(!bookmarked);
+  // };
+
+  const handleBookmarkClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    setBookmarked(!bookmarked);
+    try {
+      const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
+      
+      if (response.data.code === "AUTH4001") {
+        alert("로그인이 필요한 서비스입니다.");
+        return;
+      }
+
+      if (response.data.isSuccess) {
+        setBookmarked(!bookmarked);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          alert("로그인이 필요한 서비스입니다.");
+          return;
+        }
+        console.error("북마크 처리 중 오류 발생:", error);
+    }
   };
 
   return (

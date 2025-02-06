@@ -4,6 +4,8 @@ import UsagePurpose from "../components/UsagePurpose";
 import UsageInstructions from "../components/UsageInstructions";
 import Warnings from "../components/Warning";
 import MoreSupplements from "../components/MoreSupplements";
+import { axiosInstance } from "@/apis/axios-instance";
+import { useQuery } from "@tanstack/react-query";
 
 import {
   productBasicInfo,
@@ -15,13 +17,64 @@ import {
 import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
 import router from "next/router";
 
+interface ApiResponse {
+  code: string;
+  message: string;
+  result: {
+    id: number;
+    name: string;
+    country: string;
+    productName: string;
+    image: string;
+    brand: string;
+    maker: string;
+    scrapCount: number;
+    category1: string;
+    category2: string;
+    category3: string;
+    category4: string;
+    dosage: string;
+    purpose: string;
+    warning: string;
+    categories: string[];
+    relatedSupplements: {
+      id: number;
+      name: string;
+      country: string;
+      productName: string;
+      image: string;
+      brand: string;
+      maker: string;
+      scrapCount: number;
+      scrapped: boolean;
+    }[];
+    scrapped: boolean;
+  };
+  isSuccess: boolean;
+}
+
 const SupplementInfo: React.FC = () => {
+  const id = router.query.id;
+  console.log('현재 선택된 영양제 ID:', id);
+
   const copyToClipboard = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
       alert("URL이 복사되었습니다!");
     });
   };
+
+  const { data } = useQuery<ApiResponse>({
+    queryKey: ["supplements", id],
+    queryFn: async () => {
+      const url = `/supplements/med?supplement_id=${id}`;
+
+      console.log("Request URL:", url); // 실제 요청 URL 확인
+      const response = await axiosInstance.get(url);
+      console.log("API Response:", response.data); // 데이터
+      return response.data;
+    }
+  });
 
   return (
     <>
@@ -48,9 +101,9 @@ const SupplementInfo: React.FC = () => {
         <div className="relative">
           {/* 제품 정보 컴포넌트 */}
           <ProductBasicInfo
-            title={productBasicInfo.title}
+            title={data.result.productName}
             tags={productBasicInfo.tags || []}
-            // imageUrl={productBasicInfo.imageUrl}
+            // imageUrl={data?.result.image}
             tableData={productBasicInfo.tableData}
           />
         </div>
@@ -58,24 +111,24 @@ const SupplementInfo: React.FC = () => {
         {/* 사용 목적 */}
         <div>
           <h2 className="text-display2-b text-gray-600 mb-4">사용 목적</h2>
-          <UsagePurpose content={usagePurpose} />
+          <UsagePurpose content={data?.result.purpose} />
         </div>
 
         {/* 복용법 */}
         <div>
           <h2 className="text-display2-b text-gray-600 mb-4">복용법</h2>
-          <UsageInstructions instructions={usageInstructions} />
+          <UsageInstructions instructions={data?.result.dosage} />
         </div>
 
         {/* 경고 및 주의사항 */}
         <div>
           <h2 className="text-display2-b text-gray-600 mb-4">경고 및 주의사항</h2>
-          <Warnings warnings={warnings} />
+          <Warnings warnings={data?.result.warning} />
         </div>
 
         {/* 영양제 더보기 */}
         <div className="hidden lg:block">
-          <MoreSupplements supplements={supplements} imageWidth={287} />
+          <MoreSupplements supplements={data?.result.relatedSupplements} imageWidth={287} />
         </div>
       </div>
     </div>
