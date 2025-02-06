@@ -40,7 +40,7 @@ const SupplementPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-5 gap-x-5 gap-y-5">
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-5 gap-x-5 gap-y-5">
         {paginatedSupplements.map((supplement) => (
           <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
             <SupplementCard {...supplement} />
