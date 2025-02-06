@@ -77,14 +77,3 @@ const Medicine = () => {
 };
 
 export default Medicine;
-
-// Medicine.getLayout = function getLayout(page) {
-//   return (
-//     <>
-//     <MedicineHeader>
-//       <Header/>
-//     </MedicineHeader>
-//     {page}
-//     </>
-//   )
-// }
