@@ -85,7 +85,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
 
   return (
     <div>
-      <div className="md:pl-10 flex flex-col gap-2 pl-4 pr-3 pb-5 border-b border-solid border-gray-100">
+      <div className="md:pl-10 md:pr-3 flex flex-col gap-2 pl-4 pr-2 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
           <div className="
               lg:text-subhead1-sb

@@ -20,6 +20,7 @@ interface Reply {
   isLiked: boolean;
   likeCount: number;
   isOwnComment: boolean;
+  isDeleted: boolean;
 }
 
 interface CommentItemProps {
@@ -91,8 +92,8 @@ const CommentItem: React.FC<CommentItemProps> = ({
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
   return (
-    <div className={`flex flex-col gap-5`}>
-      <div className="flex flex-col gap-2 px-3 pb-5 border-b border-solid border-gray-100">
+    <div className={`md:mx-0 flex flex-col gap-5 mx-3`}>
+      <div className="md:px-3 flex flex-col gap-2 px-2 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
           <div
             className={`

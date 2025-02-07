@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import CommentItem from "./CommentItem";
 import PageNavigator from "../../components/PageNavigator";
+import DeletedComment from "./DeletedComment";
 
 interface Reply {
   commentId: number;
@@ -13,6 +14,8 @@ interface Reply {
   replies: Reply[];
   isLiked: boolean;
   likeCount: number;
+  isOwnComment: boolean;
+  isDeleted: boolean;
 }
 
 interface Comment {
@@ -27,6 +30,7 @@ interface Comment {
   isLiked: boolean;
   likeCount: number;
   isOwnComment: boolean;
+  isDeleted: boolean;
 }
 
 interface CommentListProps {
@@ -53,24 +57,29 @@ const CommentList: React.FC<CommentListProps> = ({
 
   return (
     comments?.length > 0 &&
-    <div className={`md:p-0 p-5`}>
-      <div className="md:p-5 py-3 flex flex-col bg-gray-50 gap-5">
+    <div className={`md:p-0 p-5 pt-4`}>
+      <div className="md:p-5 md:py-3 md:pt-5 pt-4 pb-3 flex flex-col bg-gray-50 gap-5 rounded">
         {comments?.map((comment) => (
-          <CommentItem
-            key={comment.commentId}
-            postUserId={postUserId}
-            commentId={comment.commentId}
-            content={comment.content}
-            userId={comment.userId}
-            userName={comment.userName}
-            createdAt={comment.createdAt}
-            replies={comment.replies}
-            replyParentId={replyParentId}
-            setReplyParentId={setReplyParentId} 
-            commentPage={commentPage}
-            isLiked={comment.isLiked}
-            likeCount={comment.likeCount}
-            isOwnComment={comment.isOwnComment}/>
+          comment.isDeleted ? (
+            <DeletedComment key={comment.commentId} />
+          ) : (
+            <CommentItem
+              key={comment.commentId}
+              postUserId={postUserId}
+              commentId={comment.commentId}
+              content={comment.content}
+              userId={comment.userId}
+              userName={comment.userName}
+              createdAt={comment.createdAt}
+              replies={comment.replies}
+              replyParentId={replyParentId}
+              setReplyParentId={setReplyParentId}
+              commentPage={commentPage}
+              isLiked={comment.isLiked}
+              likeCount={comment.likeCount}
+              isOwnComment={comment.isOwnComment} />
+          )
+
         ))}
 
         <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast} />
