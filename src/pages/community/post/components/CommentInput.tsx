@@ -45,7 +45,7 @@ const CommentInput = ({
     <div className={`md:px-0 px-5`}>
       <form
         action={handleClick}
-        className="flex flex-col gap-2 w-full pt-2 pb-3 pr-3 pl-4 rounded border border-solid border-gray-200 bg-white">
+        className="flex flex-col gap-2 w-full pt-3 pb-3 pr-3 pl-4 rounded border border-solid border-gray-200 bg-white">
         <p
           className="
             lg:text-subhead1-sb
@@ -60,7 +60,7 @@ const CommentInput = ({
             placeholder={`${userName ? `` : `댓글을 남겨보세요.` }`}
             className="
             lg:text-body1-r
-            w-full text-m-body2-r text-gray-600 placeholder-gray-300 focus:outline-none"
+            w-full text-m-body2-r text-gray-600 placeholder-gray-300 focus:outline-none resize-none"
             value={content}
             maxLength={600}
             onChange={(e) => setContent(e.target.value)}
