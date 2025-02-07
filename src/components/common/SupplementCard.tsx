@@ -44,6 +44,10 @@ export default function SupplementCard({
     setImgSrc(src || "/images/no_image.webp");
   }, [src]);
 
+  useEffect(() => {
+    setBookmarked(isBookmarked);
+  }, [isBookmarked]);
+  
   // const handleBookmarkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
   //   event.stopPropagation();
   //   setBookmarked(!bookmarked);
