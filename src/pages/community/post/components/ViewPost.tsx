@@ -98,7 +98,7 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
   return (
     <>
-      <div className={`md:hidden bg-white flex sticky top-0 bg-0 text-m-headline1-b text-gray-600 items-center px-5 py-4 justify-between shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
+      <div className={`md:hidden bg-white flex sticky top-[60px] mb-4 bg-0 text-m-headline1-b text-gray-600 items-center px-5 py-4 justify-between shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)] z-[50]`}>
         <div className={`flex items-center gap-3`}>
           <LeftArrowIcon className={`h-6`} />
           <p>게시글</p>
@@ -147,12 +147,12 @@ const ViewPost: React.FC<ViewPostProps> = ({
 
             <div
               className="
-              lg:gap-5 lg:text-body1-r lg:mt-[4.5px]
+              lg:gap-4 lg:text-body1-r lg:mt-[4.5px]
               flex flex-row text-m-caption1-r text-gray-300 gap-2 ">
               <p>{userName}</p>
               |
               <p>{formattedDate}</p>
-              <div className={`md:block relative hidden cursor-pointer`}>
+              <div className={`lg:ml-1 md:block relative hidden cursor-pointer`}>
                 <KebabIcon
                   className={`
                   lg:h-[22px]

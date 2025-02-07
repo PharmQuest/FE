@@ -183,7 +183,7 @@ const Header = () => {
       <div
         className={`
         // 공통 스타일
-        fixed z-[500]
+        sticky top-0 z-[500]
         h-[60px] w-full flex items-center
         bg-background
         lg:hidden
@@ -197,6 +197,7 @@ const Header = () => {
           md:w-[601px] md:mx-auto
           // 641px 미만 (모바일)
           w-full mx-[20px]
+          z-[500]
         `}
         >
           <MenuLogoIcon className="cursor-pointer w-[104px]" onClick={toggleSidebar} />
