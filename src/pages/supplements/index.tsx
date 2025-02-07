@@ -51,7 +51,7 @@ const SupplementPage: React.FC = () => {
   //   fetchSupplements,
   //   { staleTime: 0 }
   // );
-
+  
   const { data, refetch, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", selectedCategory, currentPage],
     queryFn: async () => {

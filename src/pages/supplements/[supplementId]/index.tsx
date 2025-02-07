@@ -135,7 +135,13 @@ const SupplementInfo: React.FC = () => {
   const handleBookmarkToggle = async (id: number) => {
   // const handleBookmarkToggle = async (event: React.MouseEvent<HTMLButtonElement>) => {
   //   event.stopPropagation();
-    try {
+    try {      
+      // 모든 supplements 쿼리를 무효화
+      queryClient.invalidateQueries({ 
+        queryKey: ['supplementsList'],
+        refetchType: 'all'  // 모든 쿼리를 다시 불러옴
+      });
+
       const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
       
       if (response.data.code === "AUTH4001") {
@@ -153,10 +159,10 @@ const SupplementInfo: React.FC = () => {
         //   queryKey: ['supplementsList']  // 리스트 조회의 쿼리 키
         // });
         // 모든 supplements 쿼리를 무효화
-        queryClient.invalidateQueries({ 
-          queryKey: ['supplementsList'],
-          refetchType: 'all'  // 모든 쿼리를 다시 불러옴
-        });
+        // queryClient.invalidateQueries({ 
+        //   queryKey: ['supplementsList'],
+        //   refetchType: 'all'  // 모든 쿼리를 다시 불러옴
+        // });
       } else {
         alert(response.data.message);
       }
