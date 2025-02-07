@@ -2,7 +2,7 @@ import { axiosInstance } from "@/apis/axios-instance";
 import { create } from "zustand";
 
 interface AuthState {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean | null;
   userId: number | null;
   userName: string | null;
   provider: string | null;
@@ -12,19 +12,21 @@ interface AuthState {
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: true,
+  isLoggedIn: null,
   userId: null,
   userName: null,
   provider: null,
 
   logOut: () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     set({ isLoggedIn: false });
   },
 
   checkAuth: () => {
     const accessToken = localStorage.getItem("accessToken");
-    set({ isLoggedIn: !!accessToken });
+    const refreshToken = localStorage.getItem("refreshToken");
+    set({ isLoggedIn: !!accessToken || !!refreshToken });
   },
 
   setUser: async () => {
