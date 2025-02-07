@@ -2,8 +2,8 @@ import { BookmarkIcon } from "@public/svgs";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { axiosInstance } from "@/apis/axios-instance";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ScrapResponse {
   code: string;
@@ -36,6 +36,7 @@ export default function SupplementCard({
   width = 160,
   src = "/images/no_image.webp",
 }: SupplementCardProps) {
+  const queryClient = useQueryClient();
   const [bookmarked, setBookmarked] = useState(isBookmarked);
   const [imgSrc, setImgSrc] = useState("");
 
@@ -57,7 +58,7 @@ export default function SupplementCard({
         alert("로그인이 필요한 서비스입니다.");
         return;
       }
-
+      
       if (response.data.isSuccess) {
         setBookmarked(!bookmarked);
         console.log("스크랩id=", id);
