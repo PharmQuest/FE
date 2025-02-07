@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import BookmarkIcon from "@public/svgs/bookmark.svg";
 import { axiosInstance } from "@/apis/axios-instance";
@@ -16,6 +16,7 @@ interface ProductBasicInfoProps {
   tags: string[];
   tableData: TableData[];
   isBookmarked: boolean;
+  onBookmarkToggle: (id: number) => void;
 }
 
 interface ScrapResponse {
@@ -37,48 +38,18 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   tags = [],
   tableData = [],
   isBookmarked = false,
+  onBookmarkToggle,
 }) => {
   //const [isBookmarked, setIsBookmarked] = useState(false);
   const [bookmarked, setBookmarked] = useState(isBookmarked);
+  // useEffect(() => {
+  //   setBookmarked(isBookmarked);
+  // }, [isBookmarked]);
+
   const [imgSrc, setImgSrc] = useState(imageUrl);
 
-  // const toggleBookmark = () => {
-  //   setIsBookmarked(!isBookmarked);
-  // };
   const toggleBookmark = () => {
     setBookmarked(!isBookmarked);
-  };
-
-  const handleBookmarkClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    try {
-      const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
-      
-      if (response.data.code === "AUTH4001") {
-        alert("로그인이 필요한 서비스입니다.");
-        return;
-      }
-
-      if (response.data.isSuccess) {
-        setBookmarked(!bookmarked);
-        console.log("ProductBasicInfo스크랩id=", id);
-        console.log("ProductBasicInfo스크랩data=", response);
-      } else {
-        alert(response.data.message);
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          alert("로그인이 필요한 서비스입니다.");
-          return;
-        }
-        if (error.response?.status === 400) {
-          alert("로그인이 필요한 서비스입니다.");
-          return;
-        }
-      }
-        console.error("ProductBasicInfo북마크 처리 중 오류 발생:", error);
-    }
   };
 
   return (
@@ -135,7 +106,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
       </div>
 
       {/* ✅ 북마크 버튼 */}
-      <button onClick={handleBookmarkClick} aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}>   
+      <button onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>   
         <BookmarkIcon
           stroke={isBookmarked ? "#FFD755" : "#707070"}
           fill={isBookmarked ? "#FFD755" : "none"}
