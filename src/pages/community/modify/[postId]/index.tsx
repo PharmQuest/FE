@@ -12,6 +12,7 @@ import { useParams } from "next/navigation";
 import { axiosInstance } from "@/apis/axios-instance";
 import { AxiosError } from "axios";
 import useFormatCategory from "@/hooks/community/useFormatCategory";
+import useAuthStore from "@/store/useAuthStore";
 
 type DropdownInfo = {
   key: string;
@@ -40,6 +41,10 @@ export default function ModifyPost() {
     setIsNoticeModalOpen,
     setNoticeModalText,
   } = useModalStore((state) => state)
+
+  const {
+    userId,
+  } = useAuthStore()
 
   const categoryInfo: DropdownInfo[] = [
     { key: "FORUM", value: "자유" },
@@ -148,6 +153,15 @@ export default function ModifyPost() {
       router.push("/community")
     }
   }, [error])
+
+  useEffect(() => {
+    console.log(userId, data?.userId)
+    if (data && userId !== data?.userId){
+      setNoticeModalText("잘못된 접근입니다.")
+      setIsNoticeModalOpen(true);
+      router.push("/community")
+    }
+  }, [data]);
 
   useEffect(() => {
     if (title?.trim() && content?.trim() && category?.trim()) {
