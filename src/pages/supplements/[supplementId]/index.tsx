@@ -9,6 +9,7 @@ import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'next/navigation'
 import axios from "axios";
+import { useQueryClient } from '@tanstack/react-query';
 
 import {
   productBasicInfo,
@@ -67,6 +68,7 @@ interface ScrapResponse {
 }
 
 const SupplementInfo: React.FC = () => {
+  const queryClient = useQueryClient();
   const params = useParams()
   const id = params.supplementId
   console.log('현재 선택된 영양제 ID:', id);
@@ -96,7 +98,13 @@ const SupplementInfo: React.FC = () => {
   if (isError)
     console.error("상세Error=", error);
 
-  const [bookmarked, setBookmarked] = useState<boolean>(data?.result.scrapped || false);
+  // const [bookmarked, setBookmarked] = useState<boolean>(data?.result.scrapped || false);
+  const [bookmarked, setBookmarked] = useState<boolean>(false);
+  useEffect(() => {
+    if (data?.result.scrapped !== undefined) {
+      setBookmarked(data.result.scrapped);
+    }
+  }, [data]);
 
   const getCountryDisplay = (country?: string) => {
     switch (country) {
@@ -124,8 +132,9 @@ const SupplementInfo: React.FC = () => {
     }
   ];
 
-  const handleBookmarkClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  const handleBookmarkToggle = async (id: number) => {
+  // const handleBookmarkToggle = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   event.stopPropagation();
     try {
       const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
       
@@ -133,23 +142,33 @@ const SupplementInfo: React.FC = () => {
         alert("로그인이 필요한 서비스입니다.");
         return;
       }
-
+      
       if (response.data.isSuccess) {
-        setBookmarked(!bookmarked);
-        console.log("스크랩id=", id);
-        console.log("스크랩data=", response);
+        setBookmarked(!bookmarked); // 상위 상태 업데이트
+
+        console.log("상세 스크랩id=", id);
+        console.log("상세 스크랩data=", response);
+        
+        // queryClient.invalidateQueries({ 
+        //   queryKey: ['supplementsList']  // 리스트 조회의 쿼리 키
+        // });
+        // 모든 supplements 쿼리를 무효화
+        queryClient.invalidateQueries({ 
+          queryKey: ['supplementsList'],
+          refetchType: 'all'  // 모든 쿼리를 다시 불러옴
+        });
       } else {
         alert(response.data.message);
       }
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status === 401) {
-          alert("로그인이 필요한 서비스입니다.");
-          return;
-        }
-        console.error("북마크 처리 중 오류 발생:", error);
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        alert("로그인이 필요한 서비스입니다.");
+        return;
+      }
+      console.error("북마크 처리 중 오류 발생:", error);
     }
   };
-
+    
   return (
     <>
     {data && (
@@ -165,8 +184,9 @@ const SupplementInfo: React.FC = () => {
               제품 기본 정보
             </p>
           </div>
+          {/* 모바일 화면 북마크 */}
           <div className={`flex gap-4 items-center`}>
-            <button onClick={handleBookmarkClick} aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}>
+            <button onClick={() => handleBookmarkToggle} aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}>
               <BookmarkIcon 
                             stroke={bookmarked ? "#FFD755" : "#707070"}
                             fill={bookmarked ? "#FFD755" : "none"}
@@ -187,7 +207,10 @@ const SupplementInfo: React.FC = () => {
                 tags={data?.result.categories || []}
                 imageUrl={data?.result.image}
                 tableData={tableData}
-                isBookmarked={data?.result.scrapped}
+                // isBookmarked={data?.result.scrapped}
+                isBookmarked={bookmarked}
+                // onBookmarkClick={handleBookmarkClick}
+                onBookmarkToggle={handleBookmarkToggle}
               />
             </div>
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import SupplementCard from "@/components/common/SupplementCard";
 import FilterButton from "@/components/common/FilterButton";
@@ -32,14 +32,28 @@ interface Supplement {
   scrapped: boolean;
 }
 
+// const fetchSupplements = async ({ queryKey }: { queryKey: any }) => {
+//   const [, selectedCategory, currentPage] = queryKey;
+//   const category = selectedCategory === "전체" ? "전체" : selectedCategory;
+//   const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
+//   const response = await axiosInstance.get(url);
+//   return response.data;
+// };
+
 const SupplementPage: React.FC = () => {
   const router = useRouter();
   const searchQuery = router.query.search as string || ""; // 검색어 가져오기
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
 
-  const { data, isLoading, isError, error } = useQuery<ApiResponse>({
-    queryKey: ["supplements", selectedCategory, currentPage],
+  // const { data:refetchData, refetch, isLoading:isRefetchLoading, isError:isRefetchError } = useQuery(
+  //   ["supplements", selectedCategory, currentPage],
+  //   fetchSupplements,
+  //   { staleTime: 0 }
+  // );
+
+  const { data, refetch, isLoading, isError, error } = useQuery<ApiResponse>({
+    queryKey: ["supplementsList", selectedCategory, currentPage],
     queryFn: async () => {
       const category = selectedCategory === "전체" ? "전체" : selectedCategory;
       
@@ -53,8 +67,21 @@ const SupplementPage: React.FC = () => {
       const response = await axiosInstance.get(url);
       console.log("category API Response:", response.data); // 데이터
       return response.data;
-    }
+    },
+    staleTime: 0,
   });
+
+  // useEffect(() => {
+  //   const handleRouteChangeComplete = () => {
+  //     refetch();
+  //   };
+
+  //   router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+  //   return () => {
+  //     router.events.off("routeChangeComplete", handleRouteChangeComplete);
+  //   };
+  // }, [router.events, refetch]);
 
   console.log("검색어:", searchQuery);
 
