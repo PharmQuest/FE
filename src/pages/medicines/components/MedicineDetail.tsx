@@ -121,13 +121,13 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
 
         {/* Product Info Card */}
         <div className="lg:p-6 md:flex-row border border-gray-100 rounded-xl mt-5 p-4 flex flex-col md:gap-4 gap-1">
-          <div className="lg:max-w-[200px] border border-gray-200 rounded-lg overflow-hidden">
+          <div className="lg:w-[200px] lg:h-[200px] max-md:h-[200px] border border-gray-200 rounded-lg overflow-hidden">
             <Image
               src={result.imgUrl || imgSrc}
               alt={result.brandName}
               width={200}
               height={200}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               onError={() => setImgSrc("/images/no_image.webp")}
             />
           </div>
