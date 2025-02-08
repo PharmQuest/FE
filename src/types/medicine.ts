@@ -1,4 +1,5 @@
 export interface MedicineCardProps {
+  medicineTableId: number;
   brandName: string;
   genericName: string;
   splSetId: string;

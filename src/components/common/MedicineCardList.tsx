@@ -2,6 +2,7 @@ import React from "react";
 import MedicineCard from "./MedicineCard";
 
 interface Medicine {
+  medicineTableId: number;
   brandName: string;
   genericName: string;
   splSetId: string;
@@ -24,15 +25,7 @@ const MedicineCardList: React.FC<MedicineCardListProps> = ({
             grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-3`}
     >
       {medicines.map((medicine) => (
-        <MedicineCard
-          key={medicine.splSetId}
-          brandName={medicine.brandName}
-          genericName={medicine.genericName}
-          splSetId={medicine.splSetId}
-          imgUrl={medicine.imgUrl}
-          category={medicine.category}
-          country={medicine.country}
-        />
+        <MedicineCard key={medicine.medicineTableId} {...medicine} />
       ))}
     </div>
   );
