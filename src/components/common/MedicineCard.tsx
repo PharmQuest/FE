@@ -93,7 +93,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
         <BookmarkIcon
           className={`
             md:w-[30px]
-            absolute top-0 right-0 w-6`}
+            absolute top-0 right-0 w-6 -z-10`}
           onClick={(e: React.MouseEvent) => handleBoomark(e)}
           stroke={isBookmark ? "#FFD755" : "#707070"}
           fill={isBookmark ? "#FFD755" : "none"}
