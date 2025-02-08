@@ -5,9 +5,9 @@ import { useState } from "react";
 import { MedicineCardProps } from "@/types/medicine";
 
 const MedicineCard: React.FC<MedicineCardProps> = ({
+  medicineTableId,
   brandName,
   genericName,
-  splSetId,
   imgUrl,
   category,
   country,
@@ -27,7 +27,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
       className={`
         md:p-5 md:pr-4 md:rounded-lg md:h-[178px]
         h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate`}
-      onClick={() => router.push(`medicines/${splSetId}`)}
+      onClick={() => router.push(`medicines/${medicineTableId}`)}
     >
       {/* medicine-image */}
       <div
