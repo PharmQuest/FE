@@ -16,7 +16,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   const selectedClasses = isHomeButton 
   ? "bg-white text-[#707070] border-point font-semibold" // 메인화면은 흰색 배경으로
   : "bg-point text-white border-point"
-  const unselectedClasses = `bg-white ${isHomeButton ? `text-gray-400  opacity-50` : `text-gray-300 border-gray-300`}`;
+  const unselectedClasses = `bg-white ${isHomeButton ? `text-gray-400  opacity-50 hover:text-[#707070] hover:opacity-100` : `text-gray-300 border-gray-300`}`;
 
   return (
     <button
