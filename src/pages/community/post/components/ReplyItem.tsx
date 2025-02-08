@@ -104,15 +104,17 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
                 <p>{userName}</p>
                 {postUserId === userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`} />}
               </div>
-              <div className={`relative cursor-pointer`}>
-                <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
-                <CommentMenu
-                  commentId={commentId}
-                  isMenuOpen={isMenuOpen}
-                  setIsMenuOpen={setIsMenuOpen}
-                  isOwnComment={isOwnComment}
-                  setEditCommentId={setEditCommentId} />
-              </div>
+              {!isDeleted &&
+                <div className={`relative cursor-pointer`}>
+                  <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
+                  <CommentMenu
+                    commentId={commentId}
+                    isMenuOpen={isMenuOpen}
+                    setIsMenuOpen={setIsMenuOpen}
+                    isOwnComment={isOwnComment}
+                    setEditCommentId={setEditCommentId} />
+                </div>
+              }
             </div>
             <div className="flex flex-row gap-2">
               {isDeleted ? (
@@ -137,20 +139,23 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
 
             <div className="flex flex-row justify-between text-body2-r text-gray-400">
               <p>{formattedDate}</p>
-              <div className="flex flex-row gap-[10px]">
-                <div className="flex flex-row">
-                  <LikeIcon
-                    fill={isReplyLike ? "#FF8686" : "none"}
-                    className={`w-5 cursor-pointer mr-[2px] ${isReplyLike && `text-[#FF8686]`}`}
-                    onClick={() => handleLike()} />
-                  {replyLikeCount}
+
+              {!isDeleted &&
+                <div className="flex flex-row gap-[10px]">
+                  <div className="flex flex-row">
+                    <LikeIcon
+                      fill={isReplyLike ? "#FF8686" : "none"}
+                      className={`w-5 cursor-pointer mr-[2px] ${isReplyLike && `text-[#FF8686]`}`}
+                      onClick={() => handleLike()} />
+                    {replyLikeCount}
+                  </div>
+                  <div
+                    className="flex flex-row cursor-pointer gap-0.5"
+                    onClick={() => setReplyParentId(commentId)}>
+                    <CommentIcon className={`w-5 text-gray-400`} /> 답글 달기
+                  </div>
                 </div>
-                <div
-                  className="flex flex-row cursor-pointer gap-0.5"
-                  onClick={() => setReplyParentId(commentId)}>
-                  <CommentIcon className={`w-5 text-gray-400`} /> 답글 달기
-                </div>
-              </div>
+              }
             </div>
             {replyParentId === commentId &&
               <CommentInput replyParentId={commentId} parentUserName={userName} setReplyParentId={setReplyParentId} />
