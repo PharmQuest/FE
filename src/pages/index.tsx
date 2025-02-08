@@ -10,34 +10,42 @@ const FILTER_LIST = [
   {
     text: "진통/해열",
     isHomeButton: true,
+    path: `/medicine/lists?category=PAIN_RELIEF&page=1&size=10`,
   },
   {
     text: "소화/위장",
     isHomeButton: true,
+    path: `/medicine/lists?category=DIGESTIVE&page=1&size=10`,
   },
   {
     text: "감기/기침",
     isHomeButton: true,
+    path: `/medicine/lists?category=COLD&page=1&size=10`,
   },
   {
     text: "알레르기",
     isHomeButton: true,
+    path: `/medicine/lists?category=ALLERGY&page=1&size=10`,
   },
   {
     text: "상처/소독",
     isHomeButton: true,
+    path: `/medicine/lists?category=ANTISEPTIC&page=1&size=10`,
   },
   {
     text: "멀미",
     isHomeButton: true,
+    path: `/medicine/lists?category=MOTION_SICKNESS&page=1&size=10`,
   },
   {
     text: "안약",
     isHomeButton: true,
+    path: `/medicine/lists?category=EYE_DROPS&page=1&size=10`,
   },
   {
     text: "기타",
     isHomeButton: true,
+    path: `/medicine/lists?category=OTHER&page=1&size=10`,
   },
 ]
 
