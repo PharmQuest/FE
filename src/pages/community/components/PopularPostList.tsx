@@ -2,14 +2,15 @@ import React from "react";
 import PopularPostItem from "./PopularPostItem";
 
 interface Post{
-  id: number;
-  category: string;
+  postId: number;
+  userName: string;
   title: string;
   content: string;
-  createdAt: string;
+  category: string;
+  scrapeCount: number;
   likeCount: number;
   commentCount: number;
-  scrapeCount: number;
+  createdAt: string;
 }
 
 interface PopularPostListProps {
@@ -24,18 +25,19 @@ const PopularPostList: React.FC<PopularPostListProps> = ({posts, bgColor = "whit
       className={`
         lg:max-w-[900px]
         md:max-w-[600px]
-        flex flex-col w-full ${gap && `lg:gap-3 gap-2`}`}>
+        grid grid-cols-1 w-full max-w-full ${gap && `lg:gap-3 gap-2`}`}>
       {posts?.map((post, index) => (
         <PopularPostItem
           key={index}
-          id={post.id}
-          category={post.category}
+          postId={post.postId}
+          userName={post.userName}
           title={post.title}
           content={post.content}
-          createdAt={post.createdAt}
+          category={post.category}
+          scrapeCount={post.scrapeCount}
           likeCount={post.likeCount}
           commentCount={post.commentCount}
-          scrapeCount={post.scrapeCount}
+          createdAt={post.createdAt}
           bgColor={bgColor}
         />
       ))}
