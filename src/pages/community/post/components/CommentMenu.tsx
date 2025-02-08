@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import useCommentMutation from "@/hooks/community/useCommentMutation";
 import useModalStore from "@/store/useModalStore";
+import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 
@@ -9,11 +11,19 @@ interface CommentMenuProp {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isOwnComment: boolean;
+  setEditCommentId: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-const CommentMenu: React.FC<CommentMenuProp> = ({ commentId, isMenuOpen, setIsMenuOpen, isOwnComment }) => {
+const CommentMenu: React.FC<CommentMenuProp> = ({ 
+  commentId, 
+  isMenuOpen, 
+  setIsMenuOpen, 
+  isOwnComment,
+  setEditCommentId,
+}) => {
 
   const router = useRouter();
+  const postId = Number(useParams().postId) || null;
 
   const {
     setNoticeModalText,
@@ -23,12 +33,21 @@ const CommentMenu: React.FC<CommentMenuProp> = ({ commentId, isMenuOpen, setIsMe
     setCommentId,
   } = useModalStore();
 
+  const mutate = useCommentMutation(postId);
+
   const handleModify = () => {
-    
+    setEditCommentId(commentId);
   }
 
   const handleDelete = async () => {
-    
+    try{
+      await mutate({
+        url: `${process.env.NEXT_PUBLIC_DOMAIN}/community/comments/delete?commentIds=${commentId}`,
+        type: "patch",
+      })
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const handleReport = (e: MouseEvent) => {
