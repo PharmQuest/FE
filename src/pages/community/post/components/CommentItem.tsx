@@ -103,7 +103,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
 
 
         {commentId === editCommentId ? (
-          <CommentInput commentId={commentId} initialContent={content} isModify={true} setEditCommentId={setEditCommentId}/>
+          <CommentInput commentId={commentId} initialContent={content} isModify={true} setEditCommentId={setEditCommentId} />
         ) : (
           <>
             <div className="flex flex-row justify-between">
@@ -114,15 +114,17 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 {userName}
                 {postUserId === userId && <Tag variant="writer" />}
               </div>
-              <div className={`relative cursor-pointer`}>
-                <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
-                <CommentMenu
-                  commentId={commentId}
-                  isMenuOpen={isMenuOpen}
-                  setIsMenuOpen={setIsMenuOpen}
-                  isOwnComment={isOwnComment}
-                  setEditCommentId={setEditCommentId} />
-              </div>
+              {!isDeleted &&
+                <div className={`relative cursor-pointer`}>
+                  <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
+                  <CommentMenu
+                    commentId={commentId}
+                    isMenuOpen={isMenuOpen}
+                    setIsMenuOpen={setIsMenuOpen}
+                    isOwnComment={isOwnComment}
+                    setEditCommentId={setEditCommentId} />
+                </div>
+              }
             </div>
             {isDeleted ? (
               <p
@@ -138,26 +140,29 @@ const CommentItem: React.FC<CommentItemProps> = ({
 
             <div className="flex flex-row justify-between text-body2-r text-gray-400">
               <p>{formattedDate}</p>
-              <div className="flex flex-row gap-[10px]">
-                <div className="flex flex-row">
-                  <LikeIcon
-                    fill={isCommentLike ? "#FF8686" : "none"}
-                    className={`w-5 cursor-pointer mr-[2px] ${isCommentLike && `text-[#FF8686]`}`}
-                    onClick={() => handleLike()} />
-                  {CommentLikeCount}
+
+              {!isDeleted &&
+                <div className="flex flex-row gap-[10px]">
+                  <div className="flex flex-row">
+                    <LikeIcon
+                      fill={isCommentLike ? "#FF8686" : "none"}
+                      className={`w-5 cursor-pointer mr-[2px] ${isCommentLike && `text-[#FF8686]`}`}
+                      onClick={() => handleLike()} />
+                    {CommentLikeCount}
+                  </div>
+                  <div
+                    className="flex flex-row cursor-pointer gap-0.5"
+                    onClick={() => setReplyParentId(commentId)}>
+                    <CommentIcon className={`text-gray-400 w-5`} /> 답글 달기
+                  </div>
                 </div>
-                <div
-                  className="flex flex-row cursor-pointer gap-0.5"
-                  onClick={() => setReplyParentId(commentId)}>
-                  <CommentIcon className={`text-gray-400 w-5`} /> 답글 달기
-                </div>
-              </div>
+              }
             </div>
 
             {replyParentId === commentId &&
-              <CommentInput 
-                replyParentId={replyParentId} 
-                parentUserName={userName} 
+              <CommentInput
+                replyParentId={replyParentId}
+                parentUserName={userName}
                 setReplyParentId={setReplyParentId} />
             }
           </>
@@ -185,10 +190,10 @@ const CommentItem: React.FC<CommentItemProps> = ({
           commentPage={commentPage}
           replyParentId={replyParentId}
           setReplyParentId={setReplyParentId}
-          isOwnComment={reply.isOwnComment} 
+          isOwnComment={reply.isOwnComment}
           isDeleted={reply.isDeleted}
           editCommentId={editCommentId}
-          setEditCommentId={setEditCommentId}/>
+          setEditCommentId={setEditCommentId} />
       ))}
     </div>
   );
