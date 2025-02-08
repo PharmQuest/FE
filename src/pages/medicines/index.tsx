@@ -43,11 +43,6 @@ const Medicine = () => {
     );
   }
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <>
       <div className="lg:w-[900px] lg:mx-auto md:w-[600px] md:mx-auto sm:w-full min-h-[calc(100vh-412px)] w-full px-5">
