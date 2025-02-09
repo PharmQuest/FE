@@ -38,11 +38,11 @@ const SupplementPage: React.FC = () => {
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
-          <h1 className="text-gray-600 md:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
+          <h1 className="text-gray-600 lg:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
             영양제 저장 목록 <span className="text-gray-600">{supplements.length}</span>개
           </h1>
         </div>
-        <div className="-mx-5 w-screen h-[1px] bg-gray-100 md:hidden" />
+        <div className="md:w-full w-screen -mx-5 md:-mx-0 h-[1px] bg-gray-100 lg:hidden" />
         <div className="w-full">
           <div className="flex gap-2 overflow-x-auto lg:overflow-hidden w-full lg:w-auto flex-nowrap lg:flex-wrap scrollbar-hide">
             <FilterButton text="전체" isSelected />

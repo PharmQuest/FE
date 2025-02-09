@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { BookmarkIcon } from "@public/svgs";
-
 interface PharmacysCardProps {
   pharmacyName?: string;
   location?: string;
-  imageUrl?: string; // 이미지 URL 추가
+  imageUrl?: string;
   isBookmarked?: boolean;
-  onBookmarkToggle?: () => void; // 북마크 상태 변경 함수
+  onBookmarkToggle?: () => void;
 }
 
 const PharmacysCard: React.FC<PharmacysCardProps> = ({
@@ -28,22 +27,24 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
 
   return (
     <div
-      className={`relative border border-gray-100 rounded-lg flex items-center gap-3 p-5
-      xl:max-w-[440px] lg:w-[440px] md:w-full w-full sm:h-[160px] overflow-hidden z-[-1]`}
+      className={`
+        relative md:p-5 md:pr-4 md:rounded-lg md:h-[178px]
+        h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate
+      `}
     >
-      {/* 북마크 아이콘 */}
+      {/* ✅ 북마크 아이콘 (위치 수정) */}
       <button
-        className="absolute top-4 right-4 flex items-center justify-center"
+        className="absolute top-4 right-4 z-10 flex items-center justify-center"
         onClick={handleBookmark}
       >
         <BookmarkIcon
-          className=" w-[30px] h-[30px] cursor-pointer"
+          className="md:w-[30px] w-6 cursor-pointer"
           stroke={isBookmark ? "#FFD755" : "#707070"}
           fill={isBookmark ? "#FFD755" : "none"}
         />
       </button>
 
-      {/* 약국 썸네일 */}
+      {/* ✅ 약국 썸네일 */}
       <div
         className={`
           md:w-[138px] md:h-[138px] 
@@ -60,8 +61,8 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
         />
       </div>
 
-      {/* 약국 정보 */}
-      <div className="flex-1 flex flex-col justify-start self-start gap-3">
+      {/* ✅ 약국 정보 */}
+      <div className="ml-4 flex-1 flex flex-col justify-start self-start gap-3">
         <div className="text-gray-600 text-subhead1-sb">{pharmacyName}</div>
         <div className="text-gray-400 text-body1-r">{location}</div>
       </div>

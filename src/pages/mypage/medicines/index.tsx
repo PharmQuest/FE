@@ -18,11 +18,8 @@ const MyMedicinesPage = () => {
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 flex flex-col">
-      
-      {/* ✅ 상비약 저장 목록 + 필터 영역 */}
-      <div className="w-full md:px-0 flex flex-col md:flex-row items-start lg:items-center gap-2">
-        {/* ✅ 제목 영역 */}
-        <div className="flex items-center">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
+        <div className="flex items-center ">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
@@ -30,10 +27,7 @@ const MyMedicinesPage = () => {
             상비약 저장 목록 <span className="text-gray-600">{medicines.length}</span>개
           </h1>
         </div>
-
-        <div className="-mx-5 w-screen h-[1px] bg-gray-100 md:hidden" />
-
-        {/* ✅ 필터 버튼 영역 */}
+        <div className="md:w-full w-screen -mx-5 md:-mx-0 h-[1px] bg-gray-100 lg:hidden" />
         <div className="flex gap-2 overflow-x-auto w-full lg:w-auto flex-wrap md:flex-nowrap md:ml-4">
           <FilterButton text="전체" isSelected />
           <FilterButton text="한국" />
@@ -44,7 +38,7 @@ const MyMedicinesPage = () => {
       {/* ✅ 데이터가 있을 경우 */}
       {medicines.length > 0 ? (
         <>
-          <div className="w-full py-8 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow">
+          <div className="w-full py-5 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow">
             {paginatedMedicines.map((_, index) => (
               <MedicineCard key={index} />
             ))}
