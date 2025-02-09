@@ -7,19 +7,11 @@ import Warnings from "../components/Warning";
 import MoreSupplements from "../components/MoreSupplements";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from 'next/navigation'
 import axios from "axios";
 import { useQueryClient } from '@tanstack/react-query';
 
-import {
-  productBasicInfo,
-  usagePurpose,
-  usageInstructions,
-  warnings,
-  supplements,
-} from "@/mocks/supplements";
 import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 interface ApiResponse {
   code: string;
@@ -69,8 +61,9 @@ interface ScrapResponse {
 
 const SupplementInfo: React.FC = () => {
   const queryClient = useQueryClient();
-  const params = useParams()
-  const id = params.supplementId
+  const router = useRouter()
+  const {supplementId} = router.query
+  const id = Number(supplementId)
   console.log('현재 선택된 영양제 ID:', id);
 
   const copyToClipboard = () => {
