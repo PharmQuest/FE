@@ -1,11 +1,11 @@
 
 import PostItem from "./PostItem";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import PageNavigator from "./PageNavigator";
 import SkeletonList from "./SkeletonList";
 import { Dispatch, SetStateAction } from "react";
 import MobilePostItem from "./MobilePostItem";
+import { axiosInstance } from "@/apis/axios-instance";
 
 interface Post {
   postId: number;
@@ -31,7 +31,7 @@ interface PostListProps {
 const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category = "ALL", isPageHidden = false, postLimit }) => {
 
   const getPosts = async () => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`, {
+    const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`, {
       params: {
         category,
         page,

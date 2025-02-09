@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import CommentItem from "./CommentItem";
 import PageNavigator from "../../components/PageNavigator";
-import DeletedComment from "./DeletedComment";
 
 interface Reply {
   commentId: number;
@@ -55,6 +54,8 @@ const CommentList: React.FC<CommentListProps> = ({
 
   const [replyParentId, setReplyParentId] = useState<number | null>(null);
 
+  const [editCommentId, setEditCommentId] = useState<number | null>(null);
+
   return (
     comments?.length > 0 &&
     <div className={`md:p-0 p-5 pt-4`}>
@@ -70,11 +71,14 @@ const CommentList: React.FC<CommentListProps> = ({
             createdAt={comment.createdAt}
             replies={comment.replies}
             replyParentId={replyParentId}
-            setReplyParentId={setReplyParentId} 
+            setReplyParentId={setReplyParentId}
             commentPage={commentPage}
             isLiked={comment.isLiked}
             likeCount={comment.likeCount}
-            isOwnComment={comment.isOwnComment}/>
+            isOwnComment={comment.isOwnComment}
+            isDeleted={comment.isDeleted}
+            editCommentId={editCommentId}
+            setEditCommentId={setEditCommentId} />
         ))}
 
         <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast} />
