@@ -60,26 +60,21 @@ const CommentList: React.FC<CommentListProps> = ({
     <div className={`md:p-0 p-5 pt-4`}>
       <div className="md:p-5 md:py-3 md:pt-5 pt-4 pb-3 flex flex-col bg-gray-50 gap-5 rounded">
         {comments?.map((comment) => (
-          comment.isDeleted ? (
-            <DeletedComment key={comment.commentId} />
-          ) : (
-            <CommentItem
-              key={comment.commentId}
-              postUserId={postUserId}
-              commentId={comment.commentId}
-              content={comment.content}
-              userId={comment.userId}
-              userName={comment.userName}
-              createdAt={comment.createdAt}
-              replies={comment.replies}
-              replyParentId={replyParentId}
-              setReplyParentId={setReplyParentId}
-              commentPage={commentPage}
-              isLiked={comment.isLiked}
-              likeCount={comment.likeCount}
-              isOwnComment={comment.isOwnComment} />
-          )
-
+          <CommentItem
+            key={comment.commentId}
+            postUserId={postUserId}
+            commentId={comment.commentId}
+            content={comment.content}
+            userId={comment.userId}
+            userName={comment.userName}
+            createdAt={comment.createdAt}
+            replies={comment.replies}
+            replyParentId={replyParentId}
+            setReplyParentId={setReplyParentId} 
+            commentPage={commentPage}
+            isLiked={comment.isLiked}
+            likeCount={comment.likeCount}
+            isOwnComment={comment.isOwnComment}/>
         ))}
 
         <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast} />
