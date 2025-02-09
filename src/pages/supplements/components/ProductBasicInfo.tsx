@@ -19,18 +19,6 @@ interface ProductBasicInfoProps {
   onBookmarkToggle: (id: number) => void;
 }
 
-// interface ScrapResponse {
-//   code: string;
-//   message: string;
-//   result?: {
-//     supplementId: number;
-//     scrapCount: number;
-//     message: string;
-//     scrapped: boolean;
-//   };
-//   isSuccess: boolean;
-// }
-
 const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   id,
   title,
