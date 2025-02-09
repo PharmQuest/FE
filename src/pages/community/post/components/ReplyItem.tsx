@@ -27,6 +27,9 @@ interface ReplyItemProps {
   likeCount: number;
   commentPage: number;
   isOwnComment: boolean;
+  isDeleted: boolean;
+  editCommentId: number | null;
+  setEditCommentId: React.Dispatch<React.SetStateAction<number | null>>
 }
 
 const ReplyItem: React.FC<ReplyItemProps> = ({
@@ -45,6 +48,9 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   likeCount,
   commentPage,
   isOwnComment,
+  isDeleted,
+  editCommentId,
+  setEditCommentId,
 }) => {
 
   const params = useParams();
@@ -85,51 +91,77 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
 
   return (
     <div>
-      <div className="md:pl-10 flex flex-col gap-2 pl-4 pr-3 pb-5 border-b border-solid border-gray-100">
-        <div className="flex flex-row justify-between">
-          <div className="
+      <div className="md:pl-10 md:pr-3 flex flex-col gap-2 pl-4 pr-2 pb-5 border-b border-solid border-gray-100">
+        {commentId === editCommentId ? (
+          <CommentInput commentId={commentId} initialContent={content} isModify={true} setEditCommentId={setEditCommentId} />
+        ) : (
+          <>
+            <div className="flex flex-row justify-between">
+              <div className="
               lg:text-subhead1-sb
               text-m-subhead1-sb flex flex-row gap-1">
-            <CornerDownRightIcon />
-            <p>{userName}</p>
-            {postUserId !== userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`} />}
-          </div>
-          <div className={`relative cursor-pointer`}>
-            <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
-            <CommentMenu commentId={commentId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnComment={isOwnComment} />
-          </div>
-        </div>
-        <div className="flex flex-row gap-2">
-          <p
-            className="
+                <CornerDownRightIcon />
+                <p>{userName}</p>
+                {postUserId === userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`} />}
+              </div>
+              {!isDeleted &&
+                <div className={`relative cursor-pointer`}>
+                  <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
+                  <CommentMenu
+                    commentId={commentId}
+                    isMenuOpen={isMenuOpen}
+                    setIsMenuOpen={setIsMenuOpen}
+                    isOwnComment={isOwnComment}
+                    setEditCommentId={setEditCommentId} />
+                </div>
+              }
+            </div>
+            <div className="flex flex-row gap-2">
+              {isDeleted ? (
+                <p
+                  className="
+                  lg:text-body1-r
+                  text-m-body2-r text-gray-300">삭제된 댓글입니다.</p>
+              ) : (
+                <>
+                  <p
+                    className="
               lg:text-subhead1-sb
               text-m-subhead1-sb text-secondary-500">@{parentName}</p>
-          <p
-            className="
-              lg:text-body1-r
-              text-m-body2-r  text-gray-500">{content}</p>
-        </div>
+                  <p
+                    className="
+                  lg:text-body1-r
+                  text-m-body2-r text-gray-500">{content}</p>
+                </>
+              )}
 
-        <div className="flex flex-row justify-between text-body2-r text-gray-400">
-          <p>{formattedDate}</p>
-          <div className="flex flex-row gap-[10px]">
-            <div className="flex flex-row">
-              <LikeIcon
-                fill={isReplyLike ? "#FF8686" : "none"}
-                className={`w-5 cursor-pointer mr-[2px] ${isReplyLike && `text-[#FF8686]`}`}
-                onClick={() => handleLike()} />
-              {replyLikeCount}
             </div>
-            <div
-              className="flex flex-row cursor-pointer gap-0.5"
-              onClick={() => setReplyParentId(commentId)}>
-              <CommentIcon className={`w-5 text-gray-400`} /> 답글 달기
+
+            <div className="flex flex-row justify-between text-body2-r text-gray-400">
+              <p>{formattedDate}</p>
+
+              {!isDeleted &&
+                <div className="flex flex-row gap-[10px]">
+                  <div className="flex flex-row">
+                    <LikeIcon
+                      fill={isReplyLike ? "#FF8686" : "none"}
+                      className={`w-5 cursor-pointer mr-[2px] ${isReplyLike && `text-[#FF8686]`}`}
+                      onClick={() => handleLike()} />
+                    {replyLikeCount}
+                  </div>
+                  <div
+                    className="flex flex-row cursor-pointer gap-0.5"
+                    onClick={() => setReplyParentId(commentId)}>
+                    <CommentIcon className={`w-5 text-gray-400`} /> 답글 달기
+                  </div>
+                </div>
+              }
             </div>
-          </div>
-        </div>
-        {replyParentId === commentId &&
-          <CommentInput replyParentId={commentId} userName={userName} setReplyParentId={setReplyParentId}/>
-        }
+            {replyParentId === commentId &&
+              <CommentInput replyParentId={commentId} parentUserName={userName} setReplyParentId={setReplyParentId} />
+            }
+          </>
+        )}
       </div>
     </div>
   );
