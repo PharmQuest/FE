@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import BookmarkIcon from "@public/svgs/bookmark.svg";
-import { axiosInstance } from "@/apis/axios-instance";
-import axios from "axios";
+// import { axiosInstance } from "@/apis/axios-instance";
+// import axios from "axios";
 
 interface TableData {
   label: string;
@@ -19,17 +19,17 @@ interface ProductBasicInfoProps {
   onBookmarkToggle: (id: number) => void;
 }
 
-interface ScrapResponse {
-  code: string;
-  message: string;
-  result?: {
-    supplementId: number;
-    scrapCount: number;
-    message: string;
-    scrapped: boolean;
-  };
-  isSuccess: boolean;
-}
+// interface ScrapResponse {
+//   code: string;
+//   message: string;
+//   result?: {
+//     supplementId: number;
+//     scrapCount: number;
+//     message: string;
+//     scrapped: boolean;
+//   };
+//   isSuccess: boolean;
+// }
 
 const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   id,
@@ -42,9 +42,9 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
 }) => {
   //const [isBookmarked, setIsBookmarked] = useState(false);
   const [bookmarked, setBookmarked] = useState(isBookmarked);
-  // useEffect(() => {
-  //   setBookmarked(isBookmarked);
-  // }, [isBookmarked]);
+  useEffect(() => {
+    setBookmarked(isBookmarked);
+  }, [isBookmarked]);
 
   const [imgSrc, setImgSrc] = useState(imageUrl);
 
@@ -108,8 +108,8 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
       {/* ✅ 북마크 버튼 */}
       <button onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>   
         <BookmarkIcon
-          stroke={isBookmarked ? "#FFD755" : "#707070"}
-          fill={isBookmarked ? "#FFD755" : "none"}
+          stroke={bookmarked ? "#FFD755" : "#707070"}
+          fill={bookmarked ? "#FFD755" : "none"}
           className={`
             lg:right-6 lg:top-6 lg:w-7
             md:block 
