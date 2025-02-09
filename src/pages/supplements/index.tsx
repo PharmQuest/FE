@@ -19,6 +19,23 @@ interface ApiResponse {
   isSuccess: boolean;
 }
 
+interface SearchResponse {
+  code: string;
+  message: string;
+  result: {
+    amountPage: number;
+    amountCount: number;
+    currentPage: number;
+    currentCount: number;
+    adResponse: {
+      id: number;
+      smallImageUrl: string;
+    };
+    supplements: Supplement[];
+  };
+  isSuccess: boolean;
+}
+
 interface Supplement {
   id: number;
   name: string;
@@ -32,26 +49,12 @@ interface Supplement {
   scrapped: boolean;
 }
 
-// const fetchSupplements = async ({ queryKey }: { queryKey: any }) => {
-//   const [, selectedCategory, currentPage] = queryKey;
-//   const category = selectedCategory === "전체" ? "전체" : selectedCategory;
-//   const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
-//   const response = await axiosInstance.get(url);
-//   return response.data;
-// };
-
 const SupplementPage: React.FC = () => {
   const router = useRouter();
   const searchQuery = router.query.search as string || ""; // 검색어 가져오기
   const country = router.query.country as string || ""; // "", "KOREA", "USA" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
-
-  // const { data:refetchData, refetch, isLoading:isRefetchLoading, isError:isRefetchError } = useQuery(
-  //   ["supplements", selectedCategory, currentPage],
-  //   fetchSupplements,
-  //   { staleTime: 0 }
-  // );
   
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", selectedCategory, currentPage],
@@ -72,18 +75,6 @@ const SupplementPage: React.FC = () => {
     staleTime: 0,
   });
 
-  // useEffect(() => {
-  //   const handleRouteChangeComplete = () => {
-  //     refetch();
-  //   };
-
-  //   router.events.on("routeChangeComplete", handleRouteChangeComplete);
-
-  //   return () => {
-  //     router.events.off("routeChangeComplete", handleRouteChangeComplete);
-  //   };
-  // }, [router.events, refetch]);
-
   console.log("검색어:", searchQuery);
 
   // 필터 버튼 클릭 핸들러
@@ -92,26 +83,26 @@ const SupplementPage: React.FC = () => {
     setCurrentPage(1); // 카테고리 변경시 첫 페이지로 이동
   };
 
-  const { data: searchData, isLoading: isSearchLoading, isError: isSearchError } = useQuery<ApiResponse>({
-    // queryKey: ["supplements-search", searchQuery, currentPage],
-    queryKey: ["supplements-search", "유산균", currentPage, ""],
+  const { data: searchData, isLoading: isSearchLoading, isError: isSearchError } = useQuery<SearchResponse>({
+    queryKey: ["supplements-search", searchQuery, currentPage],
+    // queryKey: ["supplements-search", "유산균", currentPage, ""],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        // `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${country}&page=${currentPage}`
-        `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
+        `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${country}&page=${currentPage}`
+        // `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
       
       );
       console.log("search API Response:", response.data); // 데이터
       return response.data;
     },
-    // enabled: !!searchQuery
-    enabled:true
+    enabled: !!searchQuery
+    // enabled:true
   });
-  useEffect(() => {
-    if (searchData) {
-      console.log("현재 표시 중인 검색 결과:", searchData.result);
-    }
-  }, [searchData]);
+  // useEffect(() => {
+  //   if (searchData) {
+  //     console.log("현재 표시 중인 검색 결과:", searchData.result);
+  //   }
+  // }, [searchData]);
 
   if (isLoading || isSearchLoading)
     console.error("영양제 로딩 중..");
@@ -120,8 +111,8 @@ const SupplementPage: React.FC = () => {
   if (isSearchError)
     console.error("isSearchError=", isSearchError);
 
-  // const displayData = searchQuery ? searchData?.result : data?.result;
-  const displayData = searchData?.result;
+  const displayData = searchQuery ? searchData?.result : data?.result;
+  // const displayData = searchData?.result;
   const supplements = displayData?.supplements || [];
   const totalPages = displayData?.amountPage || 1;
   
