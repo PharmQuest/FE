@@ -17,6 +17,7 @@ const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathName = router.pathname;
+  const segment = pathName.split("/")
 
   const isHome = pathName === "/" ? true : false;
 
@@ -28,7 +29,6 @@ const Header = () => {
   useEffect(() => {
     if(!userId && isLoggedIn) {
       setUser();
-      console.log(userId)
     }
   }, [isLoggedIn, userId])
 
@@ -57,6 +57,10 @@ const Header = () => {
 
       case "/supplements":
         setTitle("해외 인기 영양제")
+        break;
+      
+      case "/mypage":
+        setTitle("마이페이지")
         break;
 
       default:
@@ -200,16 +204,18 @@ const Header = () => {
           z-[500]
         `}
         >
-          <MenuLogoIcon className="cursor-pointer w-[104px]" onClick={toggleSidebar} />
+          <div className={`w-[104px] flex `}>
+            <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar} />
+          </div>
 
           {isHome ? (
             <LogoIcon onClick={() => router.push("/")} />
           ) : (
-            <div className={`text-m-display1-b text-gray-600 text-center`}>{title}</div>
+            <div className={`text-m-display1-b text-gray-600 text-center truncate`}>{title}</div>
           )}
 
           <div className={`flex gap-4 justify-end w-[104px]`}>
-            {!isHome && title === "" &&
+            {!isHome && title === "" && segment[1] !== "community" &&
               <SearchBoldIcon className={`w-5`} />}
             {!isHome &&
               <HomeIcon
