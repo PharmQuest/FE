@@ -29,6 +29,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
         h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate`}
       onClick={() => router.push(`medicines/${medicineTableId}`)}
     >
+
       {/* medicine-image */}
       <div
         className={`
