@@ -23,7 +23,7 @@ const CommentMenu: React.FC<CommentMenuProp> = ({
 }) => {
 
   const router = useRouter();
-  const postId = Number(useParams().postId) || null;
+  const postId = Number(router.query.postId);
 
   const {
     setNoticeModalText,

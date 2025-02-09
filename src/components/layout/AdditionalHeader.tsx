@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import Search from "../common/Search";
 import FilterButtonList from "../common/FilterButtonList";
 import { MOBILE_COMMUNIY_FILTER_LIST, MOBILE_MEDICINE_FILTER_LIST, MOBILE_SUPPLEMENT_FILTER_LIST } from "@/constants/FilterList";

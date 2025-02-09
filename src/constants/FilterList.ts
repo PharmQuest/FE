@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const Community = `/community/posts?category=`
 const Medicine = `/medicines?category=`
 const supplement = `/supplements?category=`
