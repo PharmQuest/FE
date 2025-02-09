@@ -43,6 +43,7 @@ interface Supplement {
 const SupplementPage: React.FC = () => {
   const router = useRouter();
   const searchQuery = router.query.search as string || ""; // 검색어 가져오기
+  const country = router.query.country as string || ""; // "", "KOREA", "USA" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
 
@@ -52,7 +53,7 @@ const SupplementPage: React.FC = () => {
   //   { staleTime: 0 }
   // );
   
-  const { data, refetch, isLoading, isError, error } = useQuery<ApiResponse>({
+  const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", selectedCategory, currentPage],
     queryFn: async () => {
       const category = selectedCategory === "전체" ? "전체" : selectedCategory;
@@ -92,15 +93,25 @@ const SupplementPage: React.FC = () => {
   };
 
   const { data: searchData, isLoading: isSearchLoading, isError: isSearchError } = useQuery<ApiResponse>({
-    queryKey: ["supplements-search", searchQuery, currentPage],
+    // queryKey: ["supplements-search", searchQuery, currentPage],
+    queryKey: ["supplements-search", "유산균", currentPage, ""],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&page=${currentPage}`
+        // `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${country}&page=${currentPage}`
+        `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
+      
       );
+      console.log("search API Response:", response.data); // 데이터
       return response.data;
     },
-    enabled: !!searchQuery
+    // enabled: !!searchQuery
+    enabled:true
   });
+  useEffect(() => {
+    if (searchData) {
+      console.log("현재 표시 중인 검색 결과:", searchData.result);
+    }
+  }, [searchData]);
 
   if (isLoading || isSearchLoading)
     console.error("영양제 로딩 중..");
