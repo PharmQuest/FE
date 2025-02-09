@@ -181,7 +181,7 @@ export default function Home() {
             </Link>
           </div>
           <Search />
-          <FilterButtonList filterLists={FILTER_LIST} className={`mt-3`}/>
+          <FilterButtonList filterList={FILTER_LIST} className={`mt-3`}/>
         </div>
       </div>
       {/* 흰 배경 */}

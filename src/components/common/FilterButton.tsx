@@ -3,6 +3,7 @@ interface FilterButtonProps {
   isSelected?: boolean;
   onClickFn?: () => void;
   isHomeButton?: boolean;
+  isMobileButton?: boolean;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({
@@ -10,6 +11,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   isSelected = false,
   onClickFn = () => {},
   isHomeButton = false,
+  isMobileButton = false,
 }) => {
 
   const baseClasses = `whitespace-nowrap rounded-[1000px] w-fit w-[78px] lg:h-fit h-[30px] cursor-pointer ${isHomeButton ? `lg:px-5 px-4 lg:py-1.5 lg:text-body1-r text-xs` : `px-3 py-0.5 text-subhead1-sb border-[1px] border-solid`}`;
@@ -20,12 +22,18 @@ const FilterButton: React.FC<FilterButtonProps> = ({
 
   return (
     <button
-      className={`${baseClasses} ${
-        isSelected ? selectedClasses : unselectedClasses
-      }`}
-      onClick={onClickFn}
-    >
-      {text}
+      className={`
+        ${isMobileButton 
+          ? `
+          ${isSelected 
+            ? `text-white bg-point` 
+            : `text-gray-400 bg-white opacity-50`}
+            px-4 py-1.5 text-m-subhead2-sb rounded-full` 
+          : `${baseClasses} 
+          ${isSelected ? selectedClasses : unselectedClasses}
+          `}`}
+        onClick={onClickFn}>
+          {text}
     </button>
   );
 };

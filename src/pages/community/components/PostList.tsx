@@ -26,9 +26,13 @@ interface PostListProps {
   category?: string;
   isPageHidden?: boolean;
   postLimit?: number;
+  isSearch?: boolean;
+  keyword?: string;
+  country?: string;
+  setPostsCount?: Dispatch<SetStateAction<number | null>> | null;
 }
 
-const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category = "ALL", isPageHidden = false, postLimit }) => {
+const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category = "ALL", isPageHidden = false, postLimit, isSearch = false, keyword, country, setPostsCount }) => {
 
   const getPosts = async () => {
     const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`, {
@@ -40,11 +44,37 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category 
     return response.data;
   }
 
-  const { data, isPending } = useQuery(
+  const searchPosts = async () => {
+    try{
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/search`, {
+        params: {
+          keyword,
+          country,
+          category,
+          page,
+        }
+      });
+      if (setPostsCount)
+        setPostsCount(response?.data?.result?.totalElements)
+  
+      return response.data;
+    } catch (e){
+      const error = e as {response?: {data?: {message?: string}}};
+
+      if (error?.response?.data?.message === "해당하는 게시글이 존재하지 않습니다."){
+        if(setPostsCount)
+          setPostsCount(0);
+      }
+      return { result: { postList: [], totalElements: 0, totalPage: 1, isFirst: true, isLast: true } };
+    }
+  }
+
+  const { data, isPending, isError } = useQuery(
     {
-      queryKey: ['posts', category, page],
-      queryFn: getPosts,
+      queryKey: isSearch ? ['searchPosts', keyword, country, category, page] : ['posts', category, page],
+      queryFn: isSearch ? searchPosts : getPosts,
       placeholderData: keepPreviousData,
+      retry: 0,
     },
   );
 
@@ -70,25 +100,31 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category 
         {isPending ? (
           <SkeletonList listNum={postLimit || 20} />
         ) : (
-          <>
-            {postList?.map((post: Post, index: number) => (
-              <PostItem
-                key={index}
-                postId={post.postId}
-                userName={post.userName}
-                title={post.title}
-                category={post.category}
-                scrapeCount={post.scrapeCount}
-                likeCount={post.likeCount}
-                commentCount={post.commentCount || 0}
-                createdAt={post.createdAt}
-                isBestPost={post.isBestPost}
-              />
-            ))}
-            {!isPageHidden &&
-              <PageNavigator className={`mt-12`} page={page} totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} setPage={setPage} />
-            }
-          </>
+          isError ? (
+            <>
+            </>
+          ) : (
+            <>
+              {postList?.map((post: Post, index: number) => (
+                <PostItem
+                  key={index}
+                  postId={post.postId}
+                  userName={post.userName}
+                  title={post.title}
+                  category={post.category}
+                  scrapeCount={post.scrapeCount}
+                  likeCount={post.likeCount}
+                  commentCount={post.commentCount || 0}
+                  createdAt={post.createdAt}
+                  isBestPost={post.isBestPost}
+                />
+              ))}
+              {!isPageHidden &&
+                <PageNavigator className={`mt-12`} page={page} totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} setPage={setPage} />
+              }
+            </>
+          )
+
         )}
       </div>
 
