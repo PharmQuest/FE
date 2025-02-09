@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import BookmarkIcon from "@public/svgs/bookmark.svg";
+import { axiosInstance } from "@/apis/axios-instance";
+import axios from "axios";
 
 interface TableData {
   label: string;
@@ -8,23 +10,46 @@ interface TableData {
 }
 
 interface ProductBasicInfoProps {
+  id: number;
   title: string;
   imageUrl?: string;
   tags: string[];
   tableData: TableData[];
+  isBookmarked: boolean;
+  onBookmarkToggle: (id: number) => void;
+}
+
+interface ScrapResponse {
+  code: string;
+  message: string;
+  result?: {
+    supplementId: number;
+    scrapCount: number;
+    message: string;
+    scrapped: boolean;
+  };
+  isSuccess: boolean;
 }
 
 const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
+  id,
   title,
   imageUrl = "/images/no_image.webp",
   tags = [],
   tableData = [],
+  isBookmarked = false,
+  onBookmarkToggle,
 }) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  //const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(isBookmarked);
+  // useEffect(() => {
+  //   setBookmarked(isBookmarked);
+  // }, [isBookmarked]);
+
   const [imgSrc, setImgSrc] = useState(imageUrl);
 
   const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
+    setBookmarked(!isBookmarked);
   };
 
   return (
@@ -44,6 +69,7 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
         `}
       >
         <Image
+          priority
           className="w-full h-full object-cover"
           src={imgSrc}
           alt="제품 이미지"
@@ -80,16 +106,18 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
       </div>
 
       {/* ✅ 북마크 버튼 */}
-      <BookmarkIcon
-        stroke={isBookmarked ? "#FFD755" : "#707070"}
-        fill={isBookmarked ? "#FFD755" : "none"}
-        className={`
-          lg:right-6 lg:top-6 lg:w-7
-          md:block 
-          w-6 absolute hidden right-4 top-4
-        `}
-        onClick={toggleBookmark}
-      />
+      <button onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>   
+        <BookmarkIcon
+          stroke={isBookmarked ? "#FFD755" : "#707070"}
+          fill={isBookmarked ? "#FFD755" : "none"}
+          className={`
+            lg:right-6 lg:top-6 lg:w-7
+            md:block 
+            w-6 absolute hidden right-4 top-4
+          `}
+          onClick={toggleBookmark}
+        />
+      </button>
     </div>
   );
 };
