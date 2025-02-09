@@ -168,11 +168,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
           </>
         )}
 
-
-
-
-
-
       </div>
       {replies?.map((reply) => (
         <ReplyItem
