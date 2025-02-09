@@ -13,6 +13,7 @@ interface Reply {
   replies: Reply[];
   isLiked: boolean;
   likeCount: number;
+  isOwnComment: boolean;
 }
 
 interface Comment {
@@ -53,8 +54,8 @@ const CommentList: React.FC<CommentListProps> = ({
 
   return (
     comments?.length > 0 &&
-    <div className={`md:p-0 p-5`}>
-      <div className="md:p-5 py-3 flex flex-col bg-gray-50 gap-5">
+    <div className={`md:p-0 p-5 pt-4`}>
+      <div className="md:p-5 md:py-3 pt-4 pb-3 flex flex-col bg-gray-50 gap-5 rounded">
         {comments?.map((comment) => (
           <CommentItem
             key={comment.commentId}
