@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { axiosInstance } from "@/apis/axios-instance";
 import axios from "axios";
-import { useQueryClient } from '@tanstack/react-query';
 
 interface ScrapResponse {
   code: string;
@@ -36,7 +35,6 @@ export default function SupplementCard({
   width = 160,
   src = "/images/no_image.webp",
 }: SupplementCardProps) {
-  const queryClient = useQueryClient();
   const [bookmarked, setBookmarked] = useState(isBookmarked);
   const [imgSrc, setImgSrc] = useState("");
 

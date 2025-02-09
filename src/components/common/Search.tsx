@@ -61,7 +61,7 @@ const Search = () => {
     setCountryText("전체");
     setSearchText("")
     setIsSearchModalOpen(false);
-  }, [segments[1]])
+  }, [searchUrl])
 
   return (
     <div className="w-full flex items-center gap-4">
