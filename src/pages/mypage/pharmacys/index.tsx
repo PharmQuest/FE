@@ -17,32 +17,33 @@ const MyPharmacys = () => {
   );
 
   return (
-    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 flex flex-col">
-      <div className="w-full md:px-0 flex flex-col md:flex-row items-start lg:items-center gap-2">
-        <div className="flex">
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
+        <div className="flex items-center ">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
-          <h1 className="text-gray-600 md:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
+          <h1 className="text-gray-600 lg:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
             약국 저장 목록 <span className="text-gray-600">{pharmacys.length}</span>개
           </h1>
         </div>
-        <div className="-mx-5 w-screen h-[1px] bg-gray-100 md:hidden" />
-
-        <div className="flex gap-2 overflow-x-auto w-full lg:w-auto flex-wrap lg:flex-nowrap lg:ml-4">
-          <FilterButton text="전체" isSelected />
-          <FilterButton text="한국" />
-          <FilterButton text="미국" />
-        </div>
+        <div className="md:w-full w-screen -mx-5 md:-mx-0 h-[1px] bg-gray-100 lg:hidden" />
+          <div className="w-full">
+            <div className="flex gap-2 overflow-x-auto lg:overflow-hidden w-full lg:w-auto flex-nowrap lg:flex-wrap scrollbar-hide">          
+              <FilterButton text="전체" isSelected />
+              <FilterButton text="한국" />
+              <FilterButton text="미국" />
+            </div>
+          </div>
       </div>
 
       {/* 🔹 데이터가 있을 경우 */}
       {pharmacys.length > 0 ? (
         <>
-          <div className="py-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-5 gap-y-5 justify-items-start content-start">
+          <div className="w-full py-5 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow">
             {paginatedPharmacys.map((pharmacy) => ( 
-              <PharmacysCard key={pharmacy.id} {...pharmacy} />
-            ))}
+                <PharmacysCard key={pharmacy.id} {...pharmacy} />
+              ))}
           </div>
 
           <div className="flex items-center justify-center align-center mt-6 space-x-8">
