@@ -3,6 +3,9 @@ import { ArrowRightIcon } from "@public/svgs";
 import MedicineCard from "@/components/common/MedicineCard";
 import PharmacysCard from "./components/PharmacysCard";
 import SupplementCard from "@/components/common/SupplementCard";
+import useAuthStore from "@/store/useAuthStore";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface MyPageProps {
   userName: string;
@@ -13,7 +16,6 @@ interface MyPageProps {
 }
 
 const MyPage: React.FC<MyPageProps> = ({
-  userName = "maengso",
   userEmail = "maengso@naver.com",
   medicines = [
     { id: 1, name: "타이레놀", type: "진통제" },
@@ -30,6 +32,22 @@ const MyPage: React.FC<MyPageProps> = ({
     { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
   ],
 }) => {
+  
+  const router = useRouter();
+
+  const { isLoggedIn, userName, logOut } = useAuthStore();
+  console.log("userName: ", userName);
+
+  const handleLogout = () => {
+    logOut();
+  }
+
+  useEffect(() => {
+    if(!isLoggedIn){
+      router.push("/login")
+    }
+  }, [isLoggedIn])
+
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
       {/* 사용자 프로필 */}
@@ -42,7 +60,9 @@ const MyPage: React.FC<MyPageProps> = ({
           <div className="text-gray-400 text-body1-r">{userEmail}</div>
         </div>
         <div className="w-[100px] px-4 py-2 rounded border border-gray-200 flex justify-center items-center">
-          <button className="text-gray-400 text-caption1-r">로그아웃</button>
+          <button 
+            className="text-gray-400 text-caption1-r"
+            onClick={handleLogout}>로그아웃</button>
         </div>
       </div>
 

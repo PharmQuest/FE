@@ -8,6 +8,11 @@ type Store = {
 
   isReportModalOpen: boolean;
   setIsReportModalOpen: (value: boolean) => void;
+  
+  isCommentReport: boolean;
+  setIsCommentReport: (value: boolean) => void;
+  commentId: number | null;
+  setCommentId: (value: number) => void;
 }
 
 const useModalStore = create<Store>((set) => ({
@@ -18,6 +23,11 @@ const useModalStore = create<Store>((set) => ({
 
   isReportModalOpen: false,
   setIsReportModalOpen: (value: boolean) => set({isReportModalOpen: value}),
+
+  isCommentReport: false,
+  setIsCommentReport: (value: boolean) => set({isCommentReport: value}),
+  commentId: null,
+  setCommentId: (value: number) => set({commentId: value})
 }))
 
 export default useModalStore;
