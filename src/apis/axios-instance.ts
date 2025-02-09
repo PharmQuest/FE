@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -8,10 +8,12 @@ export const axiosPostInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
     "Content-Type": "multipart/form-data",
-  }
-})
+  },
+});
 
-axiosInstance.interceptors.request.use((config) => {
+export const axiosRefreshInstance = axios.create();
+
+const setAuthHeader = (config: InternalAxiosRequestConfig) => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("accessToken");
     if (token) {
@@ -19,14 +21,60 @@ axiosInstance.interceptors.request.use((config) => {
     }
   }
   return config;
-});
+};
 
-axiosPostInstance.interceptors.request.use((config) => {
+const setRefreshHeader = (config: InternalAxiosRequestConfig) => {
   if (typeof window !== "undefined") {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("refreshToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      window.location.replace("/login");
+      return Promise.reject(new Error("No refresh token available"));
     }
   }
   return config;
-});
+};
+
+axiosInstance.interceptors.request.use(setAuthHeader);
+axiosPostInstance.interceptors.request.use(setAuthHeader);
+
+axiosRefreshInstance.interceptors.request.use(setRefreshHeader);
+
+const responseInterceptor = async (error: AxiosError) => {
+  const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+  const errorDetail = (error.response?.data as { detail?: string })?.detail;
+
+  if ((errorDetail === "Required header 'Authorization' is not present." || error.response?.status === 500) && !originalRequest._retry) {
+    originalRequest._retry = true;
+
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!refreshToken) {
+      localStorage.removeItem("accessToken");
+      window.location.replace("/login");
+      return Promise.reject(new Error("No refresh token, redirecting to login"));
+    }
+
+    try {
+      const refreshResponse = await axiosRefreshInstance.get(
+        `${process.env.NEXT_PUBLIC_DOMAIN}/api/v1/reissue/access-token`
+      );
+
+      const newAccessToken = refreshResponse?.data?.result?.access_token;
+      localStorage.setItem("accessToken", newAccessToken);
+
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+      return axiosInstance(originalRequest);
+    } catch (refreshError) {
+      console.error("리프레시 토큰 만료 또는 오류 발생", refreshError);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      window.location.replace("/login");
+    }
+  }
+  return Promise.reject(error);
+};
+
+axiosInstance.interceptors.response.use((response: AxiosResponse) => response, responseInterceptor);
+axiosPostInstance.interceptors.response.use((response: AxiosResponse) => response, responseInterceptor);
