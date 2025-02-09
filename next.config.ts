@@ -5,7 +5,21 @@ const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	
 	images: {
-		domains: [process.env.NEXT_PUBLIC_IMAGE_DOMAIN || ''], // 여기에 외부 도메인 추가
+
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "dailymed.nlm.nih.gov",
+				pathname: "/**",
+			},
+			{
+				protocol: "https",
+				hostname: "shopping-phinf.pstatic.net",
+			},
+		],
+		domains: process.env.NEXT_PUBLIC_IMAGE_DOMAIN
+			? [process.env.NEXT_PUBLIC_IMAGE_DOMAIN]
+			: [],
 	},
 
 	webpack(config) {
