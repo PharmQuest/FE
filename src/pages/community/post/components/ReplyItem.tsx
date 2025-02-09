@@ -85,14 +85,14 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
 
   return (
     <div>
-      <div className="md:pl-10 flex flex-col gap-2 pl-4 pr-3 pb-5 border-b border-solid border-gray-100">
+      <div className="md:pl-10 md:pr-3 flex flex-col gap-2 pl-4 pr-2 pb-5 border-b border-solid border-gray-100">
         <div className="flex flex-row justify-between">
           <div className="
               lg:text-subhead1-sb
               text-m-subhead1-sb flex flex-row gap-1">
             <CornerDownRightIcon />
             <p>{userName}</p>
-            {postUserId !== userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`} />}
+            {postUserId === userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`} />}
           </div>
           <div className={`relative cursor-pointer`}>
             <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />

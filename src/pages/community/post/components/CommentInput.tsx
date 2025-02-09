@@ -45,7 +45,7 @@ const CommentInput = ({
     <div className={`md:px-0 px-5`}>
       <form
         action={handleClick}
-        className="flex flex-col gap-2 w-full pt-2 pb-3 pr-3 pl-4 rounded border border-solid border-gray-200 bg-white">
+        className="flex flex-col gap-2 w-full pt-3 pb-3 pr-3 pl-4 rounded border border-solid border-gray-200 bg-white">
         <p
           className="
             lg:text-subhead1-sb
