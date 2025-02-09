@@ -51,7 +51,7 @@ interface Supplement {
 
 const SupplementPage: React.FC = () => {
   const router = useRouter();
-  const searchQuery = router.query.search as string || ""; // 검색어 가져오기
+  const searchQuery = router.query.search as string || "유산균"; // 검색어 가져오기
   const country = router.query.country as string || ""; // "", "KOREA", "USA" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
@@ -84,19 +84,19 @@ const SupplementPage: React.FC = () => {
   };
 
   const { data: searchData, isLoading: isSearchLoading, isError: isSearchError } = useQuery<SearchResponse>({
-    queryKey: ["supplements-search", searchQuery, currentPage],
-    // queryKey: ["supplements-search", "유산균", currentPage, ""],
+    // queryKey: ["supplements-search", searchQuery, currentPage],
+    queryKey: ["supplements-search", "유산균", currentPage, ""],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${country}&page=${currentPage}`
-        // `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
+        // `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${country}&page=${currentPage}`
+        `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
       
       );
       console.log("search API Response:", response.data); // 데이터
       return response.data;
     },
-    enabled: !!searchQuery
-    // enabled:true
+    // enabled: !!searchQuery
+    enabled:true
   });
   // useEffect(() => {
   //   if (searchData) {
@@ -111,8 +111,8 @@ const SupplementPage: React.FC = () => {
   if (isSearchError)
     console.error("isSearchError=", isSearchError);
 
-  const displayData = searchQuery ? searchData?.result : data?.result;
-  // const displayData = searchData?.result;
+  // const displayData = searchQuery ? searchData?.result : data?.result;
+  const displayData = searchData?.result;
   const supplements = displayData?.supplements || [];
   const totalPages = displayData?.amountPage || 1;
   
@@ -125,7 +125,7 @@ const SupplementPage: React.FC = () => {
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col items-center py-8">
       <div className="w-full max-w-[920px] flex items-center gap-x-4 mb-4 overflow-x-auto hidden lg:flex">
-        <h2 className="text-display2-b text-gray-600 whitespace-nowrap">전체</h2>
+        <h2 className="text-display2-b text-gray-600 whitespace-nowrap">{searchQuery ? `검색결과 ${displayData?.amountCount}건` : "전체"}</h2>
         <div className="flex gap-x-2">
           <FilterButton text="전체" isSelected={selectedCategory === "전체"} onClickFn={() => handleFilterClick("전체")} />
           <FilterButton text="면역력강화" isSelected={selectedCategory === "면역"} onClickFn={() => handleFilterClick("면역")} />
