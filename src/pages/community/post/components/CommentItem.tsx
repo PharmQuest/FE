@@ -20,6 +20,7 @@ interface Reply {
   isLiked: boolean;
   likeCount: number;
   isOwnComment: boolean;
+  isDeleted: boolean;
 }
 
 interface CommentItemProps {
