@@ -32,8 +32,8 @@ const SupplementPage: React.FC = () => {
   };
 
   return (
-    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
-      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 lg:py-9">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-3">
         <div className="flex items-center ">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
@@ -57,7 +57,7 @@ const SupplementPage: React.FC = () => {
       {paginatedSupplements.length > 0 ? (
         <>
           {/* ✅ 영양제 리스트 */}
-          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5 py-5">
+          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5 py-5 lg:py-9">
             {paginatedSupplements.map((supplement) => (
               <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
                 <SupplementCard {...supplement} />
