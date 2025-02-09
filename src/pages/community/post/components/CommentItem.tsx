@@ -19,6 +19,7 @@ interface Reply {
   replies: Reply[];
   isLiked: boolean;
   likeCount: number;
+  isOwnComment: boolean;
 }
 
 interface CommentItemProps {
@@ -34,6 +35,7 @@ interface CommentItemProps {
   commentPage: number;
   isLiked: boolean;
   likeCount: number;
+  isOwnComment: boolean;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
@@ -49,6 +51,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   commentPage,
   isLiked,
   likeCount,
+  isOwnComment,
 }) => {
 
   const params = useParams();
@@ -100,7 +103,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
           </div>
           <div className={`relative cursor-pointer`}>
             <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
-            <CommentMenu commentId={commentId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnComment={false} />
+            <CommentMenu commentId={commentId} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isOwnComment={isOwnComment} />
           </div>
         </div>
         <p
@@ -125,7 +128,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
           </div>
         </div>
         {replyParentId === commentId &&
-          <CommentInput replyParentId={replyParentId} userName={userName} />
+          <CommentInput replyParentId={replyParentId} userName={userName} setReplyParentId={setReplyParentId}/>
         }
       </div>
       {replies?.map((reply) => (
@@ -143,7 +146,8 @@ const CommentItem: React.FC<CommentItemProps> = ({
           likeCount={reply.likeCount}
           commentPage={commentPage}
           replyParentId={replyParentId}
-          setReplyParentId={setReplyParentId} />
+          setReplyParentId={setReplyParentId} 
+          isOwnComment={reply.isOwnComment}/>
       ))}
     </div>
   );
