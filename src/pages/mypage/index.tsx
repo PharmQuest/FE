@@ -33,11 +33,10 @@ const MyPage: React.FC<MyPageProps> = ({
     { id: 3, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
   ],
 }) => {
-  
+
   const router = useRouter();
 
   const { isLoggedIn, userName, logOut } = useAuthStore();
-  console.log("userName: ", userName);
 
   const handleLogout = () => {
     logOut();

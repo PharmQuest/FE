@@ -82,7 +82,7 @@ export default function Post() {
           imageUrl={postItem?.imageUrl}
           commentPage={postItem?.commentPage}
         />
-        <div className={`flex flex-col gap-5`}>
+        <div className={`md:gap-5 flex flex-col`}>
           <CommentInput />
           <CommentList
             postUserId={postItem?.userId}
