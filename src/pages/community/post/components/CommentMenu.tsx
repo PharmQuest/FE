@@ -19,6 +19,8 @@ const CommentMenu: React.FC<CommentMenuProp> = ({ commentId, isMenuOpen, setIsMe
     setNoticeModalText,
     setIsNoticeModalOpen,
     setIsReportModalOpen,
+    setIsCommentReport,
+    setCommentId,
   } = useModalStore();
 
   const handleModify = () => {
@@ -31,6 +33,8 @@ const CommentMenu: React.FC<CommentMenuProp> = ({ commentId, isMenuOpen, setIsMe
 
   const handleReport = (e: MouseEvent) => {
     e.stopPropagation();
+    setIsCommentReport(true)
+    setCommentId(commentId)
     setIsReportModalOpen(true)
     setIsMenuOpen(false)
   }
