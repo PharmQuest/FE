@@ -51,7 +51,7 @@ interface Supplement {
 
 const SupplementPage: React.FC = () => {
   const router = useRouter();
-  const searchQuery = router.query.search as string || "유산균"; // 검색어 가져오기
+  const searchQuery = router.query.search as string || ""; // 검색어 가져오기
   const country = router.query.country as string || ""; // "", "KOREA", "USA" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
@@ -84,19 +84,19 @@ const SupplementPage: React.FC = () => {
   };
 
   const { data: searchData, isLoading: isSearchLoading, isError: isSearchError } = useQuery<SearchResponse>({
-    // queryKey: ["supplements-search", searchQuery, currentPage],
-    queryKey: ["supplements-search", "유산균", currentPage, ""],
+    queryKey: ["supplements-search", searchQuery, currentPage],
+    // queryKey: ["supplements-search", "유산균", currentPage, ""],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        // `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${country}&page=${currentPage}`
-        `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
+        `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${country}&page=${currentPage}`
+        // `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
       
       );
       console.log("search API Response:", response.data); // 데이터
       return response.data;
     },
-    // enabled: !!searchQuery
-    enabled:true
+    enabled: !!searchQuery
+    // enabled:true
   });
   // useEffect(() => {
   //   if (searchData) {
@@ -111,8 +111,8 @@ const SupplementPage: React.FC = () => {
   if (isSearchError)
     console.error("isSearchError=", isSearchError);
 
-  // const displayData = searchQuery ? searchData?.result : data?.result;
-  const displayData = searchData?.result;
+  const displayData = searchQuery ? searchData?.result : data?.result;
+  // const displayData = searchData?.result;
   const supplements = displayData?.supplements || [];
   const totalPages = displayData?.amountPage || 1;
   
