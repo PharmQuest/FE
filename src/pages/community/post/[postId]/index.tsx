@@ -44,7 +44,6 @@ export default function Post() {
   const postItem = data?.result
 
   useEffect(() => {
-    console.log(isLoggedIn)
     if(!isLoggedIn){
       router.replace("/login");
     }
