@@ -120,7 +120,8 @@ const SupplementPage: React.FC = () => {
   if (isSearchError)
     console.error("isSearchError=", isSearchError);
 
-  const displayData = searchQuery ? searchData?.result : data?.result;
+  // const displayData = searchQuery ? searchData?.result : data?.result;
+  const displayData = searchData?.result;
   const supplements = displayData?.supplements || [];
   const totalPages = displayData?.amountPage || 1;
   
