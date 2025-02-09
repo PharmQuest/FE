@@ -45,7 +45,7 @@ const useAuthStore = create<AuthState>((set) => ({
       });
     } catch (e) {
       console.log(e);
-      set({ isLoggedIn: false, userId: null, userName: null });
+      set({ isLoggedIn: false, userId: null, userName: null, provider: null });
     }
   },
 }));
