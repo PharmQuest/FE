@@ -46,7 +46,7 @@ const responseInterceptor = async (error: AxiosError) => {
 
   const errorDetail = (error.response?.data as { detail?: string })?.detail;
 
-  if (errorDetail === "Required header 'Authorization' is not present." && !originalRequest._retry) {
+  if ((errorDetail === "Required header 'Authorization' is not present." || error.response?.status === 500) && !originalRequest._retry) {
     originalRequest._retry = true;
 
     const refreshToken = localStorage.getItem("refreshToken");

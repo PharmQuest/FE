@@ -17,6 +17,8 @@ const PageNavigator: React.FC<PageNavigatorProps> = ({ totalPage, isFirst, isLas
   const pageNavigate = (page: number) => {
     if (setPage){
       setPage(page)
+      console.log(page)
+      window.scrollTo({top: 0, behavior: "smooth"});
     }
   }
 
