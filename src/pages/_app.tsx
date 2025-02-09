@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
-        <link rel="icon" href="/favicon.svg"/>
+        <link rel="icon" href="/svgs/favicon.svg"/>
         <meta name="description" content={pageData.description} />
         <meta property="og:title" content={pageData.title} />
         <meta property="og:description" content={pageData.description} />
