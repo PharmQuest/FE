@@ -2,7 +2,7 @@
 
 import PopularPostList from "../components/PopularPostList";
 import UserNavbar from "../components/UserNavbar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useScroll from "../../../hooks/community/useScroll";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axios-instance";
@@ -10,7 +10,7 @@ import PageNavigator from "../components/PageNavigator";
 
 export default function Community() {
 
-  const { position, handleScroll } = useScroll(1050);
+  const { position, maxScroll } = useScroll();
   const [page, setPage] = useState(1);
 
   const getBestPost = async () => {
@@ -29,14 +29,6 @@ export default function Community() {
       placeholderData: keepPreviousData,
     },
   )
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
 
   return (
     <div
@@ -63,7 +55,7 @@ export default function Community() {
               className={`
               lg:block
               hidden relative transition-all duration-500 ease-out`}
-              style={{ top: `${position}px` }}>
+              style={{ top: `${Math.max(48, Math.min(position, maxScroll))}px` }}>
               <UserNavbar />
             </div>
           </div>
