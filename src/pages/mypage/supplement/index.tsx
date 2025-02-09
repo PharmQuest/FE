@@ -32,16 +32,17 @@ const SupplementPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center py-8 px-4">
-      <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col lg:flex-row items-start lg:items-center mb-4 gap-4 lg:gap-6">
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
         <div className="flex items-center ">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
-          <h1 className="text-gray-600 text-display1-b text-xl ml-2 whitespace-nowrap">
+          <h1 className="text-gray-600 lg:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
             영양제 저장 목록 <span className="text-gray-600">{supplements.length}</span>개
           </h1>
         </div>
+        <div className="md:w-full w-screen -mx-5 md:-mx-0 h-[1px] bg-gray-100 lg:hidden" />
         <div className="w-full">
           <div className="flex gap-2 overflow-x-auto lg:overflow-hidden w-full lg:w-auto flex-nowrap lg:flex-wrap scrollbar-hide">
             <FilterButton text="전체" isSelected />
@@ -56,7 +57,7 @@ const SupplementPage: React.FC = () => {
       {paginatedSupplements.length > 0 ? (
         <>
           {/* ✅ 영양제 리스트 */}
-          <div className="py-8 xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto sm:w-full sm:mx-[20px] w-full mx-[20px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5">
+          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5 py-5">
             {paginatedSupplements.map((supplement) => (
               <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
                 <SupplementCard {...supplement} />
