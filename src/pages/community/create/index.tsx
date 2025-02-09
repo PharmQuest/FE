@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
 import usePostMutation from "../../../hooks/community/usePostMutation";
 import useModalStore from "@/store/useModalStore";
+import useAuthStore from "@/store/useAuthStore";
+import { useRouter } from "next/router";
 
 type DropdownInfo = {
   key: string;
@@ -18,6 +20,12 @@ export default function CreatePost() {
     setIsNoticeModalOpen,
     setNoticeModalText,
   } = useModalStore((state) => state)
+
+  const {
+    isLoggedIn,
+  } = useAuthStore()
+
+  const router = useRouter();
 
   const categoryInfo: DropdownInfo[] = [
     { key: "FORUM", value: "자유" },
@@ -115,6 +123,13 @@ export default function CreatePost() {
       setNoticeModalText("게시글 작성에 실패했습니다.")
     }
   }
+
+  useEffect(() => {
+    if(isLoggedIn === false){
+      router.push("/login")
+    }
+    
+  }, []);
 
   useEffect(() => {
     if (title.trim() && content.trim() && category.trim()) {
