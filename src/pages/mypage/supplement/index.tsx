@@ -59,7 +59,7 @@ const SupplementPage: React.FC = () => {
           {/* ✅ 영양제 리스트 */}
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5 py-5 lg:py-9">
             {paginatedSupplements.map((supplement) => (
-              <div key={supplement.id} onClick={() => handleCardClick(String(supplement.id))}>
+              <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
                 <SupplementCard {...supplement} />
               </div>
             ))}
