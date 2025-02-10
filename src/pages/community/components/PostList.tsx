@@ -214,7 +214,7 @@ const PostList: React.FC<PostListProps> = ({
     }
   }
 
-  const unscrapAllPost = () => {
+  const cancelAllPosts = () => {
     handleAllCheckbox();
     setIsOnTrigger(true);
   }
@@ -251,8 +251,16 @@ const PostList: React.FC<PostListProps> = ({
       setIsOnTrigger(false);
     }
 
+    const deleteAll = () => {
+      handleDeletePosts();
+      setIsOnTrigger(false);
+    }
+
     if (isOnTrigger && isAllSelected)
-      unscrapAll();
+      if (isMyScrapPage)
+        unscrapAll();
+      else if (isMyPostPage)
+        deleteAll();
 
   }, [isOnTrigger, isAllSelected])
 
@@ -263,15 +271,13 @@ const PostList: React.FC<PostListProps> = ({
     }))
     setMyList(list);
   }, [postList]);
-
-  console.log(postList)
   return (
     <>
       {/* 웹 뷰 */}
       {!isPending && postList?.length === 0 ? (
         <div className={`
           lg:text-headline-m
-          min-h-full text-gray-300 text-center m-auto grow content-center`}>
+          min-h-full text-gray-300 text-center m-auto grow content-center text-m-body2-r`}>
           {isMyPostPage && <p>작성한 게시글이 없어요.<br/>커뮤니티에 게시글을 남겨보세요!</p>}
           {isMyScrapPage && <p>스크랩한 게시글이 없어요.<br/>커뮤니티에서 게시글을 스크랩해보세요!</p>}
         </div>
@@ -366,10 +372,7 @@ const PostList: React.FC<PostListProps> = ({
                     </button>
                     <button
                       className={`rounded text-m-subhead2-sb text-gray-400 px-3 py-2 bg-gray-100`}
-                      onClick={
-                        isMyPostPage ?
-                          () => { } :
-                          unscrapAllPost}>
+                      onClick={cancelAllPosts}>
                       {isMyPostPage ? `전체 삭제` : `전체 스크랩 취소`}
                     </button>
                   </>
