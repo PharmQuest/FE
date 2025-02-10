@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { axiosPostInstance } from "@/apis/axios-instance";
 
-const useCustomMutation = <TData>(
+const usePostMutation = <TData>(
   url: string,
   type?: string,
   postId?: number | null,
@@ -46,4 +46,4 @@ const useCustomMutation = <TData>(
   return mutateAsync;
 };
 
-export default useCustomMutation;
+export default usePostMutation;

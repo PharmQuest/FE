@@ -6,7 +6,7 @@ import useAuthStore from "@/store/useAuthStore";
 const UserNavbar = () => {
   const router = useRouter();
 
-  const { isLoggedIn, logOut } = useAuthStore();
+  const { isLoggedIn, logOut, userName, provider } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const UserNavbar = () => {
     <div
       className={`
         lg:flex flex-col grow
-        hidden w-[170px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0
+        hidden w-[170px] rounded-lg border-solid border-[1px] border-gray-200 flex-shrink-0 bg-white
         ${isLoggedIn ? `h-[375px]` : `h-[117px]`}`}>
       {isLoggedIn ? (
         <>
