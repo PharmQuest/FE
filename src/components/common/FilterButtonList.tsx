@@ -4,7 +4,7 @@ import FilterButton from "./FilterButton";
 interface filterInfo {
   text: string;
   isSelected?: boolean;
-  onClckFn?: () => void;
+  onClickFn?: () => void;
   isHomeButton?: boolean;
   isMobileButton?: boolean;
   url?: string;

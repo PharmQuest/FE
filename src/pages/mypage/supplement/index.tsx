@@ -27,7 +27,7 @@ const SupplementPage: React.FC = () => {
     currentPage * itemsPerPage
   );
 
-  const handleCardClick = (id: string) => {
+  const handleCardClick = (id: number) => {
     router.push(`/supplements/${id}`);
   };
 
