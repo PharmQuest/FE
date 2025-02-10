@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
 import usePostMutation from "../../../hooks/community/usePostMutation";
 import useModalStore from "@/store/useModalStore";
+import useAuthStore from "@/store/useAuthStore";
+import { useRouter } from "next/router";
 
 type DropdownInfo = {
   key: string;
@@ -18,6 +20,12 @@ export default function CreatePost() {
     setIsNoticeModalOpen,
     setNoticeModalText,
   } = useModalStore((state) => state)
+
+  const {
+    isLoggedIn,
+  } = useAuthStore()
+
+  const router = useRouter();
 
   const categoryInfo: DropdownInfo[] = [
     { key: "FORUM", value: "자유" },
@@ -52,6 +60,7 @@ export default function CreatePost() {
   const [uploadImage, setUploadImage] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +82,14 @@ export default function CreatePost() {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }
+
+  const handleXButton = () => {
+    setUploadImage("")
+    setFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
   }
 
@@ -106,6 +123,13 @@ export default function CreatePost() {
       setNoticeModalText("게시글 작성에 실패했습니다.")
     }
   }
+
+  useEffect(() => {
+    if(isLoggedIn === false){
+      router.push("/login")
+    }
+    
+  }, []);
 
   useEffect(() => {
     if (title.trim() && content.trim() && category.trim()) {
@@ -203,8 +227,8 @@ export default function CreatePost() {
 
                 {/* Image에 hover 시 X 버튼 등장 */}
                 <XIcon
-                  onClick={() => setUploadImage("")}
-                  className={`absolute top-3 right-3 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`} />
+                  onClick={handleXButton}
+                  className={`w-5 absolute top-3 right-3 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out`} />
               </div>
             }
             <div className={`flex justify-between mt-5`}>
@@ -224,13 +248,13 @@ export default function CreatePost() {
 
               </label>
               <input
+                ref={fileInputRef}
                 id="file"
                 type="file"
                 className={`hidden`}
                 onChange={handleImageUpload}
                 // 파일 등록 사진으로 제한
                 accept="image/*" />
-
               <p 
                 className={`
                   md:text-body1-r

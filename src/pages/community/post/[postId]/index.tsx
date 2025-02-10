@@ -44,12 +44,6 @@ export default function Post() {
   const postItem = data?.result
 
   useEffect(() => {
-    if(!isLoggedIn){
-      router.replace("/login");
-    }
-  }, [isLoggedIn])
-
-  useEffect(() => {
     const axiosError = error as AxiosError<{ code?: string }>
     if (axiosError?.response?.data.code === "POST4005") {
       setNoticeModalText("존재하지 않는 게시글입니다.");
@@ -82,7 +76,7 @@ export default function Post() {
           imageUrl={postItem?.imageUrl}
           commentPage={postItem?.commentPage}
         />
-        <div className={`flex flex-col gap-5`}>
+        <div className={`md:gap-5 flex flex-col`}>
           <CommentInput />
           <CommentList
             postUserId={postItem?.userId}
