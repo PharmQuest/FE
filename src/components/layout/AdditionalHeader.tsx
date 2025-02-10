@@ -1,41 +1,7 @@
 import { ReactNode } from "react";
 import Search from "../common/Search";
 import FilterButtonList from "../common/FilterButtonList";
-
-const FILTER_LIST = [
-  {
-    text: "진통/해열",
-    isHomeButton: true,
-  },
-  {
-    text: "소화/위장",
-    isHomeButton: true,
-  },
-  {
-    text: "감기/기침",
-    isHomeButton: true,
-  },
-  {
-    text: "알레르기",
-    isHomeButton: true,
-  },
-  {
-    text: "상처/소독",
-    isHomeButton: true,
-  },
-  {
-    text: "멀미",
-    isHomeButton: true,
-  },
-  {
-    text: "안약",
-    isHomeButton: true,
-  },
-  {
-    text: "기타",
-    isHomeButton: true,
-  },
-]
+import { MOBILE_COMMUNIY_FILTER_LIST, MOBILE_MEDICINE_FILTER_LIST, MOBILE_SUPPLEMENT_FILTER_LIST } from "@/constants/FilterList";
 
 const AdditionalHeader = ({
   children,
@@ -47,21 +13,24 @@ const AdditionalHeader = ({
   const segments = pathName.split("/");
   let currentTitle: string = "";
 
-
+  let filterList: { text: string; isHomeButton?: boolean; isMobileButton?: boolean }[] = [];
 
   const isHome = pathName === "/" ? true : false;
 
   switch (segments[1]) {
     case "medicines":
       currentTitle = `상비약 리스트`;
+      filterList = MOBILE_MEDICINE_FILTER_LIST;
       break;
 
     case "community":
       currentTitle = `커뮤니티`;
+      filterList = MOBILE_COMMUNIY_FILTER_LIST;
       break;
 
     case "supplements":
       currentTitle = `해외 인기 영양제`;
+      filterList = MOBILE_SUPPLEMENT_FILTER_LIST;
       break;
 
     case "mypage":
@@ -98,14 +67,20 @@ const AdditionalHeader = ({
 
             {!isHome &&
               <>
-                <div className={`${segments[2] && `hidden lg:block`} lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
+                <div className={`${
+                  segments[2] && 
+                  segments[2] !== "posts" && 
+                  segments[2] !== "bestposts" && 
+                  `hidden lg:block`} 
+                  lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
                   <Search />
                 </div>
 
-                {/* 출력 하는 곳 안하는 곳 추가 수정 필요 */}
-                <div className={`lg:hidden`}>
-                  <FilterButtonList filterLists={FILTER_LIST} className={`md:px-0 px-5 mb-4`}/>
-                </div>
+                {(segments.length < 3 || segments[2] === "posts") && 
+                  <div className={`lg:hidden`}>
+                    <FilterButtonList filterList={filterList} className={`md:px-0 px-5 mb-4`} />
+                  </div>
+                }
               </>
             }
           </div>
