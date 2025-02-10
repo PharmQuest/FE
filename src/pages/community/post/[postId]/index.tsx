@@ -19,7 +19,7 @@ export default function Post() {
   const router = useRouter();
 
   const [commentPage, setCommentPage] = useState(1);
-  const formatCategory = useFormatCategory()
+  const {formatCategory} = useFormatCategory()
 
   const { isLoggedIn } = useAuthStore();
 

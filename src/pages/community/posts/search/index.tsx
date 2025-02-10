@@ -87,7 +87,7 @@ export default function SearchPosts() {
                 setPage={setPage}
                 category={categoryValue}
                 isPageHidden={false}
-                isSearch={true}
+                isSearchPage={true}
                 keyword={router.query.keyword as string}
                 country={router.query.country as string}
                 setPostsCount={setPostsCount} />

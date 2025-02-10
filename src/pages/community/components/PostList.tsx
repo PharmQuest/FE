@@ -1,15 +1,19 @@
 
 import PostItem from "./PostItem";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import PageNavigator from "./PageNavigator";
 import SkeletonList from "./SkeletonList";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import MobilePostItem from "./MobilePostItem";
 import { axiosInstance } from "@/apis/axios-instance";
+import { CheckBoxIcon, CheckBoxOnIcon } from "@public/svgs";
+import useModalStore from "@/store/useModalStore";
+import useFormatCategory from "@/hooks/community/useFormatCategory";
 
 interface Post {
   postId: number;
   userName: string;
+  writerName: string;
   title: string;
   content: string;
   category: string;
@@ -20,32 +24,80 @@ interface Post {
   isBestPost: boolean;
 }
 
+interface MyList {
+  id: number;
+  isSelected: boolean;
+}
+
 interface PostListProps {
   page?: number;
   setPage?: Dispatch<SetStateAction<number>> | null;
   category?: string;
   isPageHidden?: boolean;
   postLimit?: number;
-  isSearch?: boolean;
+
+  // 검색 리스트 Props
+  isSearchPage?: boolean;
   keyword?: string;
   country?: string;
   setPostsCount?: Dispatch<SetStateAction<number | null>> | null;
+
+  // 나의 활동 게시글 리스트 Props
+  isMyPostPage?: boolean;
+  isMyScrapPage?: boolean;
+  myList?: MyList[];
+  setMyList?: React.Dispatch<React.SetStateAction<MyList[]>>
+  isAllSelected?: boolean;
+  selectedIds?: number[];
 }
 
-const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category = "ALL", isPageHidden = false, postLimit, isSearch = false, keyword, country, setPostsCount }) => {
+const PostList: React.FC<PostListProps> = ({
+  page = 1,
+  setPage = null,
+  category = "ALL",
+  isPageHidden = false,
+  postLimit,
+
+  // 검색 리스트 Props
+  isSearchPage = false,
+  keyword,
+  country,
+  setPostsCount,
+
+  // 나의 활동 리스트 Props
+  isMyPostPage = false,
+  isMyScrapPage = false,
+  myList = [],
+  setMyList = () => { },
+  isAllSelected,
+  selectedIds,
+}) => {
+
+  const queryClient = useQueryClient();
+
+  const { unformatCategory } = useFormatCategory();
+
+  const {
+    setIsNoticeModalOpen,
+    setNoticeModalText,
+  } = useModalStore();
 
   const getPosts = async () => {
-    const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`, {
-      params: {
-        category,
-        page,
-      }
-    });
-    return response.data;
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/lists`, {
+        params: {
+          category,
+          page,
+        }
+      });
+      return response.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const searchPosts = async () => {
-    try{
+    try {
       const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/search`, {
         params: {
           keyword,
@@ -56,38 +108,137 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category 
       });
       if (setPostsCount)
         setPostsCount(response?.data?.result?.totalElements)
-  
-      return response.data;
-    } catch (e){
-      const error = e as {response?: {data?: {message?: string}}};
 
-      if (error?.response?.data?.message === "해당하는 게시글이 존재하지 않습니다."){
-        if(setPostsCount)
+      return response.data;
+    } catch (e) {
+      const error = e as { response?: { data?: { message?: string } } };
+
+      if (error?.response?.data?.message === "해당하는 게시글이 존재하지 않습니다.") {
+        if (setPostsCount)
           setPostsCount(0);
       }
       return { result: { postList: [], totalElements: 0, totalPage: 1, isFirst: true, isLast: true } };
     }
   }
 
+  const getMyPosts = async () => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/mypage/activities/post?page=${page}`)
+
+      return response.data;
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const getMyScraps = async () => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/mypage/activities/scrap?page=${page}`)
+
+      return response.data;
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const handleCheckbox = (postId: number) => {
+    setMyList((prev) =>
+      prev.map((item) =>
+        item.id === postId ? { ...item, isSelected: !item.isSelected } : item
+      )
+    )
+  }
+
+  const handleAllCheckbox = () => {
+    setMyList((prev) =>
+      prev.map((item) => (
+        { ...item, isSelected: !isAllSelected }
+      ))
+    )
+  }
+
+  const handleDeletePosts = async () => {
+    if (selectedIds && selectedIds?.length > 0) {
+      try {
+        await axiosInstance.delete(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`, {
+          params: {
+            postIds: selectedIds
+          },
+          paramsSerializer: (params) => {
+            return new URLSearchParams(params).toString();
+          }
+        })
+        queryClient.invalidateQueries({ queryKey: ['myPosts', page] })
+        setNoticeModalText(`${selectedIds?.length}개의 게시글을 삭제하였습니다.`)
+        setIsNoticeModalOpen(true);
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
+
+  const handleUnscrapPosts = async () => {
+    if (selectedIds && selectedIds?.length > 0) {
+      try {
+        await axiosInstance.delete(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/scraps`, {
+          params: {
+            postIds: selectedIds
+          },
+          paramsSerializer: (params) => {
+            return new URLSearchParams(params).toString();
+          }
+        })
+        queryClient.invalidateQueries({ queryKey: ['myScraps', page] })
+        setNoticeModalText(`${selectedIds?.length}개의 스크랩을 취소하였습니다.`)
+        setIsNoticeModalOpen(true);
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
+
   const { data, isPending, isError } = useQuery(
     {
-      queryKey: isSearch ? ['searchPosts', keyword, country, category, page] : ['posts', category, page],
-      queryFn: isSearch ? searchPosts : getPosts,
+      queryKey:
+        isSearchPage
+          ? ['searchPosts', keyword, country, category, page]
+          : isMyPostPage
+            ? ['myPosts', page]
+            : isMyScrapPage
+              ? ['myScraps', page]
+              : ['posts', category, page],
+      queryFn:
+        isSearchPage
+          ? searchPosts
+          : isMyPostPage
+            ? getMyPosts
+            : isMyScrapPage
+              ? getMyScraps
+              : getPosts,
       placeholderData: keepPreviousData,
       retry: 0,
     },
   );
 
-  const postList = postLimit ? data?.result?.postList.slice(0, postLimit) : data?.result?.postList
+  const content = data?.result?.postList || data?.result?.content;
+  const postList = postLimit ? content?.slice(0, postLimit) : content
 
+  useEffect(() => {
+    const list = postList?.map((post: Post) => ({
+      id: post.postId,
+      isSelected: false,
+    }))
+    setMyList(list);
+  }, [postList]);
+  console.log(data)
   return (
     <>
       {/* 웹 뷰 */}
-      <div className="lg:grid py-3 hidden grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300">
+      <div className={`${(isMyPostPage || isMyScrapPage) && `lg:pl-8`} lg:grid py-3 hidden grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300`}>
         <p className={`w-16 text-center`}>주제</p>
         <p>제목</p>
         <div className="grid grid-flow-col gap-5 justify-items-center text-center w-full">
-          <p className={`w-[73px] truncate`}>작성자</p>
+          <p className={`w-[73px] truncate`}>{!isMyPostPage && "작성자"}</p>
           <p className={`w-[73px] truncate`}>등록일</p>
           <div className={`flex gap-5`}>
             <p className={`w-[36px] truncate`}>추천</p>
@@ -106,28 +257,55 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category 
           ) : (
             <>
               {postList?.map((post: Post, index: number) => (
-                <PostItem
-                  key={index}
-                  postId={post.postId}
-                  userName={post.userName}
-                  title={post.title}
-                  category={post.category}
-                  scrapeCount={post.scrapeCount}
-                  likeCount={post.likeCount}
-                  commentCount={post.commentCount || 0}
-                  createdAt={post.createdAt}
-                  isBestPost={post.isBestPost}
-                />
+                <div key={index} className={`flex gap-2 items-center`}>
+                  {(isMyPostPage || isMyScrapPage) &&
+                    <div onClick={() => handleCheckbox(post.postId)}>
+                      <CheckBoxIcon className={`w-6 mb-0.5 ${myList[index]?.isSelected && `hidden`}`} />
+                      <CheckBoxOnIcon className={`w-6 mb-0.5 ${!myList[index]?.isSelected && `hidden`}`} />
+                    </div>
+                  }
+                  <PostItem
+                    postId={post.postId}
+                    userName={post.userName || post.writerName}
+                    title={post.title}
+                    category={unformatCategory(post.category)}
+                    scrapeCount={post.scrapeCount}
+                    likeCount={post.likeCount}
+                    commentCount={post.commentCount || 0}
+                    createdAt={post.createdAt}
+                    isBestPost={post.isBestPost}
+                  />
+                </div>
               ))}
+              {(isMyPostPage || isMyScrapPage) &&
+                <div className={`flex justify-between mt-3`}>
+                  <div className={`flex gap-3 text-subhead1-sb text-gray-300`}>
+                    <div onClick={handleAllCheckbox}>
+                      <CheckBoxIcon className={`w-6 mb-0.5 ${isAllSelected && `hidden`}`} />
+                      <CheckBoxOnIcon className={`w-6 mb-0.5 ${!isAllSelected && `hidden`}`} />
+                    </div>
+                    전체 선택
+                  </div>
+                  <button
+                    className={`px-3 py-1 rounded text-subhead2-sb text-gray-400 bg-gray-100`}
+                    onClick={isMyPostPage ? handleDeletePosts : handleUnscrapPosts}>
+                    {isMyPostPage ? `삭제` : `스크랩 취소`}
+                  </button>
+                </div>
+              }
               {!isPageHidden &&
-                <PageNavigator className={`mt-12`} page={page} totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} setPage={setPage} />
+                <PageNavigator 
+                  className={`mt-12`} 
+                  page={page} 
+                  totalPage={data?.result?.totalPage || data?.result?.totalPages} 
+                  isFirst={data?.result?.isFirst || data?.result?.first} 
+                  isLast={data?.result?.isLast || data?.result?.last} 
+                  setPage={setPage} />
               }
             </>
           )
-
         )}
       </div>
-
 
       {/* 모바일 뷰 */}
       <div className={`
@@ -141,7 +319,7 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category 
             userName={post.userName}
             title={post.title}
             content={post.content}
-            category={post.category}
+            category={unformatCategory(post.category)}
             scrapeCount={post.scrapeCount}
             likeCount={post.likeCount}
             commentCount={post.commentCount || 0}
@@ -150,7 +328,13 @@ const PostList: React.FC<PostListProps> = ({ page = 1, setPage = null, category 
           />
         ))}
         {!isPageHidden &&
-          <PageNavigator className={`mt-12`} page={page} totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} setPage={setPage} />
+          <PageNavigator 
+            className={`mt-12`} 
+            page={page} 
+            totalPage={data?.result?.totalPage || data?.result?.totalPages} 
+            isFirst={data?.result?.isFirst || data?.result?.first} 
+            isLast={data?.result?.isLast || data?.result?.last} 
+            setPage={setPage} />
         }
       </div>
     </>
