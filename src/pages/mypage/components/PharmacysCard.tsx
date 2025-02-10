@@ -62,7 +62,7 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
       </div>
 
       {/* ✅ 약국 정보 */}
-      <div className="ml-4 flex-1 flex flex-col justify-start self-start gap-3">
+      <div className="ml-4 flex-1 flex flex-col justify-start self-start gap-y-1 sm:gap-y-2">
         <div className="text-gray-600 text-subhead1-sb">{pharmacyName}</div>
         <div className="text-gray-400 text-body1-r">{location}</div>
       </div>
