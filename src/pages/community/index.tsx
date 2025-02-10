@@ -6,9 +6,10 @@ import PostList from "./components/PostList";
 import { useState } from "react";
 import { ArrowRightIcon, PlusIcon } from "@public/svgs";
 import { useRouter } from "next/router";
-import popularPosts from "@/mocks/popularPosts";
 import { MouseEvent } from "react";
 import CommunityModal from "./components/CommunityModal";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface Category {
   value: string;
@@ -51,6 +52,18 @@ export default function Community() {
  
   }
 
+  const getRandomBestPost = async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/best-posts/random`);
+    return response.data;
+  }
+
+  const { data } = useQuery(
+    {
+      queryKey: ["bestPost"],
+      queryFn: getRandomBestPost,
+      placeholderData: keepPreviousData,
+    },
+  )
 
   return (
     <div>
@@ -58,12 +71,12 @@ export default function Community() {
         className="
           lg:max-w-[900px] lg:mx-auto lg:px-0
           md:max-w-[600px] md:mx-auto md:px-0 md:mt-9
-          w-full px-5">
+          w-screen px-5">
         <div
           className="
-            lg:w-fit lg:flex lg:flex-row lg:gap-x-4
-            mt-3 grow">
-          <div className={`flex flex-col grow`}>
+            lg:w-full lg:flex lg:flex-row lg:gap-x-4
+            mt-3 grow w-full">
+          <div className={`flex flex-col grow w-full`}>
             <div className={`flex justify-between mb-3`}>
               <p
                 className="
@@ -85,7 +98,7 @@ export default function Community() {
                 <ArrowRightIcon className={`content-center mb-0.5 h-2.5`} />
               </p>
             </div>
-            <PopularPostList posts={popularPosts.slice(0, 3)} bgColor={"primary-50"} gap={true} />
+            <PopularPostList posts={data?.result?.postList} bgColor={"primary-50"} gap={true} />
           </div>
           <div className={`lg:block hidden`}>
             <p className={`h-9 mb-3`} />

@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
+        <link rel="icon" href="/favicon.svg"/>
         <meta name="description" content={pageData.description} />
         <meta property="og:title" content={pageData.title} />
         <meta property="og:description" content={pageData.description} />
@@ -36,7 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Header />
       {/* 최소 높이 = 100vh - 헤더높이 - 푸터높이 */}
       <div className={`min-h-[calc(100vh-248px-169px)]`}>
-      <Component {...pageProps}/>
+        <Component {...pageProps}/>
       </div>
       <NoticeModal/>
       <ReportModal/>

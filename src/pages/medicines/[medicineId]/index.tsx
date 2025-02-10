@@ -14,7 +14,7 @@ function MedicineInfo() {
       <div
         className={`
           md:hidden
-          text-m-headline1-b flex items-center justify-between text-gray-600 py-4 px-5 sticky top-0 bg-white shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
+          text-m-headline1-b flex items-center justify-between text-gray-600 py-4 px-5 sticky top-[60px] mb-5 bg-white shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)] z-50`}>
         <div className={`flex gap-3`}>
           <LeftArrowIcon className={`w-[24px]`} />
           <p>
