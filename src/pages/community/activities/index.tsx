@@ -29,7 +29,7 @@ const Activities = () => {
   }, [myList])
 
   return (
-    <div className="w-full min-h-[calc(100vh-279px)] h-full items-center flex flex-col lg:pt-9 pt-5 pb-[100px]">
+    <div className="w-full min-h-[calc(100vh-279px)] h-full items-center flex flex-col lg:pt-9 pt-5">
       <div className="
         lg:w-[900px]
         md:w-[601px] 
