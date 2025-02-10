@@ -59,7 +59,7 @@ const SupplementPage: React.FC = () => {
           {/* ✅ 영양제 리스트 */}
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5 py-5 lg:py-9">
             {paginatedSupplements.map((supplement) => (
-              <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
+              <div key={supplement.id} onClick={() => handleCardClick(String(supplement.id))}>
                 <SupplementCard {...supplement} />
               </div>
             ))}
@@ -102,7 +102,7 @@ const SupplementPage: React.FC = () => {
             >
               영양제 리스트
             </Link>
-            <span className="text-gray-300 text-gray-300 text-headline-m md:text-m-body2-r">
+            <span className="text-gray-300 text-headline-m md:text-m-body2-r">
               에서 항목을 추가해보세요!
             </span>
           </div>

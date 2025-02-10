@@ -56,7 +56,7 @@ const MobilePostItem: React.FC<PostItemProps> = ({
               className="
               lg:text-subhead1-sb
               text-m-subhead1-sb truncate">{title}</p>
-            {!isBestPost &&
+            {isBestPost &&
               <Tag variant="best" className={`!text-m-caption2-r !border`}/>
             }
           </div>
