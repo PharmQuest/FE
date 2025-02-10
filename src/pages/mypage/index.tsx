@@ -43,7 +43,7 @@ const MyPage: React.FC<MyPageProps> = ({
   }
 
   useEffect(() => {
-    if(!isLoggedIn){
+    if(isLoggedIn === false){
       router.push("/login")
     }
   }, [isLoggedIn])
