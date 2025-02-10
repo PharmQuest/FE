@@ -110,16 +110,9 @@ const PostList: React.FC<PostListProps> = ({
       });
       if (setPostsCount)
         setPostsCount(response?.data?.result?.totalElements)
-
       return response.data;
     } catch (e) {
-      const error = e as { response?: { data?: { message?: string } } };
-
-      if (error?.response?.data?.message === "해당하는 게시글이 존재하지 않습니다.") {
-        if (setPostsCount)
-          setPostsCount(0);
-      }
-      return { result: { postList: [], totalElements: 0, totalPage: 1, isFirst: true, isLast: true } };
+      console.log(e)
     }
   }
 
@@ -265,6 +258,12 @@ const PostList: React.FC<PostListProps> = ({
   }, [isOnTrigger, isAllSelected])
 
   useEffect(() => {
+    queryClient.removeQueries({
+      predicate: (query) => query.queryKey[0] === "searchPosts",
+    });
+  }, [keyword, country, category, page])
+
+  useEffect(() => {
     const list = postList?.map((post: Post) => ({
       id: post.postId,
       isSelected: false,
@@ -278,8 +277,12 @@ const PostList: React.FC<PostListProps> = ({
         <div className={`
           lg:text-headline-m
           min-h-full text-gray-300 text-center m-auto grow content-center text-m-body2-r`}>
-          {isMyPostPage && <p>작성한 게시글이 없어요.<br/>커뮤니티에 게시글을 남겨보세요!</p>}
-          {isMyScrapPage && <p>스크랩한 게시글이 없어요.<br/>커뮤니티에서 게시글을 스크랩해보세요!</p>}
+          {
+            isSearchPage ? <p>찾는 내용이 없으신가요?<br />철자를 확인하거나 다른 키워드로 검색해주세요!</p> :
+              isMyPostPage ? <p>작성한 게시글이 없어요.<br />커뮤니티에 게시글을 남겨보세요!</p> :
+                isMyScrapPage ? <p>스크랩한 게시글이 없어요.<br />커뮤니티에서 게시글을 스크랩해보세요!</p> :
+                  <p>등록된 게시글이 없어요.<br />커뮤니티에 게시글을 남겨보세요!</p>
+          }
         </div>
       ) : (
         <>
@@ -425,7 +428,7 @@ const PostList: React.FC<PostListProps> = ({
             }
           </div>
         </>
-        )
+      )
       }
     </>
   );
