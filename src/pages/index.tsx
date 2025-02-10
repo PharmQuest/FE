@@ -1,5 +1,4 @@
 import Search from "@/components/common/Search";
-import FilterButton from "@/components/common/FilterButton";
 import { GTIcon, WhiteGTIcon } from "@public/svgs";
 import { MedicineImage, ADWeb, ADMobile } from "@public/images";
 import Image from "next/image";
@@ -90,7 +89,6 @@ export default function Home() {
   const filterClick = FILTER_LIST.map(item => ({
     ...item,
     onClickFn: () => {
-      console.log('선택된 카테고리:', item.text, '경로:', item.path);
       router.push(item.path);
     }
   }));
@@ -142,16 +140,6 @@ export default function Home() {
             />
           </div>
           <Search />
-          {/* <div className="flex lg:gap-3 gap-2 mt-4">
-            <FilterButton text="진통/해열" isHomeButton={true} />
-            <FilterButton text="소화/위장" isHomeButton={true} />
-            <FilterButton text="감기/기침" isHomeButton={true} />
-            <FilterButton text="알레르기" isHomeButton={true} />
-            <FilterButton text="상처/소독" isHomeButton={true} />
-            <FilterButton text="멀미" isHomeButton={true} />
-            <FilterButton text="안약" isHomeButton={true} />
-            <FilterButton text="기타" isHomeButton={true} />
-          </div> */}
           <FilterButtonList filterLists={filterClick} className="mt-4 lg:gap-3 gap-2"/>
           <p className="pt-12 text-center text-gray-300 text-body2-r">
             본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로
