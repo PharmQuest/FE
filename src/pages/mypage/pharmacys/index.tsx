@@ -17,8 +17,8 @@ const MyPharmacys = () => {
   );
 
   return (
-    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
-      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 lg:py-9">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-3">
         <div className="flex items-center ">
           <Link href="/mypage">
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
@@ -40,7 +40,7 @@ const MyPharmacys = () => {
       {/* 🔹 데이터가 있을 경우 */}
       {pharmacys.length > 0 ? (
         <>
-          <div className="w-full py-5 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow">
+          <div className="w-full py-5 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow lg:py-9">
             {paginatedPharmacys.map((pharmacy) => ( 
                 <PharmacysCard key={pharmacy.id} {...pharmacy} />
               ))}
