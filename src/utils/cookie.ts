@@ -9,6 +9,7 @@ export const setAccessToken = (token: string) => {
 // ✅ 리프레시 토큰 저장
 export const setRefreshToken = (token: string) => {
   Cookies.set("refreshToken", token, { path: "/", secure: true });
+  localStorage.setItem("refreshToken", token);
 };
 
 // ✅ 쿠키에서 액세스 토큰 가져오기
