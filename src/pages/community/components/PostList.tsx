@@ -3,7 +3,7 @@ import PostItem from "./PostItem";
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import PageNavigator from "./PageNavigator";
 import SkeletonList from "./SkeletonList";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import MobilePostItem from "./MobilePostItem";
 import { axiosInstance } from "@/apis/axios-instance";
 import { CheckBoxIcon, CheckBoxOnIcon } from "@public/svgs";
@@ -74,13 +74,15 @@ const PostList: React.FC<PostListProps> = ({
 }) => {
 
   const queryClient = useQueryClient();
-
   const { unformatCategory } = useFormatCategory();
 
   const {
     setIsNoticeModalOpen,
     setNoticeModalText,
   } = useModalStore();
+
+  const [isOnEdit, setIsOnEdit] = useState(false);
+  const [isOnTrigger, setIsOnTrigger] = useState(false);
 
   const getPosts = async () => {
     try {
@@ -197,6 +199,26 @@ const PostList: React.FC<PostListProps> = ({
     }
   }
 
+  const handleUnscrapPost = async (postId: number) => {
+    try {
+      await axiosInstance.delete(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/scraps`, {
+        params: {
+          postIds: postId
+        },
+      })
+      queryClient.invalidateQueries({ queryKey: ['myScraps', page] })
+      setNoticeModalText(`1개의 스크랩을 취소하였습니다.`)
+      setIsNoticeModalOpen(true);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const unscrapAllPost = () => {
+    handleAllCheckbox();
+    setIsOnTrigger(true);
+  }
+
   const { data, isPending, isError } = useQuery(
     {
       queryKey:
@@ -224,50 +246,154 @@ const PostList: React.FC<PostListProps> = ({
   const postList = postLimit ? content?.slice(0, postLimit) : content
 
   useEffect(() => {
+    const unscrapAll = () => {
+      handleUnscrapPosts();
+      setIsOnTrigger(false);
+    }
+
+    if (isOnTrigger && isAllSelected)
+      unscrapAll();
+
+  }, [isOnTrigger, isAllSelected])
+
+  useEffect(() => {
     const list = postList?.map((post: Post) => ({
       id: post.postId,
       isSelected: false,
     }))
     setMyList(list);
   }, [postList]);
-  console.log(data)
+
+  console.log(postList)
   return (
     <>
       {/* 웹 뷰 */}
-      <div className={`${(isMyPostPage || isMyScrapPage) && `lg:pl-8`} lg:grid py-3 hidden grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300`}>
-        <p className={`w-16 text-center`}>주제</p>
-        <p>제목</p>
-        <div className="grid grid-flow-col gap-5 justify-items-center text-center w-full">
-          <p className={`w-[73px] truncate`}>{!isMyPostPage && "작성자"}</p>
-          <p className={`w-[73px] truncate`}>등록일</p>
-          <div className={`flex gap-5`}>
-            <p className={`w-[36px] truncate`}>추천</p>
-            <p className={`w-[36px] truncate`}>댓글</p>
-            <p className={`w-[42px] truncate`}>스크랩</p>
-          </div>
+      {!isPending && postList?.length === 0 ? (
+        <div className={`
+          lg:text-headline-m
+          min-h-full text-gray-300 text-center m-auto grow content-center`}>
+          {isMyPostPage && <p>작성한 게시글이 없어요.<br/>커뮤니티에 게시글을 남겨보세요!</p>}
+          {isMyScrapPage && <p>스크랩한 게시글이 없어요.<br/>커뮤니티에서 게시글을 스크랩해보세요!</p>}
         </div>
-      </div>
-      <div className={`hidden lg:block`}>
-        {isPending ? (
-          <SkeletonList listNum={postLimit || 20} />
-        ) : (
-          isError ? (
-            <>
-            </>
-          ) : (
-            <>
-              {postList?.map((post: Post, index: number) => (
-                <div key={index} className={`flex gap-2 items-center`}>
+      ) : (
+        <>
+          <div className={`${(isMyPostPage || isMyScrapPage) && `lg:pl-8`} lg:grid py-3 hidden grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300`}>
+            <p className={`w-16 text-center`}>주제</p>
+            <p>제목</p>
+            <div className="grid grid-flow-col gap-5 justify-items-center text-center w-full">
+              <p className={`w-[73px] truncate`}>{!isMyPostPage && "작성자"}</p>
+              <p className={`w-[73px] truncate`}>등록일</p>
+              <div className={`flex gap-5`}>
+                <p className={`w-[36px] truncate`}>추천</p>
+                <p className={`w-[36px] truncate`}>댓글</p>
+                <p className={`w-[42px] truncate`}>스크랩</p>
+              </div>
+            </div>
+          </div >
+          <div className={`hidden lg:block`}>
+            {isPending ? (
+              <SkeletonList listNum={postLimit || 20} />
+            ) : (
+              isError ? (
+                <>
+                </>
+              ) : (
+                <>
+                  {postList?.map((post: Post, index: number) => (
+                    <div key={index} className={`flex gap-2 items-center`}>
+                      {(isMyPostPage || isMyScrapPage) &&
+                        <div onClick={() => handleCheckbox(post.postId)}>
+                          <CheckBoxIcon className={`w-6 mb-0.5 ${myList[index]?.isSelected && `hidden`}`} />
+                          <CheckBoxOnIcon className={`w-6 mb-0.5 ${!myList[index]?.isSelected && `hidden`}`} />
+                        </div>
+                      }
+                      <PostItem
+                        postId={post.postId}
+                        userName={post.userName || post.writerName}
+                        title={post.title}
+                        category={unformatCategory(post.category)}
+                        scrapeCount={post.scrapeCount}
+                        likeCount={post.likeCount}
+                        commentCount={post.commentCount || 0}
+                        createdAt={post.createdAt}
+                        isBestPost={post.isBestPost}
+                      />
+                    </div>
+                  ))}
                   {(isMyPostPage || isMyScrapPage) &&
-                    <div onClick={() => handleCheckbox(post.postId)}>
-                      <CheckBoxIcon className={`w-6 mb-0.5 ${myList[index]?.isSelected && `hidden`}`} />
-                      <CheckBoxOnIcon className={`w-6 mb-0.5 ${!myList[index]?.isSelected && `hidden`}`} />
+                    <div className={`flex justify-between mt-3`}>
+                      <div className={`flex gap-3 text-subhead1-sb text-gray-300`}>
+                        <div onClick={handleAllCheckbox}>
+                          <CheckBoxIcon className={`w-6 mb-0.5 ${isAllSelected && `hidden`}`} />
+                          <CheckBoxOnIcon className={`w-6 mb-0.5 ${!isAllSelected && `hidden`}`} />
+                        </div>
+                        전체 선택
+                      </div>
+                      <button
+                        className={`px-3 py-1 rounded text-subhead2-sb text-gray-400 bg-gray-100`}
+                        onClick={isMyPostPage ? handleDeletePosts : handleUnscrapPosts}>
+                        {isMyPostPage ? `삭제` : `스크랩 취소`}
+                      </button>
                     </div>
                   }
-                  <PostItem
+                  {!isPageHidden &&
+                    <PageNavigator
+                      className={`mt-12`}
+                      page={page}
+                      totalPage={data?.result?.totalPage || data?.result?.totalPages}
+                      isFirst={data?.result?.isFirst || data?.result?.first}
+                      isLast={data?.result?.isLast || data?.result?.last}
+                      setPage={setPage} />
+                  }
+                </>
+              )
+            )}
+          </div>
+
+          {/* 모바일 뷰 */}
+          <div className={`
+        lg:max-w-[900px] lg:hidden 
+        md:max-w-[600px]
+        flex flex-col w-full`}>
+            {(isMyPostPage || isMyScrapPage) &&
+              <div className={`mt-4 flex justify-between`}>
+                {isOnEdit ? (
+                  <>
+                    <button
+                      className={`rounded text-m-subhead2-sb text-gray-400 px-3 py-2 border border-solid border-gray-100`}
+                      onClick={() => setIsOnEdit(!isOnEdit)}>
+                      편집 완료
+                    </button>
+                    <button
+                      className={`rounded text-m-subhead2-sb text-gray-400 px-3 py-2 bg-gray-100`}
+                      onClick={
+                        isMyPostPage ?
+                          () => { } :
+                          unscrapAllPost}>
+                      {isMyPostPage ? `전체 삭제` : `전체 스크랩 취소`}
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className={`rounded text-m-subhead2-sb text-gray-400 px-3 py-2 border border-solid border-gray-100`}
+                    onClick={() => setIsOnEdit(!isOnEdit)}>
+                    {isMyPostPage ? `게시글 편집` : `스크랩 편집`}
+                  </button>
+                )}
+
+              </div>
+            }
+            {postList?.map((post: Post, index: number) => (
+              <div
+                key={index}
+                className={`flex items-center gap-3 w-full border-b border-solid border-gray-100`}>
+                <div className={`grow overflow-hidden`}>
+                  <MobilePostItem
+                    key={index}
                     postId={post.postId}
                     userName={post.userName || post.writerName}
                     title={post.title}
+                    content={post.content}
                     category={unformatCategory(post.category)}
                     scrapeCount={post.scrapeCount}
                     likeCount={post.likeCount}
@@ -276,67 +402,28 @@ const PostList: React.FC<PostListProps> = ({
                     isBestPost={post.isBestPost}
                   />
                 </div>
-              ))}
-              {(isMyPostPage || isMyScrapPage) &&
-                <div className={`flex justify-between mt-3`}>
-                  <div className={`flex gap-3 text-subhead1-sb text-gray-300`}>
-                    <div onClick={handleAllCheckbox}>
-                      <CheckBoxIcon className={`w-6 mb-0.5 ${isAllSelected && `hidden`}`} />
-                      <CheckBoxOnIcon className={`w-6 mb-0.5 ${!isAllSelected && `hidden`}`} />
-                    </div>
-                    전체 선택
-                  </div>
+                {isOnEdit &&
                   <button
-                    className={`px-3 py-1 rounded text-subhead2-sb text-gray-400 bg-gray-100`}
-                    onClick={isMyPostPage ? handleDeletePosts : handleUnscrapPosts}>
-                    {isMyPostPage ? `삭제` : `스크랩 취소`}
+                    className={`min-w-[45px] w-[45px] h-[26px] rounded text-m-subhead2-sb text-gray-400 px-3 py-1 bg-gray-100`}
+                    onClick={() => handleUnscrapPost(post.postId)}>
+                    {isMyPostPage ? `삭제` : `취소`}
                   </button>
-                </div>
-              }
-              {!isPageHidden &&
-                <PageNavigator 
-                  className={`mt-12`} 
-                  page={page} 
-                  totalPage={data?.result?.totalPage || data?.result?.totalPages} 
-                  isFirst={data?.result?.isFirst || data?.result?.first} 
-                  isLast={data?.result?.isLast || data?.result?.last} 
-                  setPage={setPage} />
-              }
-            </>
-          )
-        )}
-      </div>
-
-      {/* 모바일 뷰 */}
-      <div className={`
-        lg:max-w-[900px] lg:hidden 
-        md:max-w-[600px]
-        flex flex-col w-full`}>
-        {postList?.map((post: Post, index: number) => (
-          <MobilePostItem
-            key={index}
-            postId={post.postId}
-            userName={post.userName}
-            title={post.title}
-            content={post.content}
-            category={unformatCategory(post.category)}
-            scrapeCount={post.scrapeCount}
-            likeCount={post.likeCount}
-            commentCount={post.commentCount || 0}
-            createdAt={post.createdAt}
-            isBestPost={post.isBestPost}
-          />
-        ))}
-        {!isPageHidden &&
-          <PageNavigator 
-            className={`mt-12`} 
-            page={page} 
-            totalPage={data?.result?.totalPage || data?.result?.totalPages} 
-            isFirst={data?.result?.isFirst || data?.result?.first} 
-            isLast={data?.result?.isLast || data?.result?.last} 
-            setPage={setPage} />
-        }
-      </div>
+                }
+              </div>
+            ))}
+            {!isPageHidden &&
+              <PageNavigator
+                className={`mt-12`}
+                page={page}
+                totalPage={data?.result?.totalPage || data?.result?.totalPages}
+                isFirst={data?.result?.isFirst || data?.result?.first}
+                isLast={data?.result?.isLast || data?.result?.last}
+                setPage={setPage} />
+            }
+          </div>
+        </>
+        )
+      }
     </>
   );
 };

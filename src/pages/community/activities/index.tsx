@@ -25,16 +25,17 @@ const Activities = () => {
   useEffect(() => {
     setIsAllSelected(myList?.every(item => item.isSelected))
     setSelectedIds(myList?.filter(item => item.isSelected).map(item => item.id));
+    console.log(myList)
   }, [myList])
 
   return (
-    <div className="w-full h-full items-center flex flex-col lg:pt-9 pt-5 pb-[100px]">
+    <div className="w-full min-h-[calc(100vh-279px)] h-full items-center flex flex-col lg:pt-9 pt-5 pb-[100px]">
       <div className="
         lg:w-[900px]
         md:w-[601px] 
-        md:px-0 px-5 mx-auto w-full">
+        md:px-0 px-5 mx-auto w-full grow flex flex-col">
         <ActivitiesNav />
-        <div>
+        <div className={`h-full grow flex flex-col`}>
           {currentTab === "posts" &&
             <PostList
               page={page}
