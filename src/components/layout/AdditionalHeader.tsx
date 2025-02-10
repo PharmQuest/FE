@@ -49,7 +49,7 @@ const AdditionalHeader = ({
   return (
     <>
       {currentTitle !== "" ? (
-        <div className={`bg-background flex flex-col sticky top-0 z-[500] ${segments[2] === "activities" && `pb-[30px]`}`}>
+        <div className={`bg-background flex flex-col sticky top-0 z-[500] ${segments[2] === "activities" && `lg:pb-[30px]`}`}>
           {children}
           <div
             className={`

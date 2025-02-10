@@ -38,7 +38,7 @@ const MobilePostItem: React.FC<PostItemProps> = ({
 
   return (
     <div
-      className={`max-w-full flex flex-col w-auto gap-3 cursor-pointer border-b border-solid border-gray-100 py-4 rounded-lg`}
+      className={`max-w-full flex flex-col w-auto gap-3 cursor-pointer py-4 rounded-lg`}
       onClick={() => {
         router.push(`/community/post/${postId}`);
       }}
