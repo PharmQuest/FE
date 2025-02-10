@@ -70,7 +70,7 @@ export default function Posts() {
               <div
                 className={`
                   lg:flex
-                  hidden flex-row items-center gap-3`}>
+                  hidden flex-row items-center gap-2`}>
                 {categories.map((category) => (
                   <FilterButton
                     key={category.text}
