@@ -95,6 +95,8 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
         setIsNoticeModalOpen(true);
       } catch (e) {
         console.log(e)
+        setNoticeModalText("댓글 삭제에 실패했습니다.");
+        setIsNoticeModalOpen(true);
       }
     }
   }
