@@ -28,7 +28,6 @@ const MyNotificationItem: React.FC<MyNotificationItemProps> = ({
       className="py-3 pr-3 flex flex-row justify-between border-b border-solid border-gray-100"
       onClick={() => router.push(`/community/post/${postId}`)}>
       <div className="flex flex-row gap-2 items-start">
-        <input type="checkbox" className="box-border mt-1 max-lg:hidden" />
         <div className="flex flex-col gap-1">
           <p className="lg:text-body1-r text-body2-r text-gray-500">
             {commentWriter} : {commentContent}
