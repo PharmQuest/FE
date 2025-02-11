@@ -8,7 +8,7 @@ interface InfoRowProps {
 const InfoRow = ({ label, value }: InfoRowProps) => (
   <div className="flex gap-2">
     <div className="lg:text-subhead1-sb lg:min-w-[56px] flex justify-between text-m-subhead1-sb min-w-[50px]">
-      {label.split("").map((char, i) => (
+      {label?.split("").map((char, i) => (
         <div key={i}>{char}</div>
       ))}
     </div>

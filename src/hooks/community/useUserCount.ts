@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 
 
-const useUserCount = ( url: string, queryKey: [string, number | null, number?], isOnInitial: boolean, initialCount: number) => {
+const useUserCount = ( url: string, queryKey: [string, number | null, number?], isOnInitial: boolean, initialCount: number, isScrap?: boolean, deleteUrl?: string) => {
   const [isOn, setIsOn] = useState(isOnInitial);
   const [onCount, setOnCount] = useState(initialCount);
 
@@ -19,7 +19,13 @@ const useUserCount = ( url: string, queryKey: [string, number | null, number?], 
       } else {
         setOnCount(onCount - 1);
         setIsOn(!isOn)
-        await axiosInstance.delete(url);
+        if (isScrap && deleteUrl){
+          await axiosInstance.delete(deleteUrl)
+        }
+        else {
+          await axiosInstance.delete(url);
+        }
+        
         QueryClient.invalidateQueries({ queryKey: [queryKey] })
       }
     } catch (e) {

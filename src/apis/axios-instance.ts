@@ -1,4 +1,6 @@
+import { clearTokens } from "@/utils/cookie";
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import Cookies from "js-cookie";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -15,7 +17,7 @@ export const axiosRefreshInstance = axios.create();
 
 const setAuthHeader = (config: InternalAxiosRequestConfig) => {
   if (typeof window !== "undefined") {
-    const token = localStorage.getItem("accessToken");
+    const token = Cookies.get("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -25,7 +27,7 @@ const setAuthHeader = (config: InternalAxiosRequestConfig) => {
 
 const setRefreshHeader = (config: InternalAxiosRequestConfig) => {
   if (typeof window !== "undefined") {
-    const token = localStorage.getItem("refreshToken");
+    const token = Cookies.get("refreshToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
@@ -49,9 +51,10 @@ const responseInterceptor = async (error: AxiosError) => {
   if ((errorDetail === "Required header 'Authorization' is not present." || error.response?.status === 500) && !originalRequest._retry) {
     originalRequest._retry = true;
 
-    const refreshToken = localStorage.getItem("refreshToken");
+    const refreshToken = Cookies.get("refreshToken");
     if (!refreshToken) {
       localStorage.removeItem("accessToken");
+      Cookies.remove("accessToken")
       window.location.replace("/login");
       return Promise.reject(new Error("No refresh token, redirecting to login"));
     }
@@ -62,7 +65,7 @@ const responseInterceptor = async (error: AxiosError) => {
       );
 
       const newAccessToken = refreshResponse?.data?.result?.access_token;
-      localStorage.setItem("accessToken", newAccessToken);
+      Cookies.set("accessToken", newAccessToken, { path: "/", secure: true });
 
       originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
       return axiosInstance(originalRequest);
@@ -70,6 +73,7 @@ const responseInterceptor = async (error: AxiosError) => {
       console.error("리프레시 토큰 만료 또는 오류 발생", refreshError);
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      clearTokens();
       window.location.replace("/login");
     }
   }

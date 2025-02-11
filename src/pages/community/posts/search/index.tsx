@@ -81,26 +81,15 @@ export default function SearchPosts() {
                 </div>
               }
             </div>
-            {postsCount !== 0 ? (
               <PostList
                 page={page}
                 setPage={setPage}
                 category={categoryValue}
                 isPageHidden={false}
-                isSearch={true}
+                isSearchPage={true}
                 keyword={router.query.keyword as string}
                 country={router.query.country as string}
                 setPostsCount={setPostsCount} />
-            ) : (
-              <div
-                className={`
-                lg:text-headline-m lg:h-[60px] lg:mt-[146px] lg:mb-[162px] 
-                text-center text-gray-300
-              `}>
-                찾는 내용이 없으신가요?<br />
-                철자를 확인하거나 다른 키워드로 검색해주세요!
-              </div>
-            )}
           </div>
 
           <div>

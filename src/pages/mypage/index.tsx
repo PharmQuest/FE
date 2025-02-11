@@ -7,12 +7,35 @@ import useAuthStore from "@/store/useAuthStore";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
+interface Medicine {
+  id: number;
+  name: string;
+  type: string;
+}
+
+interface Pharmacy {
+  id: number;
+  pharmacyName: string;
+  status: boolean;
+  closingTime: string;
+  distance: string;
+  location: string;
+}
+
+interface Supplement {
+  id: number;
+  country: string;
+  title: string;
+  tags: string[];
+  isBookmarked: boolean;
+}
+
 interface MyPageProps {
   userName: string;
   userEmail: string;
-  medicines?: [];
-  pharmacys?: [];
-  supplements?: [];
+  medicines?: Medicine[];
+  pharmacys?: Pharmacy[];
+  supplements?: Supplement[];
 }
 
 const MyPage: React.FC<MyPageProps> = ({
@@ -43,7 +66,7 @@ const MyPage: React.FC<MyPageProps> = ({
   }
 
   useEffect(() => {
-    if(!isLoggedIn){
+    if(isLoggedIn === false){
       router.push("/login")
     }
   }, [isLoggedIn])
@@ -59,10 +82,11 @@ const MyPage: React.FC<MyPageProps> = ({
           </div>
           <div className="text-gray-400 md:text-body1-r text-m-body2-r">{userEmail}</div>
         </div>
-        <div className="w-[100px] px-4 py-2 rounded border border-gray-200 flex justify-center items-center">
+        <div 
+          className="w-[100px] px-4 py-2 rounded border border-gray-200 flex justify-center items-center cursor-pointer"
+          onClick={handleLogout}>
           <button 
-            className="text-gray-400 text-caption1-r"
-            onClick={handleLogout}>로그아웃</button>
+            className="text-gray-400 text-caption1-r">로그아웃</button>
         </div>
       </div>
 
@@ -91,11 +115,11 @@ const MyPage: React.FC<MyPageProps> = ({
         {medicines.length > 0 ? (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {medicines.map((medicine) => (
-              <MedicineCard key={medicine.id} {...medicine} />
+              <MedicineCard medicineTableId={0} brandName={""} genericName={""} splSetId={""} imgUrl={""} category={""} country={""} key={medicine.id} {...medicine} />
             ))}
           </div>
         ) : (
-          <p className="text-gray-400 md:text-body1-r md:text-m-body1-r text-left md:text-center">
+          <p className="text-gray-400 md:text-body1-r text-m-body1-r text-left md:text-center">
             저장한 상비약이 없어요. <br />
             <Link href="/medicines" className="text-gray-400 underline">
               상비약 리스트
