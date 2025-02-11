@@ -59,10 +59,11 @@ const MyPage: React.FC<MyPageProps> = ({
           </div>
           <div className="text-gray-400 md:text-body1-r text-m-body2-r">{userEmail}</div>
         </div>
-        <div className="w-[100px] px-4 py-2 rounded border border-gray-200 flex justify-center items-center">
+        <div 
+          className="w-[100px] px-4 py-2 rounded border border-gray-200 flex justify-center items-center cursor-pointer"
+          onClick={handleLogout}>
           <button 
-            className="text-gray-400 text-caption1-r"
-            onClick={handleLogout}>로그아웃</button>
+            className="text-gray-400 text-caption1-r">로그아웃</button>
         </div>
       </div>
 
