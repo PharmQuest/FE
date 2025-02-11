@@ -276,7 +276,7 @@ const PostList: React.FC<PostListProps> = ({
       {!isPending && postList?.length === 0 ? (
         <div className={`
           lg:text-headline-m
-          min-h-full text-gray-300 text-center m-auto grow content-center text-m-body2-r`}>
+          min-h-[200px] text-gray-300 text-center m-auto grow content-center text-m-body2-r`}>
           {
             isSearchPage ? <p>찾는 내용이 없으신가요?<br />철자를 확인하거나 다른 키워드로 검색해주세요!</p> :
               isMyPostPage ? <p>작성한 게시글이 없어요.<br />커뮤니티에 게시글을 남겨보세요!</p> :
