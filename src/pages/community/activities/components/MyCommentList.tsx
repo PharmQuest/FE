@@ -113,9 +113,11 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
       queryClient.invalidateQueries({ queryKey: ['myComments', page] })
       setNoticeModalText(`1개의 댓글을 삭제하였습니다.`)
       setIsNoticeModalOpen(true);
-    } catch (e) {
-      console.log(e)
-    }
+      } catch (e) {
+        console.log(e)
+        setNoticeModalText("댓글 삭제에 실패했습니다.");
+        setIsNoticeModalOpen(true);
+      }
   }
 
   const deleteAllComments = () => {
