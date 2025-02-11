@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	
 	images: {
-
 		remotePatterns: [
 			{
 				protocol: "https",
@@ -22,25 +21,25 @@ const nextConfig: NextConfig = {
 			: [],
 	},
 
-	webpack(config) {
-		config.module.rules.push({
-			test: /\.svg$/i,
-			use: ["@svgr/webpack"],
-		});
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      use: ["@svgr/webpack"],
+    });
 
-		return config;
-	},
+    return config;
+  },
 
-	experimental: {
-		turbo: {
-			rules: {
-				"*.svg": {
-					loaders: ["@svgr/webpack"],
-					as: "*.js",
-				},
-			},
-		},
-	},
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
+  },
 };
 
 export default nextConfig;
