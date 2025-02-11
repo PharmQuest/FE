@@ -154,7 +154,7 @@ const Header = () => {
             {isMounted && (isLoggedIn ? (
               // isLoggedIn이 true
               <div className="flex gap-3 items-center">
-                <UserIcon onClick={() => router.push("/mypage")} />
+                <UserIcon className={`cursor-pointer`} onClick={() => router.push("/mypage")} />
                 <button
                   onClick={handleLogoutClick}
                   className="h-9 px-5 grow py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
@@ -200,21 +200,21 @@ const Header = () => {
           </div>
 
           {isHome ? (
-            <LogoIcon onClick={() => router.push("/")} />
+            <LogoIcon className="cursor-pointer" onClick={() => router.push("/")} />
           ) : (
             <div className={`text-m-display1-b text-gray-600 text-center truncate`}>{title}</div>
           )}
 
           <div className={`flex gap-4 justify-end w-[104px]`}>
             {!isHome && title === "" && segment[1] !== "community" &&
-              <SearchBoldIcon className={`w-5`} />}
+              <SearchBoldIcon className={`w-5 cursor-pointer`} />}
             {!isHome &&
               <HomeIcon
-                className={`text-gray-600 w-6`}
+                className={`text-gray-600 w-6 cursor-pointer`}
                 onClick={() => router.push("/")} />
             }
             <AccountCircleIcon
-              className={`text-gray-600 w-6`}
+              className={`text-gray-600 w-6 cursor-pointer`}
               onClick={() => router.push("/mypage")} />
           </div>
         </div>
