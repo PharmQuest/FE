@@ -1,5 +1,4 @@
 import React, { Dispatch } from "react";
-import TextButton from "../../components/TextButton";
 import MyNotificationItem from "./MyNotificationItem";
 import { axiosInstance } from "@/apis/axios-instance";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
