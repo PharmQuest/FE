@@ -71,7 +71,7 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
     );
   }
 
-  const { result } = data;
+  const result = data?.result;
 
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
@@ -123,8 +123,8 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
         <div className="lg:p-6 md:flex-row border border-gray-100 rounded-xl mt-5 p-4 flex flex-col md:gap-4 gap-1">
           <div className="lg:w-[200px] lg:h-[200px] max-md:h-[200px] border border-gray-200 rounded-lg overflow-hidden">
             <Image
-              src={result.imgUrl || imgSrc}
-              alt={result.brandName}
+              src={result?.imgUrl || imgSrc}
+              alt={result?.brandName || ""}
               width={200}
               height={200}
               className="w-full h-full object-contain"
@@ -136,16 +136,16 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
             <p
               className={`text-body2-r text-white bg-primary-200 w-fit rounded px-2 pt-0.5 pb-[1px] text-center mt-4`}
             >
-              {result.country}
+              {result?.country}
             </p>
 
             <p className="text-gray-600 lg:text-headline-b text-m-headline2-b">
-              {result.brandName}
+              {result?.brandName}
             </p>
             <div className="flex flex-col md:gap-2 text-gray-400 md:mt-8">
-              <InfoRow label="일반명" value={result.genericName} />
-              <InfoRow label="주요성분" value={result.activeIngredient} />
-              <InfoRow label="분류" value={result.category} />
+              <InfoRow label="일반명" value={result?.genericName || ""} />
+              <InfoRow label="주요성분" value={result?.activeIngredient || ""} />
+              <InfoRow label="분류" value={result?.category || ""} />
             </div>
           </div>
 
@@ -160,12 +160,12 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
 
         <Section title="사용 목적">
           <ul className="list-disc pl-5 space-y-2">
-            {formatText(result.purpose).map((sentence, index) => (
+            {formatText(result?.purpose || "").map((sentence, index) => (
               <li key={index} className="lg:text-body1-r text-m-body2-r">
                 {sentence}
               </li>
             ))}
-            {formatText(result.indicationsAndUsage).map((sentence, index) => (
+            {formatText(result?.indicationsAndUsage || "").map((sentence, index) => (
               <li
                 key={`usage-${index}`}
                 className="lg:text-body1-r text-m-body2-r"
@@ -178,7 +178,7 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
 
         <Section title="복용법">
           <ul className="list-disc pl-5 space-y-2">
-            {formatText(result.dosageAndAdministration).map(
+            {formatText(result?.dosageAndAdministration || "").map(
               (sentence, index) => (
                 <li key={index} className="lg:text-body1-r text-m-body2-r">
                   {sentence}
@@ -190,7 +190,7 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
 
         <Section title="경고 및 주의사항">
           <ul className="list-disc pl-5 space-y-2">
-            {formatText(result.warnings).map((sentence, index) => (
+            {formatText(result?.warnings || "").map((sentence, index) => (
               <li key={index} className="lg:text-body1-r text-m-body2-r">
                 {sentence}
               </li>

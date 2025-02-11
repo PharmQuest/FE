@@ -1,6 +1,5 @@
 import React, { Dispatch, useEffect, useState } from "react";
 import MyCommentItem from "./MyCommentItem";
-import TextButton from "../../components/TextButton";
 import { axiosInstance } from "@/apis/axios-instance";
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckBoxIcon, CheckBoxOnIcon } from "@public/svgs";
