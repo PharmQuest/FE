@@ -9,7 +9,7 @@ const CommunityModal = ({isMobileModalOpen, setIsMobileModalOpen} : {isMobileMod
   return (
 
     <div
-      className={`fixed top-0 w-screen h-screen bg-[#0000004D] backdrop-blur-[10px] transition-all duration-300 ease-out ${isMobileModalOpen ? `opacity-100` : `opacity-0 pointer-events-none`}`}
+      className={`fixed top-0 w-screen h-screen bg-[#0000004D] backdrop-blur-[10px] transition-all duration-300 ease-out z-[1000] ${isMobileModalOpen ? `opacity-100` : `opacity-0 pointer-events-none`}`}
       onClick={() => setIsMobileModalOpen(false)}>
       <div className={`fixed bottom-[92px] right-5 text-white text-m-display1-b flex flex-col gap-6`}>
         <div

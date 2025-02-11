@@ -2,37 +2,43 @@ import React from "react";
 import SubjectTag from "./SubjectTag";
 import { BookmarkIcon, CommentIcon, LikeIcon } from "@public/svgs";
 import { useRouter } from "next/router";
+import { format } from "date-fns";
 
 interface PopularPostItemProps {
-  id: number; // id
-  category: string; // 주제
-  title: string; // 제목
-  content: string; // 내용
-  createdAt: string; // 날짜
-  likeCount: number; // 좋아요 개수
-  commentCount: number; // 댓글 개수
-  scrapeCount: number; // 스크랩 개수
-  bgColor?: string; // 배경색
+  postId: number;
+  userName: string;
+  title: string;
+  content: string;
+  category: string;
+  scrapeCount: number;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  bgColor?: string;
 }
 
 const PopularPostItem: React.FC<PopularPostItemProps> = ({
-  id,
-  category,
+  postId,
+  userName,
   title,
   content,
-  createdAt,
+  category,
+  scrapeCount,
   likeCount,
   commentCount,
-  scrapeCount,
+  createdAt,
   bgColor,
 }) => {
   const router = useRouter();
 
+  const date = new Date(createdAt);
+  const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
+
   return (
     <div
-      className={`lg:gap-2 flex flex-col w-auto gap-1 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === "primary-50" && `px-5`} py-4 rounded-lg`}
+      className={`lg:gap-2 flex flex-col w-full gap-1 cursor-pointer border-b border-solid border-gray-100 bg-${bgColor} ${bgColor === "primary-50" && `px-5`} py-4 rounded-lg`}
       onClick={() => {
-        router.push(`/community/post/${id}`);
+        router.push(`/community/post/${postId}`);
       }}
     >
       <div className="md:flex-row flex flex-col gap-2">
@@ -50,12 +56,16 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
       <p 
         className="
           lg:text-body1-r 
-          text-m-body2-r text-gray-500 truncate">{content}</p>
+          text-m-body2-r text-gray-500 truncate w-full">{content}</p>
       <div 
         className="
           lg:text-body2-r
           mt-auto flex flex-row justify-between text-m-caption1-r text-gray-400">
-        <p>{createdAt}</p>
+        <div className={`flex gap-2`}>
+          <p className={`md:hidden`}>{userName}</p>
+          <p className={`md:hidden`}>|</p>
+          <p>{formattedDate}</p>
+        </div>
         <div className="flex flex-row gap-[10px]">
           <div className="flex flex-row gap-[2px] items-center">
             <LikeIcon className="lg:w-5 w-4 cursor-pointer" />
