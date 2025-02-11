@@ -24,8 +24,13 @@ const AdditionalHeader = ({
       break;
 
     case "community":
-      currentTitle = `커뮤니티`;
-      filterList = MOBILE_COMMUNIY_FILTER_LIST;
+      if (segments[2] === "activities") {
+        currentTitle = `나의 활동`;
+      }
+      else {
+        currentTitle = `커뮤니티`;
+        filterList = MOBILE_COMMUNIY_FILTER_LIST;
+      }
       break;
 
     case "supplements":
@@ -44,7 +49,7 @@ const AdditionalHeader = ({
   return (
     <>
       {currentTitle !== "" ? (
-        <div className={`bg-background flex flex-col sticky top-0 z-[500]`}>
+        <div className={`bg-background flex flex-col sticky top-0 z-[500] ${segments[2] === "activities" && `lg:pb-[30px]`}`}>
           {children}
           <div
             className={`
@@ -67,16 +72,17 @@ const AdditionalHeader = ({
 
             {!isHome &&
               <>
-                <div className={`${
-                  segments[2] && 
-                  segments[2] !== "posts" && 
-                  segments[2] !== "bestposts" && 
-                  `hidden lg:block`} 
+                {segments[2] !== "activities" &&
+                  <div className={`${segments[2] &&
+                    segments[2] !== "posts" &&
+                    segments[2] !== "bestposts" &&
+                    `hidden lg:block`} 
                   lg:mx-0 lg:mb-9 md:mx-0 mx-5 mb-4`}>
-                  <Search />
-                </div>
+                    <Search />
+                  </div>
+                }
 
-                {(segments.length < 3 || segments[2] === "posts") && 
+                {(segments.length < 3 || segments[2] === "posts") &&
                   <div className={`lg:hidden`}>
                     <FilterButtonList filterList={filterList} className={`md:px-0 px-5 mb-4`} />
                   </div>

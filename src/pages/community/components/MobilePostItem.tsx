@@ -38,7 +38,7 @@ const MobilePostItem: React.FC<PostItemProps> = ({
 
   return (
     <div
-      className={`max-w-full flex flex-col w-auto gap-3 cursor-pointer border-b border-solid border-gray-100 py-4 rounded-lg`}
+      className={`max-w-full flex flex-col w-auto gap-3 cursor-pointer py-4 rounded-lg`}
       onClick={() => {
         router.push(`/community/post/${postId}`);
       }}
@@ -57,7 +57,7 @@ const MobilePostItem: React.FC<PostItemProps> = ({
               lg:text-subhead1-sb
               text-m-subhead1-sb truncate">{title}</p>
             {isBestPost &&
-              <Tag variant="best" className={`!text-m-caption2-r !border`}/>
+              <Tag variant="best" className={`!text-m-caption2-r !border`} />
             }
           </div>
 
@@ -72,8 +72,12 @@ const MobilePostItem: React.FC<PostItemProps> = ({
           lg:text-body2-r
           mt-auto flex flex-row justify-between text-m-caption1-r text-gray-400">
         <div className={`flex gap-2`}>
-          <p>{userName}</p>
-          <p>|</p>
+          {userName &&
+            <>
+              <p>{userName}</p>
+              <p>|</p>
+            </>
+          }
           <p>{formattedDate}</p>
         </div>
         <div className="flex flex-row gap-[10px]">

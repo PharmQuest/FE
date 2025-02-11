@@ -2,46 +2,59 @@ import { ArrowRightIcon } from "@public/svgs"
 import { Dispatch, SetStateAction } from "react";
 
 interface PageNavigatorProps {
-  totalPage: number; 
+  totalPage: number;
   isFirst: boolean;
-  isLast: boolean; 
+  isLast: boolean;
   page: number;
   setPage: Dispatch<SetStateAction<number>> | null;
   className?: string;
 }
 
-const PageNavigator: React.FC<PageNavigatorProps> = ({ totalPage, isFirst, isLast, page, setPage, className="" }) => {
+const PageNavigator: React.FC<PageNavigatorProps> = ({ totalPage, isFirst, isLast, page, setPage, className = "" }) => {
 
   const currentPage = page
 
+  const PAGE_GROUP_SIZE = 10;
+
+  const currentGroup = Math.floor((currentPage - 1) / PAGE_GROUP_SIZE);
+  const startPage = currentGroup * PAGE_GROUP_SIZE + 1;
+  const endPage = Math.min(startPage + PAGE_GROUP_SIZE - 1, totalPage);
+
+
   const pageNavigate = (page: number) => {
-    if (setPage){
+    if (setPage) {
       setPage(page)
-      console.log(page)
-      window.scrollTo({top: 0, behavior: "smooth"});
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
 
   return (
     <div className={`gap-3 flex mx-auto items-center justify-center ${className}`}>
-      {!isFirst && 
-        <ArrowRightIcon 
+      {!isFirst &&
+        <ArrowRightIcon
           onClick={() => pageNavigate(currentPage - 1)}
-          className={`px-2 rotate-180 mb-0.5 text-gray-600 h-2.5 cursor-pointer`} />}
-      {[...Array(totalPage)].map((_, index) => (
+          className={`px-2 rotate-180 mb-0.5 text-gray-600 h-2.5 cursor-pointer`} />
+      }
+
+      {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNum) => (
         <button
-          key={index}
-          onClick={() => pageNavigate(index + 1)}
-          disabled={currentPage === index + 1}
+          key={pageNum}
+          onClick={() => pageNavigate(pageNum)}
+          disabled={page === pageNum}
           className={`
-            px-3 py-1 ${currentPage === index + 1 ? `text-secondary-500 cursor-default lg:text-subhead1-sb text-m-subhead1-sb` : `text-gray-300 lg:text-subhead1-sb text-m-body2-r`}`}>
-          {index + 1}
+          px-3 py-1 ${page === pageNum
+              ? `text-secondary-500 cursor-default lg:text-subhead1-sb text-m-subhead1-sb`
+              : `text-gray-300 lg:text-subhead1-sb text-m-body2-r`
+            }`}>
+          {pageNum}
         </button>
       ))}
+
       {!isLast &&
-        <ArrowRightIcon 
+        <ArrowRightIcon
           onClick={() => pageNavigate(currentPage + 1)}
-          className={`px-2 mb-0.5 text-gray-600 h-2.5 cursor-pointer`} />}
+          className={`px-2 mb-0.5 text-gray-600 h-2.5 cursor-pointer`} />
+      }
     </div>
   )
 }

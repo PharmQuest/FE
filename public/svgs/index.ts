@@ -52,3 +52,5 @@ export { default as HomeIcon } from "./home.svg";
 export { default as MapPinThinIcon } from "./map-pin-thin.svg";
 export { default as SearchThinIcon } from "./search-thin.svg";
 export { default as XThinIcon } from "./x-thin.svg";
+export { default as CheckBoxIcon } from "./checkbox.svg";
+export { default as CheckBoxOnIcon } from "./checkbox_on.svg";
