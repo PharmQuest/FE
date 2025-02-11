@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProp> = ({
         onClick={() => setIsSidebarOpen(false)} // 오버레이 클릭 시 사이드바 닫기
         className={`
           ${isSidebarOpen ? `opacity-100` : `opacity-0 pointer-events-none`}
-          fixed top-0 left-0 w-full h-full bg-black/30 z-[60] transition-all duration-500 ease-out`}
+          fixed top-0 left-0 w-full h-full bg-black/30 z-[600] transition-all duration-500 ease-out`}
       ></div>
       {/* 사이드바 부분 */}
       <div

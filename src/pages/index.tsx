@@ -1,45 +1,53 @@
 import Search from "@/components/common/Search";
-import FilterButton from "@/components/common/FilterButton";
 import { GTIcon, WhiteGTIcon } from "@public/svgs";
 import { MedicineImage, ADWeb, ADMobile } from "@public/images";
 import Image from "next/image";
 import Link from "next/link";
 import FilterButtonList from "@/components/common/FilterButtonList";
+import { useRouter } from 'next/router';
 
 const FILTER_LIST = [
   {
     text: "진통/해열",
     isHomeButton: true,
+    path: `/medicine/lists?category=PAIN_RELIEF&page=1&size=10`,
   },
   {
     text: "소화/위장",
     isHomeButton: true,
+    path: `/medicine/lists?category=DIGESTIVE&page=1&size=10`,
   },
   {
     text: "감기/기침",
     isHomeButton: true,
+    path: `/medicine/lists?category=COLD&page=1&size=10`,
   },
   {
     text: "알레르기",
     isHomeButton: true,
+    path: `/medicine/lists?category=ALLERGY&page=1&size=10`,
   },
   {
     text: "상처/소독",
     isHomeButton: true,
+    path: `/medicine/lists?category=ANTISEPTIC&page=1&size=10`,
   },
   {
     text: "멀미",
     isHomeButton: true,
+    path: `/medicine/lists?category=MOTION_SICKNESS&page=1&size=10`,
   },
   {
     text: "안약",
     isHomeButton: true,
+    path: `/medicine/lists?category=EYE_DROPS&page=1&size=10`,
   },
   {
     text: "기타",
     isHomeButton: true,
+    path: `/medicine/lists?category=OTHER&page=1&size=10`,
   },
-]
+];
 
 const community = [
   {
@@ -76,6 +84,15 @@ const community = [
 ];
 
 export default function Home() {
+  const router = useRouter();
+
+  const filterClick = FILTER_LIST.map(item => ({
+    ...item,
+    onClickFn: () => {
+      router.push(item.path);
+    }
+  }));
+
   return (
     <>
       <div className="bg-background pb-6 flex justify-center">
@@ -123,16 +140,7 @@ export default function Home() {
             />
           </div>
           <Search />
-          <div className="flex lg:gap-3 gap-2 mt-4">
-            <FilterButton text="진통/해열" isHomeButton={true} />
-            <FilterButton text="소화/위장" isHomeButton={true} />
-            <FilterButton text="감기/기침" isHomeButton={true} />
-            <FilterButton text="알레르기" isHomeButton={true} />
-            <FilterButton text="상처/소독" isHomeButton={true} />
-            <FilterButton text="멀미" isHomeButton={true} />
-            <FilterButton text="안약" isHomeButton={true} />
-            <FilterButton text="기타" isHomeButton={true} />
-          </div>
+          <FilterButtonList filterLists={filterClick} className="mt-4 lg:gap-3 gap-2"/>
           <p className="pt-12 text-center text-gray-300 text-body2-r">
             본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로
             하며, 해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.
@@ -181,7 +189,7 @@ export default function Home() {
             </Link>
           </div>
           <Search />
-          <FilterButtonList filterLists={FILTER_LIST} className={`mt-3`}/>
+          <FilterButtonList filterLists={filterClick} className={`mt-3`}/>
         </div>
       </div>
       {/* 흰 배경 */}
