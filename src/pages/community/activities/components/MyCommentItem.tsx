@@ -23,10 +23,10 @@ const MyCommentItem: React.FC<MyCommentItemProps> = ({
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
   return (
-    <div className="py-3 pr-3 flex flex-row justify-between border-b border-solid border-gray-100">
+    <div className="lg:py-3 py-4 pr-3 flex flex-row justify-between">
       <div className="flex flex-row gap-2 items-start">
         <div className="flex flex-col gap-1">
-          <p className="lg:text-body1-r text-body2-r text-gray-500">
+          <p className="lg:text-body1-r text-body2-r text-gray-500 line-clamp-2">
             {content}
           </p>
           <p className="lg:text-body1-r lg:mt-1 text-m-caption1-r text-gray-200">
