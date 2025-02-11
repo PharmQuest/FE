@@ -1,6 +1,7 @@
 import { axiosInstance } from "@/apis/axios-instance";
 import { clearTokens } from "@/utils/cookie";
 import { create } from "zustand";
+import Cookies from "js-cookie";
 
 interface AuthState {
   isLoggedIn: boolean | null;
@@ -22,12 +23,12 @@ const useAuthStore = create<AuthState>((set) => ({
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     clearTokens();
-    set({ isLoggedIn: false });
+    set({ isLoggedIn: false, userId: null, userName: null, provider: null });
   },
 
   checkAuth: () => {
-    const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
+    const accessToken = Cookies.get("accessToken");
+    const refreshToken = Cookies.get("refreshToken");
     set({ isLoggedIn: !!accessToken || !!refreshToken });
   },
 

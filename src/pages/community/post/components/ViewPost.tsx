@@ -76,6 +76,8 @@ const ViewPost: React.FC<ViewPostProps> = ({
     ["post", postId, commentPage],
     isScraped,
     scrapeCount,
+    true,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/community/posts/scraps?postIds=${postId}`,
   );
 
   const handleMenu = (e: MouseEvent) => {

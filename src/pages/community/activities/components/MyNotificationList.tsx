@@ -1,39 +1,76 @@
-import React from "react";
-import comments from "../../../../mocks/comments";
-import TextButton from "../../components/TextButton";
+import React, { Dispatch } from "react";
 import MyNotificationItem from "./MyNotificationItem";
+import { axiosInstance } from "@/apis/axios-instance";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import PageNavigator from "../../components/PageNavigator";
 
-const MyNotificationList = () => {
+interface Notification {
+  postId: number;
+  postTitle: string;
+  commentWriter: string;
+  commentContent: string;
+  createdAt: string;
+}
+
+interface MyCommentListProp {
+  page: number;
+  setPage: Dispatch<React.SetStateAction<number>>
+}
+
+const MyNotificationList: React.FC<MyCommentListProp> = ({
+  page,
+  setPage,
+}) => {
+
+  const getMyComments = async () => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/mypage/activities/notification`, {
+        params: {
+          page,
+        }
+      });
+      return response.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const { data, isPending } = useQuery({
+    queryKey: ["myComments", page],
+    queryFn: getMyComments,
+    placeholderData: keepPreviousData,
+    retry: 0,
+  })
+
+  const notificationList = data?.result?.content;
+
   return (
     <div className="flex flex-col">
       <div className="max-lg:hidden flex justify-between items-center py-3 px-4 border-b border-solid border-gray-300 text-subhead1-sb text-gray-500">
-        <p className="flex-1 text-right">내용</p>
-        <p className="flex-1 text-right">등록일</p>
+        <p className="flex-1 text-center">댓글</p>
+        <p className="w-[60px] text-center">등록일</p>
       </div>
 
-      <div className="lg:hidden flex py-4">
-        <TextButton text="알림 편집" color="white" />
-      </div>
-
-      {comments.map((comment) => {
+      {notificationList?.map((notification: Notification, index: number) => {
         return (
-          <MyNotificationItem
-            key={comment.id}
-            id={comment.id}
-            writer={comment.writer}
-            content={comment.content}
-            title={comment.title}
-            date={comment.date}
-          />
+          <div key={index} className={`flex gap-2`}>
+            <div className={`grow`}>
+              <MyNotificationItem
+                postId={notification.postId}
+                postTitle={notification.postTitle}
+                commentWriter={notification.commentWriter}
+                commentContent={notification.commentContent}
+                createdAt={notification.createdAt}
+              />
+            </div>
+          </div>
         );
       })}
-      <div className="max-lg:hidden flex flex-row mt-3 justify-between items-center">
-        <div className="flex flex-row gap-2">
-          <input type="checkbox" />
-          <p className="text-subhead1-sb text-gray-300">전체 선택</p>
+      {!isPending &&
+        <div className={`lg:mt-12 mt-8`}>
+          <PageNavigator page={page} totalPage={data?.result?.totalPages} isFirst={data?.result?.first} isLast={data?.result?.last} setPage={setPage} />
         </div>
-        <TextButton text="읽음" />
-      </div>
+      }
     </div>
   );
 };

@@ -68,7 +68,7 @@ export default function ModifyPost() {
     { key: "SINGAPORE", value: "싱가포르" },
     { key: "EUROPE", value: "유럽" },
   ]
-  const formatCategory = useFormatCategory()
+  const {formatCategory} = useFormatCategory()
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");

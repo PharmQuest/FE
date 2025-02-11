@@ -40,7 +40,7 @@ const MyMedicinesPage = () => {
         <>
           <div className="w-full py-5 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow lg:py-9">
             {paginatedMedicines.map((_, index) => (
-              <MedicineCard key={index} />
+              <MedicineCard key={index} medicineTableId={0} brandName={""} genericName={""} splSetId={""} imgUrl={""} category={""} country={""} />
             ))}
           </div>
 
