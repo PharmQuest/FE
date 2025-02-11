@@ -17,14 +17,20 @@ const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathName = router.pathname;
+  const segment = pathName.split("/")
 
   const isHome = pathName === "/" ? true : false;
 
   const [title, setTitle] = useState("");
 
-  const { isLoggedIn, logOut, checkAuth } = useAuthStore();
+  const { isLoggedIn, logOut, checkAuth, userId, setUser } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false)
 
+  useEffect(() => {
+    if(!userId && isLoggedIn) {
+      setUser();
+    }
+  }, [isLoggedIn, userId])
 
   useEffect(() => {
     checkAuth();
@@ -51,6 +57,10 @@ const Header = () => {
 
       case "/supplements":
         setTitle("해외 인기 영양제")
+        break;
+      
+      case "/mypage":
+        setTitle("마이페이지")
         break;
 
       default:
@@ -177,7 +187,7 @@ const Header = () => {
       <div
         className={`
         // 공통 스타일
-        fixed z-[500]
+        sticky top-0 z-[500]
         h-[60px] w-full flex items-center
         bg-background
         lg:hidden
@@ -191,18 +201,21 @@ const Header = () => {
           md:w-[601px] md:mx-auto
           // 641px 미만 (모바일)
           w-full mx-[20px]
+          z-[500]
         `}
         >
-          <MenuLogoIcon className="cursor-pointer w-[104px]" onClick={toggleSidebar} />
+          <div className={`w-[104px] flex `}>
+            <MenuLogoIcon className="cursor-pointer" onClick={toggleSidebar} />
+          </div>
 
           {isHome ? (
             <LogoIcon onClick={() => router.push("/")} />
           ) : (
-            <div className={`text-m-display1-b text-gray-600 text-center`}>{title}</div>
+            <div className={`text-m-display1-b text-gray-600 text-center truncate`}>{title}</div>
           )}
 
           <div className={`flex gap-4 justify-end w-[104px]`}>
-            {!isHome && title === "" &&
+            {!isHome && title === "" && segment[1] !== "community" &&
               <SearchBoldIcon className={`w-5`} />}
             {!isHome &&
               <HomeIcon

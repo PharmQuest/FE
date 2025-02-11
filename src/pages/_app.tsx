@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const pageData = {
     title: '어디약',
-    description: '해외 약정보는? 어디약에서!'
+    description: '해외에서 당황하지 말고 현지 상비약과 약국 정보는 어디약에서!'
   }
 
   const [queryClient] = useState(() => new QueryClient());
@@ -28,15 +28,17 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
+        <link rel="icon" href="/svgs/favicon.svg"/>
         <meta name="description" content={pageData.description} />
         <meta property="og:title" content={pageData.title} />
         <meta property="og:description" content={pageData.description} />
+        <meta property="og:image" content="/images/og-image.webp" />
         <title>{pageData.title}</title>
       </Head>
       <Header />
       {/* 최소 높이 = 100vh - 헤더높이 - 푸터높이 */}
       <div className={`min-h-[calc(100vh-248px-169px)]`}>
-      <Component {...pageProps}/>
+        <Component {...pageProps}/>
       </div>
       <NoticeModal/>
       <ReportModal/>

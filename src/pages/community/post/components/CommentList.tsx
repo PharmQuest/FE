@@ -13,6 +13,8 @@ interface Reply {
   replies: Reply[];
   isLiked: boolean;
   likeCount: number;
+  isOwnComment: boolean;
+  isDeleted: boolean;
 }
 
 interface Comment {
@@ -26,6 +28,8 @@ interface Comment {
   replies: Reply[];
   isLiked: boolean;
   likeCount: number;
+  isOwnComment: boolean;
+  isDeleted: boolean;
 }
 
 interface CommentListProps {
@@ -50,10 +54,12 @@ const CommentList: React.FC<CommentListProps> = ({
 
   const [replyParentId, setReplyParentId] = useState<number | null>(null);
 
+  const [editCommentId, setEditCommentId] = useState<number | null>(null);
+
   return (
     comments?.length > 0 &&
-    <div className={`md:p-0 p-5`}>
-      <div className="md:p-5 py-3 flex flex-col bg-gray-50 gap-5">
+    <div className={`md:p-0 p-5 pt-4`}>
+      <div className="md:p-5 md:py-3 md:pt-5 pt-4 pb-3 flex flex-col bg-gray-50 gap-5 rounded">
         {comments?.map((comment) => (
           <CommentItem
             key={comment.commentId}
@@ -65,10 +71,14 @@ const CommentList: React.FC<CommentListProps> = ({
             createdAt={comment.createdAt}
             replies={comment.replies}
             replyParentId={replyParentId}
-            setReplyParentId={setReplyParentId} 
+            setReplyParentId={setReplyParentId}
             commentPage={commentPage}
             isLiked={comment.isLiked}
-            likeCount={comment.likeCount}/>
+            likeCount={comment.likeCount}
+            isOwnComment={comment.isOwnComment}
+            isDeleted={comment.isDeleted}
+            editCommentId={editCommentId}
+            setEditCommentId={setEditCommentId} />
         ))}
 
         <PageNavigator page={commentPage} setPage={setCommentPage} totalPage={totalPage} isFirst={isFirst} isLast={isLast} />

@@ -22,7 +22,7 @@ const SearchModal = ({
   const router = useRouter();
 
   const COMMUNITY_COUNTRY = [
-    {value:"ALL", text:"전체", isSelected:true},
+    {value:"NONE", text:"전체", isSelected:true},
     {value:"KOREA", text:"한국", isSelected:false},
     {value:"JAPAN", text:"일본", isSelected:false},
     {value:"CHINA", text:"중국", isSelected:false},
@@ -42,7 +42,9 @@ const SearchModal = ({
     {value:"USA", text:"미국", isSelected:false},
   ]
   
-  const isCommunity = router.pathname === "/community" ? true : false
+  const segments = router.pathname.split("/");
+
+  const isCommunity = segments[1] === "community" ? true : false
   const isHome = router.pathname === "/" ? true : false
   const Countrys = isCommunity ? COMMUNITY_COUNTRY : MEDICINE_COUNTRY;
 
