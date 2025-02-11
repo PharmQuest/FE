@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import { format } from "date-fns";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface MyCommentItemProps {
@@ -19,11 +20,15 @@ const MyCommentItem: React.FC<MyCommentItemProps> = ({
   createdAt,
 }) => {
 
+  const router = useRouter();
+
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
   return (
-    <div className="lg:py-3 py-4 pr-3 flex flex-row justify-between">
+    <div 
+      className="lg:py-3 py-4 pr-3 flex flex-row justify-between grow cursor-pointer"
+      onClick={() => router.push(`/community/post/${postId}`)}>
       <div className="flex flex-row gap-2 items-start">
         <div className="flex flex-col gap-1">
           <p className="lg:text-body1-r text-body2-r text-gray-500 line-clamp-2">
