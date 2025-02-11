@@ -28,6 +28,10 @@ const Activities = () => {
     console.log(myList)
   }, [myList])
 
+  useEffect(() => {
+    setPage(1)
+  }, [router])
+
   return (
     <div className="w-full min-h-[calc(100vh-279px)] h-full items-center flex flex-col lg:pt-9 pt-5">
       <div className="
@@ -63,7 +67,9 @@ const Activities = () => {
               isAllSelected={isAllSelected}
               selectedIds={selectedIds} />}
           {currentTab === "notifications" &&
-            <MyNotificationList />}
+            <MyNotificationList 
+              page={page}
+              setPage={setPage}/>}
         </div>
       </div>
     </div>

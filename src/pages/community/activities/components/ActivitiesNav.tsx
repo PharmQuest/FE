@@ -37,16 +37,16 @@ const ActivitiesNav = () => {
   return (
     <div
       className="flex flex-row w-full border-solid border-b border-gray-100 
-          max-md:grid max-md:grid-cols-4 max-md:text-center"
+          max-md:grid max-md:grid-cols-4 max-md:text-center gap-2 "
     >
       {navbarItems.map((item) => (
         <div
           key={item}
           onClick={() => handleTabChange(item)}
-          className={`px-3 py-4 cursor-pointer ${
+          className={`lg:px-3 lg:py-4 md:px-5 pt-1 pb-[10px] cursor-pointer ${
             activeItem === item
-              ? "text-subhead1-sb text-gray-600 border-solid border-b-2 border-gray-600"
-              : "text-body1-r text-gray-400"
+              ? "lg:text-headline-b text-m-subhead1-sb text-gray-600 border-solid border-b-2 border-gray-600"
+              : "lg:text-headline-m text-m-body2-r text-gray-400"
           }`}
         >
           {item}
