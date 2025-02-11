@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import MyCommentItem from "./MyCommentItem";
 import TextButton from "../../components/TextButton";
 import { axiosInstance } from "@/apis/axios-instance";
@@ -38,12 +38,15 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
   selectedIds,
 }) => {
 
+  const queryClient = useQueryClient();
+
   const {
     setNoticeModalText,
     setIsNoticeModalOpen,
   } = useModalStore();
 
-  const queryClient = useQueryClient();
+  const [isOnEdit, setIsOnEdit] = useState(false);
+  const [isOnTrigger, setIsOnTrigger] = useState(false);
 
   const getMyComments = async () => {
     try {
@@ -74,10 +77,10 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
     )
   }
 
-  const handleDeleteComment = async () => {
+  const handleDeleteComments = async () => {
     if (selectedIds && selectedIds?.length > 0) {
       try {
-        const response = await axiosInstance.patch(`${process.env.NEXT_PUBLIC_DOMAIN}/community/comments/delete`,
+        await axiosInstance.patch(`${process.env.NEXT_PUBLIC_DOMAIN}/community/comments/delete`,
           null,
           {
             params: {
@@ -87,7 +90,6 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
               return new URLSearchParams(params).toString();
             }
           })
-        console.log(response)
         queryClient.invalidateQueries({ queryKey: ['myComments', page] })
         setNoticeModalText(`${selectedIds?.length}개의 댓글을 삭제하였습니다.`)
         setIsNoticeModalOpen(true);
@@ -97,7 +99,29 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
     }
   }
 
-  const { data } = useQuery({
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await axiosInstance.patch(`${process.env.NEXT_PUBLIC_DOMAIN}/community/comments/delete`,
+        null,
+        {
+          params: {
+            commentIds: commentId
+          },
+        })
+      queryClient.invalidateQueries({ queryKey: ['myComments', page] })
+      setNoticeModalText(`1개의 댓글을 삭제하였습니다.`)
+      setIsNoticeModalOpen(true);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const deleteAllComments = () => {
+    handleAllCheckbox();
+    setIsOnTrigger(true);
+  }
+
+  const { data, isPending } = useQuery({
     queryKey: ["myComments", page],
     queryFn: getMyComments,
     placeholderData: keepPreviousData,
@@ -107,6 +131,17 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
   const commentList = data?.result?.content;
 
   useEffect(() => {
+    const deleteAll = () => {
+      handleDeleteComments();
+      setIsOnTrigger(false);
+    }
+
+    if (isOnTrigger && isAllSelected)
+      deleteAll();
+
+  }, [isOnTrigger, isAllSelected])
+
+  useEffect(() => {
     setMyList(commentList?.map((comment: Comment) => ({
       id: comment.commentId,
       isSelected: false,
@@ -114,54 +149,91 @@ const MyCommentList: React.FC<MyCommentListProp> = ({
   }, [commentList])
 
   return (
-    <div className="flex flex-col">
-      <div className="max-lg:hidden flex justify-between items-center py-3 px-4 border-b border-solid border-gray-300 text-subhead1-sb text-gray-500">
-        <p className="flex-1 text-right">댓글</p>
-        <p className="flex-1 text-right">등록일</p>
-      </div>
-
-      <div className="lg:hidden flex py-4">
-        <TextButton text="댓글 편집" color="white" />
-      </div>
-
-      {commentList?.map((comment: Comment, index: number) => {
-        return (
-          <div key={index} className={`flex gap-2`}>
-            <div onClick={() => handleCheckbox(comment.commentId)} className={`mt-3`}>
-              <CheckBoxIcon className={`w-6 mb-0.5 ${myList[index]?.isSelected ? `hidden` : ``}`} />
-              <CheckBoxOnIcon className={`w-6 mb-0.5 ${!myList[index]?.isSelected ? `hidden` : ``}`} />
-            </div>
-            <div className={`grow`}>
-              <MyCommentItem
-                key={comment.commentId}
-                postId={comment.postId}
-                commentId={comment.commentId}
-                content={comment.content}
-                title={comment.title}
-                createdAt={comment.createdAt}
-              />
-            </div>
-          </div>
-        );
-      })}
-      <div className={`lg:flex justify-between mt-3 hidden`}>
-        <div className={`flex gap-3 text-subhead1-sb text-gray-300`}>
-          <div onClick={handleAllCheckbox}>
-            <CheckBoxIcon className={`w-6 mb-0.5 ${isAllSelected && `hidden`}`} />
-            <CheckBoxOnIcon className={`w-6 mb-0.5 ${!isAllSelected && `hidden`}`} />
-          </div>
-          전체 선택
+    <>
+      {!isPending && commentList?.length === 0 ? (
+        <div className={`
+          lg:text-headline-m
+          min-h-full text-gray-300 text-center m-auto grow content-center text-m-body2-r`}>
+          <p>작성한 댓글이 없어요.<br/>게시글에 댓글을 남겨보세요!</p>
         </div>
-        <button
-          className={`px-3 py-1 rounded text-subhead2-sb text-gray-400 bg-gray-100`}
-          onClick={handleDeleteComment}>
-          삭제
-        </button>
+      ) : (
+      <div className="flex flex-col">
+        <div className="max-lg:hidden flex justify-between items-center py-3 px-4 border-b border-solid border-gray-300 text-subhead1-sb text-gray-500">
+          <p className="flex-1 text-center">댓글</p>
+          <p className="w-[60px] text-center">등록일</p>
+        </div>
+
+        <div className={`lg:hidden mt-4 flex justify-between`}>
+          {isOnEdit ? (
+            <>
+              <button
+                className={`rounded text-m-subhead2-sb text-gray-400 px-3 py-2 border border-solid border-gray-100`}
+                onClick={() => setIsOnEdit(!isOnEdit)}>
+                편집 완료
+              </button>
+              <button
+                className={`rounded text-m-subhead2-sb text-gray-400 px-3 py-2 bg-gray-100`}
+                onClick={deleteAllComments}>
+                전체 삭제
+              </button>
+            </>
+          ) : (
+            <button
+              className={`rounded text-m-subhead2-sb text-gray-400 px-3 py-2 border border-solid border-gray-100`}
+              onClick={() => setIsOnEdit(!isOnEdit)}>
+              댓글 편집
+            </button>
+          )}
+
+        </div>
+
+        {commentList?.map((comment: Comment, index: number) => {
+          return (
+            <div key={index} className={`flex gap-2`}>
+              <div onClick={() => handleCheckbox(comment.commentId)} className={`lg:block hidden mt-3`}>
+                <CheckBoxIcon className={`w-6 mb-0.5 ${myList[index]?.isSelected ? `hidden` : ``}`} />
+                <CheckBoxOnIcon className={`w-6 mb-0.5 ${!myList[index]?.isSelected ? `hidden` : ``}`} />
+              </div>
+              <div className={`flex justify-between items-center grow border-b border-solid border-gray-100`}>
+                <MyCommentItem
+                  key={comment.commentId}
+                  postId={comment.postId}
+                  commentId={comment.commentId}
+                  content={comment.content}
+                  title={comment.title}
+                  createdAt={comment.createdAt}
+                />
+                {isOnEdit &&
+                  <button
+                    className={`min-w-[45px] w-[45px] h-[26px] rounded text-m-subhead2-sb text-gray-400 px-3 py-1 bg-gray-100`}
+                    onClick={() => handleDeleteComment(comment.commentId)}>
+                    삭제
+                  </button>
+                }
+              </div>
+            </div>
+          );
+        })}
+        <div className={`lg:flex justify-between mt-3 hidden`}>
+          <div className={`flex gap-3 text-subhead1-sb text-gray-300`}>
+            <div onClick={handleAllCheckbox}>
+              <CheckBoxIcon className={`w-6 mb-0.5 ${isAllSelected && `hidden`}`} />
+              <CheckBoxOnIcon className={`w-6 mb-0.5 ${!isAllSelected && `hidden`}`} />
+            </div>
+            전체 선택
+          </div>
+          <button
+            className={`px-3 py-1 rounded text-subhead2-sb text-gray-400 bg-gray-100`}
+            onClick={handleDeleteComments}>
+            삭제
+          </button>
+        </div>
+        <div className={`lg:mt-12 mt-8`}>
+          <PageNavigator page={page} totalPage={data?.result?.totalPages} isFirst={data?.result?.first} isLast={data?.result?.last} setPage={setPage} />
+        </div>
       </div>
-      <div className={`lg:mt-12 mt-8`}>
-        <PageNavigator page={page} totalPage={data?.result?.totalPages} isFirst={data?.result?.first} isLast={data?.result?.last} setPage={setPage} />
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

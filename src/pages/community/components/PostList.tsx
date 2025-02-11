@@ -417,7 +417,7 @@ const PostList: React.FC<PostListProps> = ({
                 }
               </div>
             ))}
-            {!isPageHidden &&
+            {!isPageHidden && !isPending && 
               <PageNavigator
                 className={`mt-12`}
                 page={page}
