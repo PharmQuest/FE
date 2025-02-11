@@ -25,7 +25,7 @@ const MyNotificationItem: React.FC<MyNotificationItemProps> = ({
 
   return (
     <div 
-      className="py-3 pr-3 flex flex-row justify-between border-b border-solid border-gray-100"
+      className="py-3 pr-3 flex flex-row justify-between border-b border-solid border-gray-100 cursor-pointer"
       onClick={() => router.push(`/community/post/${postId}`)}>
       <div className="flex flex-row gap-2 items-start">
         <div className="flex flex-col gap-1">

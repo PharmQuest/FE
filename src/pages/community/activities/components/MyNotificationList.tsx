@@ -18,7 +18,7 @@ interface MyCommentListProp {
   setPage: Dispatch<React.SetStateAction<number>>
 }
 
-const MyNotificationList:React.FC<MyCommentListProp> = ({
+const MyNotificationList: React.FC<MyCommentListProp> = ({
   page,
   setPage,
 }) => {
@@ -36,7 +36,7 @@ const MyNotificationList:React.FC<MyCommentListProp> = ({
     }
   }
 
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["myComments", page],
     queryFn: getMyComments,
     placeholderData: keepPreviousData,
@@ -67,9 +67,11 @@ const MyNotificationList:React.FC<MyCommentListProp> = ({
           </div>
         );
       })}
-      <div className={`lg:mt-12 mt-8`}>
-        <PageNavigator page={page} totalPage={data?.result?.totalPages} isFirst={data?.result?.first} isLast={data?.result?.last} setPage={setPage} />
-      </div>
+      {!isPending &&
+        <div className={`lg:mt-12 mt-8`}>
+          <PageNavigator page={page} totalPage={data?.result?.totalPages} isFirst={data?.result?.first} isLast={data?.result?.last} setPage={setPage} />
+        </div>
+      }
     </div>
   );
 };
