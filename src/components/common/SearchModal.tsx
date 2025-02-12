@@ -82,7 +82,7 @@ const SearchModal = ({
         <div className={`${!isCommunity && `hidden`} grow flex justify-between text-gray-600 text-m-headline2-b`}>
           국가 선택
           <XIcon 
-            className={`w-4`}
+            className={`w-4 cursor-pointer`}
             onClick={handleModal}/>
         </div>
         <div className={`${isHome ? `lg:gap-4 gap-2` : `gap-2`} flex flex-wrap ${isCommunity ? `flex-row` : `flex-col`}`}>
