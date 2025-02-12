@@ -6,7 +6,6 @@ import { ArrowRightIcon } from "@public/svgs";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { AxiosError } from 'axios';
 
 interface ApiResponse {
   code: string;
@@ -86,21 +85,6 @@ const SupplementPage: React.FC = () => {
   };
 
   const countryParam = (country === "NONE" || country === "ALL") ? "" : country;
-  // const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
-  //   queryKey: ["supplements-search", searchQuery, currentPage],
-  //   // queryKey: ["supplements-search", "유산균", currentPage, ""],
-  //   queryFn: async () => {
-  //     const response = await axiosInstance.get(
-  //       `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
-  //       // `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
-      
-  //     );
-  //     console.log("search API Response:", response.data); // 데이터
-  //     return response.data;
-  //   },
-  //   enabled: !!searchQuery
-  //   // enabled:true
-  // });
   const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
     queryKey: ["supplements-search", searchQuery, currentPage],
     queryFn: async () => {
