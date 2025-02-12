@@ -9,7 +9,7 @@ interface SearchPanelProps {
   selectedPharmacy: PharmacyDetails | null;
   onPharmacySelect: (pharmacy: Pharmacy) => void;
   currentPosition: { lat: number; lng: number };
-  mapRef: React.RefObject<MapComponentRef>;
+  mapRef: React.RefObject<MapComponentRef | null>;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
 }
