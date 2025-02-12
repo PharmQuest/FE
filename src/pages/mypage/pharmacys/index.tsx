@@ -71,8 +71,8 @@ const MyPharmacys = () => {
           <div className="w-full">
             <div className="flex gap-2 overflow-x-auto lg:overflow-hidden w-full lg:w-auto flex-nowrap lg:flex-wrap scrollbar-hide">          
               <FilterButton text="전체" isSelected={selectedCountry === "ALL"} onClickFn={() => handleCountryFilter("ALL")} />
-              <FilterButton text="한국" isSelected={selectedCountry === "korea"} onClickFn={() => handleCountryFilter("korea")} />
-              <FilterButton text="미국" isSelected={selectedCountry === "usa"} onClickFn={() => handleCountryFilter("usa")}/>
+              <FilterButton text="한국" isSelected={selectedCountry === "KOREA"} onClickFn={() => handleCountryFilter("KOREA")} />
+              <FilterButton text="미국" isSelected={selectedCountry === "USA"} onClickFn={() => handleCountryFilter("USA")}/>
             </div>
           </div>
       </div>
