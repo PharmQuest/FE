@@ -8,7 +8,7 @@ interface SearchHeaderProps {
   setIsSearchOpen: (value: boolean) => void;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  mapRef: React.RefObject<MapComponentRef>;
+  mapRef: React.RefObject<MapComponentRef | null>;
 }
 
 const SearchHeader: React.FC<SearchHeaderProps> = ({
