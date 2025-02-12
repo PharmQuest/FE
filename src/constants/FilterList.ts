@@ -6,36 +6,44 @@ export const HOME_FILTER_LIST = [
   {
     text: "진통/해열",
     isHomeButton: true,
+    url: `/medicines?category=PAIN_RELIEF&page=1&size=10`,
   },
   {
     text: "소화/위장",
     isHomeButton: true,
+    url: `/medicines?category=DIGESTIVE&page=1&size=10`,
   },
   {
     text: "감기/기침",
     isHomeButton: true,
+    url: `/medicines?category=COLD&page=1&size=10`,
   },
   {
     text: "알레르기",
     isHomeButton: true,
+    url: `/medicines?category=ALLERGY&page=1&size=10`,
   },
   {
     text: "상처/소독",
     isHomeButton: true,
+    url: `/medicines?category=ANTISEPTIC&page=1&size=10`,
   },
   {
     text: "멀미",
     isHomeButton: true,
+    url: `/medicines?category=MOTION_SICKNESS&page=1&size=10`,
   },
   {
     text: "안약",
     isHomeButton: true,
+    url: `/medicines?category=EYE_DROPS&page=1&size=10`,
   },
   {
     text: "기타",
     isHomeButton: true,
+    url: `/medicines?category=OTHER&page=1&size=10`,
   },
-]
+];
 
 export const MOBILE_COMMUNIY_FILTER_LIST = [
   {
