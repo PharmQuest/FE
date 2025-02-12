@@ -159,7 +159,7 @@ const SupplementPage: React.FC = () => {
           </div>
 
           {/* ✅ 페이지네이션 */}
-          <div className="flex items-center justify-center mt-6 space-x-3 py-10">
+          <div className="flex items-center justify-center mt-6 space-x-8 py-10">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
