@@ -51,7 +51,7 @@ interface Supplement {
 
 const SupplementPage: React.FC = () => {
   const router = useRouter();
-  const searchQuery = router.query.keyword as string || ""; // 검색어 가져오기
+  const searchQuery = router.query.search as string || ""; // 검색어 가져오기
   const country = router.query.country as string || ""; // "", "KOREA", "USA" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
@@ -83,7 +83,7 @@ const SupplementPage: React.FC = () => {
     setCurrentPage(1); // 카테고리 변경시 첫 페이지로 이동
   };
 
-  const { data: searchData, isLoading: isSearchLoading, isError: isSearchError } = useQuery<SearchResponse>({
+  const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
     queryKey: ["supplements-search", searchQuery, currentPage],
     // queryKey: ["supplements-search", "유산균", currentPage, ""],
     queryFn: async () => {
@@ -109,7 +109,7 @@ const SupplementPage: React.FC = () => {
   if (isError)
     console.error("카테고리Error=", error);
   if (isSearchError)
-    console.error("isSearchError=", isSearchError);
+    console.error("isSearchError=", searchError);
 
   const displayData = searchQuery ? searchData?.result : data?.result;
   // const displayData = searchData?.result;
