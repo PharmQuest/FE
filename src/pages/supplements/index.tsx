@@ -5,6 +5,8 @@ import FilterButton from "@/components/common/FilterButton";
 import { ArrowRightIcon } from "@public/svgs";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { AxiosError } from 'axios';
 
 interface ApiResponse {
   code: string;
@@ -84,27 +86,51 @@ const SupplementPage: React.FC = () => {
   };
 
   const countryParam = (country === "NONE" || country === "ALL") ? "" : country;
+  // const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
+  //   queryKey: ["supplements-search", searchQuery, currentPage],
+  //   // queryKey: ["supplements-search", "유산균", currentPage, ""],
+  //   queryFn: async () => {
+  //     const response = await axiosInstance.get(
+  //       `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
+  //       // `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
+      
+  //     );
+  //     console.log("search API Response:", response.data); // 데이터
+  //     return response.data;
+  //   },
+  //   enabled: !!searchQuery
+  //   // enabled:true
+  // });
   const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
     queryKey: ["supplements-search", searchQuery, currentPage],
-    // queryKey: ["supplements-search", "유산균", currentPage, ""],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
-        // `/supplements/search?keyword=${encodeURIComponent("유산균")}&country=${""}&page=${currentPage}`
-      
-      );
-      console.log("search API Response:", response.data); // 데이터
-      return response.data;
+      try {
+        const response = await axiosInstance.get(
+          `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
+        );
+        return response.data;
+      } catch (error) {
+        // 404 에러인 경우 빈 결과를 반환
+        if (axios.isAxiosError(error) && error.response?.status === 404) {
+          return {
+            code: "SUPP4001",
+            message: "검색 결과가 없습니다.",
+            result: {
+              amountPage: 0,
+              amountCount: 0,
+              currentPage: 0,
+              currentCount: 0,
+              supplements: [],
+            },
+            isSuccess: false
+          };
+        }
+        throw error;
+      }
     },
     enabled: !!searchQuery
-    // enabled:true
   });
-  // useEffect(() => {
-  //   if (searchData) {
-  //     console.log("현재 표시 중인 검색 결과:", searchData.result);
-  //   }
-  // }, [searchData]);
-
+  
   if (isLoading || isSearchLoading)
     console.error("영양제 로딩 중..");
   if (isError)
