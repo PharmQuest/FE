@@ -52,11 +52,12 @@ interface SupplementResponse {
 
 const SupplementPage: React.FC = () => {
   const router = useRouter();
+  const [totalElements, setTotalElements] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [supplements, setSupplements] = useState<SupplementResponse['result']['content']>([]);
 
-  const { data, isLoading } = useQuery<SupplementResponse>({
+  const { data, isLoading, refetch } = useQuery<SupplementResponse>({
     queryKey: ["scrapSupplements", currentPage, selectedCategory],
     queryFn: async () => {
       const response = await axiosInstance.get(
@@ -65,21 +66,45 @@ const SupplementPage: React.FC = () => {
       console.log("mypage 영양제 목록=", response.data);
       return response.data;
     },
+    // 캐시 설정 추가
+    // cacheTime: 0,
+    // staleTime: 0
   });
   if (isLoading)
     console.warn("mypage 영양제 로딩 중..");
+
   useEffect(() => {
-    if (data?.result?.content) {
+    if (data?.result) {
       setSupplements(data.result.content);
+      setTotalElements(data.result.totalElements);
+
+      // 현재 페이지가 비었다면 이전 페이지로 이동
+      if (data.result.content.length === 0 && currentPage > 1) {
+        setCurrentPage(prev => prev - 1);
+        refetch();
+      }
     }
-  }, [data]);
+  }, [data, currentPage, refetch]);
   
   const displayData = data?.result;
   // const supplements = displayData?.content || [];
   const totalPages = displayData?.totalPages || 1;
 
   const handleBookmarkToggle = (id: number) => {
-    setSupplements(prev => prev.filter(supplement => supplement.id !== id));
+    // 현재 페이지가 비어있다면 다음 페이지로 이동
+    setSupplements(prev => {
+      // supplements 업데이트
+      const newSupplements = prev.filter(supplement => supplement.id !== id);
+
+      // 현재 페이지의 마지막 아이템을 삭제한 경우
+      if (newSupplements.length === 0 && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+      return newSupplements;
+    });
+    // totalElements 감소
+    setTotalElements(prev => prev - 1);
+    refetch();
   };
 
   const handleCardClick = (id: number) => {
@@ -99,7 +124,7 @@ const SupplementPage: React.FC = () => {
             <LeftArrow className="w-6 h-6 text-gray-600 sm:block lg:hidden" />
           </Link>
           <h1 className="text-gray-600 lg:text-display2-b text-m-headline1-b ml-2 whitespace-nowrap">
-            영양제 저장 목록 <span className="text-gray-600">{supplements.length}</span>개
+            영양제 저장 목록 <span className="text-gray-600">{totalElements}</span>개
           </h1>
         </div>
         <div className="md:w-full w-screen -mx-5 md:-mx-0 h-[1px] bg-gray-100 lg:hidden" />
