@@ -4,8 +4,10 @@ import MedicineCard from "@/components/common/MedicineCard";
 import PharmacysCard from "./components/PharmacysCard";
 import SupplementCard from "@/components/common/SupplementCard";
 import useAuthStore from "@/store/useAuthStore";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { axiosInstance } from "@/apis/axios-instance";
+import { useQuery } from "@tanstack/react-query";
 
 interface Medicine {
   id: number;
@@ -22,20 +24,63 @@ interface Pharmacy {
   location: string;
 }
 
-interface Supplement {
-  id: number;
-  country: string;
-  title: string;
-  tags: string[];
-  isBookmarked: boolean;
+interface SupplementResponse {
+  code: string;
+  message: string;
+  result: {
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    content: {
+      id: number;
+      name: string;
+      country: string;
+      productName: string;
+      image: string;
+      brand: string;
+      categories: string[];
+      scrapped: boolean;
+    }[];
+    number: number;
+    numberOfElements: number;
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    pageable: {
+      offset: number;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      paged: boolean;
+      pageNumber: number;
+      pageSize: number;
+      unpaged: boolean;
+    };
+  };
+  isSuccess: boolean;
 }
+
+// interface Supplement {
+//   id: number;
+//   country: string;
+//   title: string;
+//   tags: string[];
+//   isBookmarked: boolean;
+// }
 
 interface MyPageProps {
   userName: string;
   userEmail: string;
   medicines?: Medicine[];
   pharmacys?: Pharmacy[];
-  supplements?: Supplement[];
+  // supplements?: Supplement[];
 }
 
 const MyPage: React.FC<MyPageProps> = ({
@@ -50,11 +95,14 @@ const MyPage: React.FC<MyPageProps> = ({
     { id: 3, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
     { id: 4, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
   ],
-   supplements = [
-    { id: 1, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
-    { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
-    { id: 3, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
-  ],
+  // supplements = [
+  //   { id: 1, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
+  //   { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
+  //   { id: 3, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
+  //   { id: 4, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
+  //   { id: 5, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
+  //   { id: 6, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
+  // ],
 }) => {
 
   const router = useRouter();
@@ -70,6 +118,31 @@ const MyPage: React.FC<MyPageProps> = ({
       router.push("/login")
     }
   }, [isLoggedIn])
+
+  // const [currentPage, setCurrentPage] = useState(1);
+  const { data: supplementsData, isLoading:isSuppLoading } = useQuery<SupplementResponse>({
+    queryKey: ["mypageSupps"],
+    queryFn: async () => {
+      const response = await axiosInstance.get(
+        `/mypage/supplements?page=1&category=${encodeURIComponent("전체")}`
+      );
+      console.log("mypage supp=", response.data);
+      return response.data;
+    },
+  });
+  if (isSuppLoading)
+    console.warn("마이페이지 영양제 로딩 중..");
+  const [supplements, setSupplements] = useState<SupplementResponse['result']['content']>([]);
+
+  useEffect(() => {
+    if (supplementsData?.result?.content) {
+      setSupplements(supplementsData.result.content);
+    }
+  }, [supplementsData]);
+
+  const handleBookmarkToggle = (id: number) => {
+    setSupplements(prev => prev.filter(supplement => supplement.id !== id));
+  };
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
@@ -163,9 +236,21 @@ const MyPage: React.FC<MyPageProps> = ({
           </Link>
         </div>
         {supplements.length > 0 ? (
+        // {supplementsData?.result?.content && supplementsData.result.content.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {supplements.map((supplement) => (
+            {/* {supplements.map((supplement) => (
               <SupplementCard key={supplement.id} {...supplement} />
+            ))} */}
+            {supplements.slice(0, 10).map((supplement) => (
+            // {supplementsData?.result.content.slice(0, 10).map((supplement) => (
+              <SupplementCard key={supplement.id}
+                              id={supplement.id}
+                              country={supplement.country}
+                              title={supplement.productName}
+                              tags={supplement.categories}
+                              isBookmarked={supplement.scrapped}
+                              src={supplement.image}
+                              onBookmarkToggle={handleBookmarkToggle}/>
             ))}
           </div>
         ) : (
