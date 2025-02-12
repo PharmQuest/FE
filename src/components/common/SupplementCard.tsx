@@ -24,6 +24,7 @@ interface SupplementCardProps {
   isBookmarked?: boolean;
   width?: number;
   src?: string;
+  onBookmarkToggle?: (id: number) => void;
 }
 
 export default function SupplementCard({
@@ -34,6 +35,7 @@ export default function SupplementCard({
   isBookmarked = false,
   width = 160,
   src = "/images/no_image.webp",
+  onBookmarkToggle,
 }: SupplementCardProps) {
   const [bookmarked, setBookmarked] = useState(isBookmarked);
   const [imgSrc, setImgSrc] = useState("");
@@ -65,6 +67,7 @@ export default function SupplementCard({
         setBookmarked(!bookmarked);
         console.log("스크랩id=", id);
         console.log("스크랩data=", response);
+        onBookmarkToggle?.(id);
       } else {
         alert(response.data.message);
       }
