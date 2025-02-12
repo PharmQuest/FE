@@ -2,22 +2,27 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { BookmarkIcon } from "@public/svgs";
 interface PharmacysCardProps {
-  pharmacyName?: string;
-  location?: string;
-  imageUrl?: string;
+  name: string;
+  region: string;
+  img_url: string;
+  latitude: number;
+  longitude: number;
+  place_id: string;
   isBookmarked?: boolean;
   onBookmarkToggle?: () => void;
 }
 
 const PharmacysCard: React.FC<PharmacysCardProps> = ({
-  pharmacyName = "다나아약국",
-  location = "서울 중구 중앙동",
-  imageUrl,
+  name = "다나아약국",
+  region = "서울 중구 중앙동",
+  img_url,
+  latitude,
+  longitude,
   isBookmarked = false,
   onBookmarkToggle,
 }) => {
   const [isBookmark, setIsBookmark] = useState(isBookmarked);
-  const [src, setSrc] = useState(imageUrl || "/images/no_image.webp"); // 기본 이미지 설정
+  const [src, setSrc] = useState(img_url || "/images/no_image.webp"); // 기본 이미지 설정
 
   const handleBookmark = (e: React.MouseEvent) => {
     e.stopPropagation(); // 클릭 이벤트 전파 방지
@@ -63,8 +68,8 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
 
       {/* ✅ 약국 정보 */}
       <div className="ml-4 flex-1 flex flex-col justify-start self-start gap-y-1 sm:gap-y-2">
-        <div className="text-gray-600 text-subhead1-sb">{pharmacyName}</div>
-        <div className="text-gray-400 text-body1-r">{location}</div>
+        <div className="text-gray-600 text-subhead1-sb">{name}</div>
+        <div className="text-gray-400 text-body1-r">{region}</div>
       </div>
     </div>
   );

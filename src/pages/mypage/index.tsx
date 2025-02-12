@@ -15,13 +15,32 @@ interface Medicine {
   type: string;
 }
 
-interface Pharmacy {
-  id: number;
-  pharmacyName: string;
-  status: boolean;
-  closingTime: string;
-  distance: string;
-  location: string;
+// interface Pharmacy {
+//   id: number;
+//   pharmacyName: string;
+//   status: boolean;
+//   closingTime: string;
+//   distance: string;
+//   location: string;
+// }
+interface PharmacyResponse {
+  code: string;
+  message: string;
+  result: {
+    pharmacies: {
+      name: string;
+      region: string;
+      latitude: number;
+      longitude: number;
+      place_id: string;
+      img_url: string;
+    }[];
+    total_elements: number;
+    total_pages: number;
+    current_page: number;
+    elements_per_page: number;
+  };
+  isSuccess: boolean;
 }
 
 interface SupplementResponse {
@@ -79,7 +98,7 @@ interface MyPageProps {
   userName: string;
   userEmail: string;
   medicines?: Medicine[];
-  pharmacys?: Pharmacy[];
+  // pharmacys?: Pharmacy[];
   // supplements?: Supplement[];
 }
 
@@ -89,12 +108,12 @@ const MyPage: React.FC<MyPageProps> = ({
     { id: 1, name: "타이레놀", type: "진통제" },
     { id: 2, name: "판피린", type: "감기약" },
   ],
-  pharmacys = [
-    { id: 1, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
-    { id: 2, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
-    { id: 3, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
-    { id: 4, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
-  ],
+  // pharmacys = [
+  //   { id: 1, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
+  //   { id: 2, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
+  //   { id: 3, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
+  //   { id: 4, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
+  // ],
   // supplements = [
   //   { id: 1, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
   //   { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
@@ -119,6 +138,26 @@ const MyPage: React.FC<MyPageProps> = ({
     }
   }, [isLoggedIn])
 
+  const { data: pharmacyData, isLoading:isPharLoading } = useQuery<PharmacyResponse>({
+    queryKey: ["mypagePharmacys"],
+    queryFn: async () => {
+      const response = await axiosInstance.get(
+        `/mypage/pharmacy?country=ALL&page=1&size=4`
+      );
+      console.log("mypage pharmacy=", response.data);
+      return response.data;
+    },
+  });
+  if (isPharLoading)
+    console.warn("마이페이지 약국 로딩 중..");
+  const [pharmacys, setPharmacys] = useState<PharmacyResponse['result']['pharmacies']>([]);
+  
+  useEffect(() => {
+    if (pharmacyData?.result?.pharmacies) {
+      setPharmacys(pharmacyData.result.pharmacies);
+    }
+  }, [pharmacyData]);
+  
   // const [currentPage, setCurrentPage] = useState(1);
   const { data: supplementsData, isLoading:isSuppLoading } = useQuery<SupplementResponse>({
     queryKey: ["mypageSupps"],
@@ -213,7 +252,7 @@ const MyPage: React.FC<MyPageProps> = ({
         {pharmacys.length > 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {pharmacys.map((pharmacy) => (
-              <PharmacysCard key={pharmacy.id} {...pharmacy} />
+              <PharmacysCard key={pharmacy.place_id} {...pharmacy} />
             ))}
           </div>
         ) : (
