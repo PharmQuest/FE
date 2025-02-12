@@ -1,19 +1,45 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { ListViewIcon, MapViewIcon, SearchIcon, XIcon } from "@public/svgs";
+import { debounce } from "lodash";
+import { MapComponentRef } from "./MapComponent";
 
 interface SearchHeaderProps {
   isSearchOpen: boolean;
   setIsSearchOpen: (value: boolean) => void;
   searchTerm: string;
-  onSearchChange: (value: string) => void;
+  setSearchTerm: (value: string) => void;
+  mapRef: React.RefObject<MapComponentRef>;
 }
 
 const SearchHeader: React.FC<SearchHeaderProps> = ({
   isSearchOpen,
   setIsSearchOpen,
   searchTerm,
-  onSearchChange,
+  setSearchTerm,
+  mapRef,
 }) => {
+  const debouncedSearch = useCallback(
+    debounce(async (text: string) => {
+      if (text.trim() && mapRef.current) {
+        await mapRef.current.searchPharmaciesByText(text);
+      }
+    }, 500),
+    [mapRef]
+  );
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = e.target.value;
+    setSearchTerm(newSearchTerm);
+    debouncedSearch(newSearchTerm);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    if (mapRef.current) {
+      mapRef.current.searchPharmaciesByText("");
+    }
+  };
+
   return (
     <div className="w-full bg-background border-b border-gray-100 lg:hidden">
       <div className="container mx-auto px-4 py-3 flex items-center gap-3">
@@ -22,11 +48,16 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({
             <SearchIcon className="w-6 h-6" />
             <input
               value={searchTerm}
-              onChange={(e) => onSearchChange(e.target.value)}
+              onChange={handleSearchChange}
               placeholder="검색어를 입력하세요."
               className="w-full focus:outline-none text-gray-600 text-body2-r placeholder-gray-300"
             />
-            <XIcon className="w-3 cursor-pointer" />
+            {searchTerm && (
+              <XIcon
+                className="w-3 cursor-pointer"
+                onClick={handleClearSearch}
+              />
+            )}
           </div>
         </div>
         <button

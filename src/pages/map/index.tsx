@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import MapComponent, {
   Pharmacy,
   PharmacyDetails,
+  MapComponentRef,
 } from "./components/MapComponent";
 import SearchPanel from "./components/SearchPanel";
 import DetailPanel from "./components/detailPanel/PharmacyDetailPanel";
@@ -17,6 +18,7 @@ export default function Map() {
     lng: 126.978,
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const mapRef = useRef<MapComponentRef>(null);
 
   const handlePharmaciesFound = (found: Pharmacy[]) => {
     setPharmacies(found);
@@ -28,6 +30,7 @@ export default function Map() {
 
   const handlePositionUpdate = (position: { lat: number; lng: number }) => {
     setCurrentPosition(position);
+    setSearchTerm("");
   };
 
   return (
@@ -36,7 +39,8 @@ export default function Map() {
         isSearchOpen={isSearchOpen}
         setIsSearchOpen={setIsSearchOpen}
         searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
+        setSearchTerm={setSearchTerm}
+        mapRef={mapRef}
       />
 
       <div className="w-full h-full flex flex-row">
@@ -46,6 +50,9 @@ export default function Map() {
             selectedPharmacy={selectedPharmacy}
             onPharmacySelect={handlePharmacySelect}
             currentPosition={currentPosition}
+            mapRef={mapRef}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
           />
         )}
 
@@ -58,9 +65,11 @@ export default function Map() {
 
         <div className="flex-1 relative w-full h-full">
           <MapComponent
+            ref={mapRef}
             onPharmaciesFound={handlePharmaciesFound}
             onPharmacySelect={handlePharmacySelect}
             onPositionUpdate={handlePositionUpdate}
+            setSearchTerm={setSearchTerm}
           />
         </div>
       </div>
