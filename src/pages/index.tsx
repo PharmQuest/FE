@@ -5,6 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import FilterButtonList from "@/components/common/FilterButtonList";
 import { useRouter } from 'next/router';
+import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "@/apis/axios-instance";
+import HomePostItem from "@/components/home/HomePostItem";
+
+interface HomePostItemProp {
+  title: string;
+  category: string;
+  post_id: number;
+  created_at: string;
+  isBestPost?: boolean;
+};  
 
 const FILTER_LIST = [
   {
@@ -49,40 +60,6 @@ const FILTER_LIST = [
   },
 ];
 
-const community = [
-  {
-    category: "자유",
-    value: "배 아플 때 이거 먹어도 되나요?",
-    isBest: true,
-    calendar: "2024-12-25",
-  },
-  {
-    category: "영양제",
-    value: "영양제 추천 리스트입니다 ~",
-    isBest: false,
-    calendar: "2024-12-25",
-  },
-  {
-    category: "약국",
-    value:
-      "약국 약사님이 엄청 친절하시더라구요. 텍스트 여기까지만 나오게 설정해주세요.",
-    isBest: false,
-    calendar: "2024-12-25",
-  },
-  {
-    category: "병원",
-    value: "***역 인근 병원 좀 추천해주세요!!!",
-    isBest: false,
-    calendar: "2024-12-25",
-  },
-  {
-    category: "증상",
-    value: "목 아플 때 @@약 드셔보신 분 계신가요?",
-    isBest: false,
-    calendar: "2024-12-25",
-  },
-];
-
 export default function Home() {
   const router = useRouter();
 
@@ -92,6 +69,23 @@ export default function Home() {
       router.push(item.path);
     }
   }));
+
+  const getHomePost = async () => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/home/posts`);
+      return response.data;
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const { data } = useQuery({
+    queryKey: ["homePost"],
+    queryFn: getHomePost,
+  })
+
+  const hotPost = data?.result?.hotPost;
+  const newPosts = data?.result?.newPosts;
 
   return (
     <>
@@ -221,33 +215,11 @@ export default function Home() {
             >
               {/* 커뮤니티 코드를 반복문으로 변경 */}
               <div className="lg:flex-1 max-w-[593px] lg:mt-3 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
-                {community.map((item, index) => (
-                  <div
-                    key={index}
-                    className="self-stretch lg:py-2 py-1 justify-between items-start inline-flex"
-                  >
-                    <div className="h-[29px] flex-1 justify-start items-center gap-2 flex min-w-0">
-                      <div className="lg:w-16 w-[47px] lg:h-6 h-5 px-1.5 pt-0.5 pb-px bg-[#a0d1be] rounded justify-center items-center gap-2.5 flex shrink-0">
-                        <div className="text-center text-white lg:text-sm text-[10px] font-normal font-['Pretendard Variable'] leading-[21px]">
-                          {item.category}
-                        </div>
-                      </div>
-                      <div className="text-left overflow-hidden text-ellipsis whitespace-nowrap text-[#474747] lg:text-base text-sm font-normal font-['Pretendard Variable'] leading-normal min-w-0">
-                        {item.value}
-                      </div>
-                      {item.isBest && (
-                        <div className="h-[20px] px-1.5 py-0.5 rounded-full border-2 border-[#ff7700] justify-center items-center gap-2.5 flex">
-                          <div className="text-center text-[#ff7700] lg:text-xs text-[10px] font-semibold font-['Pretendard Variable'] leading-[18px]">
-                            BEST
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex items-center h-full text-center text-[#999999] lg:text-sm text-xs font-normal font-['Pretendard Variable'] leading-[21px] lg:ml-4 ml-8 shrink-0">
-                      {item.calendar}
-                    </div>
-                  </div>
+                <HomePostItem title={hotPost?.title} category={hotPost?.category} post_id={hotPost?.post_id} created_at={hotPost?.created_at} isBestPost={true}/>
+                {newPosts?.map((newPost: HomePostItemProp) => (
+                  <HomePostItem key={newPost.post_id} title={newPost?.title} category={newPost?.category} post_id={newPost?.post_id} created_at={newPost?.created_at} isBestPost={false}/>
                 ))}
+
               </div>
               {/* 광고 */}
               <div className="mt-6 w-full lg:mt-2 lg:w-[287px]">
