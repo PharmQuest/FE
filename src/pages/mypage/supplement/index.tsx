@@ -154,13 +154,7 @@ const SupplementPage: React.FC = () => {
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-5 py-5 lg:py-9">
             {supplements.map((supplement) => (
               <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
-                <SupplementCard id={supplement.id}
-                                country={supplement.country}
-                                title={supplement.productName}
-                                tags={supplement.categories}
-                                isBookmarked={supplement.scrapped}
-                                src={supplement.image}
-                                onBookmarkToggle={handleBookmarkToggle}/>
+                <SupplementCard key={supplement.id} {...supplement} src={supplement.image} onBookmarkToggle={handleBookmarkToggle}/>
               </div>
             ))}
           </div>
