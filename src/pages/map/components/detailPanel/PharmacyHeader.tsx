@@ -47,7 +47,7 @@ const PharmacyHeader: React.FC<PharmacyHeaderProps> = ({
           <p className="text-headline-m text-gray-600 max-w-[280px]">
             {pharmacy.name}
           </p>
-          <IsOpenTag isOpen={pharmacy.opening_hours?.isOpen() ?? false} />
+          <IsOpenTag opening_hours={pharmacy.opening_hours} />
         </div>
         {pharmacy.rating && <RatingStars rating={pharmacy.rating} />}
       </div>
