@@ -16,6 +16,7 @@ interface PharmacyResponse {
       region: string;
       latitude: number;
       longitude: number;
+      isScrapped: boolean;
       place_id: string;
       img_url: string;
     }[];
@@ -32,8 +33,9 @@ const MyPharmacys = () => {
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCountry, setSelectedCountry] = useState("ALL");
+  const [pharmacies, setPharmacies] = useState<PharmacyResponse['result']['pharmacies']>([]);
 
-  const { data, isLoading } = useQuery<PharmacyResponse>({
+  const { data, isLoading, refetch } = useQuery<PharmacyResponse>({
     queryKey: ["mypagePharmacys", currentPage, selectedCountry],
     queryFn: async () => {
       const response = await axiosInstance.get(
@@ -47,14 +49,38 @@ const MyPharmacys = () => {
   if (isLoading)
     console.warn("mypage 약국 로딩 중..");
 
+  useEffect(() => {
+    if (data?.result) {
+      setPharmacies(data.result.pharmacies);
+      
+      // 현재 페이지가 비었다면 이전 페이지로 이동
+      if (data.result.pharmacies.length === 0 && currentPage > 1) {
+        setCurrentPage(prev => prev - 1);
+        refetch();
+      }
+    }
+  }, [data, currentPage, refetch]);
+
   const handleCountryFilter = (country: string) => {
     setSelectedCountry(country);
     setCurrentPage(1);
   };
 
   const displayData = data?.result;
-  const pharmacies = displayData?.pharmacies || [];
+  // const pharmacies = displayData?.pharmacies || [];
   const totalPages = displayData?.total_pages || 1;
+
+  const handlePharmacyBookmarkToggle = (place_id: string) => {
+    setPharmacies(prev => {
+      const newPharmacies = prev.filter(pharmacy => pharmacy.place_id !== place_id);
+      // 현재 페이지의 마지막 아이템을 삭제한 경우
+      if (newPharmacies.length === 0 && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+      return newPharmacies;
+    });
+    refetch(); // 데이터 새로고침
+  };
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 lg:py-9">
@@ -82,7 +108,7 @@ const MyPharmacys = () => {
         <>
           <div className="w-full py-5 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow lg:py-9">
             {pharmacies.map((pharmacy) => ( 
-                <PharmacysCard key={pharmacy.place_id} {...pharmacy} />
+                <PharmacysCard key={pharmacy.place_id} {...pharmacy} onBookmarkToggle={handlePharmacyBookmarkToggle} />
               ))}
           </div>
 
