@@ -47,9 +47,9 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
 
       // 성공 메시지 표시
       if (data.code === "PHARMACY201") {
-        console.log("약국이 스크랩되었습니다.");
+        console.log(`${name} 스크랩 완`);
       } else if (data.code === "PHARMACY202") {
-        console.log("약국 스크랩이 해제되었습니다.");
+        console.log(`${name} 스크랩 해제 완`);
       }
 
       // 약국 목록 데이터 갱신
