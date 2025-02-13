@@ -32,6 +32,7 @@ interface PharmacyResponse {
       region: string;
       latitude: number;
       longitude: number;
+      isScrapped: boolean;
       place_id: string;
       img_url: string;
     }[];
@@ -150,13 +151,17 @@ const MyPage: React.FC<MyPageProps> = ({
   });
   if (isPharLoading)
     console.warn("마이페이지 약국 로딩 중..");
-  const [pharmacys, setPharmacys] = useState<PharmacyResponse['result']['pharmacies']>([]);
+  const [pharmacies, setPharmacies] = useState<PharmacyResponse['result']['pharmacies']>([]);
   
   useEffect(() => {
     if (pharmacyData?.result?.pharmacies) {
-      setPharmacys(pharmacyData.result.pharmacies);
+      setPharmacies(pharmacyData.result.pharmacies);
     }
   }, [pharmacyData]);
+
+  const handlePharmacyBookmarkToggle = (place_id: string) => {
+    setPharmacies(prev => prev.filter(pharmacy => pharmacy.place_id !== place_id));
+  };
   
   // const [currentPage, setCurrentPage] = useState(1);
   const { data: supplementsData, isLoading:isSuppLoading } = useQuery<SupplementResponse>({
@@ -249,10 +254,10 @@ const MyPage: React.FC<MyPageProps> = ({
             <ArrowRightIcon className="w-6 text-gray-500 h-4" />
           </Link>
         </div>
-        {pharmacys.length > 0 ? (
+        {pharmacies.length > 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {pharmacys.map((pharmacy) => (
-              <PharmacysCard key={pharmacy.place_id} {...pharmacy} />
+            {pharmacies.map((pharmacy) => (
+              <PharmacysCard key={pharmacy.place_id} {...pharmacy} onBookmarkToggle={handlePharmacyBookmarkToggle} />
             ))}
           </div>
         ) : (
