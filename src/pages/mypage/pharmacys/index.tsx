@@ -61,18 +61,6 @@ const MyPharmacys = () => {
     }
   }, [data, currentPage, refetch]);
 
-  const handleCountryFilter = (country: string) => {
-    setSelectedCountry(country);
-    setCurrentPage(1);
-  };
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // 부드러운 스크롤 효과
-    });
-  }, [currentPage]);
-
   const displayData = data?.result;
   // const pharmacies = displayData?.pharmacies || [];
   const totalPages = displayData?.total_pages || 1;
@@ -88,6 +76,18 @@ const MyPharmacys = () => {
     });
     refetch(); // 데이터 새로고침
   };
+
+  const handleCountryFilter = (country: string) => {
+    setSelectedCountry(country);
+    setCurrentPage(1);
+  };
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 부드러운 스크롤 효과
+    });
+  }, [currentPage]);
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8 lg:py-9">
