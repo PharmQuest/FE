@@ -252,14 +252,7 @@ const MyPage: React.FC<MyPageProps> = ({
         {supplements.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {supplements.slice(0, 10).map((supplement) => (
-              <SupplementCard key={supplement.id}
-                              id={supplement.id}
-                              country={supplement.country}
-                              title={supplement.productName}
-                              tags={supplement.categories}
-                              isBookmarked={supplement.scrapped}
-                              src={supplement.image}
-                              onBookmarkToggle={handleBookmarkToggle}/>
+              <SupplementCard key={supplement.id} {...supplement} src={supplement.image} onBookmarkToggle={handleBookmarkToggle}/>
             ))}
           </div>
         ) : (

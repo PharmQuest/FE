@@ -19,9 +19,9 @@ interface ScrapResponse {
 interface SupplementCardProps {
   id: number;
   country: string;
-  title: string;
-  tags: string[];
-  isBookmarked?: boolean;
+  productName: string;
+  categories: string[];
+  scrapped?: boolean;
   width?: number;
   src?: string;
   onBookmarkToggle?: (id: number) => void;
@@ -30,14 +30,14 @@ interface SupplementCardProps {
 export default function SupplementCard({
   id,
   country,
-  title,
-  tags,
-  isBookmarked = false,
+  productName,
+  categories,
+  scrapped = false,
   width = 160,
   src = "/images/no_image.webp",
   onBookmarkToggle,
 }: SupplementCardProps) {
-  const [bookmarked, setBookmarked] = useState(isBookmarked);
+  const [bookmarked, setBookmarked] = useState(scrapped);
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
@@ -45,8 +45,8 @@ export default function SupplementCard({
   }, [src]);
 
   useEffect(() => {
-    setBookmarked(isBookmarked);
-  }, [isBookmarked]);
+    setBookmarked(scrapped);
+  }, [scrapped]);
   
   // const handleBookmarkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
   //   event.stopPropagation();
@@ -98,7 +98,7 @@ export default function SupplementCard({
         {/* 이미지 */}
         <Image
           src={imgSrc || "/images/no_image.webp"}
-          alt={title || "이미지"}
+          alt={productName || "이미지"}
           className="absolute inset-0 w-full h-full object-cover rounded-lg"
           onError={() => setImgSrc("/images/no_image.webp")} // 이미지 로드 실패 시 대체 이미지 설정
           width={width}
@@ -131,15 +131,15 @@ export default function SupplementCard({
           </span>
           <span
             className="text-black text-base font-semibold leading-normal truncate overflow-hidden text-ellipsis"
-            title={title}
+            title={productName}
           >
-            {title}
+            {productName}
           </span>
         </div>
 
         {/* 태그 영역 */}
         <div className="flex flex-nowrap gap-1.5 overflow-hidden overflow-x-auto scrollbar-hide whitespace-nowrap">
-          {tags.map((tag, idx) => (
+          {categories.map((tag, idx) => (
             <div
               key={idx}
               className="px-2 py-0.5 bg-primary-50 rounded text-subhead2-sb text-gray-500 flex items-center"
