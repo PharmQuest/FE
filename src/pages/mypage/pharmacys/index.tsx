@@ -66,6 +66,13 @@ const MyPharmacys = () => {
     setCurrentPage(1);
   };
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 부드러운 스크롤 효과
+    });
+  }, [currentPage]);
+
   const displayData = data?.result;
   // const pharmacies = displayData?.pharmacies || [];
   const totalPages = displayData?.total_pages || 1;
