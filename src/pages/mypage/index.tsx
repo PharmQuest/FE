@@ -15,14 +15,6 @@ interface Medicine {
   type: string;
 }
 
-// interface Pharmacy {
-//   id: number;
-//   pharmacyName: string;
-//   status: boolean;
-//   closingTime: string;
-//   distance: string;
-//   location: string;
-// }
 interface PharmacyResponse {
   code: string;
   message: string;
@@ -87,14 +79,6 @@ interface SupplementResponse {
   isSuccess: boolean;
 }
 
-// interface Supplement {
-//   id: number;
-//   country: string;
-//   title: string;
-//   tags: string[];
-//   isBookmarked: boolean;
-// }
-
 interface MyPageProps {
   userName: string;
   userEmail: string;
@@ -109,20 +93,6 @@ const MyPage: React.FC<MyPageProps> = ({
     { id: 1, name: "타이레놀", type: "진통제" },
     { id: 2, name: "판피린", type: "감기약" },
   ],
-  // pharmacys = [
-  //   { id: 1, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
-  //   { id: 2, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
-  //   { id: 3, pharmacyName: "온누리약국", status: true, closingTime: "19:00", distance: "700m", location: "서울 강남구 논현동" },
-  //   { id: 4, pharmacyName: "튼튼약국", status: false, closingTime: "17:00", distance: "600m", location: "서울 종로구 종로3가" },
-  // ],
-  // supplements = [
-  //   { id: 1, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
-  //   { id: 2, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
-  //   { id: 3, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
-  //   { id: 4, country: "미국", title: "네이처메이드", tags: ["면역력강화", "피부건강"], isBookmarked: true },
-  //   { id: 5, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
-  //   { id: 6, country: "한국", title: "홍삼정", tags: ["면역력", "활력"], isBookmarked: false },
-  // ],
 }) => {
 
   const router = useRouter();
