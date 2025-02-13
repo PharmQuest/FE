@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import SearchOnCurrentMapButton from "./SearchOnCurrentMapButton";
+import { createCurrentLocationControl } from "./CurrentLocationButton";
 
 export interface MapComponentRef {
   searchPharmaciesByText: (text: string) => Promise<PharmacyDetails[]>;
@@ -231,9 +232,25 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
               center: position,
               zoom: 14,
               mapId: "DEMO_MAP_ID",
+              zoomControl: true,
+              mapTypeControl: false,
+              scaleControl: false,
+              streetViewControl: false,
+              rotateControl: false,
+              fullscreenControl: false,
             }
           );
           mapRef.current = mapInstance;
+
+          const cleanup = createCurrentLocationControl(mapInstance, () => {
+            getUserLocation().then((newPosition) => {
+              mapInstance.setCenter(newPosition);
+              if (currentLocationMarkerRef.current) {
+                currentLocationMarkerRef.current.position = newPosition;
+              }
+              setIsMapMoved(false);
+            });
+          });
 
           const markerDiv = document.createElement("div");
           markerDiv.innerHTML = `
@@ -265,6 +282,9 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
 
           setIsMapInitialized(true);
           await searchNearbyPharmacies(position);
+          return () => {
+            cleanup();
+          };
         } catch (error) {
           console.error("Error loading map:", error);
         }
