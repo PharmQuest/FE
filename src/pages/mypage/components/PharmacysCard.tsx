@@ -19,8 +19,8 @@ interface PharmacysCardProps {
 }
 
 const PharmacysCard: React.FC<PharmacysCardProps> = ({
-  name = "다나아약국",
-  region = "서울 중구 중앙동",
+  name,
+  region,
   img_url,
   latitude,
   longitude,
