@@ -17,9 +17,9 @@ const PharmacyList: React.FC<PharmacyListProps> = ({
 }) => {
   if (pharmacies.length === 0) {
     return (
-      <div className="flex flex-col flex-1 items-center justify-center text-gray-300">
-        <p className="text-headline-m">검색결과가 없습니다.</p>
-        <p className="text-body1-r mt-2">키워드 및 지역을 확인해주세요.</p>
+      <div className="text-headline-m flex flex-col flex-1 items-center justify-center text-gray-300">
+        <p>검색결과가 없습니다.</p>
+        <p>키워드 및 지역을 확인해주세요.</p>
       </div>
     );
   }
