@@ -250,13 +250,8 @@ const MyPage: React.FC<MyPageProps> = ({
           </Link>
         </div>
         {supplements.length > 0 ? (
-        // {supplementsData?.result?.content && supplementsData.result.content.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {/* {supplements.map((supplement) => (
-              <SupplementCard key={supplement.id} {...supplement} />
-            ))} */}
             {supplements.slice(0, 10).map((supplement) => (
-            // {supplementsData?.result.content.slice(0, 10).map((supplement) => (
               <SupplementCard key={supplement.id}
                               id={supplement.id}
                               country={supplement.country}
