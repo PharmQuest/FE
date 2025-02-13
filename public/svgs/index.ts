@@ -54,3 +54,4 @@ export { default as SearchThinIcon } from "./search-thin.svg";
 export { default as XThinIcon } from "./x-thin.svg";
 export { default as CheckBoxIcon } from "./checkbox.svg";
 export { default as CheckBoxOnIcon } from "./checkbox_on.svg";
+export { default as CurrentPossitionIcon } from "./current-position.svg";
