@@ -10,7 +10,6 @@ import { CheckBoxIcon, CheckBoxOnIcon } from "@public/svgs";
 import useModalStore from "@/store/useModalStore";
 import useFormatCategory from "@/hooks/community/useFormatCategory";
 import MobileSkeletonList from "./MobileSkeletonList";
-import { useRouter } from "next/router";
 
 interface Post {
   postId: number;
