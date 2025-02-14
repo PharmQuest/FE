@@ -38,7 +38,7 @@ export default function SupplementCard({
   onBookmarkToggle,
 }: SupplementCardProps) {
   const [bookmarked, setBookmarked] = useState(scrapped);
-  const [imgSrc, setImgSrc] = useState("");
+  const [imgSrc, setImgSrc] = useState(src || "/images/no_image.webp");
 
   useEffect(() => {
     setImgSrc(src || "/images/no_image.webp");
