@@ -54,7 +54,7 @@ const PharmacyItem: React.FC<PharmacyItemProps> = ({
           <p className="max-w-[122px] lg:text-subhead1-sb text-m-subhead1-sb text-gray-600 truncate">
             {pharmacy.name}
           </p>
-          <IsOpenTag isOpen={pharmacy.opening_hours?.isOpen() ?? false} />
+          <IsOpenTag opening_hours={pharmacy.opening_hours} />
         </div>
 
         <div className="self-stretch h-11 flex-col justify-start items-start gap-0.5 flex">
