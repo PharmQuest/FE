@@ -47,7 +47,7 @@ interface Supplement {
   scrapCount: number;
   category4: string;
   categories: string[];
-  selectCategories: string[]; // 추가됨
+  selectCategories: string[];
   scrapped: boolean;
 }
 
@@ -112,11 +112,54 @@ const SupplementPage: React.FC = () => {
         throw error;
       }
     },
-    enabled: !!searchQuery
+    enabled: router.isReady && Boolean(searchQuery)
   });
+  // const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
+  //   queryKey: ["supplements-search", searchQuery, currentPage],
+  //   queryFn: async () => {
+  //     let retryCount = 0;
+  //     const maxRetries = 10;
+
+  //     while (retryCount <= maxRetries) {
+  //       try {
+  //         const response = await axiosInstance.get(
+  //           `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
+  //         );
+  //         console.log(`검색어: ${searchQuery} 결과=`, response.data);
+  //         return response.data;
+  //       } catch (error) {
+  //         if (axios.isAxiosError(error) && error.response?.status === 404) {
+  //           if (retryCount === maxRetries) {
+  //             // 최대 재시도 횟수에 도달하면 빈 결과 반환
+  //             return {
+  //               code: "SUPP4001",
+  //               message: "검색 결과가 없습니다.",
+  //               result: {
+  //                 amountPage: 0,
+  //                 amountCount: 0,
+  //                 currentPage: 0,
+  //                 currentCount: 0,
+  //                 supplements: [],
+  //               },
+  //               isSuccess: false
+  //             };
+  //           }
+  //           // 재시도 전 1초 대기
+  //           await new Promise(resolve => setTimeout(resolve, 1000));
+  //           retryCount++;
+  //           continue;
+  //         }
+  //         throw error;
+  //       }
+  //     }
+  //   },
+  //   enabled: router.isReady && Boolean(searchQuery)
+  // });
   
-  if (isLoading || isSearchLoading)
-    console.warn("영양제 로딩 중..");
+  if (isLoading)
+    console.warn("카테고리 영양제 로딩 중..");
+  if (isSearchLoading)
+    console.warn("검색한 영양제 로딩 중..");
   if (isError)
     console.error("카테고리Error=", error);
   if (isSearchError)
@@ -156,6 +199,28 @@ const SupplementPage: React.FC = () => {
       );
     }
   }, [isSearchMode, supplements, selectedCategory]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      setSelectedCategory("전체");
+      setCurrentPage(1);
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (router.isReady) {
+      console.log("Router Query:", router.query);
+      console.log("Search Query:", searchQuery);
+    }
+  }, [router.isReady, router.query, searchQuery]);
+
+  useEffect(() => {
+    // 페이지 진입 시 초기화
+    if (router.pathname === '/supplements' && !router.query.keyword) {
+      setSelectedCategory("전체");
+      setCurrentPage(1);
+    }
+  }, [router.pathname, router.query]);
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col items-center py-8">
