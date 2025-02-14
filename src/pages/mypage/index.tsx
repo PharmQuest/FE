@@ -80,15 +80,12 @@ interface SupplementResponse {
 }
 
 interface MyPageProps {
-  userName: string;
-  userEmail: string;
   medicines?: Medicine[];
   // pharmacys?: Pharmacy[];
   // supplements?: Supplement[];
 }
 
 const MyPage: React.FC<MyPageProps> = ({
-  userEmail = "maengso@naver.com",
   medicines = [
     { id: 1, name: "타이레놀", type: "진통제" },
     { id: 2, name: "판피린", type: "감기약" },
@@ -97,7 +94,7 @@ const MyPage: React.FC<MyPageProps> = ({
 
   const router = useRouter();
 
-  const { isLoggedIn, userName, logOut } = useAuthStore();
+  const { isLoggedIn, userName, email, logOut } = useAuthStore();
 
   const handleLogout = () => {
     logOut();
@@ -133,7 +130,6 @@ const MyPage: React.FC<MyPageProps> = ({
     setPharmacies(prev => prev.filter(pharmacy => pharmacy.place_id !== place_id));
   };
   
-  // const [currentPage, setCurrentPage] = useState(1);
   const { data: supplementsData, isLoading:isSuppLoading } = useQuery<SupplementResponse>({
     queryKey: ["mypageSupps"],
     queryFn: async () => {
@@ -167,7 +163,7 @@ const MyPage: React.FC<MyPageProps> = ({
             <div className="text-gray-600 md:text-display2-b text-m-headline1-b">{userName}</div>
             <div className="text-gray-600 md:text-display2-m text-m-headline1-b ">님</div>
           </div>
-          <div className="text-gray-400 md:text-body1-r text-m-body2-r">{userEmail}</div>
+          <div className="text-gray-400 md:text-body1-r text-m-body2-r">{email}</div>
         </div>
         <div 
           className="w-[100px] px-4 py-2 rounded border border-gray-200 flex justify-center items-center cursor-pointer"
