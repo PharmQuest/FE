@@ -28,7 +28,7 @@ export default function Post() {
     setIsNoticeModalOpen,
   } = useModalStore();
 
-  const { data, error } = useQuery(
+  const { data, isPending, error } = useQuery(
     {
       queryKey: ["post", postId, commentPage],
       queryFn: async () => {
@@ -75,6 +75,7 @@ export default function Post() {
           isOwnPost={postItem?.isOwnPost}
           imageUrl={postItem?.imageUrl}
           commentPage={postItem?.commentPage}
+          isPending={isPending}
         />
         <div className={`md:gap-5 flex flex-col`}>
           <CommentInput />
