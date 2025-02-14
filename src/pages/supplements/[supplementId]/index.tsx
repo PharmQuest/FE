@@ -39,6 +39,7 @@ interface ApiResponse {
       brand: string;
       maker: string;
       categories: string[];
+      selectCategories: string[];
       scrapCount: number;
       scrapped: boolean;
     }[];
@@ -87,7 +88,7 @@ const SupplementInfo: React.FC = () => {
   });
 
   if (isLoading)
-    console.error("영양제 상세 로딩 중..");
+    console.warn("영양제 상세 로딩 중..");
   if (isError)
     console.error("상세Error=", error);
 

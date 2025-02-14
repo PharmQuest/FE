@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
 				protocol: "https",
 				hostname: "shopping-phinf.pstatic.net",
 			},
+			{
+				protocol: 'https',
+				hostname: 'umc-pharmquest.s3.ap-northeast-2.amazonaws.com',
+				port: '',
+				pathname: '/**',
+			  },
 		],
 		domains: process.env.NEXT_PUBLIC_IMAGE_DOMAIN
 			? [process.env.NEXT_PUBLIC_IMAGE_DOMAIN]
