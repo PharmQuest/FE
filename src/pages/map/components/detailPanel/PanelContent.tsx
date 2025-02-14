@@ -34,7 +34,7 @@ const DetailPanelContent: React.FC<DetailPanelContentProps> = ({
         </div>
 
         <div ref={infoRef} className="mt-6 border-t border-gray-100">
-          <Info />
+          <Info pharmacy={pharmacy} />
         </div>
       </div>
     </div>
