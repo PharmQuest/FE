@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { BookmarkIcon } from "@public/svgs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axios-instance";
 import axios from "axios";
 
