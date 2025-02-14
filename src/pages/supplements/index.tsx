@@ -85,7 +85,7 @@ const SupplementPage: React.FC = () => {
 
   const countryParam = (country === "NONE" || country === "ALL") ? "" : country;
   const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
-    queryKey: ["supplements-search", searchQuery, currentPage],
+    queryKey: ["supplements-search", searchQuery, currentPage, countryParam],
     queryFn: async () => {
       try {
         const response = await axiosInstance.get(
@@ -115,7 +115,7 @@ const SupplementPage: React.FC = () => {
     enabled: router.isReady && Boolean(searchQuery)
   });
   // const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
-  //   queryKey: ["supplements-search", searchQuery, currentPage],
+  //   queryKey: ["supplements-search", searchQuery, currentPage, countryParam],
   //   queryFn: async () => {
   //     let retryCount = 0;
   //     const maxRetries = 10;
