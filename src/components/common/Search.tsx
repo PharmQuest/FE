@@ -63,6 +63,16 @@ const Search = () => {
     setIsSearchModalOpen(false);
   }, [searchUrl])
 
+  useEffect(() => {
+    // pathname이 /supplements이고 query가 비어있을 때 (헤더에서 해외인기영양제 클릭 시)
+    if (router.pathname === '/supplements' && Object.keys(router.query).length === 0) {
+      setCountryValue("");
+      setCountryText("전체");
+      setSearchText("");  // 검색어 초기화
+      setIsSearchModalOpen(false);
+    }
+  }, [router.pathname, router.query]);
+
   return (
     <div className="w-full flex items-center gap-4">
       {/* 검색창 */}
