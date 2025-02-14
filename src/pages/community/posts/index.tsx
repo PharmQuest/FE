@@ -38,6 +38,7 @@ export default function Posts() {
   }, [categoryValue]);
 
   const handleFilterButton = (category: Category) => {
+    router.push(`/community/posts?category=${category.value}`)
     setCategoryValue(category.value);
     setPage(1);
   };
@@ -67,9 +68,9 @@ export default function Posts() {
             <PostList page={page} setPage={setPage} category={categoryValue} isPageHidden={false} />
           </div>
 
-          <div>
+          <div className={`lg:block hidden`}>
             <div
-              className="lg:block hidden relative transition-all duration-500 ease-out"
+              className="relative transition-all duration-500 ease-out"
               style={{ top: `${Math.max(48, Math.min(position, maxScroll))}px` }}
             >
               <UserNavbar />
