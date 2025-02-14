@@ -22,7 +22,7 @@ export default function Community() {
     }
   }
 
-  const { data = { result: { postList: [], totalPage: 1, isFirst: true, isLast: true } }, isPending } = useQuery(
+  const { data, isPending } = useQuery(
     {
       queryKey: ["bestPost", page],
       queryFn: getBestPost,
@@ -47,7 +47,7 @@ export default function Community() {
                   lg:text-display2-b
                   text-m-headline1-b text-gray-600">BEST 인기글</p>
           </div>
-          <PopularPostList posts={data?.result?.postList} />
+          <PopularPostList posts={data?.result?.postList} isPending={isPending} listNum={10} />
         </div>
 
         <div>

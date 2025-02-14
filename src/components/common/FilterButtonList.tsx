@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import FilterButton from "./FilterButton";
+import { useEffect, useState } from "react";
 
 interface filterInfo {
   text: string;
@@ -14,7 +15,11 @@ interface filterInfo {
 const FilterButtonList = ({ filterList, className }: { filterList: filterInfo[], className?: string }) => {
 
   const router = useRouter();
-  const category = router.query.category as string || "ALL"
+  const [category, setCategory] = useState(router.query.category as string || "ALL");
+
+  useEffect(() => {
+    setCategory(router.query.category as string || "ALL")
+  }, [router])
 
   return (
     <div className={`flex gap-2 overflow-x-auto scrollbar-hide ${className}`}>
