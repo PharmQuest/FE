@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import SupplementCard from "@/components/common/SupplementCard";
 import FilterButton from "@/components/common/FilterButton";
@@ -47,6 +47,7 @@ interface Supplement {
   scrapCount: number;
   category4: string;
   categories: string[];
+  selectCategories: string[]; // 추가됨
   scrapped: boolean;
 }
 
@@ -76,8 +77,6 @@ const SupplementPage: React.FC = () => {
     staleTime: 0,
   });
 
-  console.log("검색어:", searchQuery);
-
   // 필터 버튼 클릭 핸들러
   const handleFilterClick = (category: string) => {
     setSelectedCategory(category);
@@ -92,6 +91,7 @@ const SupplementPage: React.FC = () => {
         const response = await axiosInstance.get(
           `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
         );
+        console.log(`검색어: ${searchQuery} 결과=`, response.data);
         return response.data;
       } catch (error) {
         // 404 에러인 경우 빈 결과를 반환
@@ -140,15 +140,27 @@ const SupplementPage: React.FC = () => {
     });
   }, [currentPage]);
 
+  // 검색 모드인지 확인
+  const isSearchMode = !!searchQuery;
+
+  // 표시할 영양제 목록 결정
+  const displaySupplements = useMemo(() => {
+    if (!isSearchMode) {
+      // 검색이 아닌 경우 기존 동작 유지
+      return supplements;
+    } else {
+      // 검색 결과인 경우 카테고리 필터링 적용
+      return supplements.filter(supplement => 
+        selectedCategory === "전체" || 
+        supplement.selectCategories?.includes(selectedCategory)
+      );
+    }
+  }, [isSearchMode, supplements, selectedCategory]);
+
   return (
-    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col items-center lg:py-8 py-3">
-      <div className="lg:hidden w-full text-start">
-        <h2 className="text-m-subhead1-sb text-gray-600">
-          {searchQuery ? `검색결과 ${displayData?.amountCount}건` : `전체 ${displayData?.amountCount}건`}
-        </h2>
-      </div>
-      <div className="w-full flex items-center gap-x-4 overflow-x-auto hidden lg:flex">
-        <h2 className="text-display2-b text-gray-600 whitespace-nowrap">{searchQuery ? `검색결과 ${displayData?.amountCount}건` : "전체"}</h2>
+    <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col items-center py-8">
+      <div className="w-full max-w-[920px] flex items-center gap-x-4 mb-4 overflow-x-auto hidden lg:flex">
+        <h2 className="text-display2-b text-gray-600 whitespace-nowrap">{searchQuery ? `검색결과 ${displaySupplements.length}건` : "전체"}</h2>
         <div className="flex gap-x-2">
           <FilterButton text="전체" isSelected={selectedCategory === "전체"} onClickFn={() => handleFilterClick("전체")} />
           <FilterButton text="면역력강화" isSelected={selectedCategory === "면역"} onClickFn={() => handleFilterClick("면역")} />
@@ -161,7 +173,7 @@ const SupplementPage: React.FC = () => {
       </div>
 
       {/* ✅ 검색 결과가 없을 경우 메시지 표시 */}
-      {displayData?.amountCount === 0 ? (
+      {displaySupplements.length === 0 ? (
         <div className="flex justify-center items-center h-[300px]">
           <p className="text-gray-300 lg:text-headline-m md:text-m-body2-r text-center">
             찾는 영양제가 없으신가요?<br />철자를 확인하거나 다른 키워드로 검색해주세요!
@@ -170,8 +182,8 @@ const SupplementPage: React.FC = () => {
       ) : (
         <>
           {/* ✅ 검색 결과 리스트 */}
-          <div className="w-full lg:py-9 py-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-5">
-            {supplements.map((supplement) => (
+          <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-5">
+            {displaySupplements.map((supplement) => (
               <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
                 <SupplementCard key={supplement.id} {...supplement} src={supplement.image}/>
               </div>
