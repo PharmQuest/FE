@@ -201,11 +201,11 @@ const SupplementPage: React.FC = () => {
   }, [isSearchMode, supplements, selectedCategory]);
 
   useEffect(() => {
-    if (searchQuery) {
+    if (searchQuery || country) {
       setSelectedCategory("전체");
       setCurrentPage(1);
     }
-  }, [searchQuery]);
+  }, [searchQuery, country]);
 
   useEffect(() => {
     if (router.isReady) {
