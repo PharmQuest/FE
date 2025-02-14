@@ -39,6 +39,7 @@ interface ApiResponse {
       brand: string;
       maker: string;
       categories: string[];
+      selectCategories: string[];
       scrapCount: number;
       scrapped: boolean;
     }[];
