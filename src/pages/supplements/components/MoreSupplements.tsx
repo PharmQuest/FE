@@ -30,8 +30,8 @@ function MoreSupplements({ supplements=[], imageWidth }: MoreSupplementsProps) {
               key={supplement.id}
               id={supplement.id}
               country={supplement.country}
-              title={supplement.title}
-              tags={supplement.tags}
+              productName={supplement.title}
+              categories={supplement.tags}
               src={supplement.src}
               width={imageWidth ?? 260} 
             />

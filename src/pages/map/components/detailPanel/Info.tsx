@@ -2,13 +2,13 @@ import React from "react";
 import { PharmacyDetails } from "../MapComponent";
 
 interface InfoProps {
-  pharmacy: PharmacyDetails;
+  pharmacy?: PharmacyDetails;
 }
 
 const Info: React.FC<InfoProps> = ({ pharmacy }) => {
   const hasAnyInfo =
-    pharmacy.wheelchair_accessible_entrance !== undefined ||
-    pharmacy.website !== undefined;
+    pharmacy?.wheelchair_accessible_entrance !== undefined ||
+    pharmacy?.website !== undefined;
 
   if (!hasAnyInfo) {
     return (
