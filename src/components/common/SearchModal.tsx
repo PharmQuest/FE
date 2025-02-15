@@ -22,7 +22,7 @@ const SearchModal = ({
   const router = useRouter();
 
   const COMMUNITY_COUNTRY = [
-    {value:"NONE", text:"전체", isSelected:true},
+    {value:"ALL", text:"전체", isSelected:true},
     {value:"KOREA", text:"한국", isSelected:false},
     {value:"JAPAN", text:"일본", isSelected:false},
     {value:"CHINA", text:"중국", isSelected:false},
