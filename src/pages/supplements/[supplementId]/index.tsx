@@ -55,6 +55,7 @@ interface ScrapResponse {
     supplementId: number;
     scrapCount: number;
     message: string;
+    selectCategories: string[];
     scrapped: boolean;
   };
   isSuccess: boolean;

@@ -15,7 +15,7 @@ interface ApiResponse {
     amountCount: number;
     currentPage: number;
     currentCount: number;
-    supplements: Supplement[];
+    items: Supplement[];
   };
   isSuccess: boolean;
 }
@@ -32,12 +32,14 @@ interface SearchResponse {
       id: number;
       smallImageUrl: string;
     };
-    supplements: Supplement[];
+    items: Supplement[];
   };
   isSuccess: boolean;
 }
 
 interface Supplement {
+  type: string;
+  ad: boolean;
   id: number;
   name: string;
   country: string;
@@ -167,7 +169,7 @@ const SupplementPage: React.FC = () => {
 
   const displayData = searchQuery ? searchData?.result : data?.result;
   // const displayData = searchData?.result;
-  const supplements = displayData?.supplements || [];
+  const supplements = displayData?.items || [];
   const totalPages = displayData?.amountPage || 1;
   
   console.log("amountPage=", displayData?.amountPage);
@@ -249,7 +251,7 @@ const SupplementPage: React.FC = () => {
           {/* ✅ 검색 결과 리스트 */}
           <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-5">
             {displaySupplements.map((supplement) => (
-              <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
+              <div key={supplement.id} onClick={() => !supplement.ad && handleCardClick(supplement.id)}>
                 <SupplementCard key={supplement.id} {...supplement} src={supplement.image}/>
               </div>
             ))}
