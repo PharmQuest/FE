@@ -41,35 +41,32 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   };
 
   return (
-    <div className="lg:p-6 md:flex-row border border-gray-200 rounded-xl mt-5 p-4 flex flex-col md:gap-4 gap-1">
+    <div className="lg:p-6 md:flex-row border border-gray-100 rounded-xl p-4 flex flex-col md:gap-4 gap-1 mt-5">
       <div className="lg:w-[200px] lg:h-[200px] max-md:h-[200px] border border-gray-200 rounded-lg overflow-hidden">
-        <Image
-          priority
-          className="w-full h-full object-cover"
-          src={imgSrc}
-          alt="제품 이미지"
-          width={100}
-          height={100}
-          onError={() => setImgSrc("/images/no_image.webp")}
+          <Image
+            className="w-full h-full object-contain"
+            src={imgSrc}
+            alt="제품 이미지"
+            width={200}
+            height={200}
+            onError={() => setImgSrc("/images/no_image.webp")}
         />
       </div>
 
-      <div className="w-full md:w-[406px] lg:h-[200px] h-auto md:h-48 flex flex-col justify-between items-start">
-        <div className="self-stretch flex flex-col-reverse md:flex-col gap-3">
-          <h3 className="text-gray-600 lg:text-headline-b text-m-headline2-b">{title}</h3>
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag, idx) => (
-              <div
-                key={idx}
-                className="px-2 py-0.5 bg-primary-50 rounded-lg text-subhead2-sb text-gray-500"
-              >
-                {tag}
-              </div>
-            ))}
-          </div>
+      <div className="flex flex-col gap-2 grow">
+        <h3 className="text-gray-600 lg:text-headline-b text-m-headline2-b">{title}</h3>
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag, idx) => (
+            <div
+              key={idx}
+              className="px-2 py-0.5 bg-primary-50 rounded text-subhead2-sb text-gray-500"
+            >
+              {tag}
+            </div>
+          ))}
         </div>
 
-        <div className="h-auto md:h-[88px] w-full">
+        <div className="h-auto w-full mt-auto">
           {tableData.map((item, idx) => (
             <div key={idx} className="grid grid-cols-[auto_10px_1fr] gap-2 items-center w-full">
               <span className="text-gray-400 text-m-subhead1-sb lg:text-subhead1-sb">{item.label}</span>
@@ -81,14 +78,15 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
       </div>
 
       {/* ✅ 북마크 버튼 */}
-      <button onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>   
+      <div className="flex items-start gap-4 md:block hidden" onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>
         <BookmarkIcon
+          className="w-6 cursor-pointer"
           stroke={bookmarked ? "#FFD755" : "#707070"}
           fill={bookmarked ? "#FFD755" : "none"}
-          className="lg:right-6 lg:top-6 lg:w-7 md:block w-6 absolute hidden right-4 top-4"
           onClick={toggleBookmark}
         />
-      </button>
+    
+      </div>
     </div>
   );
 };
