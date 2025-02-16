@@ -32,15 +32,15 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
       {/* medicine-image */}
       <div
         className={`
-        md:w-[138px] md:h-[138px] 
+        md:w-[138px] md:h-[138px]
         rounded w-[100px] h-[100px] flex items-center`}
       >
         <Image
           src={src}
           alt={`${brandName} 이미지`}
-          width="100"
-          height="100"
-          className={`w-full rounded`}
+          width="138"
+          height="138"
+          className={`w-full h-full rounded object-contain`}
           onError={() => setSrc("/images/no_image.webp")}
           priority
         />
