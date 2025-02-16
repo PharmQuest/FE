@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import SearchOnCurrentMapButton from "./SearchOnCurrentMapButton";
-import { createCurrentLocationControl } from "./CurrentLocationButton";
+import { createCurrentLocationControl } from "../../../components/map/CurrentLocationButton";
 
 export interface MapComponentRef {
   searchPharmaciesByText: (text: string) => Promise<PharmacyDetails[]>;
