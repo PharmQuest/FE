@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import FilterButton from "@/components/common/FilterButton";
 import PharmacysCard from "../components/PharmacysCard";
 import Link from "next/link";
-import { mockPharmacies } from "@/mocks/pharmacys"; 
 import { ArrowRightIcon, LeftArrow } from "@public/svgs";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axios-instance";
