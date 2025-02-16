@@ -30,7 +30,7 @@ const Search = () => {
       router.push(
         {
           pathname: searchUrl,
-          query: {...router.query, "keyword": searchText, "country": countryValue || "NONE"},
+          query: {...router.query, "keyword": searchText, "country": countryValue || "ALL"},
         }
       )
     }
