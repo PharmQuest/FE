@@ -34,7 +34,7 @@ const Tag: React.FC<TagProps> = ({ variant, text, className }) => {
 
   const { container, defaultText } = styles[variant];
 
-  return <div className={`${container} ${className}`}>{text || defaultText}</div>;
+  return <div className={`${className} ${container}`}>{text || defaultText}</div>;
 };
 
 export default Tag;

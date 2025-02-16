@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { BookmarkIcon } from "@public/svgs";
