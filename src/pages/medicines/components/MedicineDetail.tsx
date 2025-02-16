@@ -104,7 +104,7 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
       </div>
 
       {/* Main Content */}
-      <div className="lg:w-[900px] lg:mx-auto md:w-[600px] md:mx-auto w-full px-5">
+      <div className="lg:w-[900px] lg:mx-auto md:w-[600px] md:mx-auto w-[calc(100%-40px)] mx-5">
         {/* Header */}
         <div className="hidden md:flex md:justify-between md:items-center md:mt-9">
           <h1 className="lg:text-display2-b text-m-headline1-b text-gray-600">
@@ -115,7 +115,7 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
             onClick={() => copyLink()}
           >
             <ExternalIcon className="w-6" />
-            <p className="text-subhead2-sb">URL 복사</p>
+            <p className="text-subhead1-sb">URL 복사</p>
           </div>
         </div>
 
