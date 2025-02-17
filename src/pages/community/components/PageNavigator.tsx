@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "@public/svgs"
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface PageNavigatorProps {
   totalPage: number;
@@ -14,12 +14,21 @@ const PageNavigator: React.FC<PageNavigatorProps> = ({ totalPage, isFirst, isLas
 
   const currentPage = page
 
-  const PAGE_GROUP_SIZE = 10;
+  const [pageGroupSize, setPageGroupSize] = useState(10);
 
-  const currentGroup = Math.floor((currentPage - 1) / PAGE_GROUP_SIZE);
-  const startPage = currentGroup * PAGE_GROUP_SIZE + 1;
-  const endPage = Math.min(startPage + PAGE_GROUP_SIZE - 1, totalPage);
+  useEffect(() => {
+    const updatePageGroupSize = () => {
+      setPageGroupSize(window.innerWidth <= 641 ? 5 : 10);
+    }
 
+    updatePageGroupSize();
+    window.addEventListener("resize", updatePageGroupSize);
+    return () => window.removeEventListener("resize", updatePageGroupSize);
+  }, [])
+  
+  const currentGroup = Math.floor((currentPage - 1) / pageGroupSize);
+  const startPage = currentGroup * pageGroupSize + 1;
+  const endPage = Math.min(startPage + pageGroupSize - 1, totalPage);
 
   const pageNavigate = (page: number) => {
     if (setPage) {
