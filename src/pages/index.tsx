@@ -4,7 +4,7 @@ import { MedicineImage, ADWeb, ADMobile } from "@public/images";
 import Image from "next/image";
 import Link from "next/link";
 import FilterButtonList from "@/components/common/FilterButtonList";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axios-instance";
 import HomePostItem from "@/components/home/HomePostItem";
 import { HOME_FILTER_LIST } from "@/constants/FilterList";
@@ -15,7 +15,7 @@ interface HomePostItemProp {
   post_id: number;
   created_at: string;
   isBestPost?: boolean;
-};  
+};
 
 export default function Home() {
 
@@ -29,9 +29,11 @@ export default function Home() {
     }
   }
 
-  const { data } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ["homePost"],
     queryFn: getHomePost,
+    placeholderData: keepPreviousData,
+    retry: 0,
   })
 
   const hotPost = data?.result?.hotPost;
@@ -84,7 +86,7 @@ export default function Home() {
             />
           </div>
           <Search />
-          <FilterButtonList filterList={HOME_FILTER_LIST} className="mt-4 lg:gap-3 gap-2"/>
+          <FilterButtonList filterList={HOME_FILTER_LIST} className="mt-4 lg:gap-3 gap-2" />
           <p className="pt-12 text-center text-gray-300 text-body2-r">
             본 웹 사이트는 사용자의 편의를 위한 단순 참고용 정보 제공을 목표로
             하며, 해당 정보는 의료 전문가의 조언을 대체 하지 않습니다.
@@ -133,7 +135,7 @@ export default function Home() {
             </Link>
           </div>
           <Search />
-          <FilterButtonList filterList={HOME_FILTER_LIST} className={`mt-3`}/>
+          <FilterButtonList filterList={HOME_FILTER_LIST} className={`mt-3`} />
         </div>
       </div>
       {/* 흰 배경 */}
@@ -165,10 +167,30 @@ export default function Home() {
             >
               {/* 커뮤니티 코드를 반복문으로 변경 */}
               <div className="lg:flex-1 max-w-[593px] lg:mt-3 lg:mb-4 h-[174px] flex-col justify-start items-start flex">
-                <HomePostItem title={hotPost?.title} category={hotPost?.category} post_id={hotPost?.post_id} created_at={hotPost?.created_at} isBestPost={true}/>
-                {newPosts?.map((newPost: HomePostItemProp) => (
-                  <HomePostItem key={newPost.post_id} title={newPost?.title} category={newPost?.category} post_id={newPost?.post_id} created_at={newPost?.created_at} isBestPost={false}/>
-                ))}
+                {!hotPost && newPosts?.length === 0 ? (
+                  <div className="
+                    lg:text-headline-m
+                  text-gray-300 text-center m-auto grow content-center text-m-body2-r">
+                    <p>등록된 게시글이 없어요.<br />커뮤니티에 게시글을 남겨보세요!</p>
+                  </div>
+                ) : (
+                  <>
+                    {hotPost &&
+                      <HomePostItem title={hotPost?.title} category={hotPost?.category} post_id={hotPost?.post_id} created_at={hotPost?.created_at} isBestPost={true} />}
+
+                    {newPosts?.map((newPost: HomePostItemProp) => (
+                      <HomePostItem key={newPost.post_id} title={newPost?.title} category={newPost?.category} post_id={newPost?.post_id} created_at={newPost?.created_at} isBestPost={false} />
+                    ))}
+                  </>
+                )}
+
+                {isError &&
+                  <div className="
+                    lg:text-headline-m
+                  text-gray-300 text-center m-auto grow content-center text-m-body2-r h-full">
+                    게시글 조회에 실패했습니다.
+                  </div>
+                }
 
               </div>
               {/* 광고 */}
