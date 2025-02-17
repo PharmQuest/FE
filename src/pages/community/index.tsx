@@ -57,7 +57,7 @@ export default function Community() {
     return response.data;
   }
 
-  const { data } = useQuery(
+  const { data, isPending } = useQuery(
     {
       queryKey: ["bestPost"],
       queryFn: getRandomBestPost,
@@ -98,7 +98,7 @@ export default function Community() {
                 <ArrowRightIcon className={`content-center mb-0.5 h-2.5`} />
               </p>
             </div>
-            <PopularPostList posts={data?.result?.postList} bgColor={"primary-50"} gap={true} />
+            <PopularPostList posts={data?.result?.postList} bgColor={"primary-50"} gap={true} isPending={isPending} listNum={3}/>
           </div>
           <div className={`lg:block hidden`}>
             <p className={`h-9 mb-3`} />

@@ -8,6 +8,7 @@ interface AuthState {
   userId: number | null;
   userName: string | null;
   provider: string | null;
+  email: string | null;
   logOut: () => void;
   checkAuth: () => void;
   setUser: () => void;
@@ -18,12 +19,13 @@ const useAuthStore = create<AuthState>((set) => ({
   userId: null,
   userName: null,
   provider: null,
+  email: null,
 
   logOut: () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     clearTokens();
-    set({ isLoggedIn: false, userId: null, userName: null, provider: null });
+    set({ isLoggedIn: false, userId: null, userName: null, provider: null, email: null });
   },
 
   checkAuth: () => {
@@ -43,10 +45,11 @@ const useAuthStore = create<AuthState>((set) => ({
         userId: userData.userId,
         userName: userData.userName,
         provider: userData.provider,
+        email: userData.email,
       });
     } catch (e) {
       console.log(e);
-      set({ isLoggedIn: false, userId: null, userName: null, provider: null });
+      set({ isLoggedIn: false, userId: null, userName: null, provider: null, email: null });
     }
   },
 }));
