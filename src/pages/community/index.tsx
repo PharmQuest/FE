@@ -99,7 +99,7 @@ export default function Community() {
                 <ArrowRightIcon className={`content-center mb-0.5 h-2.5`} />
               </p>
             </div>
-            <PopularPostList posts={[data?.result?.postList]} bgColor={"primary-50"} gap={true} isPending={isPending} isError={isError} listNum={3}/>
+            <PopularPostList posts={data?.result?.postList} bgColor={"primary-50"} gap={true} isPending={isPending} isError={isError} listNum={3}/>
           </div>
           <div className={`lg:block hidden`}>
             <p className={`h-9 mb-3`} />

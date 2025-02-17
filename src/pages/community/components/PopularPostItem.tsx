@@ -30,7 +30,6 @@ const PopularPostItem: React.FC<PopularPostItemProps> = ({
   bgColor,
 }) => {
   const router = useRouter();
-
   const date = new Date(createdAt);
   const formattedDate = isNaN(date.getTime()) ? "not date" : format(date, "yyyy.MM.dd")
 
