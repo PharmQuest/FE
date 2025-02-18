@@ -15,7 +15,7 @@ interface ApiResponse {
     amountCount: number;
     currentPage: number;
     currentCount: number;
-    supplements: Supplement[];
+    items: Supplement[];
   };
   isSuccess: boolean;
 }
@@ -32,7 +32,7 @@ interface SearchResponse {
       id: number;
       smallImageUrl: string;
     };
-    supplements: Supplement[];
+    items: Supplement[];
   };
   isSuccess: boolean;
 }
@@ -167,7 +167,7 @@ const SupplementPage: React.FC = () => {
 
   const displayData = searchQuery ? searchData?.result : data?.result;
   // const displayData = searchData?.result;
-  const supplements = displayData?.supplements || [];
+  const supplements = displayData?.items || [];
   const totalPages = displayData?.amountPage || 1;
   
   console.log("amountPage=", displayData?.amountPage);
@@ -257,7 +257,7 @@ const SupplementPage: React.FC = () => {
 
           {/* ✅ 페이지네이션 */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center align-center mt-6 space-x-8">
+            <div className="flex items-center justify-center align-center space-x-8">
               {Array.from({ length: totalPages }, (_, index) => (
                 <button
                   key={index}

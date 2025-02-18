@@ -8,9 +8,9 @@ const Warnings: React.FC<WarningsProps> = ({ warnings = [] }) => {
   return (
     <div className="p-6 bg-gray-50 rounded-lg border border-gray-100">
       {warnings.length > 0 ? (
-        <ul className="list-disc list-outside text-gray-600 text-base space-y-1">
+      <ul className="list-disc pl-5 space-y-2">
           {warnings.map((warning, idx) => (
-            <li key={idx} className="mb-1">
+            <li key={idx} className="lg:text-body1-r text-m-body2-r">
               {warning}
             </li>
           ))}
