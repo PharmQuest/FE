@@ -6,4 +6,5 @@ export interface MedicineCardProps {
   imgUrl: string;
   category: string;
   country: string;
+  scrapped: boolean;
 }
