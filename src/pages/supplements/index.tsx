@@ -63,18 +63,30 @@ const SupplementPage: React.FC = () => {
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", selectedCategory, currentPage],
     queryFn: async () => {
-      const category = selectedCategory === "전체" ? "전체" : selectedCategory;
-      
-      const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
-      
-      console.log("currentPage=", currentPage);
-      console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL); // 환경변수 확인
-      console.log("category=", category);
-      console.log("Request URL:", url); // 실제 요청 URL 확인
-
-      const response = await axiosInstance.get(url);
-      console.log("category API Response:", response.data); // 데이터
-      return response.data;
+      try {
+        const category = selectedCategory === "전체" ? "전체" : selectedCategory;
+        const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
+        
+        const response = await axiosInstance.get(url);
+        console.log("category API Response:", response.data); // 데이터
+        return response.data;
+      } catch (error) {
+        // Network Error를 포함한 모든 에러 처리
+        if (axios.isAxiosError(error)) {
+          return {
+            code: "SUPP4001",
+            message: "검색 결과가 없습니다.",
+            result: {
+              amountPage: 0,
+              amountCount: 0,
+              currentPage: 0,
+              currentCount: 0,
+              items: [],  // supplements -> items로 수정
+            },
+            isSuccess: false
+          };
+        }
+      }
     },
     staleTime: 0,
   });
@@ -97,7 +109,7 @@ const SupplementPage: React.FC = () => {
         return response.data;
       } catch (error) {
         // 404 에러인 경우 빈 결과를 반환
-        if (axios.isAxiosError(error) && error.response?.status === 404) {
+        if (axios.isAxiosError(error)) {// && error.response?.status === 404) {
           return {
             code: "SUPP4001",
             message: "검색 결과가 없습니다.",
@@ -106,7 +118,7 @@ const SupplementPage: React.FC = () => {
               amountCount: 0,
               currentPage: 0,
               currentCount: 0,
-              supplements: [],
+              items: [],
             },
             isSuccess: false
           };
@@ -229,7 +241,7 @@ const SupplementPage: React.FC = () => {
       <div className="w-full max-w-[920px] flex items-center gap-x-4 mb-4 overflow-x-auto hidden lg:flex">
         <h2 className="text-display2-b text-gray-600 whitespace-nowrap">{searchQuery ? `검색결과 ${displaySupplements.length}건` : "전체"}</h2>
         <div className="flex gap-x-2">
-          <FilterButton text="전체" isSelected={selectedCategory === "전체"} onClickFn={() => handleFilterClick("전체")} />
+          <FilterButton text="전" isSelected={selectedCategory === "전체"} onClickFn={() => handleFilterClick("전체")} />
           <FilterButton text="면역력강화" isSelected={selectedCategory === "면역"} onClickFn={() => handleFilterClick("면역")} />
           <FilterButton text="피로회복" isSelected={selectedCategory === "피로"} onClickFn={() => handleFilterClick("피로")} />
           <FilterButton text="소화건강" isSelected={selectedCategory === "소화"} onClickFn={() => handleFilterClick("소화")} />
