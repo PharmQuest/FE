@@ -1,18 +1,9 @@
 import React from "react";
 import MedicineCard from "./MedicineCard";
-
-interface Medicine {
-  medicineTableId: number;
-  brandName: string;
-  genericName: string;
-  splSetId: string;
-  imgUrl: string;
-  category: string;
-  country: string;
-}
+import { MedicineCardProps } from "@/types/medicine";
 
 interface MedicineCardListProps {
-  medicines: Medicine[];
+  medicines: MedicineCardProps[];
 }
 
 const MedicineCardList: React.FC<MedicineCardListProps> = ({
