@@ -40,6 +40,7 @@ const SearchModal = ({
     {value:"ALL", text:"전체", isSelected:true},
     {value:"KOREA", text:"한국", isSelected:false},
     {value:"USA", text:"미국", isSelected:false},
+    {value:"JAP", text:"일본", isSelected:false},
   ]
   
   const segments = router.pathname.split("/");
