@@ -8,6 +8,7 @@ import InfoRow from "./InfoRow";
 import Section from "./Section";
 import useModalStore from "@/store/useModalStore";
 import { useMedicineScrap } from "@/hooks/medicine/useMedicineScrap";
+import Loader from "@/components/common/Loader";
 
 interface MedicineDetailResponse {
   code: string;
@@ -64,11 +65,7 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-gray-500">로딩 중...</div>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (isError) {

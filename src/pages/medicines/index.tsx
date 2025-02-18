@@ -4,6 +4,7 @@ import { useMedicineList } from "@/hooks/medicine/useMedicineList";
 import useFormatCategory from "@/hooks/medicine/useFormatMedicineCategory";
 import { useState } from "react";
 import PageNavigator from "../community/components/PageNavigator";
+import Loader from "@/components/common/Loader";
 
 const FILTER_CATEGORY = [
   "전체",
@@ -28,11 +29,7 @@ const Medicine = () => {
   });
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-gray-500">로딩 중...</div>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (isError) {
