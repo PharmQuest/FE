@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import InfoRow from "./InfoRow";
 import Section from "./Section";
 import useModalStore from "@/store/useModalStore";
+import { useMedicineScrap } from "@/hooks/medicine/useMedicineScrap";
 
 interface MedicineDetailResponse {
   code: string;
@@ -24,6 +25,7 @@ interface MedicineDetailResponse {
     category: string;
     country: string;
     warnings: string;
+    scrapped: boolean;
   };
   isSuccess: boolean;
 }
@@ -36,14 +38,8 @@ const formatText = (text: string): string[] => {
 
 const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
   const router = useRouter();
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const [imgSrc, setImgSrc] = useState("/images/no_image.webp");
   const { setNoticeModalText, setIsNoticeModalOpen } = useModalStore();
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setNoticeModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.");
-    setIsNoticeModalOpen(true);
-  };
 
   const { data, isLoading, isError } = useQuery<MedicineDetailResponse>({
     queryKey: ["medicine", medicineId],
@@ -53,7 +49,19 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
       );
       return response.data;
     },
+    staleTime: 0,
   });
+
+  const { isScraped, toggleScrap } = useMedicineScrap(
+    parseInt(medicineId, 10),
+    data?.result?.scrapped ?? false
+  );
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setNoticeModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.");
+    setIsNoticeModalOpen(true);
+  };
 
   if (isLoading) {
     return (
@@ -73,10 +81,6 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
 
   const result = data?.result;
 
-  const handleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-  };
-
   const handleBack = () => {
     router.back();
   };
@@ -92,13 +96,13 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
         <div className="flex gap-4">
           <BookmarkIcon
             className="w-6 cursor-pointer"
-            stroke={isBookmarked ? "#FFD755" : "#707070"}
-            fill={isBookmarked ? "#FFD755" : "none"}
-            onClick={handleBookmark}
+            stroke={isScraped ? "#FFD755" : "#707070"}
+            fill={isScraped ? "#FFD755" : "none"}
+            onClick={toggleScrap}
           />
           <ExternalIcon
             className="w-6 text-gray-400 cursor-pointer"
-            onClick={() => copyLink()}
+            onClick={copyLink}
           />
         </div>
       </div>
@@ -111,8 +115,8 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
             제품 기본 정보
           </h1>
           <div
-            className="flex items-center  gap-2 text-gray-400 cursor-pointer"
-            onClick={() => copyLink()}
+            className="flex items-center gap-2 text-gray-400 cursor-pointer"
+            onClick={copyLink}
           >
             <ExternalIcon className="w-6" />
             <p className="text-subhead1-sb">URL 복사</p>
@@ -144,7 +148,10 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
             </p>
             <div className="flex flex-col md:gap-2 text-gray-400 md:mt-8">
               <InfoRow label="일반명" value={result?.genericName || ""} />
-              <InfoRow label="주요성분" value={result?.activeIngredient || ""} />
+              <InfoRow
+                label="주요성분"
+                value={result?.activeIngredient || ""}
+              />
               <InfoRow label="분류" value={result?.category || ""} />
             </div>
           </div>
@@ -152,9 +159,9 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
           {/* Desktop Bookmark */}
           <BookmarkIcon
             className="hidden md:block w-7 cursor-pointer self-start"
-            stroke={isBookmarked ? "#FFD755" : "#707070"}
-            fill={isBookmarked ? "#FFD755" : "none"}
-            onClick={handleBookmark}
+            stroke={isScraped ? "#FFD755" : "#707070"}
+            fill={isScraped ? "#FFD755" : "none"}
+            onClick={toggleScrap}
           />
         </div>
 
@@ -165,14 +172,16 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
                 {sentence}
               </li>
             ))}
-            {formatText(result?.indicationsAndUsage || "").map((sentence, index) => (
-              <li
-                key={`usage-${index}`}
-                className="lg:text-body1-r text-m-body2-r"
-              >
-                {sentence}
-              </li>
-            ))}
+            {formatText(result?.indicationsAndUsage || "").map(
+              (sentence, index) => (
+                <li
+                  key={`usage-${index}`}
+                  className="lg:text-body1-r text-m-body2-r"
+                >
+                  {sentence}
+                </li>
+              )
+            )}
           </ul>
         </Section>
 
