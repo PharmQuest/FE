@@ -113,18 +113,20 @@ export default function SupplementCard({
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/20 rounded-lg"></div>
 
         {/* 북마크 버튼 */}
-        <button
-          className="absolute bottom-2 right-2 flex justify-center items-center"
-          aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}
-          onClick={(e) => !ad && handleBookmarkClick(e)}
-          disabled={ad}
-        >
-          <BookmarkIcon
-            className={`w-[30px] h-[30px] ${ad ? 'opacity-50' : ''}`}
-            stroke={bookmarked ? "#FFD755" : "white"}
-            fill={bookmarked ? "#FFD755" : "none"}
-          />
-        </button>
+        {!ad && (
+          <button
+            className="absolute bottom-2 right-2 flex justify-center items-center"
+            aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}
+            onClick={(e) => !ad && handleBookmarkClick(e)}
+            disabled={ad}
+          >
+            <BookmarkIcon
+              className={`w-[30px] h-[30px] ${ad ? 'opacity-50' : ''}`}
+              stroke={bookmarked ? "#FFD755" : "white"}
+              fill={bookmarked ? "#FFD755" : "none"}
+            />
+          </button>
+        )}
       </div>
 
       {/* 텍스트 정보 */}
