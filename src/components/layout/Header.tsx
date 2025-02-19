@@ -206,8 +206,6 @@ const Header = () => {
           )}
 
           <div className={`flex gap-4 justify-end w-[104px]`}>
-            {!isHome && title === "" && segment[1] !== "community" &&
-              <SearchBoldIcon className={`w-5 cursor-pointer`} />}
             {!isHome &&
               <HomeIcon
                 className={`text-gray-600 w-6 cursor-pointer`}

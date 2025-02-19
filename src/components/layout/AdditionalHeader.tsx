@@ -56,7 +56,7 @@ const AdditionalHeader = ({
   return (
     <>
       {currentTitle !== "" ? (
-        <div className={`bg-background flex flex-col sticky top-0 z-[500] ${segments[2] === "activities" && `lg:pb-[30px]`}`}>
+        <div className={`bg-background flex flex-col sticky top-0 z-[500] ${(segments[2] === "activities" || segments[1] === "mypage") && `lg:pb-[30px]`}`}>
           {children}
           <div
             className={`
@@ -79,7 +79,7 @@ const AdditionalHeader = ({
 
             {!isHome &&
               <>
-                {segments[2] !== "activities" &&
+                {segments[2] !== "activities" && segments[1] !== "mypage" &&
                   <div className={`${segments[2] &&
                     segments[2] !== "posts" &&
                     segments[2] !== "bestposts" &&
@@ -89,7 +89,7 @@ const AdditionalHeader = ({
                   </div>
                 }
 
-                {(segments.length < 3 || segments[2] === "posts") &&
+                {(segments.length < 3 || segments[2] === "posts") && segments[1] !== "mypage" &&
                   <div className={`lg:hidden`}>
                     <FilterButtonList filterList={filterList} className={`md:px-0 px-5 mb-4`} />
                   </div>
