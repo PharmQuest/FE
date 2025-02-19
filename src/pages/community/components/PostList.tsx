@@ -171,6 +171,24 @@ const PostList: React.FC<PostListProps> = ({
     }
   }
 
+  const handleDeletePost = async (postId: number) => {
+    try {
+      await axiosInstance.delete(`${process.env.NEXT_PUBLIC_DOMAIN}/community/posts`, {
+        params: {
+          postIds: postId
+        },
+        paramsSerializer: (params) => {
+          return new URLSearchParams(params).toString();
+        }
+      })
+      queryClient.invalidateQueries({ queryKey: ['myPosts', page] })
+      setNoticeModalText(`1개의 게시글을 삭제하였습니다.`)
+      setIsNoticeModalOpen(true);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const handleUnscrapPosts = async () => {
     if (selectedIds && selectedIds?.length > 0) {
       try {
@@ -289,7 +307,6 @@ const PostList: React.FC<PostListProps> = ({
             게시글 조회에 실패했습니다.
           </div>
         ) : (
-
 
           <>
             <div className={`${(isMyPostPage || isMyScrapPage) && `lg:pl-8`} lg:grid py-3 hidden grid-cols-[1fr_7fr_6fr] gap-2 justify-items-center text-subhead1-sb text-gray-500 border-b border-solid border-gray-300`}>
@@ -419,7 +436,7 @@ const PostList: React.FC<PostListProps> = ({
                       {isOnEdit &&
                         <button
                           className={`min-w-[45px] w-[45px] h-[26px] rounded text-m-subhead2-sb text-gray-400 px-3 py-1 bg-gray-100`}
-                          onClick={() => handleUnscrapPost(post.postId)}>
+                          onClick={() => isMyPostPage ? handleDeletePost(post.postId) : handleUnscrapPost(post.postId)}>
                           {isMyPostPage ? `삭제` : `취소`}
                         </button>
                       }
