@@ -11,6 +11,7 @@ interface ScrapResponse {
     supplementId: number;
     scrapCount: number;
     message: string;
+    selectCategories: string[];
     scrapped: boolean;
   };
   isSuccess: boolean;
@@ -25,6 +26,7 @@ interface SupplementCardProps {
   width?: number;
   src?: string;
   onBookmarkToggle?: (id: number) => void;
+  ad?: boolean;
 }
 
 export default function SupplementCard({
@@ -36,6 +38,7 @@ export default function SupplementCard({
   width = 160,
   src = "/images/no_image.webp",
   onBookmarkToggle,
+  ad = false,
 }: SupplementCardProps) {
   const [bookmarked, setBookmarked] = useState(scrapped);
   const [imgSrc, setImgSrc] = useState(src || "/images/no_image.webp");
@@ -82,12 +85,13 @@ export default function SupplementCard({
 
   return (
     <div
-      className="flex flex-col justify-start items-start"
+      className={`flex flex-col justify-start items-start ${ad ? 'cursor-default' : 'cursor-pointer'}`}
       style={{
         width: `${width}px`,
         height: `226px`,
       }}
     >
+
       <div
         className="relative bg-gray-100 rounded-lg"
         style={{
@@ -112,10 +116,11 @@ export default function SupplementCard({
         <button
           className="absolute bottom-2 right-2 flex justify-center items-center"
           aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}
-          onClick={handleBookmarkClick}
+          onClick={(e) => !ad && handleBookmarkClick(e)}
+          disabled={ad}
         >
           <BookmarkIcon
-            className="w-[30px] h-[30px]"
+            className={`w-[30px] h-[30px] ${ad ? 'opacity-50' : ''}`}
             stroke={bookmarked ? "#FFD755" : "white"}
             fill={bookmarked ? "#FFD755" : "none"}
           />
@@ -139,7 +144,7 @@ export default function SupplementCard({
 
         {/* 태그 영역 */}
         <div className="flex flex-nowrap gap-1.5 overflow-hidden overflow-x-auto scrollbar-hide whitespace-nowrap">
-          {categories.map((tag, idx) => (
+          {categories?.map((tag, idx) => (
             <div
               key={idx}
               className="px-2 py-0.5 bg-primary-50 rounded text-subhead2-sb text-gray-500 flex items-center"

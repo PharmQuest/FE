@@ -55,6 +55,7 @@ interface ScrapResponse {
     supplementId: number;
     scrapCount: number;
     message: string;
+    selectCategories: string[];
     scrapped: boolean;
   };
   isSuccess: boolean;
@@ -173,32 +174,31 @@ const SupplementInfo: React.FC = () => {
     <>
     {data && (
       <>
-        <div
-          className={`
-            xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto
-            md:shadow-none
-            text-m-headline1-b flex items-center justify-between text-gray-600 py-5 top-0 bg-white shadow-[0px_2px_5px_0px_rgba(0,0,0,0.05)]`}>
-          <div className={`flex gap-3 sm:px-4`} onClick={() => router.back()}>
-            <LeftArrowIcon className={`w-[24px] lg:hidden sm:pl-[-20px]`} />
-            <p className="lg:text-display2-b">
-              제품 기본 정보
-            </p>
+        <div className="md:hidden text-m-headline1-b flex items-center justify-between text-gray-600 py-4 px-5 top-0 bg-white shadow-md">
+          <div className="flex gap-3 items-center">
+            <LeftArrowIcon className="w-6 cursor-pointer" onClick={() => router.back()} />
+            <h1>제품 기본 정보</h1>
           </div>
-          {/* 모바일 화면 북마크 */}
-          <div className={`flex gap-4 items-center`}>
-            <button onClick={() => handleBookmarkToggle} aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}>
-              <BookmarkIcon 
-                            stroke={bookmarked ? "#FFD755" : "#707070"}
-                            fill={bookmarked ? "#FFD755" : "none"}
-                            className={`w-6 md:hidden`} />
-            </button>
-            <div onClick={copyToClipboard}>
-              <ExternalIcon className={`w-6 text-gray-400 mr-4 md:p-0`}/>            
-            </div>
+          <div className="flex gap-4">
+            <BookmarkIcon 
+              className="w-6 cursor-pointer"  
+              stroke={bookmarked ? "#FFD755" : "#707070"}
+              fill={bookmarked ? "#FFD755" : "none"}
+              onClick={() => handleBookmarkToggle(id)}
+            />
+            <ExternalIcon className="w-6 text-gray-400 cursor-pointer" onClick={copyToClipboard} />
           </div>
         </div>
-        <div className="relative xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 py-8">
-          <div className="flex flex-col gap-10">
+
+        <div className="hidden md:flex md:justify-between md:items-center md:mt-9 lg:w-[900px] lg:mx-auto md:w-[600px] md:mx-auto">
+          <h1 className="lg:text-display2-b text-headline-b text-gray-500">제품 기본 정보</h1>
+          <div className="flex items-center gap-2 text-gray-400 cursor-pointer" onClick={copyToClipboard}>
+            <ExternalIcon className="w-6" />
+            <p className="text-subhead2-sb">URL 복사</p>
+          </div>
+        </div>
+        <div className="relative xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5">
+          <div className="flex flex-col">
             <div className="relative">
               {/* 제품 정보 컴포넌트 */}
               <ProductBasicInfo
@@ -215,20 +215,20 @@ const SupplementInfo: React.FC = () => {
             </div>
 
             {/* 사용 목적 */}
-            <div>
-              <h2 className="text-display2-b text-gray-600 mb-4">사용 목적</h2>
+            <div className="md:mt-[60px] mt-6">
+              <h2 className="lg:text-gray-600 lg:text-display2-b text-black text-m-headline2-b mb-4">사용 목적</h2>
               <UsagePurpose content={data?.result.purpose} />
             </div>
 
             {/* 복용법 */}
-            <div>
-              <h2 className="text-display2-b text-gray-600 mb-4">복용법</h2>
+            <div className="md:mt-[60px] mt-6">
+            <h2 className="lg:text-gray-600 lg:text-display2-b text-black text-m-headline2-b mb-4">복용법</h2>
               <UsageInstructions instructions={data?.result.dosage} />
             </div>
 
             {/* 경고 및 주의사항 */}
-            <div>
-              <h2 className="text-display2-b text-gray-600 mb-4">경고 및 주의사항</h2>
+            <div className="md:mt-[60px] mt-6">
+            <h2 className="lg:text-gray-600 lg:text-display2-b text-black text-m-headline2-b mb-4">경고 및 주의사항</h2>
               <Warnings warnings={data?.result.warning} />
             </div>
 

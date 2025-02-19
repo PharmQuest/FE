@@ -15,7 +15,7 @@ interface ApiResponse {
     amountCount: number;
     currentPage: number;
     currentCount: number;
-    supplements: Supplement[];
+    items: Supplement[];
   };
   isSuccess: boolean;
 }
@@ -32,12 +32,14 @@ interface SearchResponse {
       id: number;
       smallImageUrl: string;
     };
-    supplements: Supplement[];
+    items: Supplement[];
   };
   isSuccess: boolean;
 }
 
 interface Supplement {
+  type: string;
+  ad: boolean;
   id: number;
   name: string;
   country: string;
@@ -61,18 +63,30 @@ const SupplementPage: React.FC = () => {
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", selectedCategory, currentPage],
     queryFn: async () => {
-      const category = selectedCategory === "전체" ? "전체" : selectedCategory;
-      
-      const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
-      
-      console.log("currentPage=", currentPage);
-      console.log("Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL); // 환경변수 확인
-      console.log("category=", category);
-      console.log("Request URL:", url); // 실제 요청 URL 확인
-
-      const response = await axiosInstance.get(url);
-      console.log("category API Response:", response.data); // 데이터
-      return response.data;
+      try {
+        const category = selectedCategory === "전체" ? "전체" : selectedCategory;
+        const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
+        
+        const response = await axiosInstance.get(url);
+        console.log("category API Response:", response.data); // 데이터
+        return response.data;
+      } catch (error) {
+        // Network Error를 포함한 모든 에러 처리
+        if (axios.isAxiosError(error)) {
+          return {
+            code: "SUPP4001",
+            message: "검색 결과가 없습니다.",
+            result: {
+              amountPage: 0,
+              amountCount: 0,
+              currentPage: 0,
+              currentCount: 0,
+              items: [],  // supplements -> items로 수정
+            },
+            isSuccess: false
+          };
+        }
+      }
     },
     staleTime: 0,
   });
@@ -95,7 +109,7 @@ const SupplementPage: React.FC = () => {
         return response.data;
       } catch (error) {
         // 404 에러인 경우 빈 결과를 반환
-        if (axios.isAxiosError(error) && error.response?.status === 404) {
+        if (axios.isAxiosError(error)) {// && error.response?.status === 404) {
           return {
             code: "SUPP4001",
             message: "검색 결과가 없습니다.",
@@ -104,7 +118,7 @@ const SupplementPage: React.FC = () => {
               amountCount: 0,
               currentPage: 0,
               currentCount: 0,
-              supplements: [],
+              items: [],
             },
             isSuccess: false
           };
@@ -167,7 +181,7 @@ const SupplementPage: React.FC = () => {
 
   const displayData = searchQuery ? searchData?.result : data?.result;
   // const displayData = searchData?.result;
-  const supplements = displayData?.supplements || [];
+  const supplements = displayData?.items || [];
   const totalPages = displayData?.amountPage || 1;
   
   console.log("amountPage=", displayData?.amountPage);
@@ -249,7 +263,7 @@ const SupplementPage: React.FC = () => {
           {/* ✅ 검색 결과 리스트 */}
           <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-5">
             {displaySupplements.map((supplement) => (
-              <div key={supplement.id} onClick={() => handleCardClick(supplement.id)}>
+              <div key={supplement.id} onClick={() => !supplement.ad && handleCardClick(supplement.id)}>
                 <SupplementCard key={supplement.id} {...supplement} src={supplement.image}/>
               </div>
             ))}
@@ -257,7 +271,7 @@ const SupplementPage: React.FC = () => {
 
           {/* ✅ 페이지네이션 */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center align-center mt-6 space-x-8">
+            <div className="flex items-center justify-center align-center space-x-8">
               {Array.from({ length: totalPages }, (_, index) => (
                 <button
                   key={index}

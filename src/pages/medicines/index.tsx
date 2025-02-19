@@ -45,7 +45,7 @@ const Medicine = () => {
 
   return (
     <>
-      <div className="lg:w-[900px] lg:mx-auto md:w-[600px] md:mx-auto sm:w-full min-h-[calc(100vh-412px)] w-full px-5">
+      <div className="lg:w-[900px] lg:mx-auto md:w-[600px] md:mx-auto sm:w-full min-h-[calc(100vh-412px)] w-full px-5 md:px-0">
         <div className="md:text-display2-b md:my-9 text-m-subhead1-sb flex items-center gap-3 w-100% my-3">
           <h1 className="min-w-fit">{selectedCategory}</h1>
 
