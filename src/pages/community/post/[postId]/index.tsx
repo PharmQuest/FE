@@ -19,7 +19,7 @@ export default function Post() {
   const router = useRouter();
 
   const [commentPage, setCommentPage] = useState(1);
-  const {formatCategory} = useFormatCategory()
+  const { formatCategory } = useFormatCategory()
 
   const { isLoggedIn } = useAuthStore();
 
@@ -96,10 +96,13 @@ export default function Post() {
                 flex items-center gap-2 text-m-headline1-b text-gray-600 mb-3">
               같은 주제 게시글
               <ArrowRightIcon
-                  className={`
+                className={`
                     lg:hidden
                     content-center mb-0.5 h-3`}
-                  onClick={() => router.push('/community/posts')} />
+                onClick={() => router.push({
+                  pathname: '/community/posts',
+                  query: { category: formatCategory(postItem?.category) }
+                })} />
             </p>
             <p
               className={`
