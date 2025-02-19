@@ -117,11 +117,10 @@ export default function SupplementCard({
           <button
             className="absolute bottom-2 right-2 flex justify-center items-center"
             aria-label={bookmarked ? "북마크 해제" : "북마크 추가"}
-            onClick={(e) => !ad && handleBookmarkClick(e)}
-            disabled={ad}
+            onClick={(e) => handleBookmarkClick(e)}
           >
             <BookmarkIcon
-              className={`w-[30px] h-[30px] ${ad ? 'opacity-50' : ''}`}
+              className={`w-[30px] h-[30px]`}
               stroke={bookmarked ? "#FFD755" : "white"}
               fill={bookmarked ? "#FFD755" : "none"}
             />
