@@ -60,7 +60,7 @@ export default function Login() {
 
     try {
       clearTokens();
-      window.location.href = `/oauth2/code/${provider}`;
+      window.location.href = `/login/oauth2/code/${provider}`;
     } catch (error) {
       console.error("로그인 요청 실패:", error);
     } finally {
