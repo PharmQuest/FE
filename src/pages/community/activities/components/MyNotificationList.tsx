@@ -2,7 +2,7 @@ import React, { Dispatch } from "react";
 import MyNotificationItem from "./MyNotificationItem";
 import { axiosInstance } from "@/apis/axios-instance";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import PageNavigator from "../../components/PageNavigator";
+import PageNavigator from "../../../../components/common/PageNavigator";
 
 interface Notification {
   postId: number;

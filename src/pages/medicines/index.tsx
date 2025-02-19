@@ -3,7 +3,7 @@ import MedicineCardList from "@/components/common/MedicineCardList";
 import { useMedicineList } from "@/hooks/medicine/useMedicineList";
 import useFormatCategory from "@/hooks/medicine/useFormatMedicineCategory";
 import { useState } from "react";
-import PageNavigator from "../community/components/PageNavigator";
+import PageNavigator from "../../components/common/PageNavigator";
 
 const FILTER_CATEGORY = [
   "전체",

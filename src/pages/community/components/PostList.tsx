@@ -1,7 +1,7 @@
 
 import PostItem from "./PostItem";
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
-import PageNavigator from "./PageNavigator";
+import PageNavigator from "../../../components/common/PageNavigator";
 import SkeletonList from "./SkeletonList";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import MobilePostItem from "./MobilePostItem";

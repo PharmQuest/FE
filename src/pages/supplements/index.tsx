@@ -2,10 +2,10 @@ import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import SupplementCard from "@/components/common/SupplementCard";
 import FilterButton from "@/components/common/FilterButton";
-import { ArrowRightIcon } from "@public/svgs";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import PageNavigator from "@/components/common/PageNavigator";
 
 interface ApiResponse {
   code: string;
@@ -59,14 +59,14 @@ const SupplementPage: React.FC = () => {
   const country = router.query.country as string || ""; // "", "KOREA", "USA", "JAPAN" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("전체");
-  
+
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", selectedCategory, currentPage],
     queryFn: async () => {
       try {
         const category = selectedCategory === "전체" ? "전체" : selectedCategory;
         const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
-        
+
         const response = await axiosInstance.get(url);
         console.log("category API Response:", response.data); // 데이터
         return response.data;
@@ -98,7 +98,7 @@ const SupplementPage: React.FC = () => {
   };
 
   const countryParam = (country === "NONE" || country === "ALL") ? "" : country;
-  const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
+  const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error: searchError } = useQuery<SearchResponse>({
     queryKey: ["supplements-search", searchQuery, currentPage, countryParam],
     queryFn: async () => {
       try {
@@ -169,7 +169,7 @@ const SupplementPage: React.FC = () => {
   //   },
   //   enabled: router.isReady && Boolean(searchQuery)
   // });
-  
+
   if (isLoading)
     console.warn("카테고리 영양제 로딩 중..");
   if (isSearchLoading)
@@ -180,11 +180,11 @@ const SupplementPage: React.FC = () => {
     console.error("isSearchError=", searchError);
 
   const displayData = searchQuery ? searchData?.result : data?.result;
-  
+
   const supplements = useMemo(() => displayData?.items || [], [displayData]);
 
   const totalPages = displayData?.amountPage || 1;
-  
+
   console.log("amountPage=", displayData?.amountPage);
 
   const handleCardClick = (id: number) => {
@@ -208,8 +208,8 @@ const SupplementPage: React.FC = () => {
       return supplements;
     } else {
       // 검색 결과인 경우 카테고리 필터링 적용
-      return supplements.filter(supplement => 
-        selectedCategory === "전체" || 
+      return supplements.filter(supplement =>
+        selectedCategory === "전체" ||
         supplement.selectCategories?.includes(selectedCategory)
       );
     }
@@ -265,35 +265,18 @@ const SupplementPage: React.FC = () => {
           <div className="w-full py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-5">
             {displaySupplements.map((supplement) => (
               <div key={supplement.id} onClick={() => !supplement.ad && handleCardClick(supplement.id)}>
-                <SupplementCard key={supplement.id} {...supplement} src={supplement.image}/>
+                <SupplementCard key={supplement.id} {...supplement} src={supplement.image} />
               </div>
             ))}
           </div>
 
           {/* ✅ 페이지네이션 */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center align-center space-x-8">
-              {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentPage(index + 1)}
-                  className={`text-subhead1-sb ${
-                    currentPage === index + 1 ? "text-secondary-500" : "text-gray-300"
-                  }`}
-                >
-                  {index + 1}
-                </button>
-              ))}
-
-              <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                className="flex flex-col align-center"
-                disabled={currentPage === totalPages}
-              >
-                <ArrowRightIcon className="w-5 h-3 text-gray-300" />
-              </button>
-            </div>
-          )}
+          <PageNavigator
+            totalPage={totalPages}
+            isFirst={currentPage === 1}
+            isLast={currentPage === totalPages}
+            page={currentPage}
+            setPage={setCurrentPage} />
         </>
       )}
     </div>
