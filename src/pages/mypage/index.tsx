@@ -15,6 +15,48 @@ interface Medicine {
   type: string;
 }
 
+interface MedicineResponse {
+  code: string;
+  message: string;
+  result: {
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    content: {
+      id: number;
+      productName: string;
+      generalName: string;
+      productImage: string;
+      categories: string;
+      country: string;
+      scrapped: boolean;
+    }[];
+    number: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      paged: boolean;
+      pageNumber: number;
+      pageSize: number;
+      unpaged: boolean;
+    };
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+  };
+  isSuccess: boolean;
+}
+
 interface PharmacyResponse {
   code: string;
   message: string;
@@ -80,16 +122,16 @@ interface SupplementResponse {
 }
 
 interface MyPageProps {
-  medicines?: Medicine[];
+  // medicines?: Medicine[];
   // pharmacys?: Pharmacy[];
   // supplements?: Supplement[];
 }
 
 const MyPage: React.FC<MyPageProps> = ({
-  medicines = [
-    { id: 1, name: "타이레놀", type: "진통제" },
-    { id: 2, name: "판피린", type: "감기약" },
-  ],
+  // medicines = [
+  //   { id: 1, name: "타이레놀", type: "진통제" },
+  //   { id: 2, name: "판피린", type: "감기약" },
+  // ],
 }) => {
 
   const router = useRouter();
@@ -105,6 +147,31 @@ const MyPage: React.FC<MyPageProps> = ({
       router.push("/login")
     }
   }, [isLoggedIn])
+
+  const { data: medicineData, isLoading: isMedLoading } = useQuery<MedicineResponse>({
+    queryKey: ["mypageMedicines"],
+    queryFn: async () => {
+      const response = await axiosInstance.get(
+        `/mypage/medicine?page=1&country=${encodeURIComponent("전체")}`
+      );
+      console.log("mypage medicine=", response.data);
+      return response.data;
+    },
+  });
+  if (isMedLoading)
+    console.warn("마이페이지 상비약 로딩 중..");
+  const [medicines, setMedicines] = useState<MedicineResponse['result']['content']>([]);
+  
+  useEffect(() => {
+    if (medicineData?.result?.content) {
+      setMedicines(medicineData.result.content);
+    }
+  }, [medicineData]);
+  
+  const handleMedicineBookmarkToggle = (id: number) => {
+    setMedicines(prev => prev.filter(medicine => medicine.id !== id));
+  };
+  
 
   const { data: pharmacyData, isLoading:isPharLoading } = useQuery<PharmacyResponse>({
     queryKey: ["mypagePharmacys"],
@@ -150,7 +217,7 @@ const MyPage: React.FC<MyPageProps> = ({
     }
   }, [supplementsData]);
 
-  const handleBookmarkToggle = (id: number) => {
+  const handleSupplementBookmarkToggle = (id: number) => {
     setSupplements(prev => prev.filter(supplement => supplement.id !== id));
   };
 
@@ -197,8 +264,8 @@ const MyPage: React.FC<MyPageProps> = ({
         </div>
         {medicines.length > 0 ? (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-            {medicines.map((medicine) => (
-              <MedicineCard medicineTableId={0} brandName={""} genericName={""} splSetId={""} imgUrl={""} category={""} country={""} key={medicine.id} {...medicine} />
+            {medicines.slice(0, 4).map((medicine) => (
+              <MedicineCard key={medicine.id} {...medicine} medicineTableId={medicine.id} brandName={medicine.productName} genericName={medicine.generalName} splSetId={""} imgUrl={medicine.productImage} category={medicine.categories} country={medicine.country} />
             ))}
           </div>
         ) : (
@@ -229,7 +296,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 md:text-body1-r text-m-body1-r text-left md:text-center">
             저장한 약국이 없어요. <br />
-            <Link href="/pharmacys" className="text-gray-400 underline">
+            <Link href="/map" className="text-gray-400 underline">
               약국 찾기
             </Link>
             에서 항목을 추가해보세요!
@@ -248,7 +315,7 @@ const MyPage: React.FC<MyPageProps> = ({
         {supplements.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {supplements.slice(0, 10).map((supplement) => (
-              <SupplementCard key={supplement.id} {...supplement} src={supplement.image} onBookmarkToggle={handleBookmarkToggle}/>
+              <SupplementCard key={supplement.id} {...supplement} src={supplement.image} onBookmarkToggle={handleSupplementBookmarkToggle}/>
             ))}
           </div>
         ) : (
