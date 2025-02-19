@@ -56,7 +56,7 @@ const MyMedicinesPage = () => {
       {data?.result?.length > 0 ? (
         <>
           <div className="w-full py-5 grid grid-cols-1 lg:grid-cols-2 gap-4 flex-grow lg:py-9">
-            {data?.result?.length.map((_, index: number) => (
+            {data?.result?.map((index: number) => (
               <MedicineCard 
                 key={index} 
                 medicineTableId={0} 

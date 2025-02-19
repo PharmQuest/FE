@@ -3,7 +3,7 @@ import SupplementCard from "@/components/common/SupplementCard";
 import FilterButton from "@/components/common/FilterButton";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { ArrowRightIcon, LeftArrow } from "@public/svgs";
+import { LeftArrow } from "@public/svgs";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axios-instance";
 import PageNavigator from "@/components/common/PageNavigator";
