@@ -52,15 +52,15 @@ export default function Login() {
     if (loading) return;
     setLoading(true);
 
-    if (!API_BASE_URL) {
-      console.error("로그인 URL이 설정되지 않았습니다.");
-      setLoading(false);
-      return;
-    }
+    // if (!API_BASE_URL) {
+    //   console.error("로그인 URL이 설정되지 않았습니다.");
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       clearTokens();
-      window.location.href = `${API_BASE_URL}/oauth2/code/${provider}`;
+      window.location.href = `${API_BASE_URL}/oauth2/authorization/${provider}`;
     } catch (error) {
       console.error("로그인 요청 실패:", error);
     } finally {
