@@ -296,7 +296,7 @@ const MyPage: React.FC<MyPageProps> = ({
         ) : (
           <p className="text-gray-400 md:text-body1-r text-m-body1-r text-left md:text-center">
             저장한 약국이 없어요. <br />
-            <Link href="/pharmacys" className="text-gray-400 underline">
+            <Link href="/map" className="text-gray-400 underline">
               약국 찾기
             </Link>
             에서 항목을 추가해보세요!
