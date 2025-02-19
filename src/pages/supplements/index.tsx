@@ -180,8 +180,9 @@ const SupplementPage: React.FC = () => {
     console.error("isSearchError=", searchError);
 
   const displayData = searchQuery ? searchData?.result : data?.result;
-  // const displayData = searchData?.result;
-  const supplements = displayData?.items || [];
+  
+  const supplements = useMemo(() => displayData?.items || [], [displayData]);
+
   const totalPages = displayData?.amountPage || 1;
   
   console.log("amountPage=", displayData?.amountPage);
