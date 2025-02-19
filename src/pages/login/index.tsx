@@ -46,7 +46,7 @@ export default function Login() {
     }
   }, [router.isReady, access_token, refresh_token]);
 
-  // const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleLogin = async (provider: "kakao" | "naver" | "google") => {
     if (loading) return;
@@ -60,7 +60,7 @@ export default function Login() {
 
     try {
       clearTokens();
-      window.location.href = `/login/oauth2/code/${provider}`;
+      window.location.href = `${API_BASE_URL}/oauth2/authorization/${provider}`;
     } catch (error) {
       console.error("로그인 요청 실패:", error);
     } finally {
