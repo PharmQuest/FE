@@ -9,12 +9,6 @@ import { useRouter } from "next/router";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 
-interface Medicine {
-  id: number;
-  name: string;
-  type: string;
-}
-
 interface MedicineResponse {
   code: string;
   message: string;
@@ -121,18 +115,7 @@ interface SupplementResponse {
   isSuccess: boolean;
 }
 
-interface MyPageProps {
-  // medicines?: Medicine[];
-  // pharmacys?: Pharmacy[];
-  // supplements?: Supplement[];
-}
-
-const MyPage: React.FC<MyPageProps> = ({
-  // medicines = [
-  //   { id: 1, name: "타이레놀", type: "진통제" },
-  //   { id: 2, name: "판피린", type: "감기약" },
-  // ],
-}) => {
+const MyPage = () => {
 
   const router = useRouter();
 
@@ -168,11 +151,6 @@ const MyPage: React.FC<MyPageProps> = ({
     }
   }, [medicineData]);
   
-  const handleMedicineBookmarkToggle = (id: number) => {
-    setMedicines(prev => prev.filter(medicine => medicine.id !== id));
-  };
-  
-
   const { data: pharmacyData, isLoading:isPharLoading } = useQuery<PharmacyResponse>({
     queryKey: ["mypagePharmacys"],
     queryFn: async () => {

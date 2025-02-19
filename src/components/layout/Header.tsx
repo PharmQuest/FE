@@ -7,7 +7,6 @@ import {
   MenuLogoIcon,
   AccountCircleIcon,
   HomeIcon,
-  SearchBoldIcon,
 } from "@public/svgs";
 import useAuthStore from "@/store/useAuthStore";
 import Sidebar from "./Sidebar";
@@ -17,7 +16,6 @@ const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathName = router.pathname;
-  const segment = pathName.split("/")
 
   const isHome = pathName === "/" ? true : false;
 
@@ -206,8 +204,6 @@ const Header = () => {
           )}
 
           <div className={`flex gap-4 justify-end w-[104px]`}>
-            {!isHome && title === "" && segment[1] !== "community" &&
-              <SearchBoldIcon className={`w-5 cursor-pointer`} />}
             {!isHome &&
               <HomeIcon
                 className={`text-gray-600 w-6 cursor-pointer`}

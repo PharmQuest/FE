@@ -22,11 +22,12 @@ export default function Community() {
     }
   }
 
-  const { data, isPending } = useQuery(
+  const { data, isPending, isError } = useQuery(
     {
       queryKey: ["bestPost", page],
       queryFn: getBestPost,
       placeholderData: keepPreviousData,
+      retry: 0,
     },
   )
 
@@ -47,7 +48,7 @@ export default function Community() {
                   lg:text-display2-b
                   text-m-headline1-b text-gray-600">BEST 인기글</p>
           </div>
-          <PopularPostList posts={data?.result?.postList} isPending={isPending} listNum={10} />
+          <PopularPostList posts={data?.result?.postList} isPending={isPending} isError={isError} listNum={10} />
         </div>
 
         <div>
@@ -60,7 +61,7 @@ export default function Community() {
           </div>
         </div>
       </div>
-      {!isPending &&
+      {!isPending && !isError && data?.result?.postList?.length !== 0 &&
         <div className={`mt-12`}>
           <PageNavigator totalPage={data?.result?.totalPage} isFirst={data?.result?.isFirst} isLast={data?.result?.isLast} page={page} setPage={setPage} />
         </div>
