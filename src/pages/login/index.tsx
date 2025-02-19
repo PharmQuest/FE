@@ -46,21 +46,21 @@ export default function Login() {
     }
   }, [router.isReady, access_token, refresh_token]);
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  // const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleLogin = async (provider: "kakao" | "naver" | "google") => {
     if (loading) return;
     setLoading(true);
 
-    if (!API_BASE_URL) {
-      console.error("로그인 URL이 설정되지 않았습니다.");
-      setLoading(false);
-      return;
-    }
+    // if (!API_BASE_URL) {
+    //   console.error("로그인 URL이 설정되지 않았습니다.");
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       clearTokens();
-      window.location.href = `${API_BASE_URL}/oauth2/code/${provider}`;
+      window.location.href = `/oauth2/code/${provider}`;
     } catch (error) {
       console.error("로그인 요청 실패:", error);
     } finally {
