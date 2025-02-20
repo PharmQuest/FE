@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import CommentItem from "./CommentItem";
-import PageNavigator from "../../components/PageNavigator";
+import PageNavigator from "../../../../components/common/PageNavigator";
 
 interface Reply {
   commentId: number;

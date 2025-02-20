@@ -6,7 +6,7 @@ import { useState } from "react";
 import useScroll from "../../../hooks/community/useScroll";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axios-instance";
-import PageNavigator from "../components/PageNavigator";
+import PageNavigator from "../../../components/common/PageNavigator";
 
 export default function Community() {
 

@@ -137,7 +137,6 @@ const MyPage = () => {
       const response = await axiosInstance.get(
         `/mypage/medicine?page=1&country=${encodeURIComponent("전체")}`
       );
-      console.log("mypage medicine=", response.data);
       return response.data;
     },
   });
@@ -157,7 +156,6 @@ const MyPage = () => {
       const response = await axiosInstance.get(
         `/mypage/pharmacy?country=ALL&page=1&size=4`
       );
-      console.log("mypage pharmacy=", response.data);
       return response.data;
     },
   });
@@ -181,7 +179,6 @@ const MyPage = () => {
       const response = await axiosInstance.get(
         `/mypage/supplements?page=1&category=${encodeURIComponent("전체")}`
       );
-      console.log("mypage supp=", response.data);
       return response.data;
     },
   });

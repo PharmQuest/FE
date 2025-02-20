@@ -3,9 +3,10 @@ import SupplementCard from "@/components/common/SupplementCard";
 import FilterButton from "@/components/common/FilterButton";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { ArrowRightIcon, LeftArrow } from "@public/svgs";
+import { LeftArrow } from "@public/svgs";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/apis/axios-instance";
+import PageNavigator from "@/components/common/PageNavigator";
 
 interface SupplementResponse {
   code: string;
@@ -160,32 +161,16 @@ const SupplementPage: React.FC = () => {
           </div>
 
           {/* ✅ 페이지네이션 */}
-          <div className="flex items-center justify-center mt-6 space-x-8 py-10">
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentPage(index + 1)}
-                className={`text-subhead1-sb ${
-                  currentPage === index + 1 ? "text-secondary-500" : "text-gray-300"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-
-            {/* 🔹 오른쪽 이동 버튼 */}
-            <button
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className="flex items-center"
-              disabled={currentPage === totalPages}
-            >
-              <ArrowRightIcon className="w-5 h-3 text-gray-300" />
-            </button>
-          </div>
+          <PageNavigator
+            totalPage={totalPages}
+            isFirst={currentPage === 1}
+            isLast={currentPage === totalPages}
+            page={currentPage}
+            setPage={setCurrentPage} />
         </>
       ) : (
         /* ✅ 데이터가 없을 때 */
-        <div className="flex flex-col justify-center items-center flex-grow">
+        <div className="flex flex-col justify-center items-center flex-grow my-[100px]">
           <span className="text-gray-300 text-headline-m md:text-m-body2-r">
             저장한 영양제가 없어요.
           </span>
