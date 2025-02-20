@@ -126,10 +126,12 @@ export default function CreatePost() {
 
   useEffect(() => {
     if(isLoggedIn === false){
-      router.push("/login")
+      router.replace("/login")
+      setNoticeModalText("로그인이 필요한 서비스입니다.")
+      setIsNoticeModalOpen(true);
     }
     
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (title.trim() && content.trim() && category.trim()) {

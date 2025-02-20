@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
+import useModalStore from "@/store/useModalStore";
 
 interface MedicineResponse {
   code: string;
@@ -120,6 +121,7 @@ const MyPage = () => {
   const router = useRouter();
 
   const { isLoggedIn, userName, email, logOut } = useAuthStore();
+  const { setNoticeModalText, setIsNoticeModalOpen } = useModalStore();
 
   const handleLogout = () => {
     logOut();
@@ -127,7 +129,9 @@ const MyPage = () => {
 
   useEffect(() => {
     if(isLoggedIn === false){
-      router.push("/login")
+      router.replace("/login")
+      setNoticeModalText("로그인이 필요한 서비스입니다.")
+      setIsNoticeModalOpen(true);
     }
   }, [isLoggedIn])
 
