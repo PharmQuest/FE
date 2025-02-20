@@ -72,8 +72,8 @@ const SupplementInfo: React.FC = () => {
   const copyToClipboard = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
-      
-      alert("URL이 복사되었습니다!");
+      setNoticeModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.");
+      setIsNoticeModalOpen(true);
     });
   };
 
