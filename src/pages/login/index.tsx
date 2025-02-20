@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { setAccessToken, setRefreshToken, clearTokens } from "@/utils/cookie"; // ✅ 쿠키 관리 모듈 import
+import { axiosInstance } from "@/apis/axios-instance";
 
 export default function Login() {
   const router = useRouter();
@@ -48,19 +49,19 @@ export default function Login() {
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  const handleLogin = async (provider: "kakao" | "naver" | "google") => {
+  const handleLogin = async () => {
     if (loading) return;
     setLoading(true);
 
-    // if (!API_BASE_URL) {
-    //   console.error("로그인 URL이 설정되지 않았습니다.");
-    //   setLoading(false);
-    //   return;
-    // }
-
     try {
       clearTokens();
-      window.location.href = `${API_BASE_URL}/oauth2/authorization/${provider}`;
+      const response = await axiosInstance.post(`${process.env.NEXT_PUBLIC_DOMAIN}/tempLogin?name=local1312`)
+      const accessToken = response?.data?.accessToken
+      const refreshToken = response?.data?.refreshToken
+
+      setAccessToken(accessToken)
+      setRefreshToken(refreshToken)
+      router.push('/')
     } catch (error) {
       console.error("로그인 요청 실패:", error);
     } finally {
@@ -115,20 +116,20 @@ export default function Login() {
                 src={NaverLoginButton}
                 alt="Login with Naver"
                 className="hidden md:block cursor-pointer"
-                onClick={() => handleLogin("naver")}
+                onClick={() => handleLogin()}
                 priority
               />
               <Image
                 src={KakaoLoginButton}
                 alt="Login with Kakao"
                 className="hidden md:block cursor-pointer"
-                onClick={() => handleLogin("kakao")}
+                onClick={() => handleLogin()}
               />
               <Image
                 src={GoogleLoginButton}
                 alt="Login with Google"
                 className="hidden md:block cursor-pointer"
-                onClick={() => handleLogin("google")}
+                onClick={() => handleLogin()}
               />
 
               {/* 반응형 로그인 버튼 */}
@@ -136,19 +137,19 @@ export default function Login() {
                 src={MobileNaverLoginButton}
                 alt="Login with Naver"
                 className="md:hidden cursor-pointer"
-                onClick={() => handleLogin("naver")}
+                onClick={() => handleLogin()}
               />
               <Image
                 src={MobiieKakaoLoginButton}
                 alt="Login with Kakao"
                 className="md:hidden cursor-pointer"
-                onClick={() => handleLogin("kakao")}
+                onClick={() => handleLogin()}
               />
               <Image
                 src={MobileGoogleLoginButton}
                 alt="Login with Google"
                 className="md:hidden cursor-pointer"
-                onClick={() => handleLogin("google")}
+                onClick={() => handleLogin()}
               />
             </div>
           </div>
