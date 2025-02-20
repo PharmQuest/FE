@@ -11,7 +11,7 @@ import { LogoSymbolIcon, LogoTextIcon, XIcon } from "@public/svgs";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { setAccessToken, setRefreshToken, clearTokens } from "@/utils/cookie"; // ✅ 쿠키 관리 모듈 import
+import { setAccessToken, setRefreshToken, clearTokens } from "@/utils/cookie"; // 쿠키 관리 모듈 import
 
 export default function Login() {
   const router = useRouter();
@@ -21,20 +21,20 @@ export default function Login() {
   useEffect(() => {
     if (!router.isReady) return;
 
-    // ✅ 1. URL에서 access_token & refresh_token 숨기기
+    // 1. URL에서 access_token & refresh_token 숨기기
     if (access_token && refresh_token) {
       const cleanURL = router.pathname;
       router.replace(cleanURL, undefined, { shallow: true }).then(() => {
-        // ✅ 2. URL 정리 후 토큰 저장
+        // 2. URL 정리 후 토큰 저장
         try {
           clearTokens(); // 기존 쿠키 삭제
           setAccessToken(access_token as string);
           setRefreshToken(refresh_token as string);
 
-          console.log("✅ 토큰이 저장되었습니다.");
+          console.log("토큰이 저장되었습니다.");
           setLoading(false);
 
-          // ✅ 3. 메인 페이지로 이동
+          // 3. 메인 페이지로 이동
           router.push("/");
         } catch (error) {
           console.error("🚨 토큰 저장 중 오류 발생:", error);

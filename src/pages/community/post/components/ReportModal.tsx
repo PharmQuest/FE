@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 const ReportModal = () => {
 
   const reportTypes = [
-    // type 값은 추후 서버와 논의 필요요
     { key: 1, type: "SPAM", text: "스팸홍보/도배" },
     { key: 2, type: "OBSCENE_CONTENT", text: "음란물" },
     { key: 3, type: "ILLEGAL_INFO", text: "불법정보 포함" },

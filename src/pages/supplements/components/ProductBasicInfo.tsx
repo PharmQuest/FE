@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import BookmarkIcon from "@public/svgs/bookmark.svg";
-// import { axiosInstance } from "@/apis/axios-instance";
-// import axios from "axios";
 
 interface TableData {
   label: string;
@@ -28,18 +26,9 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   isBookmarked = false,
   onBookmarkToggle,
 }) => {
-  //const [isBookmarked, setIsBookmarked] = useState(false);
-  // const [bookmarked, setBookmarked] = useState(isBookmarked);
-  // useEffect(() => {
-  //   setBookmarked(isBookmarked);
-  // }, [isBookmarked]);
 
   const [imgSrc, setImgSrc] = useState(imageUrl);
-
-  // const toggleBookmark = () => {
-  //   setBookmarked(!isBookmarked);
-  // };
-
+  
   return (
     <div className="lg:p-6 md:flex-row border border-gray-100 rounded-xl p-4 flex flex-col md:gap-4 gap-1 mt-5">
       <div className="lg:w-[200px] lg:h-[200px] max-md:h-[200px] border border-gray-200 rounded-lg overflow-hidden">
@@ -78,12 +67,11 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
       </div>
 
       {/* ✅ 북마크 버튼 */}
-      <div className="flex items-start gap-4 md:block hidden" onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>
+      <div className="items-start gap-4 md:block hidden" onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>
         <BookmarkIcon
           className="w-6 cursor-pointer"
           stroke={isBookmarked ? "#FFD755" : "#707070"}
           fill={isBookmarked ? "#FFD755" : "none"}
-          // onClick={toggleBookmark}
         />
     
       </div>

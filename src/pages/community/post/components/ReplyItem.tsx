@@ -19,7 +19,6 @@ interface ReplyItemProps {
   userId: number;
   userName: string;
   createdAt: string;
-  parentId: number;
   parentName: string;
   replyParentId: number | null;
   setReplyParentId: React.Dispatch<React.SetStateAction<number | null>>;
@@ -39,8 +38,6 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   userId,
   userName,
   createdAt,
-  // eslint-disable-next-line
-  parentId,
   parentName,
   replyParentId,
   setReplyParentId,

@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 import CommunityModal from "./components/CommunityModal";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { axiosInstance } from "@/apis/axios-instance";
 
 interface Category {
   value: string;
@@ -53,7 +53,7 @@ export default function Community() {
   }
 
   const getRandomBestPost = async () => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/best-posts/random`);
+    const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/community/best-posts/random`);
     return response.data;
   }
 

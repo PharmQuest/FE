@@ -50,11 +50,6 @@ export default function SupplementCard({
   useEffect(() => {
     setBookmarked(scrapped);
   }, [scrapped]);
-  
-  // const handleBookmarkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.stopPropagation();
-  //   setBookmarked(!bookmarked);
-  // };
 
   const handleBookmarkClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
