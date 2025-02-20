@@ -106,7 +106,7 @@ const SupplementPage: React.FC = () => {
 
   // 필터 버튼 클릭 핸들러
   const handleFilterClick = (category: string) => {
-    setSelectedCategory(category);
+    setWebCategory(category);
     setCurrentPage(1); // 카테고리 변경시 첫 페이지로 이동
 
     // 모바일에서 category 파라미터 처리
@@ -187,11 +187,11 @@ const SupplementPage: React.FC = () => {
     } else {
       // 검색 결과인 경우 카테고리 필터링 적용
       return supplements.filter(supplement =>
-        selectedCategory === "전체" ||
-        supplement.selectCategories?.includes(selectedCategory)
+        webCategory === "전체" ||
+        supplement.selectCategories?.includes(webCategory)
       );
     }
-  }, [isSearchMode, supplements, selectedCategory]);
+  }, [isSearchMode, supplements, webCategory]);
 
   useEffect(() => {
     if (searchQuery || country) {
