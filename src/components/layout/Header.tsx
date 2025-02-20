@@ -10,6 +10,7 @@ import {
 } from "@public/svgs";
 import useAuthStore from "@/store/useAuthStore";
 import Sidebar from "./Sidebar";
+import useModalStore from "@/store/useModalStore";
 
 const Header = () => {
   const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref 타입 지정
@@ -22,6 +23,7 @@ const Header = () => {
   const [title, setTitle] = useState("");
 
   const { isLoggedIn, logOut, checkAuth, userId, setUser } = useAuthStore();
+  const { isLoginRedirect, triggerLoginRedirect, setNoticeModalText, setIsNoticeModalOpen} = useModalStore();
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -29,6 +31,15 @@ const Header = () => {
       setUser();
     }
   }, [isLoggedIn, userId])
+
+  useEffect(() => {
+    if (isLoginRedirect) {
+      setNoticeModalText("로그인이 필요한 서비스입니다.");
+      setIsNoticeModalOpen(true);
+      router.replace("/login");
+      triggerLoginRedirect(false);
+    }
+  }, [isLoginRedirect, router])
 
   useEffect(() => {
     checkAuth();

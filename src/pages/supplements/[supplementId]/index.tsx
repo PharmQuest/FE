@@ -72,7 +72,8 @@ const SupplementInfo: React.FC = () => {
   const copyToClipboard = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
-      alert("URL이 복사되었습니다!");
+      setNoticeModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.");
+      setIsNoticeModalOpen(true);
     });
   };
 
@@ -141,9 +142,9 @@ const SupplementInfo: React.FC = () => {
       const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
       
       if (response.data.code === "AUTH4001") {
-        // alert("로그인이 필요한 서비스입니다.");
         setNoticeModalText("로그인이 필요한 서비스입니다.");
         setIsNoticeModalOpen(true);
+        router.push("/login");
         return;
       }
       
@@ -158,18 +159,16 @@ const SupplementInfo: React.FC = () => {
         console.log("상세 스크랩data=", response);
      
       } else {
-        // alert(response.data.message);
         setNoticeModalText(response.data.message);
         setIsNoticeModalOpen(true);
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        // alert("로그인이 필요한 서비스입니다.");
         setNoticeModalText("로그인이 필요한 서비스입니다.");
         setIsNoticeModalOpen(true);
+        router.push("/login");
         return;
       }
-      // console.error("북마크 처리 중 오류 발생:", error);
       setNoticeModalText("스크랩 처리 중 오류가 발생했습니다.");
       setIsNoticeModalOpen(true);
     }

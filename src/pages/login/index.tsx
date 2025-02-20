@@ -12,11 +12,14 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { setAccessToken, setRefreshToken, clearTokens } from "@/utils/cookie"; // 쿠키 관리 모듈 import
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Login() {
   const router = useRouter();
   const { access_token, refresh_token } = router.query;
   const [loading, setLoading] = useState(false);
+
+  const { isLoggedIn } = useAuthStore();
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -52,12 +55,6 @@ export default function Login() {
     if (loading) return;
     setLoading(true);
 
-    // if (!API_BASE_URL) {
-    //   console.error("로그인 URL이 설정되지 않았습니다.");
-    //   setLoading(false);
-    //   return;
-    // }
-
     try {
       clearTokens();
       window.location.href = `${API_BASE_URL}/oauth2/authorization/${provider}`;
@@ -67,6 +64,13 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if(isLoggedIn){
+      router.replace("/")
+    }
+    
+  }, [isLoggedIn]);
 
   return (
     <>
