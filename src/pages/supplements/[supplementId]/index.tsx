@@ -9,6 +9,7 @@ import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useQueryClient } from '@tanstack/react-query';
+import useModalStore from "@/store/useModalStore";
 
 import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
 import { useRouter } from "next/router";
@@ -71,7 +72,8 @@ const SupplementInfo: React.FC = () => {
   const copyToClipboard = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
-      alert("URL이 복사되었습니다!");
+      setNoticeModalText("URL이 복사되었습니다. 원하는 곳에 붙여 넣으세요.");
+      setIsNoticeModalOpen(true);
     });
   };
 
@@ -93,7 +95,6 @@ const SupplementInfo: React.FC = () => {
   if (isError)
     console.error("상세Error=", error);
 
-  // const [bookmarked, setBookmarked] = useState<boolean>(data?.result.scrapped || false);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
   useEffect(() => {
     if (data?.result.scrapped !== undefined) {
@@ -127,9 +128,10 @@ const SupplementInfo: React.FC = () => {
     }
   ];
 
+  const { setIsNoticeModalOpen, setNoticeModalText } = useModalStore();
+
   const handleBookmarkToggle = async (id: number) => {
-  // const handleBookmarkToggle = async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.stopPropagation();
+ 
     try {      
       // 모든 supplements 쿼리를 무효화
       queryClient.invalidateQueries({ 
@@ -140,33 +142,35 @@ const SupplementInfo: React.FC = () => {
       const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
       
       if (response.data.code === "AUTH4001") {
-        alert("로그인이 필요한 서비스입니다.");
+        setNoticeModalText("로그인이 필요한 서비스입니다.");
+        setIsNoticeModalOpen(true);
+        router.push("/login");
         return;
       }
       
-      if (response.data.isSuccess) {
+      if (response.data.isSuccess === true) {
         setBookmarked(!bookmarked); // 상위 상태 업데이트
+        setNoticeModalText(
+          bookmarked ? "스크랩이 해제되었습니다." : "스크랩이 완료되었습니다."
+        );
+        setIsNoticeModalOpen(true);
 
         console.log("상세 스크랩id=", id);
         console.log("상세 스크랩data=", response);
-        
-        // queryClient.invalidateQueries({ 
-        //   queryKey: ['supplementsList']  // 리스트 조회의 쿼리 키
-        // });
-        // 모든 supplements 쿼리를 무효화
-        // queryClient.invalidateQueries({ 
-        //   queryKey: ['supplementsList'],
-        //   refetchType: 'all'  // 모든 쿼리를 다시 불러옴
-        // });
+     
       } else {
-        alert(response.data.message);
+        setNoticeModalText(response.data.message);
+        setIsNoticeModalOpen(true);
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        alert("로그인이 필요한 서비스입니다.");
+        setNoticeModalText("로그인이 필요한 서비스입니다.");
+        setIsNoticeModalOpen(true);
+        router.push("/login");
         return;
       }
-      console.error("북마크 처리 중 오류 발생:", error);
+      setNoticeModalText("스크랩 처리 중 오류가 발생했습니다.");
+      setIsNoticeModalOpen(true);
     }
   };
     
@@ -207,9 +211,7 @@ const SupplementInfo: React.FC = () => {
                 tags={data?.result.categories || []}
                 imageUrl={data?.result.image}
                 tableData={tableData}
-                // isBookmarked={data?.result.scrapped}
                 isBookmarked={bookmarked}
-                // onBookmarkClick={handleBookmarkClick}
                 onBookmarkToggle={handleBookmarkToggle}
               />
             </div>
@@ -243,7 +245,6 @@ const SupplementInfo: React.FC = () => {
                 src: supp.image
                 })) || []}
                 imageWidth={287}/>
-                {/* <MoreSupplements supplements={data!.result.relatedSupplements} imageWidth={287} /> */}
             </div>
           </div>
         </div>

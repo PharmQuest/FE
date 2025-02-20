@@ -10,9 +10,10 @@ import {
 } from "@public/svgs";
 import useAuthStore from "@/store/useAuthStore";
 import Sidebar from "./Sidebar";
+import useModalStore from "@/store/useModalStore";
 
 const Header = () => {
-  const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref 타입 지정
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const pathName = router.pathname;
@@ -22,50 +23,69 @@ const Header = () => {
   const [title, setTitle] = useState("");
 
   const { isLoggedIn, logOut, checkAuth, userId, setUser } = useAuthStore();
-  const [isMounted, setIsMounted] = useState(false)
+  const {
+    isLoginRedirect,
+    triggerLoginRedirect,
+    setNoticeModalText,
+    setIsNoticeModalOpen,
+  } = useModalStore();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if(!userId && isLoggedIn) {
+    if (!userId && isLoggedIn) {
       setUser();
     }
-  }, [isLoggedIn, userId])
+  }, [isLoggedIn, userId]);
+
+  useEffect(() => {
+    if (isLoginRedirect) {
+      setNoticeModalText("로그인이 필요한 서비스입니다.");
+      setIsNoticeModalOpen(true);
+      router.replace("/login");
+      triggerLoginRedirect(false);
+    }
+  }, [isLoginRedirect, router]);
 
   useEffect(() => {
     checkAuth();
     setIsMounted(true);
-  }, [pathName, isLoggedIn])
+  }, [pathName, isLoggedIn]);
 
   useEffect(() => {
     switch (pathName) {
       case "/community":
-        setTitle("커뮤니티")
+        setTitle("커뮤니티");
         break;
 
       case "/map":
-        setTitle("약국 찾기")
+        setTitle("약국 찾기");
         break;
 
       case "/medicines":
-        setTitle("상비약 리스트")
+        setTitle("상비약 리스트");
+        break;
+
+      case "/medicines/search":
+        setTitle("상비약 리스트");
         break;
 
       case "/community/activities":
-        setTitle("나의 활동")
+        setTitle("나의 활동");
         break;
 
       case "/supplements":
-        setTitle("해외 인기 영양제")
+        setTitle("해외 인기 영양제");
         break;
-      
+
       case "/mypage":
-        setTitle("마이페이지")
+        setTitle("마이페이지");
         break;
 
       default:
-        setTitle("")
+        setTitle("");
         break;
     }
-  }, [router])
+  }, [router]);
 
   // 로그인
   const handleLoginClick = () => {
@@ -109,8 +129,11 @@ const Header = () => {
   return (
     <AdditionalHeader pathName={pathName}>
       {/* (PC)기존 헤더 코드(화면 1000px 이상일 때) */}
-      <div className={`sticky top-0 z-[500] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}>
-        <div className={`
+      <div
+        className={`sticky top-0 z-[500] w-full hidden lg:flex grow justify-center items-center h-[110px] bg-background`}
+      >
+        <div
+          className={`
             // 기본 스타일
             flex items-center gap-12
             // 1000px 초과 (xl)
@@ -149,26 +172,30 @@ const Header = () => {
               해외 인기 영양제
             </button>
             {/* 로그인 상태에 따라 버튼 렌더링 */}
-            {isMounted && (isLoggedIn ? (
-              // isLoggedIn이 true
-              <div className="flex gap-3 items-center">
-                <UserIcon className={`cursor-pointer`} onClick={() => router.push("/mypage")} />
+            {isMounted &&
+              (isLoggedIn ? (
+                // isLoggedIn이 true
+                <div className="flex gap-3 items-center">
+                  <UserIcon
+                    className={`cursor-pointer`}
+                    onClick={() => router.push("/mypage")}
+                  />
+                  <button
+                    onClick={handleLogoutClick}
+                    className="h-9 px-5 grow py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+                  >
+                    로그아웃
+                  </button>
+                </div>
+              ) : (
+                // isLoggedIn이 false
                 <button
-                  onClick={handleLogoutClick}
-                  className="h-9 px-5 grow py-2 bg-[#71bb9d] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
+                  onClick={handleLoginClick}
+                  className="growh-10 px-6 py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
                 >
-                  로그아웃
+                  로그인
                 </button>
-              </div>
-            ) : (
-              // isLoggedIn이 false
-              <button
-                onClick={handleLoginClick}
-                className="growh-10 px-6 py-2 bg-[#ff7700] rounded-lg justify-center items-center gap-2.5 inline-flex text-white text-base font-semibold font-['Pretendard Variable'] leading-normal"
-              >
-                로그인
-              </button>
-            ))}
+              ))}
           </div>
         </div>
       </div>
@@ -198,20 +225,29 @@ const Header = () => {
           </div>
 
           {isHome ? (
-            <LogoIcon className="cursor-pointer" onClick={() => router.push("/")} />
+            <LogoIcon
+              className="cursor-pointer"
+              onClick={() => router.push("/")}
+            />
           ) : (
-            <div className={`text-m-display1-b text-gray-600 text-center truncate`}>{title}</div>
+            <div
+              className={`text-m-display1-b text-gray-600 text-center truncate`}
+            >
+              {title}
+            </div>
           )}
 
           <div className={`flex gap-4 justify-end w-[104px]`}>
-            {!isHome &&
+            {!isHome && (
               <HomeIcon
                 className={`text-gray-600 w-6 cursor-pointer`}
-                onClick={() => router.push("/")} />
-            }
+                onClick={() => router.push("/")}
+              />
+            )}
             <AccountCircleIcon
               className={`text-gray-600 w-6 cursor-pointer`}
-              onClick={() => router.push("/mypage")} />
+              onClick={() => router.push("/mypage")}
+            />
           </div>
         </div>
       </div>
@@ -219,7 +255,8 @@ const Header = () => {
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
         sidebarRef={sidebarRef}
-        handleLoginClick={handleLoginClick}/>
+        handleLoginClick={handleLoginClick}
+      />
     </AdditionalHeader>
   );
 };

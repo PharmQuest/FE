@@ -4,7 +4,7 @@ import { axiosInstance } from "@/apis/axios-instance";
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckBoxIcon, CheckBoxOnIcon } from "@public/svgs";
 import useModalStore from "@/store/useModalStore";
-import PageNavigator from "../../components/PageNavigator";
+import PageNavigator from "../../../../components/common/PageNavigator";
 
 interface Comment {
   postId: number;

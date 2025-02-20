@@ -3,8 +3,11 @@ import { create } from 'zustand';
 type Store = {
   isNoticeModalOpen: boolean;
   setIsNoticeModalOpen: (value: boolean) => void;
-  NoticeModalText: string;
+  noticeModalText: string;
   setNoticeModalText: (value: string) => void;
+
+  isLoginRedirect: boolean;
+  triggerLoginRedirect: (value: boolean) => void;
 
   isReportModalOpen: boolean;
   setIsReportModalOpen: (value: boolean) => void;
@@ -18,8 +21,11 @@ type Store = {
 const useModalStore = create<Store>((set) => ({
   isNoticeModalOpen: false,
   setIsNoticeModalOpen: (value: boolean) => set({isNoticeModalOpen: value}),
-  NoticeModalText: "",
-  setNoticeModalText: (value: string) => set({NoticeModalText: value}),
+  noticeModalText: "",
+  setNoticeModalText: (value: string) => set({noticeModalText: value}),
+
+  isLoginRedirect: false,
+  triggerLoginRedirect: (value: boolean) => set({isLoginRedirect: value}),
 
   isReportModalOpen: false,
   setIsReportModalOpen: (value: boolean) => set({isReportModalOpen: value}),

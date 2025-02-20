@@ -77,7 +77,7 @@ export default function CreatePost() {
     }
   }
 
-  const handleTextareaHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -126,10 +126,12 @@ export default function CreatePost() {
 
   useEffect(() => {
     if(isLoggedIn === false){
-      router.push("/login")
+      router.replace("/login")
+      setNoticeModalText("로그인이 필요한 서비스입니다.")
+      setIsNoticeModalOpen(true);
     }
     
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (title.trim() && content.trim() && category.trim()) {
@@ -213,7 +215,7 @@ export default function CreatePost() {
               placeholder="내용을 입력하세요."
               value={content}
               maxLength={3000}
-              onChange={handleTextareaHeight}>
+              onChange={handleTextarea}>
 
             </textarea>
             {uploadImage &&

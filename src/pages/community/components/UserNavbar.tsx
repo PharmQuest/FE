@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AccountCircleIcon, BookmarkIcon, CommentIcon, NoticeIcon, PostIcon } from "@public/svgs";
 import useAuthStore from "@/store/useAuthStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UserNavbar = () => {
   const router = useRouter();
+
+  const queryClient = useQueryClient();
 
   const { isLoggedIn, logOut, userName, provider } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false)
@@ -12,6 +15,14 @@ const UserNavbar = () => {
   useEffect(() => {
     setIsMounted(true)
   }, [])
+
+  const handleLogOut = () => {
+    logOut();
+    queryClient.invalidateQueries({queryKey: ['bestPost']})
+    queryClient.removeQueries({
+      predicate: (query) => query.queryKey[0] === "posts",
+    })
+  }
 
   return (
     isMounted &&
@@ -37,7 +48,7 @@ const UserNavbar = () => {
               </button>
               <button
                 className="w-full h-[37px] py-2 text-center text-subhead2-sb text-gray-400 rounded-[4px] border-solid border-[1px] border-gray-200"
-                onClick={() => logOut()}
+                onClick={handleLogOut}
               >
                 로그아웃
               </button>

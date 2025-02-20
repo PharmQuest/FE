@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { MedicineCardProps } from "@/types/medicine";
+import { useMedicineScrap } from "@/hooks/medicine/useMedicineScrap";
 
 const MedicineCard: React.FC<MedicineCardProps> = ({
   medicineTableId,
@@ -11,29 +12,37 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
   imgUrl,
   category,
   country,
+  scrapped,
+  onBookmarkToggle,
 }) => {
   const router = useRouter();
-  const [isBookmark, setIsBookmark] = useState(false);
   const [src, setSrc] = useState(imgUrl);
+  const { isScraped, toggleScrap } = useMedicineScrap(
+    medicineTableId,
+    scrapped,
+    () => {
+      // 스크랩 토글 후 콜백
+      onBookmarkToggle?.(medicineTableId);
+    }
+  );
 
-  const handleBoomark = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 부모 컴포넌트 클릭 방지
-    setIsBookmark(!isBookmark);
-    // 추후에 추가할 북마크 추가 기능 API ~~
+  const getDisplayCountry = (countryCode: string): string => {
+    if (countryCode.toLowerCase() === "usa") return "미국";
+    if (countryCode.toLowerCase() === "korea") return "한국";
+    return countryCode;
   };
 
   return (
     <div
       className={`
-        md:p-5 md:pr-4 md:rounded-lg md:h-[178px]
+        md:p-5 md:pr-4 md:rounded-lg md:h-[178px] hover:bg-gray-50
         h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate`}
-      onClick={() => router.push(`medicines/${medicineTableId}`)}
+      onClick={() => router.push(`/medicines/${medicineTableId}`)}
     >
-      {/* medicine-image */}
       <div
         className={`
-        md:w-[138px] md:h-[138px]
-        rounded w-[100px] h-[100px] flex items-center`}
+        md:w-[138px] md:h-[138px] 
+        rounded w-[100px] h-[100px] flex items-center flex-shrink-0`}
       >
         <Image
           src={src}
@@ -58,7 +67,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
             text-m-caption2-r
             `}
         >
-          {country}
+          {getDisplayCountry(country)}
         </div>
         <div
           className={`
@@ -68,7 +77,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
           <div
             className={`
               md:gap-1 md:w-14 md:text-subhead1-sb
-              flex flex-col text-m-subhead1-sb gap-0.5
+              flex flex-col text-m-subhead1-sb gap-0.5 flex-shrink-0
               `}
           >
             <p>제품명</p>
@@ -78,11 +87,11 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
           <div
             className={`
               md:gap-1 md:text-body1-r
-              flex flex-col text-m-body2-r gap-0.5`}
+              flex flex-col text-m-body2-r gap-0.5 min-w-0`}
           >
-            <p className={`max-w-[100px] truncate`}>{brandName}</p>
-            <p className={`max-w-[100px] truncate`}>{genericName}</p>
-            <p className={`max-w-[100px] truncate`}>{category}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{brandName}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{genericName}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{category}</p>
           </div>
         </div>
       </div>
@@ -93,10 +102,10 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
         <BookmarkIcon
           className={`
             md:w-[30px]
-            absolute top-0 right-0 w-6 -z-10`}
-          onClick={(e: React.MouseEvent) => handleBoomark(e)}
-          stroke={isBookmark ? "#FFD755" : "#707070"}
-          fill={isBookmark ? "#FFD755" : "none"}
+            absolute top-0 right-0 w-6`}
+          onClick={toggleScrap}
+          stroke={isScraped ? "#FFD755" : "#707070"}
+          fill={isScraped ? "#FFD755" : "none"}
         />
       </div>
     </div>

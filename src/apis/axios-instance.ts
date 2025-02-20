@@ -1,3 +1,4 @@
+import useModalStore from "@/store/useModalStore";
 import { clearTokens } from "@/utils/cookie";
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
@@ -31,7 +32,8 @@ const setRefreshHeader = (config: InternalAxiosRequestConfig) => {
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
-      window.location.replace("/login");
+      const {triggerLoginRedirect} = useModalStore.getState();
+      triggerLoginRedirect(true)
       return Promise.reject(new Error("No refresh token available"));
     }
   }
@@ -55,7 +57,8 @@ const responseInterceptor = async (error: AxiosError) => {
     if (!refreshToken) {
       localStorage.removeItem("accessToken");
       Cookies.remove("accessToken")
-      window.location.replace("/login");
+      const {triggerLoginRedirect} = useModalStore.getState();
+      triggerLoginRedirect(true)
       return Promise.reject(new Error("No refresh token, redirecting to login"));
     }
 
@@ -74,7 +77,8 @@ const responseInterceptor = async (error: AxiosError) => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       clearTokens();
-      window.location.replace("/login");
+      const {triggerLoginRedirect} = useModalStore.getState();
+      triggerLoginRedirect(true)
     }
   }
   return Promise.reject(error);

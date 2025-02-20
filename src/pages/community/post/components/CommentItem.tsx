@@ -21,6 +21,7 @@ interface Reply {
   likeCount: number;
   isOwnComment: boolean;
   isDeleted: boolean;
+  isReported: boolean;
 }
 
 interface CommentItemProps {
@@ -38,6 +39,7 @@ interface CommentItemProps {
   likeCount: number;
   isOwnComment: boolean;
   isDeleted: boolean;
+  isReported: boolean;
   editCommentId: number | null;
   setEditCommentId: React.Dispatch<React.SetStateAction<number | null>>
 }
@@ -57,6 +59,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
   likeCount,
   isOwnComment,
   isDeleted,
+  isReported,
   editCommentId,
   setEditCommentId,
 }) => {
@@ -114,7 +117,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 {userName}
                 {postUserId === userId && <Tag variant="writer" />}
               </div>
-              {!isDeleted &&
+              {!isDeleted && !isReported &&
                 <div className={`relative cursor-pointer`}>
                   <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
                   <CommentMenu
@@ -126,11 +129,11 @@ const CommentItem: React.FC<CommentItemProps> = ({
                 </div>
               }
             </div>
-            {isDeleted ? (
+            {isDeleted || isReported ? (
               <p
                 className="
                   lg:text-body1-r
-                  text-m-body2-r text-gray-300">삭제된 댓글입니다.</p>
+                  text-m-body2-r text-gray-300">{isDeleted ? '삭제된 댓글입니다.' : '신고한 댓글입니다.'}</p>
             ) : (
               <p
                 className="
@@ -141,7 +144,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
             <div className="flex flex-row justify-between text-body2-r text-gray-400">
               <p>{formattedDate}</p>
 
-              {!isDeleted &&
+              {!isDeleted && !isReported &&
                 <div className="flex flex-row gap-[10px]">
                   <div className="flex flex-row">
                     <LikeIcon
@@ -178,7 +181,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
           userId={reply.userId}
           userName={reply.userName}
           createdAt={reply.createdAt}
-          parentId={reply.parentId}
           parentName={reply.parentName}
           isLiked={reply.isLiked}
           likeCount={reply.likeCount}
@@ -187,6 +189,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
           setReplyParentId={setReplyParentId}
           isOwnComment={reply.isOwnComment}
           isDeleted={reply.isDeleted}
+          isReported={reply.isReported}
           editCommentId={editCommentId}
           setEditCommentId={setEditCommentId} />
       ))}

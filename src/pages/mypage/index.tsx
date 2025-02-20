@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
+import useModalStore from "@/store/useModalStore";
 
 interface MedicineResponse {
   code: string;
@@ -120,6 +121,7 @@ const MyPage = () => {
   const router = useRouter();
 
   const { isLoggedIn, userName, email, logOut } = useAuthStore();
+  const { setNoticeModalText, setIsNoticeModalOpen } = useModalStore();
 
   const handleLogout = () => {
     logOut();
@@ -127,7 +129,9 @@ const MyPage = () => {
 
   useEffect(() => {
     if(isLoggedIn === false){
-      router.push("/login")
+      router.replace("/login")
+      setNoticeModalText("로그인이 필요한 서비스입니다.")
+      setIsNoticeModalOpen(true);
     }
   }, [isLoggedIn])
 
@@ -135,9 +139,8 @@ const MyPage = () => {
     queryKey: ["mypageMedicines"],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `/mypage/medicine?page=1&country=${encodeURIComponent("전체")}`
+        `/mypage/medicine?page=1&country=${encodeURIComponent("ALL")}`
       );
-      console.log("mypage medicine=", response.data);
       return response.data;
     },
   });
@@ -150,6 +153,10 @@ const MyPage = () => {
       setMedicines(medicineData.result.content);
     }
   }, [medicineData]);
+
+  const handleMedicineBookmarkToggle = (id: number) => {
+    setMedicines(prev => prev.filter(medicine => medicine.id !== id));
+  };
   
   const { data: pharmacyData, isLoading:isPharLoading } = useQuery<PharmacyResponse>({
     queryKey: ["mypagePharmacys"],
@@ -157,7 +164,6 @@ const MyPage = () => {
       const response = await axiosInstance.get(
         `/mypage/pharmacy?country=ALL&page=1&size=4`
       );
-      console.log("mypage pharmacy=", response.data);
       return response.data;
     },
   });
@@ -181,7 +187,6 @@ const MyPage = () => {
       const response = await axiosInstance.get(
         `/mypage/supplements?page=1&category=${encodeURIComponent("전체")}`
       );
-      console.log("mypage supp=", response.data);
       return response.data;
     },
   });
@@ -243,7 +248,8 @@ const MyPage = () => {
         {medicines.length > 0 ? (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {medicines.slice(0, 4).map((medicine) => (
-              <MedicineCard key={medicine.id} {...medicine} medicineTableId={medicine.id} brandName={medicine.productName} genericName={medicine.generalName} splSetId={""} imgUrl={medicine.productImage} category={medicine.categories} country={medicine.country} />
+              <MedicineCard key={medicine.id} {...medicine} onBookmarkToggle={handleMedicineBookmarkToggle}
+               medicineTableId={medicine.id} brandName={medicine.productName} genericName={medicine.generalName} splSetId={""} imgUrl={medicine.productImage} category={medicine.categories} country={medicine.country} />
             ))}
           </div>
         ) : (
