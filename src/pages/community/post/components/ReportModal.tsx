@@ -1,7 +1,7 @@
 import Portal from "@/components/common/Portal";
 import { AnimatePresence, motion } from "framer-motion";
 import useModalStore from "@/store/useModalStore";
-import { useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import { CheckCircleIcon, CircleIcon, XIcon } from "@public/svgs";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useRouter } from "next/router";
@@ -34,7 +34,8 @@ const ReportModal = () => {
   const router = useRouter();
   const postId = Number(router.query.postId);
 
-  const handleReportType = (key: number, type: string) => {
+  const handleReportType = (e: MouseEvent, key: number, type: string) => {
+    e.stopPropagation();
     setReportKey(key)
     setReportType(type)
   }
@@ -77,7 +78,7 @@ const ReportModal = () => {
   }
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: globalThis.MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         setIsReportModalOpen(false);
         setReportKey(null);
@@ -117,8 +118,8 @@ const ReportModal = () => {
                   {reportTypes?.map((item, index) => (
                     <div
                       key={index}
-                      className={`flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.key && `text-subhead1-sb text-primary-500`}`}
-                      onClick={() => handleReportType(item.key, item.type)}>
+                      className={`cursor-pointer flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.key && `text-subhead1-sb text-primary-500`}`}
+                      onClick={(e) => handleReportType(e, item.key, item.type)}>
                       {reportKey === item.key ? <CheckCircleIcon /> : <CircleIcon />}
                       {item.text}
                     </div>
