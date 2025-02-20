@@ -178,7 +178,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
           userId={reply.userId}
           userName={reply.userName}
           createdAt={reply.createdAt}
-          parentId={reply.parentId}
           parentName={reply.parentName}
           isLiked={reply.isLiked}
           likeCount={reply.likeCount}

@@ -13,12 +13,17 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
   category,
   country,
   scrapped,
+  onBookmarkToggle,
 }) => {
   const router = useRouter();
   const [src, setSrc] = useState(imgUrl);
   const { isScraped, toggleScrap } = useMedicineScrap(
     medicineTableId,
-    scrapped
+    scrapped,
+    () => {
+      // 스크랩 토글 후 콜백
+      onBookmarkToggle?.(medicineTableId);
+    }
   );
 
   const getDisplayCountry = (countryCode: string): string => {

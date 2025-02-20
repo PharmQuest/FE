@@ -135,7 +135,7 @@ const MyPage = () => {
     queryKey: ["mypageMedicines"],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `/mypage/medicine?page=1&country=${encodeURIComponent("전체")}`
+        `/mypage/medicine?page=1&country=${encodeURIComponent("ALL")}`
       );
       return response.data;
     },
@@ -149,6 +149,10 @@ const MyPage = () => {
       setMedicines(medicineData.result.content);
     }
   }, [medicineData]);
+
+  const handleMedicineBookmarkToggle = (id: number) => {
+    setMedicines(prev => prev.filter(medicine => medicine.id !== id));
+  };
   
   const { data: pharmacyData, isLoading:isPharLoading } = useQuery<PharmacyResponse>({
     queryKey: ["mypagePharmacys"],
@@ -240,7 +244,8 @@ const MyPage = () => {
         {medicines.length > 0 ? (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {medicines.slice(0, 4).map((medicine) => (
-              <MedicineCard key={medicine.id} {...medicine} medicineTableId={medicine.id} brandName={medicine.productName} genericName={medicine.generalName} splSetId={""} imgUrl={medicine.productImage} category={medicine.categories} country={medicine.country} />
+              <MedicineCard key={medicine.id} {...medicine} onBookmarkToggle={handleMedicineBookmarkToggle}
+               medicineTableId={medicine.id} brandName={medicine.productName} genericName={medicine.generalName} splSetId={""} imgUrl={medicine.productImage} category={medicine.categories} country={medicine.country} />
             ))}
           </div>
         ) : (

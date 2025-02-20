@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   GreenMapPinIcon,
   SearchBarIcon,
@@ -22,6 +22,8 @@ const Search = () => {
   const [searchUrl, setSearchUrl] = useState("");
 
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const handleSearchModal = (e: MouseEvent) => {
     e.stopPropagation();
@@ -193,6 +195,7 @@ const Search = () => {
             } ml-[-2px]`}
           />
           <input
+            ref={searchRef}
             type="text"
             className={`w-full grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${
               isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`
@@ -218,6 +221,7 @@ const Search = () => {
           setCountryText={setCountryText}
           isSearchModalOpen={isSearchModalOpen}
           setIsSearchModalOpen={setIsSearchModalOpen}
+          searchRef={searchRef}
         />
       </div>
     </div>

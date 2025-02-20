@@ -29,7 +29,6 @@ interface PharmacyResponse {
 }
 
 const MyPharmacys = () => {
-  // const pharmacys = mockPharmacies;
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCountry, setSelectedCountry] = useState("ALL");

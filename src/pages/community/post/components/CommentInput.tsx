@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import TextButton from "../../components/TextButton";
 import { useParams } from "next/navigation";
 import useAuthStore from "@/store/useAuthStore";
@@ -26,6 +26,15 @@ const CommentInput = ({
 
   const { userName } = useAuthStore();
 
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const handleTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }
 
   const mutate = useCommentMutation(postId);
 
@@ -86,13 +95,14 @@ const CommentInput = ({
             </div>
           }
           <textarea
+            ref={textareaRef}
             placeholder={`${parentUserName ? `` : `댓글을 남겨보세요.` }`}
             className="
             lg:text-body1-r
             w-full text-m-body2-r text-gray-600 placeholder-gray-300 focus:outline-none resize-none"
             value={content}
             maxLength={600}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={handleTextarea}
           />
         </div>
         <div className="flex flex-row gap-3 justify-end">

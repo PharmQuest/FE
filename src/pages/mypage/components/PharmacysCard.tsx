@@ -77,8 +77,6 @@ const PharmacysCard: React.FC<PharmacysCardProps> = ({
 
   const handleBookmark = (e: React.MouseEvent) => {
     e.stopPropagation(); // 클릭 이벤트 전파 방지
-    // setBookmarked((prev) => !prev);
-    // if (onBookmarkToggle) onBookmarkToggle();
     toggleScrap();
   };
 

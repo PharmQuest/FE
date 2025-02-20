@@ -8,9 +8,18 @@ interface SearchModalButtonProps {
   setCountryValue: React.Dispatch<React.SetStateAction<string>>;
   setCountryText: React.Dispatch<React.SetStateAction<string>>;
   setIsSearchModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  searchRef: React.RefObject<HTMLInputElement | null>,
 }
 
-const SearchModalButton:React.FC<SearchModalButtonProps> = ({text, value, countryValue, setCountryValue, setCountryText, setIsSearchModalOpen}) => {
+const SearchModalButton:React.FC<SearchModalButtonProps> = ({
+  text, 
+  value, 
+  countryValue, 
+  setCountryValue, 
+  setCountryText, 
+  setIsSearchModalOpen, 
+  searchRef
+}) => {
 
   const router = useRouter();
   const isHome = router.pathname === "/" ? true : false
@@ -20,6 +29,7 @@ const SearchModalButton:React.FC<SearchModalButtonProps> = ({text, value, countr
     setCountryText(text);
     setCountryValue(value);
     setIsSearchModalOpen(false);
+    searchRef?.current?.focus();
   }
 
   return (
