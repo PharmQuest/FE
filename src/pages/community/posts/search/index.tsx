@@ -66,30 +66,30 @@ export default function SearchPosts() {
               <p className="
                 lg:text-display2-b 
                 text-m-headline1-b text-gray-600">검색결과 {postsCount}건</p>
-              {postsCount !== 0 &&
-                <div
-                  className={`
+
+              <div
+                className={`
                   lg:flex
                   hidden flex-row items-center gap-2`}>
-                  {categories.map((category) => (
-                    <FilterButton
-                      key={category.text}
-                      text={category.text}
-                      isSelected={category.isSelected}
-                      onClickFn={() => handleFilterButton(category)} />
-                  ))}
-                </div>
-              }
+                {categories.map((category) => (
+                  <FilterButton
+                    key={category.text}
+                    text={category.text}
+                    isSelected={category.isSelected}
+                    onClickFn={() => handleFilterButton(category)} />
+                ))}
+              </div>
+
             </div>
-              <PostList
-                page={page}
-                setPage={setPage}
-                category={categoryValue}
-                isPageHidden={false}
-                isSearchPage={true}
-                keyword={router.query.keyword as string}
-                country={router.query.country as string}
-                setPostsCount={setPostsCount} />
+            <PostList
+              page={page}
+              setPage={setPage}
+              category={categoryValue}
+              isPageHidden={false}
+              isSearchPage={true}
+              keyword={router.query.keyword as string}
+              country={router.query.country as string}
+              setPostsCount={setPostsCount} />
           </div>
 
           <div>
