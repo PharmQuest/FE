@@ -2,7 +2,6 @@ import useModalStore from "@/store/useModalStore";
 import { clearTokens } from "@/utils/cookie";
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
