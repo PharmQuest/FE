@@ -77,7 +77,6 @@ const SupplementPage: React.FC = () => {
         const mobileCategory = router.query.country as string || "";
         const effectiveCategory = mobileCategory || webCategory;
         const category = effectiveCategory === "전체" ? "전체" : CATEGORY_MAPPING[effectiveCategory] || effectiveCategory;
-        // const category = selectedCategory === "전체" ? "전체" : selectedCategory;
         const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
 
         const response = await axiosInstance.get(url);
@@ -216,11 +215,6 @@ const SupplementPage: React.FC = () => {
     }
   }, [router.pathname, router.query]);
 
-  // useEffect(() => {
-  //   if (router.isReady && mobileCategory) {
-  //     setSelectedCategory(mobileCategory);
-  //   }
-  // }, [router.isReady, mobileCategory]);
   useEffect(() => {
     if (router.isReady) {
       const mobileCategory = router.query.category as string;

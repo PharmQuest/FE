@@ -67,9 +67,6 @@ const SupplementPage: React.FC = () => {
       console.log("mypage 영양제 목록=", response.data);
       return response.data;
     },
-    // 캐시 설정 추가
-    // cacheTime: 0,
-    // staleTime: 0
   });
   if (isLoading)
     console.warn("mypage 영양제 로딩 중..");

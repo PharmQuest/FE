@@ -93,7 +93,6 @@ const SupplementInfo: React.FC = () => {
   if (isError)
     console.error("상세Error=", error);
 
-  // const [bookmarked, setBookmarked] = useState<boolean>(data?.result.scrapped || false);
   const [bookmarked, setBookmarked] = useState<boolean>(false);
   useEffect(() => {
     if (data?.result.scrapped !== undefined) {
@@ -128,8 +127,7 @@ const SupplementInfo: React.FC = () => {
   ];
 
   const handleBookmarkToggle = async (id: number) => {
-  // const handleBookmarkToggle = async (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   event.stopPropagation();
+ 
     try {      
       // 모든 supplements 쿼리를 무효화
       queryClient.invalidateQueries({ 
@@ -149,15 +147,7 @@ const SupplementInfo: React.FC = () => {
 
         console.log("상세 스크랩id=", id);
         console.log("상세 스크랩data=", response);
-        
-        // queryClient.invalidateQueries({ 
-        //   queryKey: ['supplementsList']  // 리스트 조회의 쿼리 키
-        // });
-        // 모든 supplements 쿼리를 무효화
-        // queryClient.invalidateQueries({ 
-        //   queryKey: ['supplementsList'],
-        //   refetchType: 'all'  // 모든 쿼리를 다시 불러옴
-        // });
+     
       } else {
         alert(response.data.message);
       }
@@ -207,9 +197,7 @@ const SupplementInfo: React.FC = () => {
                 tags={data?.result.categories || []}
                 imageUrl={data?.result.image}
                 tableData={tableData}
-                // isBookmarked={data?.result.scrapped}
                 isBookmarked={bookmarked}
-                // onBookmarkClick={handleBookmarkClick}
                 onBookmarkToggle={handleBookmarkToggle}
               />
             </div>
@@ -243,7 +231,6 @@ const SupplementInfo: React.FC = () => {
                 src: supp.image
                 })) || []}
                 imageWidth={287}/>
-                {/* <MoreSupplements supplements={data!.result.relatedSupplements} imageWidth={287} /> */}
             </div>
           </div>
         </div>

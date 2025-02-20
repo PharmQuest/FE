@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import BookmarkIcon from "@public/svgs/bookmark.svg";
-// import { axiosInstance } from "@/apis/axios-instance";
-// import axios from "axios";
 
 interface TableData {
   label: string;

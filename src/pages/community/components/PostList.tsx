@@ -248,7 +248,6 @@ const PostList: React.FC<PostListProps> = ({
               ? getMyScraps
               : getPosts,
       placeholderData: keepPreviousData,
-      // initialData: { result: { postList: [] } },
       retry: 0,
       enabled: !isSearchPage || !!keyword,
     },
