@@ -29,16 +29,16 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
   onBookmarkToggle,
 }) => {
   //const [isBookmarked, setIsBookmarked] = useState(false);
-  const [bookmarked, setBookmarked] = useState(isBookmarked);
-  useEffect(() => {
-    setBookmarked(isBookmarked);
-  }, [isBookmarked]);
+  // const [bookmarked, setBookmarked] = useState(isBookmarked);
+  // useEffect(() => {
+  //   setBookmarked(isBookmarked);
+  // }, [isBookmarked]);
 
   const [imgSrc, setImgSrc] = useState(imageUrl);
 
-  const toggleBookmark = () => {
-    setBookmarked(!isBookmarked);
-  };
+  // const toggleBookmark = () => {
+  //   setBookmarked(!isBookmarked);
+  // };
 
   return (
     <div className="lg:p-6 md:flex-row border border-gray-100 rounded-xl p-4 flex flex-col md:gap-4 gap-1 mt-5">
@@ -81,9 +81,9 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
       <div className="flex items-start gap-4 md:block hidden" onClick={() => onBookmarkToggle(id)} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}>
         <BookmarkIcon
           className="w-6 cursor-pointer"
-          stroke={bookmarked ? "#FFD755" : "#707070"}
-          fill={bookmarked ? "#FFD755" : "none"}
-          onClick={toggleBookmark}
+          stroke={isBookmarked ? "#FFD755" : "#707070"}
+          fill={isBookmarked ? "#FFD755" : "none"}
+          // onClick={toggleBookmark}
         />
     
       </div>

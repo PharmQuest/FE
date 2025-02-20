@@ -14,7 +14,8 @@ interface ScrapResponse {
 
 export const useMedicineScrap = (
   medicineId: number,
-  initialScrapStatus: boolean
+  initialScrapStatus: boolean,
+  onToggleComplete?: () => void
 ) => {
   const [isScraped, setIsScraped] = useState(initialScrapStatus);
   const { isLoggedIn } = useAuthStore();
@@ -73,6 +74,7 @@ export const useMedicineScrap = (
       setNoticeModalText("스크랩 처리 중 오류가 발생했습니다.");
       setIsNoticeModalOpen(true);
     }
+    onToggleComplete?.();
   };
 
   return {
