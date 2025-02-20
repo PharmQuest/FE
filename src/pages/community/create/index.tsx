@@ -77,7 +77,7 @@ export default function CreatePost() {
     }
   }
 
-  const handleTextareaHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -213,7 +213,7 @@ export default function CreatePost() {
               placeholder="내용을 입력하세요."
               value={content}
               maxLength={3000}
-              onChange={handleTextareaHeight}>
+              onChange={handleTextarea}>
 
             </textarea>
             {uploadImage &&
