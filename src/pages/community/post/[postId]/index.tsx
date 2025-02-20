@@ -52,8 +52,16 @@ export default function Post() {
     }
   }, [error])
 
+  useEffect(() => {
+    if (postItem?.isReported){
+      setNoticeModalText("신고한 게시글입니다.");
+      setIsNoticeModalOpen(true);
+      router.push("/community")
+    }
+  }, [postItem])
+
   return (
-    isLoggedIn &&
+    isLoggedIn && !postItem?.isReported &&
     <>
       <div
         className="
