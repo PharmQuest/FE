@@ -34,6 +34,7 @@ export default function Community() {
   const [category, setCategory] = useState("ALL");
 
   const handleFilterButton = (category: Category) => {
+    router.push(`/community?category=${category.value}`, undefined, {scroll: false});
     setCategory(category.value)
     setCategories((prev) =>
       prev.map(item =>

@@ -58,7 +58,7 @@ const Search = () => {
       router.push({
         pathname: "/community/posts/search",
         query: {
-          ...router.query,
+          category: "ALL",
           keyword: searchText,
           country: countryValue || "ALL",
         },
@@ -67,7 +67,7 @@ const Search = () => {
       router.push({
         pathname: "/supplements",
         query: {
-          ...router.query,
+          category: "전체",
           keyword: searchText,
           country: countryValue || "ALL",
         },

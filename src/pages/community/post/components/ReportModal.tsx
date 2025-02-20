@@ -1,12 +1,15 @@
 import Portal from "@/components/common/Portal";
 import { AnimatePresence, motion } from "framer-motion";
 import useModalStore from "@/store/useModalStore";
-import { useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import { CheckCircleIcon, CircleIcon, XIcon } from "@public/svgs";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ReportModal = () => {
+
+  const queryClient = useQueryClient();
 
   const reportTypes = [
     { key: 1, type: "SPAM", text: "스팸홍보/도배" },
@@ -34,7 +37,8 @@ const ReportModal = () => {
   const router = useRouter();
   const postId = Number(router.query.postId);
 
-  const handleReportType = (key: number, type: string) => {
+  const handleReportType = (e: MouseEvent, key: number, type: string) => {
+    e.stopPropagation();
     setReportKey(key)
     setReportType(type)
   }
@@ -47,6 +51,9 @@ const ReportModal = () => {
         setReportKey(null)
         setNoticeModalText("신고가 정상적으로 접수되었습니다.")
         setIsNoticeModalOpen(true)
+        queryClient.removeQueries({
+          predicate: (query) => query.queryKey[1] === postId,
+        });
       }
       catch (error) {
         console.log(error)
@@ -61,6 +68,8 @@ const ReportModal = () => {
         setIsReportModalOpen(false)
         setReportKey(null)
         setNoticeModalText("신고가 정상적으로 접수되었습니다.")
+
+
         setIsNoticeModalOpen(true)
         router.push("/community");
       } catch (error) {
@@ -77,7 +86,7 @@ const ReportModal = () => {
   }
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: globalThis.MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         setIsReportModalOpen(false);
         setReportKey(null);
@@ -117,8 +126,8 @@ const ReportModal = () => {
                   {reportTypes?.map((item, index) => (
                     <div
                       key={index}
-                      className={`flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.key && `text-subhead1-sb text-primary-500`}`}
-                      onClick={() => handleReportType(item.key, item.type)}>
+                      className={`cursor-pointer flex px-2 py-4 gap-3 border-b border-solid border-gray-100 items-center ${reportKey === item.key && `text-subhead1-sb text-primary-500`}`}
+                      onClick={(e) => handleReportType(e, item.key, item.type)}>
                       {reportKey === item.key ? <CheckCircleIcon /> : <CircleIcon />}
                       {item.text}
                     </div>
