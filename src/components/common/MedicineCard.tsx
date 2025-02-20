@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { MedicineCardProps } from "@/types/medicine";
+import { useMedicineScrap } from "@/hooks/medicine/useMedicineScrap";
 
 const MedicineCard: React.FC<MedicineCardProps> = ({
   medicineTableId,
@@ -11,16 +12,14 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
   imgUrl,
   category,
   country,
+  scrapped,
 }) => {
   const router = useRouter();
-  const [isBookmark, setIsBookmark] = useState(false);
   const [src, setSrc] = useState(imgUrl);
-
-  const handleBoomark = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 부모 컴포넌트 클릭 방지
-    setIsBookmark(!isBookmark);
-    // 추후에 추가할 북마크 추가 기능 API ~~
-  };
+  const { isScraped, toggleScrap } = useMedicineScrap(
+    medicineTableId,
+    scrapped
+  );
 
   return (
     <div
@@ -32,7 +31,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
       {/* medicine-image */}
       <div
         className={`
-        md:w-[138px] md:h-[138px]
+        md:w-[138px] md:h-[138px] 
         rounded w-[100px] h-[100px] flex items-center`}
       >
         <Image
@@ -80,9 +79,9 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
               md:gap-1 md:text-body1-r
               flex flex-col text-m-body2-r gap-0.5`}
           >
-            <p className={`max-w-[100px] truncate`}>{brandName}</p>
-            <p className={`max-w-[100px] truncate`}>{genericName}</p>
-            <p className={`max-w-[100px] truncate`}>{category}</p>
+            <p className={`max-w-[120px] truncate`}>{brandName}</p>
+            <p className={`max-w-[120px] truncate`}>{genericName}</p>
+            <p className={`max-w-[120px] truncate`}>{category}</p>
           </div>
         </div>
       </div>
@@ -93,10 +92,10 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
         <BookmarkIcon
           className={`
             md:w-[30px]
-            absolute top-0 right-0 w-6 -z-10`}
-          onClick={(e: React.MouseEvent) => handleBoomark(e)}
-          stroke={isBookmark ? "#FFD755" : "#707070"}
-          fill={isBookmark ? "#FFD755" : "none"}
+            absolute top-0 right-0 w-6`}
+          onClick={toggleScrap}
+          stroke={isScraped ? "#FFD755" : "#707070"}
+          fill={isScraped ? "#FFD755" : "none"}
         />
       </div>
     </div>
