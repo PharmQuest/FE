@@ -1,16 +1,13 @@
 import React from "react";
 import { PharmacyDetails } from "../MapComponent";
+import { GlobeIcon } from "@public/svgs";
 
 interface InfoProps {
   pharmacy?: PharmacyDetails;
 }
 
 const Info: React.FC<InfoProps> = ({ pharmacy }) => {
-  const hasAnyInfo =
-    pharmacy?.wheelchair_accessible_entrance !== undefined ||
-    pharmacy?.website !== undefined;
-
-  if (!hasAnyInfo) {
+  if (!pharmacy?.website) {
     return (
       <div>
         <div className="flex items-center gap-2 mb-3">
@@ -28,28 +25,19 @@ const Info: React.FC<InfoProps> = ({ pharmacy }) => {
       </div>
 
       <div className="space-y-4">
-        {pharmacy.wheelchair_accessible_entrance !== undefined && (
-          <div>
-            <p className="text-body2-r text-gray-500 font-medium mb-1">
-              접근성
-            </p>
-            <p className="text-body2-r text-gray-400">
-              휠체어 접근 가능:{" "}
-              {pharmacy.wheelchair_accessible_entrance ? "가능" : "불가능"}
-            </p>
-          </div>
-        )}
-
         {pharmacy.website && (
           <div>
-            <p className="text-body2-r text-gray-500 font-medium mb-1">
-              웹사이트
-            </p>
+            <div className="flex flex-row gap-1">
+              <GlobeIcon className="w-4 h-4 mt-[1px]" />
+              <p className="text-body2-r text-gray-500 font-medium mb-1">
+                웹사이트
+              </p>
+            </div>
             <a
               href={pharmacy.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-body2-r text-primary-500 hover:underline"
+              className="text-body2-r text-primary-500 hover:underline break-all"
             >
               {pharmacy.website}
             </a>
