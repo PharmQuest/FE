@@ -54,7 +54,7 @@ const MyMedicinesPage = () => {
   const router = useRouter();
   const [totalElements, setTotalElements] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCountry, setSelectedCountry] = useState("전체");
+  const [selectedCountry, setSelectedCountry] = useState("ALL");
   const [medicines, setMedicines] = useState<MedicineResponse['result']['content']>([]);
 
   const { data, isLoading, refetch } = useQuery<MedicineResponse>({
