@@ -4,6 +4,7 @@ import Image from "next/image";
 import { axiosInstance } from "@/apis/axios-instance";
 import axios from "axios";
 import useModalStore from "@/store/useModalStore";
+import { useRouter } from "next/router";
 
 interface ScrapResponse {
   code: string;
@@ -44,6 +45,8 @@ export default function SupplementCard({
   const [bookmarked, setBookmarked] = useState(scrapped);
   const [imgSrc, setImgSrc] = useState(src || "/images/no_image.webp");
 
+  const router = useRouter();
+
   useEffect(() => {
     setImgSrc(src || "/images/no_image.webp");
   }, [src]);
@@ -60,9 +63,9 @@ export default function SupplementCard({
       const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
       
       if (response.data.code === "AUTH4001") {
-        // alert("로그인이 필요한 서비스입니다.");
         setNoticeModalText("로그인이 필요한 서비스입니다.");
         setIsNoticeModalOpen(true);
+        router.push("/login");
         return;
       }
       
@@ -77,15 +80,14 @@ export default function SupplementCard({
         console.log("스크랩data=", response);
         onBookmarkToggle?.(id);
       } else {
-        // alert(response.data.message);
         setNoticeModalText(response.data.message);
         setIsNoticeModalOpen(true);
       }
     } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
-          // alert("로그인이 필요한 서비스입니다.");
           setNoticeModalText("로그인이 필요한 서비스입니다.");
           setIsNoticeModalOpen(true);
+          router.push("/login");
           return;
         }
         console.error("북마크 처리 중 오류 발생:", error);

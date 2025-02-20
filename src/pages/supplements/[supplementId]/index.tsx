@@ -144,6 +144,7 @@ const SupplementInfo: React.FC = () => {
       if (response.data.code === "AUTH4001") {
         setNoticeModalText("로그인이 필요한 서비스입니다.");
         setIsNoticeModalOpen(true);
+        router.push("/login");
         return;
       }
       
@@ -165,6 +166,7 @@ const SupplementInfo: React.FC = () => {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         setNoticeModalText("로그인이 필요한 서비스입니다.");
         setIsNoticeModalOpen(true);
+        router.push("/login");
         return;
       }
       setNoticeModalText("스크랩 처리 중 오류가 발생했습니다.");
