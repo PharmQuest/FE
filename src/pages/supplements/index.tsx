@@ -68,7 +68,8 @@ const SupplementPage: React.FC = () => {
   const searchQuery = router.query.keyword as string || ""; // 검색어 가져오기
   const country = router.query.country as string || ""; // "", "KOREA", "USA", "JAPAN" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
-  const [webCategory, setWebCategory] = useState("전체")
+  const [webCategory, setWebCategory] = useState("전체");
+  const [selectedCategory, setSelectedCategory] = useState("전체");
 
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", webCategory, currentPage],
@@ -105,7 +106,7 @@ const SupplementPage: React.FC = () => {
 
   // 필터 버튼 클릭 핸들러
   const handleFilterClick = (category: string) => {
-    setWebCategory(category);
+    setSelectedCategory(category);
     setCurrentPage(1); // 카테고리 변경시 첫 페이지로 이동
 
     // 모바일에서 category 파라미터 처리
@@ -186,11 +187,11 @@ const SupplementPage: React.FC = () => {
     } else {
       // 검색 결과인 경우 카테고리 필터링 적용
       return supplements.filter(supplement =>
-        webCategory === "전체" ||
-        supplement.selectCategories?.includes(webCategory)
+        selectedCategory === "전체" ||
+        supplement.selectCategories?.includes(selectedCategory)
       );
     }
-  }, [isSearchMode, supplements, webCategory]);
+  }, [isSearchMode, supplements, selectedCategory]);
 
   useEffect(() => {
     if (searchQuery || country) {

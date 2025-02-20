@@ -72,7 +72,7 @@ export default function SupplementCard({
       if (response.data.isSuccess) {
         setBookmarked(!bookmarked);
         setNoticeModalText(
-          scrapped ? "스크랩이 해제되었습니다." : "스크랩이 완료되었습니다."
+          bookmarked ? "스크랩이 해제되었습니다." : "스크랩이 완료되었습니다."
         );
         setIsNoticeModalOpen(true);
 
