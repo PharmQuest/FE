@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GreenMapPinIcon, SearchBarIcon, SearchIcon, XIcon } from "@public/svgs"
 import { useRouter } from "next/router";
 import SearchModal from "./SearchModal";
@@ -19,6 +19,8 @@ const Search = () => {
   const [searchUrl, setSearchUrl] = useState("");
 
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const handleSearchModal = (e: MouseEvent) => {
     e.stopPropagation();
@@ -105,6 +107,7 @@ const Search = () => {
           className={`lg:gap-2 flex gap-1.5 grow`}>
           <SearchIcon className={`${isHomePage ? `lg:w-[30px] w-5 lg:ml-[2px]` : `w-6`} ml-[-2px]`} />
           <input
+            ref={searchRef}
             type="text"
             className={`w-full grow bg-transparent text-gray-600 placeholder-gray-300 focus:outline-none ${isHomePage ? `lg:text-headline-m text-sm` : `text-body1-r`}`}
             placeholder="복통약"
@@ -118,7 +121,13 @@ const Search = () => {
             onClick={() => setSearchText('')} />
         }
 
-        <SearchModal countryValue={countryValue} setCountryValue={setCountryValue} setCountryText={setCountryText} isSearchModalOpen={isSearchModalOpen} setIsSearchModalOpen={setIsSearchModalOpen} />
+        <SearchModal 
+          countryValue={countryValue} 
+          setCountryValue={setCountryValue} 
+          setCountryText={setCountryText} 
+          isSearchModalOpen={isSearchModalOpen} 
+          setIsSearchModalOpen={setIsSearchModalOpen} 
+          searchRef={searchRef}/>
       </div>
     </div>
   );
