@@ -9,6 +9,7 @@ import { axiosInstance } from "@/apis/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useQueryClient } from '@tanstack/react-query';
+import useModalStore from "@/store/useModalStore";
 
 import { BookmarkIcon, ExternalIcon, LeftArrowIcon } from "@public/svgs";
 import { useRouter } from "next/router";
@@ -126,6 +127,8 @@ const SupplementInfo: React.FC = () => {
     }
   ];
 
+  const { setIsNoticeModalOpen, setNoticeModalText } = useModalStore();
+
   const handleBookmarkToggle = async (id: number) => {
  
     try {      
@@ -138,25 +141,37 @@ const SupplementInfo: React.FC = () => {
       const response = await axiosInstance.patch<ScrapResponse>(`/supplements/${id}/scrap`);
       
       if (response.data.code === "AUTH4001") {
-        alert("로그인이 필요한 서비스입니다.");
+        // alert("로그인이 필요한 서비스입니다.");
+        setNoticeModalText("로그인이 필요한 서비스입니다.");
+        setIsNoticeModalOpen(true);
         return;
       }
       
       if (response.data.isSuccess === true) {
         setBookmarked(!bookmarked); // 상위 상태 업데이트
+        setNoticeModalText(
+          bookmarked ? "스크랩이 해제되었습니다." : "스크랩이 완료되었습니다."
+        );
+        setIsNoticeModalOpen(true);
 
         console.log("상세 스크랩id=", id);
         console.log("상세 스크랩data=", response);
      
       } else {
-        alert(response.data.message);
+        // alert(response.data.message);
+        setNoticeModalText(response.data.message);
+        setIsNoticeModalOpen(true);
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        alert("로그인이 필요한 서비스입니다.");
+        // alert("로그인이 필요한 서비스입니다.");
+        setNoticeModalText("로그인이 필요한 서비스입니다.");
+        setIsNoticeModalOpen(true);
         return;
       }
-      console.error("북마크 처리 중 오류 발생:", error);
+      // console.error("북마크 처리 중 오류 발생:", error);
+      setNoticeModalText("스크랩 처리 중 오류가 발생했습니다.");
+      setIsNoticeModalOpen(true);
     }
   };
     
