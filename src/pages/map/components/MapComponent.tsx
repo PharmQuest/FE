@@ -10,6 +10,7 @@ import React, {
 import { Loader } from "@googlemaps/js-api-loader";
 import SearchOnCurrentMapButton from "./SearchOnCurrentMapButton";
 import { createCurrentLocationControl } from "../../../components/map/CurrentLocationButton";
+import { ClipLoader } from "react-spinners";
 
 export interface MapComponentRef {
   searchPharmaciesByText: (text: string) => Promise<PharmacyDetails[]>;
@@ -60,6 +61,7 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
     });
     const [isMapMoved, setIsMapMoved] = useState(false);
     const [isMapInitialized, setIsMapInitialized] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const loader = useMemo(
       () =>
@@ -219,12 +221,14 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
           );
           onPharmaciesFound(validPharmacies);
           updateMarkers(validPharmacies);
+          setIsLoading(false);
 
           return validPharmacies;
         } catch (error) {
           console.error("Error searching pharmacies:", error);
           onPharmaciesFound([]);
           updateMarkers([]);
+          setIsLoading(false);
           return [];
         }
       },
@@ -296,9 +300,10 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
           };
         } catch (error) {
           console.error("Error loading map:", error);
+          setIsLoading(false);
         }
       },
-      [loader, searchNearbyPharmacies]
+      [loader, searchNearbyPharmacies, getUserLocation]
     );
 
     const handleSearchCurrentMap = useCallback(() => {
@@ -320,6 +325,7 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
       async (searchText: string): Promise<PharmacyDetails[]> => {
         if (!mapRef.current || !window.google?.maps) return [];
 
+        setIsLoading(true);
         const service = new google.maps.places.PlacesService(mapRef.current);
 
         try {
@@ -366,12 +372,14 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
 
           onPharmaciesFound(validPharmacies);
           updateMarkers(validPharmacies);
+          setIsLoading(false);
 
           return validPharmacies;
         } catch (error) {
           console.error("Error searching pharmacies:", error);
           onPharmaciesFound([]);
           updateMarkers([]);
+          setIsLoading(false);
           return [];
         }
       },
@@ -411,6 +419,18 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
     return (
       <div className="absolute inset-0">
         <div id="map" className="w-full h-full" />
+
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-70 z-40">
+            <div className="text-center">
+              <ClipLoader color="#138E5D" size={40} />
+              <p className="mt-4 text-gray-600 font-medium">
+                주변 약국을 찾는 중...
+              </p>
+            </div>
+          </div>
+        )}
+
         {isMapMoved && (
           <div className="fixed inset-x-0 z-30" style={{ bottom: "24px" }}>
             <div
