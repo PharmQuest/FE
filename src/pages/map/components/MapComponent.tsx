@@ -30,12 +30,7 @@ export interface PharmacyDetails extends Pharmacy {
   rating?: number;
   reviews?: google.maps.places.PlaceReview[];
   vicinity?: string;
-  wheelchair_accessible_entrance?: boolean;
   website?: string;
-  editorial_summary?: {
-    language?: string;
-    overview?: string;
-  };
 }
 
 interface MapComponentProps {
@@ -146,9 +141,7 @@ const MapComponent = forwardRef<MapComponentRef, MapComponentProps>(
                 "business_status",
                 "reviews",
                 "vicinity",
-                "wheelchair_accessible_entrance",
                 "website",
-                "editorial_summary",
               ],
             },
             (place, status) => {
