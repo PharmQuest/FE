@@ -153,7 +153,7 @@ const MedicineSearchResults: React.FC<MedicineSearchResultsProps> = ({
       {/* 검색 결과 헤더 */}
       <div className="flex flex-col lg:flex-row lg:justify-row lg:items-center  md:mb-8 mb-3 gap-4">
         <h1 className="md:text-display2-b text-m-subhead1-sb text-gray-600">
-          {keyword ? `검색결과 ${searchCount}건` : `상비약 검색 결과`}
+          {keyword ? `검색결과 ${searchCount}건` : `상비약 리스트`}
         </h1>
 
         {/* 카테고리 필터 */}
