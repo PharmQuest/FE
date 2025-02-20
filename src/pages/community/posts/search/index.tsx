@@ -45,6 +45,7 @@ export default function SearchPosts() {
   }, [categoryValue]);
 
   const handleFilterButton = (category: Category) => {
+    router.push(`/community/posts?category=${category.value}`)
     setCategoryValue(category.value)
     setPage(1)
   }
@@ -52,6 +53,10 @@ export default function SearchPosts() {
   useEffect(() => {
     setCategoryValue(router.query.category as string || "ALL")
   }, [router.query.category])
+
+  useEffect(() => {
+    setCategoryValue("ALL")
+  }, [router])
 
   return (
     <div
