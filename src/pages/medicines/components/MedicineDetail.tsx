@@ -82,6 +82,12 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
     router.back();
   };
 
+  const getDisplayCountry = (countryCode: string): string => {
+    if (countryCode.toLowerCase() === "usa") return "미국";
+    if (countryCode.toLowerCase() === "korea") return "한국";
+    return countryCode;
+  };
+
   return (
     <div className="w-full">
       {/* Mobile Header */}
@@ -137,7 +143,7 @@ const MedicineDetail = ({ medicineId }: { medicineId: string }) => {
             <p
               className={`text-body2-r text-white bg-primary-200 w-fit rounded px-2 pt-0.5 pb-[1px] text-center mt-4`}
             >
-              {result?.country}
+              {getDisplayCountry(result?.country || "")}
             </p>
 
             <p className="text-gray-600 lg:text-headline-b text-m-headline2-b">

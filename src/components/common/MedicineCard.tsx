@@ -26,14 +26,19 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
     }
   );
 
+  const getDisplayCountry = (countryCode: string): string => {
+    if (countryCode.toLowerCase() === "usa") return "미국";
+    if (countryCode.toLowerCase() === "korea") return "한국";
+    return countryCode;
+  };
+
   return (
     <div
       className={`
-        md:p-5 md:pr-4 md:rounded-lg md:h-[178px]
+        md:p-5 md:pr-4 md:rounded-lg md:h-[178px] hover:bg-gray-50
         h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate`}
-      onClick={() => router.push(`medicines/${medicineTableId}`)}
+      onClick={() => router.push(`/medicines/${medicineTableId}`)}
     >
-      {/* medicine-image */}
       <div
         className={`
         md:w-[138px] md:h-[138px] 
@@ -62,7 +67,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
             text-m-caption2-r
             `}
         >
-          {country}
+          {getDisplayCountry(country)}
         </div>
         <div
           className={`

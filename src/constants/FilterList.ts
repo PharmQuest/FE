@@ -1,47 +1,47 @@
-const Community = `/community/posts?category=`
-const Medicine = `/medicines?category=`
-const supplement = `/supplements?category=`
+const Community = `/community/posts?category=`;
+const Medicine = `/medicines/search?category=`;
+const supplement = `/supplements?category=`;
 
 export const HOME_FILTER_LIST = [
   {
     text: "진통/해열",
     isHomeButton: true,
-    url: `/medicines?category=PAIN_RELIEF&page=1&size=10`,
+    url: `/medicines/search?category=PAIN_RELIEF&page=1&size=10`,
   },
   {
     text: "소화/위장",
     isHomeButton: true,
-    url: `/medicines?category=DIGESTIVE&page=1&size=10`,
+    url: `/medicines/search?category=DIGESTIVE&page=1&size=10`,
   },
   {
     text: "감기/기침",
     isHomeButton: true,
-    url: `/medicines?category=COLD&page=1&size=10`,
+    url: `/medicines/search?category=COLD&page=1&size=10`,
   },
   {
     text: "알레르기",
     isHomeButton: true,
-    url: `/medicines?category=ALLERGY&page=1&size=10`,
+    url: `/medicines/search?category=ALLERGY&page=1&size=10`,
   },
   {
     text: "상처/소독",
     isHomeButton: true,
-    url: `/medicines?category=ANTISEPTIC&page=1&size=10`,
+    url: `/medicines/search?category=ANTISEPTIC&page=1&size=10`,
   },
   {
     text: "멀미",
     isHomeButton: true,
-    url: `/medicines?category=MOTION_SICKNESS&page=1&size=10`,
+    url: `/medicines/search?category=MOTION_SICKNESS&page=1&size=10`,
   },
   {
     text: "안약",
     isHomeButton: true,
-    url: `/medicines?category=EYE_DROPS&page=1&size=10`,
+    url: `/medicines/search?category=EYE_DROPS&page=1&size=10`,
   },
   {
     text: "기타",
     isHomeButton: true,
-    url: `/medicines?category=OTHER&page=1&size=10`,
+    url: `/medicines/search?category=OTHER&page=1&size=10`,
   },
 ];
 
@@ -50,45 +50,45 @@ export const MOBILE_COMMUNIY_FILTER_LIST = [
     text: "전체",
     isMobileButton: true,
     url: `${Community}ALL`,
-    value: 'ALL',
+    value: "ALL",
   },
   {
     text: "자유",
     isMobileButton: true,
     url: `${Community}FORUM`,
-    value: 'FORUM',
+    value: "FORUM",
   },
   {
     text: "약국",
     isMobileButton: true,
     url: `${Community}PHARMACY`,
-    value: 'PHARMACY',
+    value: "PHARMACY",
   },
   {
     text: "병원",
     isMobileButton: true,
     url: `${Community}HOSPITAL`,
-    value: 'HOSPITAL',
+    value: "HOSPITAL",
   },
   {
     text: "약",
     isMobileButton: true,
     url: `${Community}MEDICATION`,
-    value: 'MEDICATION',
+    value: "MEDICATION",
   },
   {
     text: "증상",
     isMobileButton: true,
     url: `${Community}SYMPTOM`,
-    value: 'SYMPTOM',
+    value: "SYMPTOM",
   },
   {
     text: "영양제",
     isMobileButton: true,
     url: `${Community}SUPPLEMENT`,
-    value: 'SUPPLEMENT',
+    value: "SUPPLEMENT",
   },
-]
+];
 
 export const MOBILE_MEDICINE_FILTER_LIST = [
   {
@@ -145,7 +145,7 @@ export const MOBILE_MEDICINE_FILTER_LIST = [
     url: `${Medicine}OTHER`,
     value: `OTHER`,
   },
-]
+];
 
 export const MOBILE_SUPPLEMENT_FILTER_LIST = [
   {
@@ -190,4 +190,4 @@ export const MOBILE_SUPPLEMENT_FILTER_LIST = [
     url: `${supplement}눈건강`,
     value: "눈건강",
   },
-]
+];
