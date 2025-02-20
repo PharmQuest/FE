@@ -144,7 +144,7 @@ const SupplementInfo: React.FC = () => {
         return;
       }
       
-      if (response.data.isSuccess) {
+      if (response.data.isSuccess === true) {
         setBookmarked(!bookmarked); // 상위 상태 업데이트
 
         console.log("상세 스크랩id=", id);
