@@ -105,7 +105,7 @@ const SupplementPage: React.FC = () => {
         const response = await axiosInstance.get(
           `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
         );
-        console.log(`검색어: ${searchQuery} 결과=`, response.data);
+        console.log(`나라: ${countryParam}, 검색어: ${searchQuery} 결과=`, response.data);
         return response.data;
       } catch (error) {
         // 404 에러인 경우 빈 결과를 반환
