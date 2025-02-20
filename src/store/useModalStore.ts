@@ -7,7 +7,7 @@ type Store = {
   setNoticeModalText: (value: string) => void;
 
   isLoginRedirect: boolean;
-  triggerLoginRedirect: (boolean) => void;
+  triggerLoginRedirect: (value: boolean) => void;
 
   isReportModalOpen: boolean;
   setIsReportModalOpen: (value: boolean) => void;

@@ -68,7 +68,7 @@ const SupplementPage: React.FC = () => {
   const searchQuery = router.query.keyword as string || ""; // 검색어 가져오기
   const country = router.query.country as string || ""; // "", "KOREA", "USA", "JAPAN" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
-  const [webCategory, setWebCategory] = useState("전체")
+  const [webCategory, setWebCategory] = useState("전체");
 
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
     queryKey: ["supplementsList", webCategory, currentPage],
@@ -223,7 +223,6 @@ const SupplementPage: React.FC = () => {
       }
     }
   }, [router.isReady, router.query.category]);
-  
   
 
   return (
