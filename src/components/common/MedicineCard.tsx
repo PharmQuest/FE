@@ -42,7 +42,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
       <div
         className={`
         md:w-[138px] md:h-[138px] 
-        rounded w-[100px] h-[100px] flex items-center`}
+        rounded w-[100px] h-[100px] flex items-center flex-shrink-0`}
       >
         <Image
           src={src}
@@ -77,7 +77,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
           <div
             className={`
               md:gap-1 md:w-14 md:text-subhead1-sb
-              flex flex-col text-m-subhead1-sb gap-0.5
+              flex flex-col text-m-subhead1-sb gap-0.5 flex-shrink-0
               `}
           >
             <p>제품명</p>
@@ -87,11 +87,11 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
           <div
             className={`
               md:gap-1 md:text-body1-r
-              flex flex-col text-m-body2-r gap-0.5`}
+              flex flex-col text-m-body2-r gap-0.5 min-w-0`}
           >
-            <p className={`max-w-[120px] truncate`}>{brandName}</p>
-            <p className={`max-w-[120px] truncate`}>{genericName}</p>
-            <p className={`max-w-[120px] truncate`}>{category}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{brandName}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{genericName}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{category}</p>
           </div>
         </div>
       </div>
