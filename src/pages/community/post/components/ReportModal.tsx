@@ -5,8 +5,11 @@ import { MouseEvent, useEffect, useRef, useState } from "react";
 import { CheckCircleIcon, CircleIcon, XIcon } from "@public/svgs";
 import { axiosInstance } from "@/apis/axios-instance";
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ReportModal = () => {
+
+  const queryClient = useQueryClient();
 
   const reportTypes = [
     { key: 1, type: "SPAM", text: "스팸홍보/도배" },
@@ -48,6 +51,9 @@ const ReportModal = () => {
         setReportKey(null)
         setNoticeModalText("신고가 정상적으로 접수되었습니다.")
         setIsNoticeModalOpen(true)
+        queryClient.removeQueries({
+          predicate: (query) => query.queryKey[1] === postId,
+        });
       }
       catch (error) {
         console.log(error)
@@ -62,6 +68,8 @@ const ReportModal = () => {
         setIsReportModalOpen(false)
         setReportKey(null)
         setNoticeModalText("신고가 정상적으로 접수되었습니다.")
+
+
         setIsNoticeModalOpen(true)
         router.push("/community");
       } catch (error) {
