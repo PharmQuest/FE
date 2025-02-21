@@ -1,10 +1,39 @@
 # 💊 어디약 Pharmquest
 ![image](https://github.com/user-attachments/assets/6ba54fa9-a0fc-4fa7-9577-fbe74a8b10f8)
-> 해외에서 어떤 상비약을 사야할지 막막한 사람들을 위해, 상비약 정보와 약국 위치를 한 곳에서 제공하는 서비스
 
 🔗 서비스 링크 : https://pharmquest.store/
 
 <br />
+
+<br />
+
+## 프로젝트 개발 기간 
+> 2025.01.08 ~ 2025.02.21
+
+<br />
+<br />
+
+
+## 프로젝트 소개
+> 해외에서 어떤 상비약을 사야할지 막막한 사람들을 위해, 상비약 정보와 약국 위치를 한 곳에서 제공하는 서비스
+
+<br />
+
+
+![14](https://github.com/user-attachments/assets/8d5b8c7f-ab32-4fbe-bd29-acf40a150928)
+
+![15](https://github.com/user-attachments/assets/d4cc59b8-0a2e-4848-b51d-f2698cfa7bb6)
+
+![16](https://github.com/user-attachments/assets/1b3a92d5-a34d-4336-9fad-e18db2af8d84)
+
+![17](https://github.com/user-attachments/assets/a950e270-9cbd-4073-bac9-3704ad964731)
+
+![18](https://github.com/user-attachments/assets/cf536a05-d327-4ad6-a977-586e1e9a0948)
+
+![19](https://github.com/user-attachments/assets/598859ff-8299-404d-9b99-d85e510f0a93)
+
+![20](https://github.com/user-attachments/assets/1af1f3fd-760c-4cb2-9e34-31f8eae10f39)
+
 
 ## 👥 Web Developers
 <div align="center">
