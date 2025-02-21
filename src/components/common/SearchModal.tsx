@@ -58,7 +58,7 @@ const SearchModal = ({
   const isHome = router.pathname === "/" ? true : false
   const Countrys = isCommunity ? 
                     COMMUNITY_COUNTRY :
-                    isMedicine ? 
+                    isMedicine || isHome ? 
                     MEDICINE_COUNTRY :
                     SUPPLEMENT_COUNTRY;
 
