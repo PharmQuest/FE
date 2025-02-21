@@ -19,7 +19,7 @@ const FilterButtonList = ({ filterList, className }: { filterList: filterInfo[],
 
   const segments = router.pathname.split('/')
 
-  let url = '';
+  let url = '/medicines/search';
 
   if (segments[1] === 'community') {
     url = segments[3] === 'search' ? '/community/posts/search' : '/community/posts';

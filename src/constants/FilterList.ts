@@ -7,41 +7,49 @@ export const HOME_FILTER_LIST = [
     text: "진통/해열",
     isHomeButton: true,
     url: `/medicines/search?category=PAIN_RELIEF&page=1&size=10`,
+    value: `PAIN_RELIEF`,
   },
   {
     text: "소화/위장",
     isHomeButton: true,
     url: `/medicines/search?category=DIGESTIVE&page=1&size=10`,
+    value: `DIGESTIVE`,
   },
   {
     text: "감기/기침",
     isHomeButton: true,
     url: `/medicines/search?category=COLD&page=1&size=10`,
+    value: `COLD`,
   },
   {
     text: "알레르기",
     isHomeButton: true,
     url: `/medicines/search?category=ALLERGY&page=1&size=10`,
+    value: `ALLERGY`,
   },
   {
     text: "상처/소독",
     isHomeButton: true,
     url: `/medicines/search?category=ANTISEPTIC&page=1&size=10`,
+    value: `ANTISEPTIC`,
   },
   {
     text: "멀미",
     isHomeButton: true,
     url: `/medicines/search?category=MOTION_SICKNESS&page=1&size=10`,
+    value: `MOTION_SICKNESS`,
   },
   {
     text: "안약",
     isHomeButton: true,
     url: `/medicines/search?category=EYE_DROPS&page=1&size=10`,
+    value: `EYE_DROPS`,
   },
   {
     text: "기타",
     isHomeButton: true,
     url: `/medicines/search?category=OTHER&page=1&size=10`,
+    value: `OTHER`,
   },
 ];
 
