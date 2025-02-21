@@ -89,9 +89,9 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
               md:gap-1 md:text-body1-r
               flex flex-col text-m-body2-r gap-0.5 min-w-0`}
           >
-            <p className="truncate max-w-[120px] md:max-w-72">{brandName}</p>
-            <p className="truncate max-w-[120px] md:max-w-72">{genericName}</p>
-            <p className="truncate max-w-[120px] md:max-w-72">{category}</p>
+            <p className={`max-w-[120px] truncate`}>{brandName}</p>
+            <p className={`max-w-[120px] truncate`}>{genericName}</p>
+            <p className={`max-w-[120px] truncate`}>{category}</p>
           </div>
         </div>
       </div>
