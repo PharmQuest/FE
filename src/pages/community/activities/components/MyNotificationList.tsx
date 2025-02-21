@@ -22,7 +22,7 @@ const MyNotificationList: React.FC<MyCommentListProp> = ({
   setPage,
 }) => {
 
-  const getMyComments = async () => {
+  const getMyNotifications = async () => {
     try {
       const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_DOMAIN}/mypage/activities/notification`, {
         params: {
@@ -36,8 +36,8 @@ const MyNotificationList: React.FC<MyCommentListProp> = ({
   }
 
   const { data, isPending } = useQuery({
-    queryKey: ["myComments", page],
-    queryFn: getMyComments,
+    queryKey: ["myNotifications", page],
+    queryFn: getMyNotifications,
     placeholderData: keepPreviousData,
     retry: 0,
   })
@@ -45,7 +45,7 @@ const MyNotificationList: React.FC<MyCommentListProp> = ({
   const notificationList = data?.result?.content;
 
   return (
-    data?.length > 0 ? (
+    notificationList?.length > 0 ? (
       <div className="flex flex-col">
         <div className="max-lg:hidden flex justify-between items-center py-3 px-4 border-b border-solid border-gray-300 text-subhead1-sb text-gray-500">
           <p className="flex-1 text-center">댓글</p>

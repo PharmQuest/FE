@@ -7,4 +7,5 @@ export interface MedicineCardProps {
   category: string;
   country: string;
   scrapped: boolean;
+  onBookmarkToggle?: (id: number) => void;
 }

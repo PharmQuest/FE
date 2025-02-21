@@ -33,6 +33,7 @@ function MoreSupplements({ supplements=[], imageWidth }: MoreSupplementsProps) {
               productName={supplement.title}
               categories={supplement.tags}
               src={supplement.src}
+              scrapped={supplement.isBookmarked}
               width={imageWidth ?? 260} 
             />
           </div>

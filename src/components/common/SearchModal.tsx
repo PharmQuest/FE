@@ -9,12 +9,14 @@ const SearchModal = ({
   setCountryText,
   isSearchModalOpen,
   setIsSearchModalOpen,
+  searchRef,
 } : {
   countryValue: string,
   setCountryValue: React.Dispatch<React.SetStateAction<string>>,
   setCountryText: React.Dispatch<React.SetStateAction<string>>,
   isSearchModalOpen: boolean,
   setIsSearchModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  searchRef: React.RefObject<HTMLInputElement | null>,
 }
 
 ) => {
@@ -56,7 +58,7 @@ const SearchModal = ({
   const isHome = router.pathname === "/" ? true : false
   const Countrys = isCommunity ? 
                     COMMUNITY_COUNTRY :
-                    isMedicine ? 
+                    isMedicine || isHome ? 
                     MEDICINE_COUNTRY :
                     SUPPLEMENT_COUNTRY;
 
@@ -106,7 +108,8 @@ const SearchModal = ({
               countryValue={countryValue} 
               setCountryValue={setCountryValue}
               setCountryText={setCountryText}
-              setIsSearchModalOpen={setIsSearchModalOpen}/>
+              setIsSearchModalOpen={setIsSearchModalOpen}
+              searchRef={searchRef}/>
           ))}
         </div>
       </div>

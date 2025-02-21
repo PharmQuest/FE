@@ -15,6 +15,7 @@ interface Reply {
   likeCount: number;
   isOwnComment: boolean;
   isDeleted: boolean;
+  isReported: boolean;
 }
 
 interface Comment {
@@ -30,6 +31,7 @@ interface Comment {
   likeCount: number;
   isOwnComment: boolean;
   isDeleted: boolean;
+  isReported: boolean;
 }
 
 interface CommentListProps {
@@ -77,6 +79,7 @@ const CommentList: React.FC<CommentListProps> = ({
             likeCount={comment.likeCount}
             isOwnComment={comment.isOwnComment}
             isDeleted={comment.isDeleted}
+            isReported={comment.isReported}
             editCommentId={editCommentId}
             setEditCommentId={setEditCommentId} />
         ))}

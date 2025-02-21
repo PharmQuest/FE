@@ -54,17 +54,29 @@ interface Supplement {
 }
 
 const SupplementPage: React.FC = () => {
+  const CATEGORY_MAPPING: { [key: string]: string } = {
+    "면역력강화": "면역",
+    "피로회복": "피로",
+    "소화건강": "소화",
+    "피부건강": "피부",
+    "뼈관절건강": "관절",
+    "눈건강": "눈건강",
+    "전체": "전체"
+  };
+  
   const router = useRouter();
   const searchQuery = router.query.keyword as string || ""; // 검색어 가져오기
   const country = router.query.country as string || ""; // "", "KOREA", "USA", "JAPAN" 중 하나
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("전체");
+  const [webCategory, setWebCategory] = useState("전체");
 
   const { data, isLoading, isError, error } = useQuery<ApiResponse>({
-    queryKey: ["supplementsList", selectedCategory, currentPage],
+    queryKey: ["supplementsList", webCategory, currentPage],
     queryFn: async () => {
       try {
-        const category = selectedCategory === "전체" ? "전체" : selectedCategory;
+        const mobileCategory = router.query.country as string || "";
+        const effectiveCategory = mobileCategory || webCategory;
+        const category = effectiveCategory === "전체" ? "전체" : CATEGORY_MAPPING[effectiveCategory] || effectiveCategory;
         const url = `/supplements/lists?category=${encodeURIComponent(category)}&page=${currentPage}`;
 
         const response = await axiosInstance.get(url);
@@ -93,8 +105,14 @@ const SupplementPage: React.FC = () => {
 
   // 필터 버튼 클릭 핸들러
   const handleFilterClick = (category: string) => {
-    setSelectedCategory(category);
+    setWebCategory(category);
     setCurrentPage(1); // 카테고리 변경시 첫 페이지로 이동
+
+    // 모바일에서 category 파라미터 처리
+    router.push({
+      pathname: '/supplements',
+      query: { ...router.query, category }
+    });
   };
 
   const countryParam = (country === "NONE" || country === "ALL") ? "" : country;
@@ -105,7 +123,7 @@ const SupplementPage: React.FC = () => {
         const response = await axiosInstance.get(
           `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
         );
-        console.log(`검색어: ${searchQuery} 결과=`, response.data);
+        console.log(`나라: ${countryParam}, 검색어: ${searchQuery} 결과=`, response.data);
         return response.data;
       } catch (error) {
         // 404 에러인 경우 빈 결과를 반환
@@ -128,47 +146,6 @@ const SupplementPage: React.FC = () => {
     },
     enabled: router.isReady && Boolean(searchQuery)
   });
-  // const { data: searchData, isLoading: isSearchLoading, isError: isSearchError, error:searchError } = useQuery<SearchResponse>({
-  //   queryKey: ["supplements-search", searchQuery, currentPage, countryParam],
-  //   queryFn: async () => {
-  //     let retryCount = 0;
-  //     const maxRetries = 10;
-
-  //     while (retryCount <= maxRetries) {
-  //       try {
-  //         const response = await axiosInstance.get(
-  //           `/supplements/search?keyword=${encodeURIComponent(searchQuery)}&country=${countryParam}&page=${currentPage}`
-  //         );
-  //         console.log(`검색어: ${searchQuery} 결과=`, response.data);
-  //         return response.data;
-  //       } catch (error) {
-  //         if (axios.isAxiosError(error) && error.response?.status === 404) {
-  //           if (retryCount === maxRetries) {
-  //             // 최대 재시도 횟수에 도달하면 빈 결과 반환
-  //             return {
-  //               code: "SUPP4001",
-  //               message: "검색 결과가 없습니다.",
-  //               result: {
-  //                 amountPage: 0,
-  //                 amountCount: 0,
-  //                 currentPage: 0,
-  //                 currentCount: 0,
-  //                 supplements: [],
-  //               },
-  //               isSuccess: false
-  //             };
-  //           }
-  //           // 재시도 전 1초 대기
-  //           await new Promise(resolve => setTimeout(resolve, 1000));
-  //           retryCount++;
-  //           continue;
-  //         }
-  //         throw error;
-  //       }
-  //     }
-  //   },
-  //   enabled: router.isReady && Boolean(searchQuery)
-  // });
 
   if (isLoading)
     console.warn("카테고리 영양제 로딩 중..");
@@ -209,15 +186,15 @@ const SupplementPage: React.FC = () => {
     } else {
       // 검색 결과인 경우 카테고리 필터링 적용
       return supplements.filter(supplement =>
-        selectedCategory === "전체" ||
-        supplement.selectCategories?.includes(selectedCategory)
+        webCategory === "전체" ||
+        supplement.selectCategories?.includes(webCategory)
       );
     }
-  }, [isSearchMode, supplements, selectedCategory]);
+  }, [isSearchMode, supplements, webCategory]);
 
   useEffect(() => {
     if (searchQuery || country) {
-      setSelectedCategory("전체");
+      setWebCategory("전체");
       setCurrentPage(1);
     }
   }, [searchQuery, country]);
@@ -228,27 +205,38 @@ const SupplementPage: React.FC = () => {
       console.log("Search Query:", searchQuery);
     }
   }, [router.isReady, router.query, searchQuery]);
+  
 
   useEffect(() => {
     // 페이지 진입 시 초기화
     if (router.pathname === '/supplements' && !router.query.keyword) {
-      setSelectedCategory("전체");
+      setWebCategory("전체");
       setCurrentPage(1);
     }
   }, [router.pathname, router.query]);
+
+  useEffect(() => {
+    if (router.isReady) {
+      const mobileCategory = router.query.category as string;
+      if (mobileCategory) {
+        setWebCategory(CATEGORY_MAPPING[mobileCategory] || mobileCategory);
+      }
+    }
+  }, [router.isReady, router.query.category]);
+  
 
   return (
     <div className="xl:w-[900px] xl:mx-auto lg:w-[900px] lg:mx-[50px] md:w-[601px] md:mx-auto w-[calc(100%-40px)] mx-5 flex flex-col items-center py-8">
       <div className="w-full max-w-[920px] flex items-center gap-x-4 mb-4 overflow-x-auto hidden lg:flex">
         <h2 className="text-display2-b text-gray-600 whitespace-nowrap">{searchQuery ? `검색결과 ${displaySupplements.length}건` : "전체"}</h2>
         <div className="flex gap-x-2">
-          <FilterButton text="전체" isSelected={selectedCategory === "전체"} onClickFn={() => handleFilterClick("전체")} />
-          <FilterButton text="면역력강화" isSelected={selectedCategory === "면역"} onClickFn={() => handleFilterClick("면역")} />
-          <FilterButton text="피로회복" isSelected={selectedCategory === "피로"} onClickFn={() => handleFilterClick("피로")} />
-          <FilterButton text="소화건강" isSelected={selectedCategory === "소화"} onClickFn={() => handleFilterClick("소화")} />
-          <FilterButton text="피부건강" isSelected={selectedCategory === "피부"} onClickFn={() => handleFilterClick("피부")} />
-          <FilterButton text="뼈관절건강" isSelected={selectedCategory === "관절"} onClickFn={() => handleFilterClick("관절")} />
-          <FilterButton text="눈건강" isSelected={selectedCategory === "눈건강"} onClickFn={() => handleFilterClick("눈건강")} />
+          <FilterButton text="전체" isSelected={webCategory === "전체"} onClickFn={() => handleFilterClick("전체")} />
+          <FilterButton text="면역력강화" isSelected={webCategory === "면역"} onClickFn={() => handleFilterClick("면역")} />
+          <FilterButton text="피로회복" isSelected={webCategory === "피로"} onClickFn={() => handleFilterClick("피로")} />
+          <FilterButton text="소화건강" isSelected={webCategory === "소화"} onClickFn={() => handleFilterClick("소화")} />
+          <FilterButton text="피부건강" isSelected={webCategory === "피부"} onClickFn={() => handleFilterClick("피부")} />
+          <FilterButton text="뼈관절건강" isSelected={webCategory === "관절"} onClickFn={() => handleFilterClick("관절")} />
+          <FilterButton text="눈건강" isSelected={webCategory === "눈건강"} onClickFn={() => handleFilterClick("눈건강")} />
         </div>
       </div>
 

@@ -19,7 +19,6 @@ interface ReplyItemProps {
   userId: number;
   userName: string;
   createdAt: string;
-  parentId: number;
   parentName: string;
   replyParentId: number | null;
   setReplyParentId: React.Dispatch<React.SetStateAction<number | null>>;
@@ -28,6 +27,7 @@ interface ReplyItemProps {
   commentPage: number;
   isOwnComment: boolean;
   isDeleted: boolean;
+  isReported: boolean;
   editCommentId: number | null;
   setEditCommentId: React.Dispatch<React.SetStateAction<number | null>>
 }
@@ -39,8 +39,6 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   userId,
   userName,
   createdAt,
-  // eslint-disable-next-line
-  parentId,
   parentName,
   replyParentId,
   setReplyParentId,
@@ -49,6 +47,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
   commentPage,
   isOwnComment,
   isDeleted,
+  isReported,
   editCommentId,
   setEditCommentId,
 }) => {
@@ -104,7 +103,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
                 <p>{userName}</p>
                 {postUserId === userId && <Tag variant="writer" className={`lg:text-subhead3-sb text-m-subhead2-sb`} />}
               </div>
-              {!isDeleted &&
+              {!isDeleted && !isReported &&
                 <div className={`relative cursor-pointer`}>
                   <KebabIcon className={`lg:h-[22px] h-[20px]`} onClick={(e: MouseEvent) => { handleMenu(e) }} />
                   <CommentMenu
@@ -117,11 +116,11 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
               }
             </div>
             <div className="flex flex-row gap-2">
-              {isDeleted ? (
+              {isDeleted || isReported ? (
                 <p
                   className="
                   lg:text-body1-r
-                  text-m-body2-r text-gray-300">삭제된 댓글입니다.</p>
+                  text-m-body2-r text-gray-300">{isDeleted ? '삭제된 댓글입니다.' : '신고한 댓글입니다.'}</p>
               ) : (
                 <>
                   <p
@@ -140,7 +139,7 @@ const ReplyItem: React.FC<ReplyItemProps> = ({
             <div className="flex flex-row justify-between text-body2-r text-gray-400">
               <p>{formattedDate}</p>
 
-              {!isDeleted &&
+              {!isDeleted && !isReported &&
                 <div className="flex flex-row gap-[10px]">
                   <div className="flex flex-row">
                     <LikeIcon

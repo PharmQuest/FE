@@ -13,26 +13,36 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
   category,
   country,
   scrapped,
+  onBookmarkToggle,
 }) => {
   const router = useRouter();
   const [src, setSrc] = useState(imgUrl);
   const { isScraped, toggleScrap } = useMedicineScrap(
     medicineTableId,
-    scrapped
+    scrapped,
+    () => {
+      // 스크랩 토글 후 콜백
+      onBookmarkToggle?.(medicineTableId);
+    }
   );
+
+  const getDisplayCountry = (countryCode: string): string => {
+    if (countryCode.toLowerCase() === "usa") return "미국";
+    if (countryCode.toLowerCase() === "korea") return "한국";
+    return countryCode;
+  };
 
   return (
     <div
       className={`
-        md:p-5 md:pr-4 md:rounded-lg md:h-[178px]
+        md:p-5 md:pr-4 md:rounded-lg md:h-[178px] hover:bg-gray-50
         h-[124px] border-gray-100 border p-3 flex items-center hover:cursor-pointer rounded truncate`}
-      onClick={() => router.push(`medicines/${medicineTableId}`)}
+      onClick={() => router.push(`/medicines/${medicineTableId}`)}
     >
-      {/* medicine-image */}
       <div
         className={`
         md:w-[138px] md:h-[138px] 
-        rounded w-[100px] h-[100px] flex items-center`}
+        rounded w-[100px] h-[100px] flex items-center flex-shrink-0`}
       >
         <Image
           src={src}
@@ -57,7 +67,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
             text-m-caption2-r
             `}
         >
-          {country}
+          {getDisplayCountry(country)}
         </div>
         <div
           className={`
@@ -67,7 +77,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
           <div
             className={`
               md:gap-1 md:w-14 md:text-subhead1-sb
-              flex flex-col text-m-subhead1-sb gap-0.5
+              flex flex-col text-m-subhead1-sb gap-0.5 flex-shrink-0
               `}
           >
             <p>제품명</p>
@@ -77,11 +87,11 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
           <div
             className={`
               md:gap-1 md:text-body1-r
-              flex flex-col text-m-body2-r gap-0.5`}
+              flex flex-col text-m-body2-r gap-0.5 min-w-0`}
           >
-            <p className={`max-w-[120px] truncate`}>{brandName}</p>
-            <p className={`max-w-[120px] truncate`}>{genericName}</p>
-            <p className={`max-w-[120px] truncate`}>{category}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{brandName}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{genericName}</p>
+            <p className="truncate max-w-[120px] md:max-w-72">{category}</p>
           </div>
         </div>
       </div>
