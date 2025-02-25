@@ -29,7 +29,6 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
 
   const [imgSrc, setImgSrc] = useState(imageUrl);
 
-  // ProductBasicInfo.tsx 파일에서
   useEffect(() => {
     // 이미지 소스 초기화
     setImgSrc("/images/no_image.webp");
