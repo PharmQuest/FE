@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import BookmarkIcon from "@public/svgs/bookmark.svg";
 
@@ -28,11 +28,23 @@ const ProductBasicInfo: React.FC<ProductBasicInfoProps> = ({
 }) => {
 
   const [imgSrc, setImgSrc] = useState(imageUrl);
+
+  useEffect(() => {
+    // 이미지 소스 초기화
+    setImgSrc("/images/no_image.webp");
+    
+    // 약간의 지연 후 새 이미지 설정
+    setTimeout(() => {
+      setImgSrc(imageUrl || "/images/no_image.webp");
+    }, 50);
+  }, [imageUrl]);
+
   
   return (
     <div className="lg:p-6 md:flex-row border border-gray-100 rounded-xl p-4 flex flex-col md:gap-4 gap-1 mt-5">
       <div className="lg:w-[200px] lg:h-[200px] max-md:h-[200px] border border-gray-200 rounded-lg overflow-hidden">
           <Image
+            key={id}
             className="w-full h-full object-contain"
             src={imgSrc}
             alt="제품 이미지"
